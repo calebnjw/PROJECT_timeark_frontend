@@ -1,11 +1,13 @@
-import React from "react";
-import logo from "./logo.svg";
+import { Page } from "@react-pdf/renderer";
 import "./App.scss";
+import InvoiceLanding from './pages/Invoice'
 
 function App() {
   return (
-    <div className="App">
-      <h1>This is the main page</h1>
+    <div className="main-container">
+      <div className="invoice-container">
+      <InvoiceLanding />
+      </div>
     </div>
   );
 }

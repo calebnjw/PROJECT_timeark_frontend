@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+
 
 const InvoicePage = () => {
-    return (
-        <>
-            <div>This is my main landing page</div>
-        </>
-    )
-}
+  const [invoice, setInvoice] = useState(null);
+
+  return (
+    <>
+      <div>
+        <h1>Projects</h1>
+      </div>
+    </>
+  );
+};
+
+export default InvoicePage;

@@ -2,15 +2,18 @@
     "invoice": [
         {
             "Project Name": "Rocket Ship",
-            "Company Name": "Foong & Co"
+            "Company Name": "Foong & Co",
+            "id": 1
         },
         {
             "Project Name": "Budget & Go",
-            "Company Name": "Dillan's & Co"
+            "Company Name": "Dillan's & Co",
+            "id": 2
         },
         {
             "Project Name": "Disaster & Dragons",
-            "Company Name": "Dillan's & Co"
+            "Company Name": "Dillan's & Co",
+            "id": 3
         }
     ]
 }
