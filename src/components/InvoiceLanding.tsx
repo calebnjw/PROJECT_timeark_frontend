@@ -9,7 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import ReceiptRoundedIcon from '@mui/icons-material/ReceiptRounded';
+import TablePagination from "@mui/material/TablePagination";
+import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 
 //================================Props=====================================//
 type SetInvoicePropsType = {
@@ -43,7 +44,11 @@ const InvoiceLanding = ({
   setInvoiceProp,
   invoiceProp,
 }: SetInvoicePropsType) => {
-    
+
+  //useStates
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
   //fetch project invoice data
   useEffect(() => {
     const invoiceData = async () => {
@@ -56,7 +61,6 @@ const InvoiceLanding = ({
     invoiceData();
   }, []);
 
-
   //handle Click
   const handleViewInvoices = () => {
     //axios call to backend
@@ -64,16 +68,28 @@ const InvoiceLanding = ({
     console.log("view invoices button has been clicked");
   };
 
+  //=============================for changing the pages========================//
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   //===============================return function===========================//
   return (
     <div className="invoice-container">
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 300 }} aria-label="customized table">
+        <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell align="left">Project Name</StyledTableCell>
               <StyledTableCell align="left">Company Name</StyledTableCell>
-              <StyledTableCell align="right">Invoice</StyledTableCell>
+              <StyledTableCell align="right">View Invoice</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -87,7 +103,7 @@ const InvoiceLanding = ({
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <Button variant="outlined" onClick={handleViewInvoices}>
-                    View Invoices
+                    <ReceiptRoundedIcon />
                   </Button>
                 </StyledTableCell>
               </StyledTableRow>
@@ -95,6 +111,15 @@ const InvoiceLanding = ({
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5,10]}
+        component="div"
+        count={invoiceProp.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </div>
   );
 };
