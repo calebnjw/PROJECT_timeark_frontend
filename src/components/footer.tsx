@@ -11,6 +11,9 @@ export default function Footer() {
         align: "center",
         bgcolor: "primary.main",
         color: "white",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
       <p>Copyright &copy; 2022 Time Ark</p>
