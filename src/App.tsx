@@ -1,12 +1,13 @@
 import { Page } from "@react-pdf/renderer";
 import "./App.scss";
-import InvoiceLanding from './pages/Invoice'
+import InvoicePage from './pages/InvoicePage'
+import cors from 'cors';
 
 function App() {
   return (
     <div className="main-container">
       <div className="invoice-container">
-      <InvoiceLanding />
+        <InvoicePage />
       </div>
     </div>
   );

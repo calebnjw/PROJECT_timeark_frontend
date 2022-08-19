@@ -1,19 +1,29 @@
 {
     "invoice": [
         {
-            "Project Name": "Rocket Ship",
-            "Company Name": "Foong & Co",
+            "projectName": "Rocket Ship",
+            "companyName": "Foong & Co",
             "id": 1
         },
         {
-            "Project Name": "Budget & Go",
-            "Company Name": "Dillan's & Co",
+            "projectName": "Budget & Go",
+            "companyName": "Dillan's & Co",
             "id": 2
         },
         {
-            "Project Name": "Disaster & Dragons",
-            "Company Name": "Dillan's & Co",
+            "projectName": "Disaster & Dragons",
+            "companyName": "Dillan's & Co",
             "id": 3
+        },
+        {
+            "projectName": "Photography Site",
+            "companyName": "Foong & Co",
+            "id": 4
+        },
+        {
+            "projectName": "Tic Tac Toe",
+            "companyName": "Dillan's & Co",
+            "id": 5
         }
     ]
 }
