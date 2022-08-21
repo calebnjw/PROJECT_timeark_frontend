@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { InvoiceProps } from "../types/invoiceTypes";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import TablePagination from "@mui/material/TablePagination";
+import { ProjectProps } from "../types/invoiceTypes";
+import {
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  TablePagination,
+} from "@mui/material";
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
+import { useNavigate } from "react-router-dom";
+
 
 //================================Props=====================================//
-type SetInvoicePropsType = {
-  setInvoiceProp: React.Dispatch<React.SetStateAction<InvoiceProps[]>>;
-  invoiceProp: InvoiceProps[];
+type SetProjectPropsType = {
+  setProjectProp?: (value: ProjectProps[]) => void;
+  projectProp?: ProjectProps[];
 };
 
 //=================================Styling=================================//
@@ -41,30 +46,43 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 //=================================Page function=============================//
 const InvoiceLanding = ({
-  setInvoiceProp,
-  invoiceProp,
-}: SetInvoicePropsType) => {
-
+  setProjectProp,
+  projectProp,
+}: SetProjectPropsType) => {
   //useStates
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [error, setError] = React.useState("");
 
   //fetch project invoice data
   useEffect(() => {
     const invoiceData = async () => {
-      const result = await fetch("http://localhost:8000/invoice");
-      const data = await result.json();
-      setInvoiceProp(data);
-      console.log(data);
-      return data;
+      try {
+        const result = await fetch("http://localhost:8000/project");
+        const data = await result.json();
+        //error handling
+        if (!result) {
+          throw new Error("Fail to fetch data");
+        }
+        if (setProjectProp) {
+          setProjectProp(data);
+        }
+        console.log(data);
+        return data;
+      } catch (err) {
+        console.log(err);
+      }
     };
     invoiceData();
   }, []);
+
+  const navigate = useNavigate();
 
   //handle Click
   const handleViewInvoices = () => {
     //axios call to backend
     fetch("");
+    navigate('/invoice');
     console.log("view invoices button has been clicked");
   };
 
@@ -82,45 +100,54 @@ const InvoiceLanding = ({
 
   //===============================return function===========================//
   return (
-    <div className="invoice-container">
-      <TableContainer component={Paper}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="left">Project Name</StyledTableCell>
-              <StyledTableCell align="left">Company Name</StyledTableCell>
-              <StyledTableCell align="right">View Invoice</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {invoiceProp.map((invoice) => (
-              <StyledTableRow key={invoice.id}>
-                <StyledTableCell align="left">
-                  {invoice.projectName}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {invoice.companyName}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button variant="outlined" onClick={handleViewInvoices}>
-                    <ReceiptRoundedIcon />
-                  </Button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5,10]}
-        component="div"
-        count={invoiceProp.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </div>
+    <>
+      <div className="invoice-container">
+        <div className="project-table">
+          <TableContainer component={Paper}>
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="left">Project Name</StyledTableCell>
+                  <StyledTableCell align="left">Company Name</StyledTableCell>
+                  <StyledTableCell align="right">View Invoices</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {projectProp &&
+                  projectProp.map((project) => (
+                    <StyledTableRow key={project.id}>
+                      <StyledTableCell align="left">
+                        {project.projectName}
+                      </StyledTableCell>
+                      <StyledTableCell align="left">
+                        {project.companyName}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        <Button variant="outlined" onClick={handleViewInvoices}>
+                          <ReceiptRoundedIcon />
+                        </Button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {projectProp && (
+            <TablePagination
+              rowsPerPageOptions={[5, 10]}
+              component="div"
+              count={projectProp.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          )}
+        </div>
+        {/* For error handling later on */}
+        <div className="error-container"></div>
+      </div>
+    </>
   );
 };
 
