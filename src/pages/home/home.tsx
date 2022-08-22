@@ -4,16 +4,14 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Image from "material-ui-image";
 import Typography from "@mui/material/Typography";
-import Sidebar from "../../components/sidebar";
 import freelancerImg from "../../assets/images/freelancer.jpg";
 
 export default function Home() {
   return (
     <div>
       <NavBar />
-      <Sidebar />
       <Box sx={{ mt: "2rem" }}>
-        <Typography variant="h3" align="center" ml={"7rem"} mb={"2rem"}>
+        <Typography variant="h3" align="center" mb={"2rem"}>
           Time Tracking &#38; Invoicing App for Freelancers
         </Typography>
         <Grid
