@@ -8,6 +8,9 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { Client } from "../../types/client";
+import { Link } from "react-router-dom";
+// import Projects from "../projects/Projects";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -27,7 +30,7 @@ const useStyles = makeStyles({
 
 export default function ClientSidebar() {
   const classes = useStyles();
-  const [clientList, setClientList] = useState([]);
+  const [clientList, setClientList] = useState<Client[]>([]);
 
   useEffect(() => {
     const getClients = async () => {
@@ -58,19 +61,20 @@ export default function ClientSidebar() {
         <Typography variant="h5" align="center">
           Clients
         </Typography>
-        {clientList.map((c) => {
-          <List>c.client_name</List>;
-        })}
-        {/* <List> */}
-        {/* {["Foong Company", "Dillian Pte Ltd"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+        <List>
+          {clientList.map((c, index) => (
+            <ListItem key={index} disablePadding>
               <ListItemButton>
-                <ListItemText primary={text} />
+                <ListItemText
+                  primary={c.client_name}
+                  onClick={() => {
+                    // <Link path="projects" elment={<Projects />} />;
+                  }}
+                />
               </ListItemButton>
             </ListItem>
-          ))} */}
-        {/* </List> */}
-        <Divider />
+          ))}
+        </List>
       </Box>
     </Drawer>
   );
