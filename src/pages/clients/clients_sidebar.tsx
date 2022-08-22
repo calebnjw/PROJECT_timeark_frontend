@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Client } from "../../types/client";
 import { Link } from "react-router-dom";
-// import Projects from "../projects/Projects";
+// import Projects from "../projects/projects";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;

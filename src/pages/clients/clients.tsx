@@ -9,23 +9,7 @@ import ClientSidebar from "./clients_sidebar";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-import axios from "axios";
-axios.defaults.withCredentials = true;
-const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
-
 export default function Clients() {
-  const [clientList, setClientList] = useState([]);
-
-  useEffect(() => {
-    const getClients = async () => {
-      const result = await axios.get(`${BACKEND_URL}/clients`); // add query user_id as 2nd param
-      setClientList(result.data);
-    };
-    getClients();
-  }, []);
-  console.log("client list: ", clientList);
-
   return (
     <div>
       <NavBar />
@@ -38,9 +22,7 @@ export default function Clients() {
         >
           <Sidebar />
           <ClientSidebar />
-          {clientList.map((c) => {
-            <li>c.client_name</li>;
-          })}
+
           <Grid item xs={6}>
             <Box component="form" autoComplete="off">
               <Typography variant="h5" align="center">
