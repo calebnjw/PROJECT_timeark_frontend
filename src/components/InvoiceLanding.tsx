@@ -79,12 +79,12 @@ const InvoiceLanding = ({
   const navigate = useNavigate();
 
   //handle Click
-  const handleViewInvoices = () => {
+  const handleViewInvoices = async() => { 
     //axios call to backend
-    fetch("");
     navigate('/invoice');
     console.log("view invoices button has been clicked");
   };
+
 
   //=============================for changing the pages========================//
   const handleChangePage = (event: unknown, newPage: number) => {
