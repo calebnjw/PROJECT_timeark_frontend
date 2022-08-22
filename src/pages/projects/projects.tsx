@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../../components/navbar"
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
