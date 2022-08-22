@@ -8,6 +8,7 @@ import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { Link, Route, Routes, Outlet } from "react-router-dom";
 
 export default function Clients() {
   return (

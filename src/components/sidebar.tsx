@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { Link, Route, Routes, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -24,15 +25,41 @@ export default function Sidebar() {
     >
       <Box sx={{ overflow: "auto" }} mt={"5rem"}>
         <List>
-          {["Dashboard", "Time Tracking", "Clients", "Invoices"].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
+          {/* {["Dashboard", "Projects", "Clients", "Invoices"].map( */}
+          {/* (text, index) => ( */}
+          <ListItem>
+            <ListItemButton>
+              <Link to="/home" replace={true}>
+                Dashboard
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <Link to="/clients" replace={true}>
+                Clients
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <Link to="/projects" replace={true}>
+                Projects
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <Link to="/invoices" replace={true}>
+                Invoices
+              </Link>
+            </ListItemButton>
+            {/* <ListItemButton>
                   <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
+                </ListItemButton> */}
+          </ListItem>
+          {/* ) */}
+          {/* )} */}
         </List>
         <Divider />
       </Box>

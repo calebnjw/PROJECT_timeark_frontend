@@ -6,6 +6,8 @@ import Image from "material-ui-image";
 import Typography from "@mui/material/Typography";
 import freelancerImg from "../../assets/images/freelancer.jpg";
 import Sidebar from "../../components/sidebar";
+import Clients from "../clients/clients";
+import Projects from "../projects/projects";
 
 export default function Home() {
   return (

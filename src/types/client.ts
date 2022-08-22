@@ -1,3 +1,7 @@
+// export interface ProjectId {
+//   project_ids: [];
+// }
+
 export interface Client {
   _id: string;
   client_name: string;

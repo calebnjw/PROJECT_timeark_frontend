@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Client } from "../../types/client";
 import { Link } from "react-router-dom";
-// import Projects from "../projects/projects";
+import Projects from "../projects/projects";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -28,7 +28,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ClientSidebar() {
+interface Props {
+  clientList: Client[];
+  setClientList: React.Dispatch<React.SetStateAction<Client[]>>;
+}
+
+// export default function ClientSidebar() {
+const ClientSidebar = () => {
   const classes = useStyles();
   const [clientList, setClientList] = useState<Client[]>([]);
 
@@ -64,13 +70,18 @@ export default function ClientSidebar() {
         <List>
           {clientList.map((c, index) => (
             <ListItem key={index} disablePadding>
+              {/* <Link
+                path="/projects"
+                elment={<Projects props={c._id} />}
+              /> */}
               <ListItemButton>
-                <ListItemText
+                {/* <ListItemText
                   primary={c.client_name}
                   onClick={() => {
                     // <Link path="projects" elment={<Projects />} />;
                   }}
-                />
+                /> */}
+                {c.client_name}
               </ListItemButton>
             </ListItem>
           ))}
@@ -78,4 +89,6 @@ export default function ClientSidebar() {
       </Box>
     </Drawer>
   );
-}
+};
+
+export default ClientSidebar;
