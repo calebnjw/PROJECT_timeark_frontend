@@ -1,8 +1,10 @@
 import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 export default function Footer() {
   return (
     <BottomNavigation
+      showLabels
       sx={{
         position: "fixed",
         bottom: 0,
@@ -16,7 +18,7 @@ export default function Footer() {
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
-      <p>Copyright &copy; 2022 Time Ark</p>
+      <BottomNavigationAction label="Copyright &copy; 2022 Time Ark" />
     </BottomNavigation>
   );
 }

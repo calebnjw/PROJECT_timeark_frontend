@@ -1,14 +1,31 @@
+import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Sidebar from "../../components/sidebar";
-import ClientSidebar from "../../components/clients_sidebar";
+import ClientSidebar from "./clients_sidebar";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+import axios from "axios";
+axios.defaults.withCredentials = true;
+const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+
 export default function Clients() {
+  const [clientList, setClientList] = useState([]);
+
+  useEffect(() => {
+    const getClients = async () => {
+      const result = await axios.get(`${BACKEND_URL}/clients`); // add query user_id as 2nd param
+      setClientList(result.data);
+    };
+    getClients();
+  }, []);
+  console.log("client list: ", clientList);
+
   return (
     <div>
       <NavBar />
@@ -21,6 +38,9 @@ export default function Clients() {
         >
           <Sidebar />
           <ClientSidebar />
+          {clientList.map((c) => {
+            <li>c.client_name</li>;
+          })}
           <Grid item xs={6}>
             <Box component="form" autoComplete="off">
               <Typography variant="h5" align="center">
