@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import ProjectSidebar from "./projects_sidebar";
-import { Project } from "../../types/project";
 import { useGlobalContext } from "../../context/clientContext";
-import { Client } from "../../types/client";
+import SingleProject from "./singleProject";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-interface Props {
-  clientList: Client[];
-  setSelectedClient: React.Dispatch<React.SetStateAction<string>>;
-}
+// interface Props {
+//   clientList: Client[];
+//   selectedClient: string;
+//   setSelectedClient: React.Dispatch<React.SetStateAction<string>>;
+// }
 
 const Projects = () => {
   const { clientList, setClientList } = useGlobalContext();
   const [selectedClient, setSelectedClient] = useState<string>("");
 
-  console.log("project - client list: ", clientList);
+  console.log("client id: ", selectedClient);
 
   return (
     <div>
@@ -28,6 +28,7 @@ const Projects = () => {
         setSelectedClient={setSelectedClient}
         clientList={clientList}
       />
+      <SingleProject selectedClient={selectedClient} />
       <div style={{ textAlign: "center" }}>Project list: </div>
     </div>
   );
