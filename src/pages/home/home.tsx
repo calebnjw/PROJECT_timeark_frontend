@@ -5,11 +5,15 @@ import Grid from "@mui/material/Grid";
 import Image from "material-ui-image";
 import Typography from "@mui/material/Typography";
 import freelancerImg from "../../assets/images/freelancer.jpg";
+import Sidebar from "../../components/sidebar";
+import Clients from "../clients/clients";
+import Projects from "../projects/projects";
 
 export default function Home() {
   return (
     <div>
       <NavBar />
+      {/* <Sidebar /> */}
       <Box sx={{ mt: "2rem" }}>
         <Typography variant="h3" align="center" mb={"2rem"}>
           Time Tracking &#38; Invoicing App for Freelancers

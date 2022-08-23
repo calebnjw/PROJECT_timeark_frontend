@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -10,7 +9,12 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
+import { Client } from "../../types/client";
 import { Link } from "react-router-dom";
+import Projects from "../projects/projects";
+
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const drawerWidth = 240;
 
@@ -23,24 +27,27 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ClientSidebar() {
+interface Props {
+  clientList: Client[];
+  setClientList: React.Dispatch<React.SetStateAction<Client[]>>;
+}
+
+// export default function ClientSidebar() {
+const ClientSidebar = () => {
   const classes = useStyles();
-  const [clients, setClients] = useState([]);
+  const [clientList, setClientList] = useState<Client[]>([]);
 
   useEffect(() => {
-    const getAllClients = () => {
-      axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}/clients`)
-        .then((result) => {
-          console.log(result);
-          setClients(result.data.clients);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    const getClients = async () => {
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/clients`
+      ); // add query user_id as 2nd param
+      console.log(result);
+      setClientList(result.data);
     };
-    getAllClients();
+    getClients();
   }, []);
+  console.log("client list: ", clientList);
 
   return (
     <Drawer
@@ -63,22 +70,33 @@ export default function ClientSidebar() {
           Clients
         </Typography>
         <List>
-          {["Foong Company", "Dillian Pte Ltd"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {clientList.map((c, index) => (
+            <ListItem key={index} disablePadding>
+              {/* <Link
+                path="/projects"
+                elment={<Projects props={c._id} />}
+              /> */}
               <ListItemButton>
-                <ListItemText primary={text} />
+                {/* <ListItemText
+                  primary={c.client_name}
+                  onClick={() => {
+                    // <Link path="projects" elment={<Projects />} />;
+                  }}
+                /> */}
+                {c.client_name}
               </ListItemButton>
             </ListItem>
           ))}
         </List>
       </Box>
       <Box
-        mt={"350px"}
         sx={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
+          position: "fixed",
+          bottom: 0,
         }}
       >
         <Button component={Link} to="/clients/new">
@@ -88,4 +106,6 @@ export default function ClientSidebar() {
       </Box>
     </Drawer>
   );
-}
+};
+
+export default ClientSidebar;

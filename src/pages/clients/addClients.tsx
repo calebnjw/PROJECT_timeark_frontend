@@ -3,8 +3,8 @@ import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
-import ClientSidebar from "../../components/clients_sidebar";
-import NewClient from "../../components/newclients_form";
+import ClientSidebar from "./clients_sidebar";
+import NewClient from "./newclients_form";
 
 export default function Clients() {
   return (
@@ -24,7 +24,6 @@ export default function Clients() {
           </Grid>
         </Grid>
       </Box>
-      <Footer />
     </div>
   );
 }
