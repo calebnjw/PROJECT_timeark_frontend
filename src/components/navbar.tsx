@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Link } from "react-router-dom";
 
 export default function ButtonAppBar() {
   return (
@@ -25,8 +26,12 @@ export default function ButtonAppBar() {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <Button color="inherit">Signup</Button>
-              <Button color="inherit">Login</Button>
+              <Button color="inherit" component={Link} to="/signup">
+                Signup
+              </Button>
+              <Button color="inherit" component={Link} to="/login">
+                Login
+              </Button>
             </Grid>
           </Grid>
         </Toolbar>

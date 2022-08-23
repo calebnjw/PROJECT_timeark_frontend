@@ -2,20 +2,19 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import Button from "@mui/material/Button";
 import { Client } from "../../types/client";
 import { Link } from "react-router-dom";
 import Projects from "../projects/projects";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 const drawerWidth = 240;
 
@@ -40,7 +39,10 @@ const ClientSidebar = () => {
 
   useEffect(() => {
     const getClients = async () => {
-      const result = await axios.get(`${BACKEND_URL}/clients`); // add query user_id as 2nd param
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/clients`
+      ); // add query user_id as 2nd param
+      console.log(result);
       setClientList(result.data);
     };
     getClients();
@@ -74,6 +76,21 @@ const ClientSidebar = () => {
             </ListItem>
           ))}
         </List>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "fixed",
+          bottom: 0,
+        }}
+      >
+        <Button component={Link} to="/clients/new">
+          <AddCircleOutlineIcon fontSize="medium" />
+          <Typography>Add New Client</Typography>
+        </Button>
       </Box>
     </Drawer>
   );
