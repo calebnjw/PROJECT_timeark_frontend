@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import InvoiceLanding from "../components/InvoiceLanding";
-import { ProjectProps } from "../types/invoiceTypes";
+import InvoiceLanding from "./InvoiceLanding";
+import { ProjectProps } from "../../types/invoiceTypes";
 
 const InvoicePage: React.FC = () => {
   const [project, setProject] = useState<ProjectProps[]>([]);

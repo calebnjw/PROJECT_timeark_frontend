@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProjectProps } from "../types/invoiceTypes";
+import { ProjectProps } from "../../types/invoiceTypes";
 import {
   styled,
   Table,
@@ -58,7 +58,7 @@ const InvoiceLanding = ({
   useEffect(() => {
     const invoiceData = async () => {
       try {
-        const result = await fetch("http://localhost:8000/project");
+        const result = await fetch("http://localhost:8080/invoices");
         const data = await result.json();
         //error handling
         if (!result) {
@@ -76,12 +76,12 @@ const InvoiceLanding = ({
     invoiceData();
   }, []);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   //handle Click
   const handleViewInvoices = async() => { 
     //axios call to backend
-    navigate('/invoice');
+    // navigate('/invoice/new');
     console.log("view invoices button has been clicked");
   };
 
