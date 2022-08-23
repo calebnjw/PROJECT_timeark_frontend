@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
+import ProjectSidebar from "./projects_sidebar";
+import { Project } from "../../types/project";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -12,7 +14,8 @@ const Projects = () => {
     <div>
       <Navbar />
       <Sidebar />
-      Show current clients' all projects list:
+      <ProjectSidebar />
+      <div style={{ textAlign: "center" }}>Project list: </div>
     </div>
   );
 };

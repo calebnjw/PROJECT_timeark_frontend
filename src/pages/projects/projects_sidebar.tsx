@@ -9,10 +9,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Client } from "../../types/client";
+import { Project } from "../../types/project";
 import { Link } from "react-router-dom";
-import Projects from "../projects/projects";
 
 import axios from "axios";
+import { NumberSmall_1 } from "@carbon/icons-react";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
@@ -28,13 +29,8 @@ const useStyles = makeStyles({
   },
 });
 
-interface Props {
-  clientList: Client[];
-  setClientList: React.Dispatch<React.SetStateAction<Client[]>>;
-}
-
 // export default function ClientSidebar() {
-const ClientSidebar = () => {
+const ProjectSidebar = () => {
   const classes = useStyles();
   const [clientList, setClientList] = useState<Client[]>([]);
 
@@ -69,9 +65,15 @@ const ClientSidebar = () => {
         </Typography>
         <List>
           {clientList.map((c, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton>{c.client_name}</ListItemButton>
-            </ListItem>
+            <li
+              key={index}
+              style={{ width: "90%" }}
+              onClick={() => {
+                console.log("you clicked client id: ", `${c._id}`);
+              }}
+            >
+              {c.client_name}
+            </li>
           ))}
         </List>
       </Box>
@@ -79,4 +81,4 @@ const ClientSidebar = () => {
   );
 };
 
-export default ClientSidebar;
+export default ProjectSidebar;
