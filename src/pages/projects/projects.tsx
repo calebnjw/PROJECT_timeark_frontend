@@ -5,6 +5,12 @@ import ProjectSidebar from "./projects_sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import SingleProject from "./singleProject";
 import { Project } from "../../types/project";
+import Button from "@mui/material/Button";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -16,10 +22,6 @@ const Projects = () => {
   const [projectList, setProjectList] = useState<Project[]>([]);
 
   useEffect(() => {
-    if (clientList.length) {
-      initalSelectedClient = clientList[0]._id;
-      setSelectedClient(initalSelectedClient);
-    }
     if (selectedClient) {
       const getProjects = async () => {
         const result = await axios.get(
@@ -29,6 +31,7 @@ const Projects = () => {
         setProjectList(result.data.projects);
       };
       getProjects();
+      // setSelectedClient("");
     }
   }, [selectedClient]);
 
@@ -46,6 +49,21 @@ const Projects = () => {
         Project list:
         {projectList && <SingleProject projectList={projectList} />}
       </div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "fixed",
+          bottom: 0,
+        }}
+      >
+        <Button component={Link} to="/clients/new">
+          <AddCircleOutlineIcon fontSize="medium" />
+          <Typography>Add New Client</Typography>
+        </Button>
+      </Box>
     </div>
   );
 };
