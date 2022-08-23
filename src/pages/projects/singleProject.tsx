@@ -1,36 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Project } from "../../types/project";
 import axios from "axios";
-import console from "console";
 axios.defaults.withCredentials = true;
 
 interface Props {
-  selectedClient: string;
+  projectList: Project[];
 }
 
-const SingleProject = ({ selectedClient }: Props) => {
-  const [projectList, setProjectList] = useState<Project[]>([]);
-
-  useEffect(() => {
-    const getProjects = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        { params: { client_id: selectedClient } }
-      );
-      setProjectList(result.data);
-    };
-    getProjects();
-  }, []);
-  // console.log("project list: ", projectList);
-
+const SingleProject = ({ projectList }: Props) => {
+  console.log(projectList);
+  if (!projectList.length) {
+    return <div>Client has no on going project!</div>;
+  }
   return (
     <div>
-      <h4>Single project</h4>
-      <p>
-        {projectList.map((p) => (
-          <li>{p.name}</li>
-        ))}
-      </p>
+      {projectList.map((p, idx) => (
+        <li key={idx}>{p.name}</li>
+      ))}
     </div>
   );
 };
