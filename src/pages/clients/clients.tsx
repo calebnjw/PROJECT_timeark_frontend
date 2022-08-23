@@ -1,12 +1,14 @@
+import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Sidebar from "../../components/sidebar";
-import ClientSidebar from "../../components/clients_sidebar";
+import ClientSidebar from "./clients_sidebar";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { Link, Route, Routes, Outlet } from "react-router-dom";
 
 export default function Clients() {
   return (
@@ -21,6 +23,7 @@ export default function Clients() {
         >
           <Sidebar />
           <ClientSidebar />
+
           <Grid item xs={6}>
             <Box component="form" autoComplete="off">
               <Typography variant="h5" align="center">
