@@ -3,12 +3,14 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -69,7 +71,20 @@ export default function ClientSidebar() {
             </ListItem>
           ))}
         </List>
-        <Divider />
+      </Box>
+      <Box
+        mt={"350px"}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Button component={Link} to="/clients/new">
+          <AddCircleOutlineIcon fontSize="medium" />
+          <Typography>Add New Client</Typography>
+        </Button>
       </Box>
     </Drawer>
   );
