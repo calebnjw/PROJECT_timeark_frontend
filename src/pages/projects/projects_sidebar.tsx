@@ -11,12 +11,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { Link } from "react-router-dom";
+import { useGlobalContext } from "../../context/clientContext";
+import { GlobalContent } from "../../context/clientContext";
 
 import axios from "axios";
 import { NumberSmall_1 } from "@carbon/icons-react";
 axios.defaults.withCredentials = true;
-const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+// const BACKEND_URL =
+//   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 const drawerWidth = 240;
 
@@ -29,19 +31,14 @@ const useStyles = makeStyles({
   },
 });
 
-// export default function ClientSidebar() {
-const ProjectSidebar = () => {
-  const classes = useStyles();
-  const [clientList, setClientList] = useState<Client[]>([]);
+interface Props {
+  clientList: Client[];
+  setSelectedClient: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  useEffect(() => {
-    const getClients = async () => {
-      const result = await axios.get(`${BACKEND_URL}/clients`); // add query user_id as 2nd param
-      setClientList(result.data);
-    };
-    getClients();
-  }, []);
-  console.log("client list: ", clientList);
+// export default function ClientSidebar() {
+const ProjectSidebar = ({ clientList, setSelectedClient }: Props) => {
+  const classes = useStyles();
 
   return (
     <Drawer
@@ -65,14 +62,10 @@ const ProjectSidebar = () => {
         </Typography>
         <List>
           {clientList.map((c, index) => (
-            <li
-              key={index}
-              style={{ width: "90%" }}
-              onClick={() => {
-                console.log("you clicked client id: ", `${c._id}`);
-              }}
-            >
-              {c.client_name}
+            <li key={index} style={{ width: "90%" }}>
+              <ListItemButton onClick={() => setSelectedClient(c._id)}>
+                {c.client_name}
+              </ListItemButton>
             </li>
           ))}
         </List>
