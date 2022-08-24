@@ -14,6 +14,7 @@ export default function Home() {
     <div>
       <NavBar />
       <Sidebar />
+      {/* <Sidebar /> */}
       <Box sx={{ mt: "2rem" }}>
         <Typography variant="h3" align="center" mb={"2rem"}>
           Time Tracking &#38; Invoicing App for Freelancers

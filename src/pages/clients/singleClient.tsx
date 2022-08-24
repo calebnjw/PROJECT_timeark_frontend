@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
@@ -6,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
 
-export default function Clients() {
+export default function SingleClient() {
   return (
     <div>
       <NavBar />
@@ -22,6 +21,7 @@ export default function Clients() {
           <Grid item xs={6}></Grid>
         </Grid>
       </Box>
+      <Footer />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -25,8 +24,6 @@ export default function Sidebar() {
     >
       <Box sx={{ overflow: "auto" }} mt={"5rem"}>
         <List>
-          {/* {["Dashboard", "Projects", "Clients", "Invoices"].map( */}
-          {/* (text, index) => ( */}
           <ListItem>
             <ListItemButton>
               <Link to="/home" replace={true}>
@@ -54,14 +51,8 @@ export default function Sidebar() {
                 Invoices
               </Link>
             </ListItemButton>
-            {/* <ListItemButton>
-                  <ListItemText primary={text} />
-                </ListItemButton> */}
           </ListItem>
-          {/* ) */}
-          {/* )} */}
         </List>
-        <Divider />
       </Box>
     </Drawer>
   );
