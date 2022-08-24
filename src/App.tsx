@@ -8,6 +8,7 @@ import Projects from "./pages/projects/projects";
 import Invoices from "./pages/invoices/invoices";
 import Page404 from "./pages/notFound/Page404";
 import { ClientGlobalContext } from "./context/clientContext";
+// import AddProject from "./pages/projects/addProject";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -19,7 +20,7 @@ function App() {
     const getClients = async () => {
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/clients`
-      ); // add query user_id as 2nd param
+      ); // add query user_id as 2nd param: {params: {user_id: userId}}
       setClientList(result.data);
     };
     getClients();
