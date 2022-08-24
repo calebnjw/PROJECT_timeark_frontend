@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const Projects = () => {
   const { clientList, setClientList } = useGlobalContext();
-  // const [selectedClient, setSelectedClient] = useState<string>("");
 
   return (
     <>

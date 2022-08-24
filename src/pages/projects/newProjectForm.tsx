@@ -2,10 +2,51 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
-
+import { useGlobalContext } from "../../context/clientContext";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const newProjectForm = () => {
+  const { clientList, setClientList } = useGlobalContext();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      name: { value: string };
+      budget: { value: number };
+      rate: { value: number };
+      due_date: { value: Date };
+      category_name: { value: [] };
+      client_id: { value: string };
+    };
+
+    const newProject = {
+      name: target.name.value,
+      budget: Number(target.budget.value),
+      rate: Number(target.rate.value),
+      due_date: target.due_date.value,
+      category_name: target.category_name.value.split(","),
+      client_id: target.client_id.value,
+    };
+
+    console.log("new project: ", newProject);
+
+    try {
+      axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/projects/new`,
+        newProject
+      );
+      console.log(newProject);
+      navigate("/projects");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -14,8 +55,43 @@ const newProjectForm = () => {
         <Button>
           <Link to="/projects">Cancel</Link>
         </Button>
-        <Button>Submit</Button>
         <h3>newProjectForm</h3>
+
+        <form
+          // ref={formRef}
+          onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
+        >
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label>
+              *Client
+              <input type="" name="client_id" />
+            </label>
+            <label>
+              *Project Name
+              <input type="text" name="name" />
+            </label>
+            <label>
+              *Budget
+              <input type="number" name="budget" />
+            </label>
+            <label>
+              *Rate
+              <input type="number" name="rate" />
+            </label>
+            <label>
+              *Due Date
+              <input type="date" name="due_date" />
+            </label>
+            <label>Category</label>
+            <textarea
+              name="category_name"
+              style={{ width: "180px", height: "60px" }}
+            />
+          </div>
+          <div>
+            <input type="submit" value="Submit" />
+          </div>
+        </form>
       </div>
     </>
   );
