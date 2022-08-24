@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import InvoicePage from "./pages/invoices/InvoicePage";
 import Projects from "./pages/projects/projects";
 import Page404 from "./pages/notFound/Page404";
-import GenerateInvoice from './pages/invoices/GenerateInvoice'
+import GenerateInvoice from "./pages/invoices/GenerateInvoice"; 
 import { ClientGlobalContext } from "./context/clientContext";
 
 import axios from "axios";
@@ -37,13 +37,13 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route index element={<Clients />} />
         <Route path="clients" element={<Clients />} />
-          <Route path="clients/new" element={<AddClient />} />
+        <Route path="clients/new" element={<AddClient />} />
         <Route path="projects" element={<Projects />} />
         <Route path="invoices" element={<InvoicePage />} />
         <Route path="invoices/new" element={<GenerateInvoice />} />
         <Route path="*" element={<Page404 />} />
-      </ClientGlobalContext.Provider>
       </Routes>
+      </ClientGlobalContext.Provider>
     </BrowserRouter>
     </>
   );
