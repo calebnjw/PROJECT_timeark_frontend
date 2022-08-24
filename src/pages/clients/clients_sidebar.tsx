@@ -83,7 +83,9 @@ const ClientSidebar = () => {
                     // <Link path="projects" elment={<Projects />} />;
                   }}
                 /> */}
-                {c.client_name}
+                <Link to={`/clients/${c._id}`} replace={true}>
+                  {c.client_name}
+                </Link>
               </ListItemButton>
             </ListItem>
           ))}
