@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { Spinner } from "../../components/spinner/spinner";
-import { Client } from "../../types/client";
 
 interface Props {
   client: Client[];
@@ -17,7 +16,6 @@ interface Props {
 }
 
 export default function SingleClient() {
-  const [client, setClient] = useState<Client[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   let clientId = useParams();
