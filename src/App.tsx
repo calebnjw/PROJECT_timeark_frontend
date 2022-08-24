@@ -8,7 +8,7 @@ import Projects from "./pages/projects/projects";
 import Invoices from "./pages/invoices/invoices";
 import Page404 from "./pages/notFound/Page404";
 import { ClientGlobalContext } from "./context/clientContext";
-// import AddProject from "./pages/projects/addProject";
+import NewProject from "./pages/projects/newProjectForm";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -38,6 +38,7 @@ function App() {
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />
           <Route path="projects" element={<Projects />} />
+          <Route path="projects/new" element={<NewProject />} />
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
