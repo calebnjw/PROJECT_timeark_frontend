@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import InvoiceLanding from "./InvoiceLanding";
-import { ProjectProps } from "../../types/invoiceTypes";
+import { InvoiceProps } from "../../types/invoiceTypes";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
+import ClientSidebar from "../clients/clients_sidebar";
 
 const InvoicePage: React.FC = () => {
-  const [project, setProject] = useState<ProjectProps[]>([]);
+  const [invoice, setInvoice] = useState<InvoiceProps[]>([]);
 
   return (
     <>
       <div>
       <Navbar />
       <Sidebar />
-        <h1>Projects</h1>
-        <InvoiceLanding setProjectProp={setProject} projectProp={project}/>
+      {/* <ClientSidebar /> */}
+        <InvoiceLanding setInvoiceProp={setInvoice} invoiceProp={invoice}/>
       </div>
     </>
   );
