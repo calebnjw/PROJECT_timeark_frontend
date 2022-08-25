@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -11,6 +13,7 @@ interface Props {
 const ProjectList = ({ client }: Props) => {
   const clientId = client._id;
   const [projectList, setProjectList] = useState<Project[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProjects = async () => {
@@ -26,8 +29,26 @@ const ProjectList = ({ client }: Props) => {
   return (
     <ul>
       {projectList.map((project, idx) => (
-        <li key={idx} style={{ backgroundColor: "pink" }}>
-          {project.name}
+        <li
+          key={idx}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: "pink",
+            width: "80%",
+            justifyContent: "space-between",
+            margin: "4px 0 4px 0",
+            height: "30px",
+          }}
+        >
+          <p>{project.name}</p>
+          <button
+            onClick={() => {
+              navigate(`/projects/${project._id}`);
+            }}
+          >
+            View
+          </button>
         </li>
       ))}
     </ul>
