@@ -6,32 +6,52 @@ import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { Spinner } from "../../components/spinner/spinner";
+import { ClientGlobalContext } from "../../context/clientContext";
+import { Client, Billing } from "../../types/client";
 
-interface Props {
-  client: Client[];
-  setClient: React.Dispatch<React.SetStateAction<Client[]>>;
-}
+// interface Props {
+//   client: Client[];
+//   setClient: React.Dispatch<React.SetStateAction<Client[]>>;
+// }
 
 export default function SingleClient() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [client, setClient] = useState<Client>({
+    _id: "",
+    client_name: "",
+    billing_details: {
+      company_name: "",
+      street_name: "",
+      city: "",
+      country: "",
+      postal_code: "",
+    },
+    project_ids: [],
+    createdAt: null,
+    updatedAt: null,
+  });
 
-  let clientId = useParams();
+  let { clientId } = useParams();
+
+  const { clientList } = useContext(ClientGlobalContext);
 
   useEffect(() => {
-    const getSelectedClient = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/clients/${clientId.clientId}`
-      );
-      console.log("clientdata", result.data);
-      let selectedClient = JSON.stringify(result.data);
-      setClient(selectedClient);
+    function getSingleClient(
+      clientid: string | undefined,
+      clientlist: Client[]
+    ): Client[] {
+      return clientList.filter((element) => element._id === clientid);
+    }
+    if (!isLoaded && clientId !== undefined && clientList.length !== 0) {
+      const selectedclient = getSingleClient(clientId, clientList);
+      console.log("selectedclient", selectedclient);
+      setClient(selectedclient[0]);
       setIsLoaded(true);
-    };
-    getSelectedClient();
-  }, []);
+    }
+  }, [isLoaded, clientList, clientId]);
 
   return (
     <div>
@@ -46,15 +66,42 @@ export default function SingleClient() {
           <Sidebar />
           <ClientSidebar />
           <Grid item xs={6}>
-            {!isLoaded ? (
+            {!isLoaded && client === undefined ? (
               <Box>
                 <Typography>Loading the client</Typography>
                 <Spinner />
               </Box>
             ) : (
-              <Box>
-                <Typography>{client}</Typography>
-              </Box>
+              <Grid item xs={6}>
+                <Box alignContent="left">
+                  <Typography>Client Name: {client.client_name} </Typography>
+                  <Typography>
+                    Company Name: {client.billing_details.company_name}
+                  </Typography>
+                  <Typography>
+                    Street Name: {client.billing_details.street_name}
+                  </Typography>
+                  <Typography>
+                    Unit Number: {client.billing_details.unit_number}
+                  </Typography>
+                  <Typography>
+                    Building Name: {client.billing_details.building_name}
+                  </Typography>
+                  <Typography>
+                    City Name: {client.billing_details.city}
+                  </Typography>
+                  <Typography>
+                    Country: {client.billing_details.country}
+                  </Typography>
+                  <Typography>
+                    Postal Code: {client.billing_details.postal_code}
+                  </Typography>
+                  <Typography>
+                    Company Registration:{" "}
+                    {client.billing_details.company_registration}
+                  </Typography>
+                </Box>
+              </Grid>
             )}
           </Grid>
         </Grid>

@@ -22,9 +22,7 @@ export default function Clients() {
         >
           <Sidebar />
           <ClientSidebar />
-          <Grid item xs={6}>
-            <SingleClient client={client} setClient={setClient} />
-          </Grid>
+          <Grid item xs={6}></Grid>
         </Grid>
       </Box>
     </div>
