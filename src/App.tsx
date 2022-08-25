@@ -11,6 +11,7 @@ import Page404 from "./pages/notFound/Page404";
 import { ClientGlobalContext } from "./context/clientContext";
 import NewProject from "./pages/projects/newProjectForm";
 import SingleProject from "./pages/projects/singleProject";
+import EditProjectForm from "./pages/projects/editProjectForm";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -43,6 +44,11 @@ function App() {
           <Route path="projects" element={<Projects />} />
           <Route path="projects/new" element={<NewProject />} />
           <Route path="projects/:project_id" element={<SingleProject />} />
+          <Route
+            path="projects/:project_id/update"
+            element={<EditProjectForm />}
+          />
+
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
         </Routes>

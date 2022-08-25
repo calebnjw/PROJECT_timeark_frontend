@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -42,13 +43,14 @@ const ProjectList = ({ client }: Props) => {
           }}
         >
           <p>{project.name}</p>
-          <button
+          <Button
+            size="small"
             onClick={() => {
               navigate(`/projects/${project._id}`);
             }}
           >
             View
-          </button>
+          </Button>
         </li>
       ))}
     </ul>

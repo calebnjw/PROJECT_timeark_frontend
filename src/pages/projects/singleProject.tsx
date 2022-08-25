@@ -5,6 +5,8 @@ import Sidebar from "../../components/sidebar";
 import { Project } from "../../types/project";
 import { useGlobalContext } from "../../context/clientContext";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -44,22 +46,34 @@ const SingleProject = () => {
       <Navbar />
       <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        <button
-          onClick={() => {
-            navigate("/projects");
-          }}
-        >
-          Back To Projects
-        </button>
-        <button>Edit</button>
-        <h3>Show Single Project</h3>
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              navigate("/projects");
+            }}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              navigate(`/projects/${project?._id}/update`, { state: project });
+            }}
+          >
+            Edit
+          </Button>
+        </Stack>
+        <h3>Project Details: </h3>
         <div>
           <h5>{client?.client_name}</h5>
           <p>Project Name: {project?.name}</p>
           <p>Project Budget: {project?.budget}</p>
           <p>Project Rate: {project?.rate}</p>
           <p>Project Due Date: {project?.due_date}</p>
-          <p>Tasks: ??? </p>
+          <p>Tasks: To be added </p>
         </div>
       </div>
     </>

@@ -4,24 +4,30 @@ import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const newProjectForm = () => {
-  // const today = new Date();
-  // console.log(today);
+const EditProjectForm = () => {
   const { clientList, setClientList } = useGlobalContext();
   const navigate = useNavigate();
-  const clientOptions: any = clientList.map((c) => {
-    return { id: c._id, name: c.client_name };
-  });
 
-  console.log("client: ", clientOptions);
+  const location = useLocation();
+  const projectInfo: any = location.state;
+  const client = clientList.find((c) => {
+    if (c._id === projectInfo.client_id) {
+      return c;
+    }
+  });
+  const clientName = client?.client_name;
+  // const clientOptions = clientList.map((c) => {
+  //   return { id: c._id, name: c.client_name };
+  // });
+
+  // console.log("client: ", clientOptions);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -40,28 +46,18 @@ const newProjectForm = () => {
       rate: Number(target.rate.value),
       due_date: target.due_date.value,
       category_name: target.category_name.value.split(","),
-      client_id: target.client_id.value,
+      client_id: client?._id,
     };
 
     console.log("new project: ", newProject);
     if (newProject) {
       try {
-        const result = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/projects/new`,
+        const result = await axios.put(
+          `${process.env.REACT_APP_BACKEND_URL}/projects/${projectInfo._id}/update`,
           newProject
         );
-        console.log("added new project:", result.data);
-        const project_id: any = result.data.project_id;
-        console.log("project id: ", project_id);
-        const newClientList: any = clientList.map((c) => {
-          if (c._id === newProject.client_id) {
-            return { ...c, project_ids: [...c.project_ids, project_id] };
-          }
-          return c;
-        });
-        console.log("updated client list: ", newClientList);
-        setClientList(newClientList);
-        navigate(`/projects/${project_id}`);
+
+        navigate(`/projects/${projectInfo._id}`);
       } catch (error) {
         console.error(error);
       }
@@ -78,8 +74,7 @@ const newProjectForm = () => {
             Cancel
           </Link>
         </Button>
-        <h3>New Project</h3>
-
+        <h3>Update Project</h3>
         <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}>
           <div
             style={{
@@ -90,38 +85,40 @@ const newProjectForm = () => {
               justifyContent: "space-around",
             }}
           >
-            <TextField select name="client_id" label="*Client">
-              {clientOptions.map((c: { id: string; name: string }) => (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.name}
-                </MenuItem>
-              ))}
-            </TextField>
-            <Button
-              color="success"
-              variant="contained"
-              onClick={() => navigate("/clients/new")}
-            >
-              + New Client
-            </Button>
-            <TextField type="text" name="name" label="*Project Name" />
-            <TextField type="number" name="budget" label="*Budget" />
-            <TextField type="number" name="rate" label="*Rate" />
+            <h4>{clientName}</h4>
+            <TextField
+              type="text"
+              name="name"
+              label="*Project Name"
+              defaultValue={projectInfo.name}
+            />
+            <TextField
+              type="number"
+              name="budget"
+              label="*Budget"
+              defaultValue={projectInfo.budget}
+            />
+            <TextField
+              type="number"
+              name="rate"
+              label="*Rate"
+              defaultValue={projectInfo.rate}
+            />
             <TextField
               type="date"
               name="due_date"
               label="*Due Date"
-              defaultValue={"2022-08-26"}
+              defaultValue={projectInfo.due_date.slice(0, 10)}
             />
-            <TextField name="category_name" label="Category" multiline />
+            <TextField
+              name="category_name"
+              label="Category"
+              multiline
+              defaultValue={projectInfo.category_name}
+            />
           </div>
           <div>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              value="Submit"
-            >
+            <Button type="submit" value="Submit" variant="contained">
               Submit
             </Button>
           </div>
@@ -131,4 +128,4 @@ const newProjectForm = () => {
   );
 };
 
-export default newProjectForm;
+export default EditProjectForm;

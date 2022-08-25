@@ -4,6 +4,7 @@ import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import ProjectList from "./projectList";
 import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
 
 const Projects = () => {
   const { clientList, setClientList } = useGlobalContext();
@@ -12,11 +13,13 @@ const Projects = () => {
     <>
       <Navbar />
       <Sidebar />
-      <div style={{ width: "80%", marginLeft: "20%" }}>
+      <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <div style={{ textAlign: "right", marginRight: "100px" }}>
-          <button>
-            <Link to="/projects/new">+ New Project</Link>
-          </button>
+          <Button variant="contained" color="success">
+            <Link to="/projects/new" style={{ color: "white" }}>
+              + New Project
+            </Link>
+          </Button>
         </div>
         <div>
           <h2>Clients/Projects</h2>
