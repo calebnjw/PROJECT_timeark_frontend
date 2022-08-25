@@ -46,7 +46,15 @@ const newProjectForm = () => {
           newProject
         );
         console.log("added new project:", result.data);
-        navigate("/projects");
+        const project_id: any = result.data.project_id;
+        const newClientList = clientList.map((c) => {
+          if (c._id === newProject.client_id) {
+            return { ...c, project_ids: [...c.project_ids, project_id] };
+          }
+          return c;
+        });
+        console.log(newClientList);
+        // navigate("/projects");
       } catch (error) {
         console.error(error);
       }

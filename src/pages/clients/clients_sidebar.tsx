@@ -72,7 +72,21 @@ const ClientSidebar = () => {
         <List>
           {clientList.map((c, index) => (
             <ListItem key={index} disablePadding>
-              <ListItemButton>{c.client_name}</ListItemButton>
+              {/* <Link
+                path="/projects"
+                elment={<Projects props={c._id} />}
+              /> */}
+              <ListItemButton>
+                {/* <ListItemText
+                  primary={c.client_name}
+                  onClick={() => {
+                    // <Link path="projects" elment={<Projects />} />;
+                  }}
+                /> */}
+                <Link to={`/clients/${c._id}`} replace={true}>
+                  {c.client_name}
+                </Link>
+              </ListItemButton>
             </ListItem>
           ))}
         </List>
