@@ -12,8 +12,13 @@ axios.defaults.withCredentials = true;
 const newProjectForm = () => {
   const { clientList, setClientList } = useGlobalContext();
   const navigate = useNavigate();
+  const clientOptions = clientList.map((c) => {
+    return { id: c._id, name: c.client_name };
+  });
 
-  const handleSubmit = (e: any) => {
+  console.log("client: ", clientOptions);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       name: { value: string };
@@ -34,16 +39,17 @@ const newProjectForm = () => {
     };
 
     console.log("new project: ", newProject);
-
-    try {
-      axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/projects/new`,
-        newProject
-      );
-      console.log(newProject);
-      navigate("/projects");
-    } catch (error) {
-      console.error(error);
+    if (newProject) {
+      try {
+        const result = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/projects/new`,
+          newProject
+        );
+        console.log("added new project:", result.data);
+        navigate("/projects");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -55,17 +61,24 @@ const newProjectForm = () => {
         <Button>
           <Link to="/projects">Cancel</Link>
         </Button>
-        <h3>newProjectForm</h3>
+        <h3>New Project</h3>
 
-        <form
-          // ref={formRef}
-          onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
-        >
+        <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <label>
               *Client
-              <input type="" name="client_id" />
+              <select name="client_id">
+                {clientOptions.map((c: { id: string; name: string }, idx) => (
+                  <option key={idx} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+              <button onClick={() => navigate("/clients/new")}>
+                + New Client
+              </button>
             </label>
+
             <label>
               *Project Name
               <input type="text" name="name" />
