@@ -1,29 +1,25 @@
-import * as React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
+import { Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 
 export default function ButtonAppBar() {
   return (
-    <Box>
-      <AppBar position="static">
+    <Grid item>
+      <AppBar position="static" color="transparent">
         <Toolbar>
-          <Grid container spacing={2}>
-            <Grid item xs={10}>
-              <Typography variant="h6" component="div" align="left">
-                Time Ark
-              </Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Button color="inherit">Signup</Button>
-              <Button color="inherit">Login</Button>
-            </Grid>
-          </Grid>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Time Ark
+          </Typography>
+          <Button color="inherit" href="/login">
+            Login
+          </Button>
+          <Button variant="contained" color="inherit" href="/signup">
+            Signup
+          </Button>
         </Toolbar>
       </AppBar>
-    </Box>
+    </Grid>
   );
 }

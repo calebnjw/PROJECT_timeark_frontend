@@ -1,19 +1,38 @@
-import BottomNavigation from "@mui/material/BottomNavigation";
+import { useMediaQuery, BottomNavigation, Container, Link, Stack, Typography } from "@mui/material";
 
 export default function Footer() {
+  // const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   return (
-    <BottomNavigation
-      sx={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        align: "center",
-        bgcolor: "primary.main",
-        color: "white",
-      }}
-    >
-      <p>Copyright &copy; 2022 Time Ark</p>
-    </BottomNavigation>
+    <Container maxWidth="xl">
+      <Stack direction={"row"} justifyContent={"space-between"} spacing={2} textAlign={"inherit"}>
+        <Typography variant="subtitle2" color="primary" component="span">
+          &copy; 2022 Time Ark
+        </Typography>
+
+        <Stack direction={"row"} spacing={3} textAlign={"inherit"}>
+          <Typography
+            variant="subtitle2"
+            color="primary"
+            component={Link}
+            href="https://codedthemes.com"
+            target="_blank"
+            underline="hover"
+          >
+            Privacy Policy
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            color="primary"
+            component={Link}
+            href="https://codedthemes.support-hub.io/"
+            target="_blank"
+            underline="hover"
+          >
+            Support
+          </Typography>
+        </Stack>
+      </Stack>
+    </Container>
   );
 }

@@ -1,5 +1,3 @@
-import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Image from "material-ui-image";
@@ -9,7 +7,6 @@ import freelancerImg from "../../assets/images/freelancer.jpg";
 export default function Home() {
   return (
     <div>
-      <NavBar />
       <Box sx={{ mt: "2rem" }}>
         <h1>Timer &#38; Invoicing App for Freelancers</h1>
         <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -28,7 +25,6 @@ export default function Home() {
           </Grid>
         </Grid>
       </Box>
-      <Footer />
     </div>
   );
 }
