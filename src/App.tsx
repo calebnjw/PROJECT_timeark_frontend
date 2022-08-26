@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Projects from "./pages/projects/projects";
 import Invoices from "./pages/invoices/invoices";
 import Page404 from "./pages/notFound/Page404";
+import EditSingleClient from "./pages/clients/editSingleClients";
 import { ClientGlobalContext } from "./context/clientContext";
 
 import axios from "axios";
@@ -36,8 +37,11 @@ function App() {
           <Route index element={<Clients />} />
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />
-          <Route path="clients/new" element={<AddClient />} />
           <Route path="clients/:clientId" element={<SingleClient />} />
+          <Route
+            path="clients/:clientId/update"
+            element={<EditSingleClient />}
+          />
           <Route path="projects" element={<Projects />} />
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
