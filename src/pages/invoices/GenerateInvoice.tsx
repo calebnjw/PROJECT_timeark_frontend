@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
 import InvoiceForm from "./Form";
-import { FormProps } from "../../types/invoiceTypes"
+import PreForm from "./PreForm";
 // import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Table, TableRow, TableCell, Button } from "@mui/material";
@@ -18,13 +18,13 @@ const BACKEND_URL =
 
 //===============================return==============================//
 const ProjectInvoices: React.FC = () => {
-  const [formValues, setFormValues] = useState<FormProps[]>([])
 
   return (
     <>
       <Navbar />
       <div className="prime-container">
-        <InvoiceForm formValues={formValues} setFormValues={setFormValues}/>
+        <PreForm />
+        <InvoiceForm />
         <div className="invoice-heading">
           <Button
             variant="outlined"
