@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -21,7 +22,7 @@ const newProjectForm = () => {
     return { id: c._id, name: c.client_name };
   });
 
-  console.log("client: ", clientOptions);
+  console.log("client options: ", clientOptions);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -90,13 +91,23 @@ const newProjectForm = () => {
               justifyContent: "space-around",
             }}
           >
-            <TextField select name="client_id" label="*Client">
-              {clientOptions.map((c: { id: string; name: string }) => (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.name}
-                </MenuItem>
-              ))}
-            </TextField>
+            {clientOptions.length ? (
+              <TextField
+                select
+                name="client_id"
+                label="*Client"
+                defaultValue={clientOptions[0].id}
+              >
+                {clientOptions.map((option?: { id: string; name: string }) => (
+                  <MenuItem key={option?.id} value={option?.id}>
+                    {option?.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            ) : (
+              <>Loading Client Options</>
+            )}
+
             <Button
               color="success"
               variant="contained"
