@@ -1,12 +1,12 @@
 export interface Billing {
   company_name: string;
-  building_name?: string;
-  unit_number?: string;
+  building_name: string;
+  unit_number: string;
   street_name: string;
   city: string;
   country: string;
   postal_code: string;
-  company_registration?: string;
+  company_registration: string;
 }
 
 export interface Client {

@@ -13,8 +13,9 @@ import { ClientGlobalContext } from "../../context/clientContext";
 import { Client, Billing } from "../../types/client";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import EditClientForm from "./editClient_form";
 
-export default function SingleClient() {
+export default function EditSingleClient() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [client, setClient] = useState<Client>({
     _id: "",
@@ -72,45 +73,7 @@ export default function SingleClient() {
                 <Spinner />
               </Box>
             ) : (
-              <Grid item xs={6}>
-                <Box alignContent="left">
-                  <Typography>Client Name: {client.client_name} </Typography>
-                  <Typography>
-                    Company Name: {client.billing_details.company_name}
-                  </Typography>
-                  <Typography>
-                    Street Name: {client.billing_details.street_name}
-                  </Typography>
-                  <Typography>
-                    Unit Number: {client.billing_details.unit_number}
-                  </Typography>
-                  <Typography>
-                    Building Name: {client.billing_details.building_name}
-                  </Typography>
-                  <Typography>
-                    City Name: {client.billing_details.city}
-                  </Typography>
-                  <Typography>
-                    Country: {client.billing_details.country}
-                  </Typography>
-                  <Typography>
-                    Postal Code: {client.billing_details.postal_code}
-                  </Typography>
-                  <Typography>
-                    Company Registration:{" "}
-                    {client.billing_details.company_registration}
-                  </Typography>
-                </Box>
-                <Box mt="2rem">
-                  <Button
-                    variant="contained"
-                    component={Link}
-                    to={`/clients/${client._id}/update`}
-                  >
-                    Edit
-                  </Button>
-                </Box>
-              </Grid>
+              <EditClientForm client={client} />
             )}
           </Grid>
         </Grid>
