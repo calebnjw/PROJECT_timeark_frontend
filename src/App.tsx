@@ -10,6 +10,9 @@ import Invoices from "./pages/invoices/invoices";
 import Page404 from "./pages/notFound/Page404";
 import EditSingleClient from "./pages/clients/editSingleClients";
 import { ClientGlobalContext } from "./context/clientContext";
+import NewProject from "./pages/projects/newProjectForm";
+import SingleProject from "./pages/projects/singleProject";
+import EditProjectForm from "./pages/projects/editProjectForm";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -21,7 +24,7 @@ function App() {
     const getClients = async () => {
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/clients`
-      ); // add query user_id as 2nd param
+      ); // add query user_id as 2nd param: {params: {user_id: userId}}
       setClientList(result.data);
     };
     getClients();
@@ -43,6 +46,13 @@ function App() {
             element={<EditSingleClient />}
           />
           <Route path="projects" element={<Projects />} />
+          <Route path="projects/new" element={<NewProject />} />
+          <Route path="projects/:project_id" element={<SingleProject />} />
+          <Route
+            path="projects/:project_id/update"
+            element={<EditProjectForm />}
+          />
+
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
         </Routes>

@@ -13,7 +13,7 @@ export default function ButtonAppBar() {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
-        position="static"
+        position="fixed"
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
