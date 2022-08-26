@@ -11,9 +11,10 @@ axios.defaults.withCredentials = true;
 
 interface Props {
   client: Client;
+  setClientList: (c: []) => void;
 }
 
-export default function EditClientForm({ client }: Props) {
+export default function EditClientForm({ client, setClientList }: Props) {
   const [clientName, setClientName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [streetNumber, setStreetNumber] = useState("");
@@ -67,7 +68,7 @@ export default function EditClientForm({ client }: Props) {
     setCompanyreg(e.target.value);
   };
 
-  const handleEditClient = () => {
+  const handleEditClient = async () => {
     const clientDetails = {
       client_name: clientName,
       billing_details: {
@@ -84,11 +85,14 @@ export default function EditClientForm({ client }: Props) {
     };
 
     try {
-      axios.put(
+      await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/clients/${client._id}/update`,
         clientDetails
       );
-      console.log(clientDetails);
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/clients`
+      );
+      setClientList(result.data);
       navigate("/clients");
     } catch (error) {
       console.error(error);

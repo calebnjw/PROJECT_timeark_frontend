@@ -26,7 +26,7 @@ function App() {
     };
     getClients();
   }, []);
-  console.log("client list: ", clientList);
+  // console.log("client list: ", clientList);
 
   return (
     <BrowserRouter>

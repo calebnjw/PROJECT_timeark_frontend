@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
 import { Client } from "../../types/client";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Projects from "../projects/projects";
 
 import axios from "axios";
@@ -36,6 +36,8 @@ interface Props {
 const ClientSidebar = () => {
   const classes = useStyles();
   const [clientList, setClientList] = useState<Client[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getClients = async () => {
@@ -72,20 +74,15 @@ const ClientSidebar = () => {
         <List>
           {clientList.map((c, index) => (
             <ListItem key={index} disablePadding>
-              {/* <Link
-                path="/projects"
-                elment={<Projects props={c._id} />}
-              /> */}
               <ListItemButton>
-                {/* <ListItemText
-                  primary={c.client_name}
+                <Button
                   onClick={() => {
-                    // <Link path="projects" elment={<Projects />} />;
+                    navigate(`/clients/${c._id}`);
+                    navigate(0);
                   }}
-                /> */}
-                <Link to={`/clients/${c._id}`} replace={true}>
+                >
                   {c.client_name}
-                </Link>
+                </Button>
               </ListItemButton>
             </ListItem>
           ))}

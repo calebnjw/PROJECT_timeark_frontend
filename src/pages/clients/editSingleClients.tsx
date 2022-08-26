@@ -11,8 +11,6 @@ import Typography from "@mui/material/Typography";
 import { Spinner } from "../../components/spinner/spinner";
 import { ClientGlobalContext } from "../../context/clientContext";
 import { Client, Billing } from "../../types/client";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import EditClientForm from "./editClient_form";
 
 export default function EditSingleClient() {
@@ -37,7 +35,7 @@ export default function EditSingleClient() {
 
   let { clientId } = useParams();
 
-  const { clientList } = useContext(ClientGlobalContext);
+  const { clientList, setClientList } = useContext(ClientGlobalContext);
 
   useEffect(() => {
     function getSingleClient(
@@ -73,7 +71,7 @@ export default function EditSingleClient() {
                 <Spinner />
               </Box>
             ) : (
-              <EditClientForm client={client} />
+              <EditClientForm client={client} setClientList={setClientList} />
             )}
           </Grid>
         </Grid>
