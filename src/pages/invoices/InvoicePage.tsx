@@ -13,7 +13,7 @@ const InvoicePage: React.FC = () => {
       <div>
       <Navbar />
       <Sidebar />
-      {/* <ClientSidebar /> */}
+      <ClientSidebar />
         <InvoiceLanding setInvoiceProp={setInvoice} invoiceProp={invoice}/>
       </div>
     </>

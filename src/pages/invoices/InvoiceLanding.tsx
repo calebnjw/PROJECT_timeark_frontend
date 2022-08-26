@@ -55,7 +55,6 @@ const InvoiceLanding = ({
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [error, setError] = React.useState("");
-  const [projectName, setProjectName] = useState<InvoiceProps[]>([]);
 
   //fetch project invoice data
   useEffect(() => {
@@ -77,12 +76,12 @@ const InvoiceLanding = ({
     invoiceData();
   }, []);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   //handle Click
-  const handleViewInvoices = async() => { 
+  const handleViewInvoices = () => { 
     //axios call to backend
-    // navigate('/invoice/new');
+    navigate('/invoices/new');
     console.log("view invoices button has been clicked");
   };
 
@@ -102,7 +101,6 @@ const InvoiceLanding = ({
   //===============================return function===========================//
   return (
     <>
-
       <div className="invoice-container">
         <h1 style={{textAlign:'center'}}>All Projects</h1>
         <div className="project-table">

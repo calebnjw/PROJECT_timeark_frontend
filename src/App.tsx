@@ -8,9 +8,11 @@ import InvoicePage from "./pages/invoices/InvoicePage";
 import Projects from "./pages/projects/projects";
 import Page404 from "./pages/notFound/Page404";
 import GenerateInvoice from "./pages/invoices/GenerateInvoice"; 
+import InvoiceDisplay from "./pages/invoices/InvoiceDisplay";
 import { ClientGlobalContext } from "./context/clientContext";
 
 import axios from "axios";
+import InvoiceForm from "./pages/invoices/Form";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -41,6 +43,7 @@ function App() {
         <Route path="projects" element={<Projects />} />
         <Route path="invoices" element={<InvoicePage />} />
         <Route path="invoices/new" element={<GenerateInvoice />} />
+        <Route path="invoices/:id" element={<InvoiceDisplay/> } />
         <Route path="*" element={<Page404 />} />
       </Routes>
       </ClientGlobalContext.Provider>
