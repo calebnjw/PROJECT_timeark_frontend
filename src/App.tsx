@@ -3,6 +3,7 @@ import "./App.scss";
 import Home from "./pages/home/home";
 import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
+import SingleClient from "./pages/clients/singleClient";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import InvoicePage from "./pages/invoices/InvoicePage";
 import Projects from "./pages/projects/projects";
@@ -27,7 +28,6 @@ function App() {
     };
     getClients();
   }, []);
-
   console.log("client list: ", clientList);
 
   return (
@@ -40,6 +40,8 @@ function App() {
         <Route index element={<Clients />} />
         <Route path="clients" element={<Clients />} />
         <Route path="clients/new" element={<AddClient />} />
+          <Route path="clients/new" element={<AddClient />} />
+          <Route path="clients/:clientId" element={<SingleClient />} />
         <Route path="projects" element={<Projects />} />
         <Route path="invoices" element={<InvoicePage />} />
         <Route path="invoices/new" element={<GenerateInvoice />} />

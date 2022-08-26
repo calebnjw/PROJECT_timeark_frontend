@@ -5,8 +5,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
+import SingleClient from "./singleClient";
+import { Client } from "../../types/client";
 
 export default function Clients() {
+  const [client, setClient] = useState<Client[]>([]);
   return (
     <div>
       <NavBar />
