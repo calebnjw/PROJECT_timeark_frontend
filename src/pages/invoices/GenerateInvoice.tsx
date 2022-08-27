@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
-import InvoiceForm from "./Form";
-import PreForm from "./PreForm";
+import InvoiceForm from "./newInvoiceForm";
 // import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Table, TableRow, TableCell, Button } from "@mui/material";
@@ -23,8 +22,7 @@ const ProjectInvoices: React.FC = () => {
     <>
       <Navbar />
       <div className="prime-container">
-        <PreForm />
-        <InvoiceForm />
+        {/* <InvoiceForm /> */}
         <div className="invoice-heading">
           <Button
             variant="outlined"

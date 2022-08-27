@@ -5,7 +5,7 @@ import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
 import SingleClient from "./pages/clients/singleClient";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import InvoicePage from "./pages/invoices/InvoicePage";
+// import InvoicePage from "./pages/invoices/InvoicePage";
 import Projects from "./pages/projects/projects";
 import Page404 from "./pages/notFound/Page404";
 import GenerateInvoice from "./pages/invoices/GenerateInvoice"; 
@@ -15,7 +15,7 @@ import { ClientGlobalContext } from "./context/clientContext";
 import NewProject from "./pages/projects/newProjectForm";
 import EditProjectForm from "./pages/projects/editProjectForm";
 import SingleProject from "./pages/projects/singleProject";
-import InvoiceForm from "./pages/invoices/Form";
+import InvoiceForm from "./pages/invoices/newInvoiceForm";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -51,7 +51,7 @@ function App() {
           />
           <Route path="projects" element={<Projects />} />
           <Route path="projects/new" element={<NewProject />} />
-          <Route path="projects/:project_id" element={<SingleProject />} />
+          {/* <Route path="projects/:project_id" element={<SingleProject />} /> */}
           <Route
             path="projects/:project_id/update"
             element={<EditProjectForm />}
