@@ -7,12 +7,14 @@ export interface InvoiceProps {
 }
 
 export interface FormProps {
-  id: string;
+  _id: string;
+  project_id: string;
+  client_id: string;
   issuedDate: Date;
   dueDate: Date;
   company: string;
   address: string;
-  project: string;
+
 }
 
 
