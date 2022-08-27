@@ -14,8 +14,11 @@ import SingleClient from "./pages/clients/singleClient";
 import Projects from "./pages/projects/projects";
 import Invoices from "./pages/invoices/invoices";
 import Page404 from "./pages/notFound/Page404";
-
+import EditSingleClient from "./pages/clients/editSingleClients";
 import { ClientGlobalContext } from "./context/clientContext";
+import NewProject from "./pages/projects/newProjectForm";
+import SingleProject from "./pages/projects/singleProject";
+import EditProjectForm from "./pages/projects/editProjectForm";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -23,15 +26,13 @@ axios.defaults.withCredentials = true;
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
 
-  // useEffect(() => {
-  //   const getClients = async () => {
-  //     const result = await axios.get(
-  //       `${process.env.REACT_APP_BACKEND_URL}/clients`
-  //     ); // add query user_id as 2nd param
-  //     setClientList(result.data);
-  //   };
-  //   getClients();
-  // }, []);
+  useEffect(() => {
+    const getClients = async () => {
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`); // add query user_id as 2nd param: {params: {user_id: userId}}
+      setClientList(result.data);
+    };
+    getClients();
+  }, []);
   // console.log("client list: ", clientList);
 
   return (
@@ -45,9 +46,13 @@ function App() {
           <Route index element={<Clients />} />
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />
-          <Route path="clients/new" element={<AddClient />} />
           <Route path="clients/:clientId" element={<SingleClient />} />
+          <Route path="clients/:clientId/update" element={<EditSingleClient />} />
           <Route path="projects" element={<Projects />} />
+          <Route path="projects/new" element={<NewProject />} />
+          <Route path="projects/:project_id" element={<SingleProject />} />
+          <Route path="projects/:project_id/update" element={<EditProjectForm />} />
+
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
