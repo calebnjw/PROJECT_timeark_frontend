@@ -25,6 +25,13 @@ export default function ButtonAppBar() {
               <Button color="inherit" component={Link} to="/login">
                 Login
               </Button>
+              <Button
+                color="inherit"
+                href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
+                variant="contained"
+              >
+                LOGOUT
+              </Button>
             </Grid>
           </Grid>
         </Toolbar>

@@ -7,7 +7,6 @@ import "./App.scss";
 
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
-import SignUp from "./pages/signup/signup";
 import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
 import SingleClient from "./pages/clients/singleClient";
@@ -41,8 +40,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/login" element={<Login />} />
           <Route index element={<Clients />} />
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />
