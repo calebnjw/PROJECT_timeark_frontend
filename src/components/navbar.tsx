@@ -1,9 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-import AppBar from "@mui/material/AppBar";
-<<<<<<< HEAD
-import { Box, Button, Grid, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 
 export default function ButtonAppBar() {
   return (

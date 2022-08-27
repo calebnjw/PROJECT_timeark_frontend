@@ -23,16 +23,16 @@ axios.defaults.withCredentials = true;
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
 
-  useEffect(() => {
-    const getClients = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/clients`
-      ); // add query user_id as 2nd param
-      setClientList(result.data);
-    };
-    getClients();
-  }, []);
-  console.log("client list: ", clientList);
+  // useEffect(() => {
+  //   const getClients = async () => {
+  //     const result = await axios.get(
+  //       `${process.env.REACT_APP_BACKEND_URL}/clients`
+  //     ); // add query user_id as 2nd param
+  //     setClientList(result.data);
+  //   };
+  //   getClients();
+  // }, []);
+  // console.log("client list: ", clientList);
 
   return (
     <BrowserRouter>

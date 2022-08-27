@@ -67,10 +67,7 @@ export default function NewClientForm() {
     };
 
     try {
-      axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/clients/new`,
-        clientDetails
-      );
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/clients/new`, clientDetails);
       console.log(clientDetails);
       navigate("/clients");
     } catch (error) {
