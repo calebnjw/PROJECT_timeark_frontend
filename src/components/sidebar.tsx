@@ -47,6 +47,13 @@ export default function Sidebar() {
           </ListItem>
           <ListItem>
             <ListItemButton>
+              <Link to="/tasks" replace={true}>
+                Tasks
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
               <Link to="/invoices" replace={true}>
                 Invoices
               </Link>
