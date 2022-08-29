@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "TimeArk",
+  "name": "TimeArk - Time Tracking and Invoicing for Freelancers",
   "icons": [
     {
       "src": "favicon.ico",
