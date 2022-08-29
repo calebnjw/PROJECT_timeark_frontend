@@ -12,11 +12,6 @@ import { Spinner } from "../../components/spinner/spinner";
 import { ClientGlobalContext } from "../../context/clientContext";
 import { Client, Billing } from "../../types/client";
 
-// interface Props {
-//   client: Client[];
-//   setClient: React.Dispatch<React.SetStateAction<Client[]>>;
-// }
-
 export default function SingleClient() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [client, setClient] = useState<Client>({
