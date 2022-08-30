@@ -7,18 +7,24 @@ import SingleClient from "./pages/clients/singleClient";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Projects from "./pages/projects/projects";
 import Invoices from "./pages/invoices/invoices";
+import Tasks from "././pages/tasks/task";
+import NewTask from "./pages/tasks/newTaskForm";
 import Page404 from "./pages/notFound/Page404";
 import EditSingleClient from "./pages/clients/editSingleClients";
 import { ClientGlobalContext } from "./context/clientContext";
 import NewProject from "./pages/projects/newProjectForm";
 import SingleProject from "./pages/projects/singleProject";
 import EditProjectForm from "./pages/projects/editProjectForm";
+import { Dates } from "./types/tasks";
+import { DateTime } from "luxon";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
+  const [dates, setDates] = useState<Dates[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   useEffect(() => {
     const getClients = async () => {
@@ -27,13 +33,35 @@ function App() {
       ); // add query user_id as 2nd param: {params: {user_id: userId}}
       setClientList(result.data);
     };
+
+    const DatesArray = async () => {
+      const datesArr = [];
+      let dt = DateTime.now();
+      for (let i = 4; i >= 0; i--) {
+        datesArr.push({
+          display: dt.minus({ days: i }).toFormat("dd LLL"),
+          formatted: dt.minus({ days: i }).toFormat("yyyy-MM-dd"),
+        });
+      }
+      setDates(datesArr);
+      return dt;
+    };
     getClients();
+    DatesArray();
   }, []);
   // console.log("client list: ", clientList);
 
   return (
     <BrowserRouter>
-      <ClientGlobalContext.Provider value={{ clientList, setClientList }}>
+      <ClientGlobalContext.Provider
+        value={{
+          clientList,
+          setClientList,
+          dates,
+          selectedDate,
+          setSelectedDate,
+        }}
+      >
         <Routes>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
@@ -52,6 +80,8 @@ function App() {
             path="projects/:project_id/update"
             element={<EditProjectForm />}
           />
+          <Route path="tasks" element={<Tasks />} />
+          <Route path="tasks/new" element={<NewTask />} />
 
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
