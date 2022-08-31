@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import { Spinner } from "../../components/spinner/spinner";
 import { ClientGlobalContext } from "../../context/clientContext";
 import { Client, Billing } from "../../types/client";
+
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 

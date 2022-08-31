@@ -26,7 +26,7 @@ export default function Sidebar() {
         <List>
           <ListItem>
             <ListItemButton>
-              <Link to="/home" replace={true}>
+              <Link to="/dashboard" replace={true}>
                 Dashboard
               </Link>
             </ListItemButton>

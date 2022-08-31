@@ -18,6 +18,7 @@ import SingleProject from "./pages/projects/singleProject";
 import EditProjectForm from "./pages/projects/editProjectForm";
 import { Dates } from "./types/tasks";
 import { DateTime } from "luxon";
+import Dashboard from "./pages/dashboard/dashboard";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -66,6 +67,8 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="login" element={<Login />} />
           <Route index element={<Clients />} />
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />

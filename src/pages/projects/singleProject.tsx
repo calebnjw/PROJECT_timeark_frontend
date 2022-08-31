@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import { Project } from "../../types/project";
+import { Task } from "../../types/task";
 import { useGlobalContext } from "../../context/clientContext";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -13,11 +14,11 @@ axios.defaults.withCredentials = true;
 
 const SingleProject = () => {
   const navigate = useNavigate();
-
   const { clientList } = useGlobalContext();
   let { project_id } = useParams();
   console.log("project id: ", project_id);
   const [project, setProject] = useState<Project>();
+  const [taskList, setTaskList] = useState<Task[]>();
   const client = clientList.find((c) => {
     if (c._id === project?.client_id) {
       return c;
@@ -27,10 +28,18 @@ const SingleProject = () => {
   useEffect(() => {
     const getProjectInfo = async () => {
       try {
-        const result = await axios.get(
+        const getProject = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/projects/${project_id}`
         );
-        setProject(result.data.project);
+        setProject(getProject.data.project);
+
+        const getTasks = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/tasks`,
+          { params: { project_id: project_id } }
+        );
+
+        console.log("tasks arr: ", getTasks.data.tasks);
+        setTaskList(getTasks.data.tasks);
       } catch (error) {
         console.log("Error message: ", error);
       }
@@ -73,7 +82,14 @@ const SingleProject = () => {
           <p>Project Budget: {project?.budget}</p>
           <p>Project Rate: {project?.rate}</p>
           <p>Project Due Date: {project?.due_date}</p>
-          <p>Tasks: To be added </p>
+          <div>
+            <p>
+              Tasks:
+              {taskList?.map((t) => (
+                <li key={t._id}>{t.name}</li>
+              ))}{" "}
+            </p>
+          </div>
         </div>
         <br />
         <Button
