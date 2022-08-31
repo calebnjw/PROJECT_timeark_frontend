@@ -5,10 +5,16 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { Client } from "../../types/client";
 
 axios.defaults.withCredentials = true;
 
-export default function NewClientForm() {
+interface Props {
+  client: Client;
+  setClientList: (c: []) => void;
+}
+
+export default function EditClientForm({ client, setClientList }: Props) {
   const [clientName, setClientName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [streetNumber, setStreetNumber] = useState("");
@@ -20,6 +26,18 @@ export default function NewClientForm() {
   const [companyreg, setCompanyreg] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setClientName(client.client_name);
+    setCompanyName(client.billing_details.company_name);
+    setStreetNumber(client.billing_details.street_name);
+    setUnitNumber(client.billing_details.unit_number);
+    setBuildingName(client.billing_details.building_name);
+    setCityName(client.billing_details.city);
+    setCountryName(client.billing_details.country);
+    setPostalCode(client.billing_details.postal_code);
+    setCompanyreg(client.billing_details.country);
+  }, [client]);
 
   const clientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClientName(e.target.value);
@@ -50,7 +68,7 @@ export default function NewClientForm() {
     setCompanyreg(e.target.value);
   };
 
-  const handleNewClient = () => {
+  const handleEditClient = async () => {
     const clientDetails = {
       client_name: clientName,
       billing_details: {
@@ -67,8 +85,14 @@ export default function NewClientForm() {
     };
 
     try {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/clients/new`, clientDetails);
-      console.log(clientDetails);
+      await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/clients/${client._id}/update`,
+        clientDetails
+      );
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/clients`
+      );
+      setClientList(result.data);
       navigate("/clients");
     } catch (error) {
       console.error(error);
@@ -78,7 +102,7 @@ export default function NewClientForm() {
   return (
     <Box component="form" autoComplete="off">
       <Typography variant="h5" align="center">
-        New Client
+        Edit Client Information
       </Typography>
       <div>
         <TextField
@@ -86,6 +110,7 @@ export default function NewClientForm() {
           id="clientName"
           label="Client Name"
           variant="standard"
+          value={clientName}
           onChange={clientNameChange}
           sx={{ width: 600 }}
         />
@@ -96,6 +121,7 @@ export default function NewClientForm() {
           id="companyName"
           label="Company Name"
           variant="standard"
+          value={companyName}
           onChange={companyNameChange}
           sx={{ width: 600 }}
         />
@@ -106,6 +132,7 @@ export default function NewClientForm() {
           id="streetName"
           label="Street Name"
           variant="standard"
+          value={streetNumber}
           onChange={streetNumberChange}
           sx={{ width: 600 }}
         />
@@ -116,6 +143,7 @@ export default function NewClientForm() {
           id="unitNumber"
           label="Unit Number"
           variant="standard"
+          value={unitNumber}
           onChange={unitNumberChange}
           sx={{ width: 600 }}
         />
@@ -126,6 +154,7 @@ export default function NewClientForm() {
           id="buildingName"
           label="Building Name"
           variant="standard"
+          value={buildingName}
           onChange={buildingNameChange}
           sx={{ width: 600 }}
         />
@@ -136,6 +165,7 @@ export default function NewClientForm() {
           id="cityName"
           label="City Name"
           variant="standard"
+          value={cityName}
           sx={{ width: 600 }}
           onChange={cityNameChange}
         />
@@ -146,6 +176,7 @@ export default function NewClientForm() {
           id="countryName"
           label="Country"
           variant="standard"
+          value={countryName}
           sx={{ width: 600 }}
           onChange={countryNameChange}
         />
@@ -156,6 +187,7 @@ export default function NewClientForm() {
           id="postalCode"
           label="Postal Code"
           variant="standard"
+          value={postalCode}
           onChange={postalCodeChange}
           sx={{ width: 600 }}
         />
@@ -166,12 +198,13 @@ export default function NewClientForm() {
           id="companyreg"
           label="Company Registration"
           variant="standard"
+          value={companyreg}
           onChange={companyregChange}
           sx={{ width: 600 }}
         />
       </div>
       <Box mt="2rem">
-        <Button variant="contained" onClick={handleNewClient}>
+        <Button variant="contained" onClick={handleEditClient}>
           Submit
         </Button>
       </Box>

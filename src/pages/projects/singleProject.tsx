@@ -86,21 +86,21 @@ const SingleProject = () => {
             <p>
               Tasks:
               {taskList?.map((t) => (
-                <li key={t._id}>
-                  <p>name: {t.name}</p>
-                  <p>category: {t.category}</p>
-                </li>
+                <li key={t._id}>{t.name}</li>
               ))}{" "}
             </p>
-            <button
-              onClick={() => {
-                navigate(`/tasks/new`);
-              }}
-            >
-              Add Task
-            </button>
           </div>
         </div>
+        <br />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            navigate(`/tasks/new`);
+          }}
+        >
+          Add New Task
+        </Button>
       </div>
     </>
   );

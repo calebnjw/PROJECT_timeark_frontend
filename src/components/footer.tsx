@@ -1,5 +1,4 @@
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 
 export default function Footer() {
   return (
