@@ -15,29 +15,44 @@ import { Dates } from "../../types/tasks";
 // import TaskSideBar from "./taskSideBar";
 import { Project } from "../../types/project";
 import { Client } from "../../types/client";
+import Calendar from "./Calendar";
+import Details from "./Details";
+import "./time.css";
+
+// interface Props {
+//   showDetailsHandle: (params: any) => void;
+// }
 
 const Time = () => {
-  const [projectList, setProjectList] = useState<Project[]>([]);
-  const { clientList, setClientList, dates, selectedDate, setSelectedDate } =
-    useGlobalContext();
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [data, setData] = useState("");
 
-  function DatesArray() {
-    const datesArr = [];
-    let dt = DateTime.now();
-    for (let i = 4; i >= 0; i--) {
-      datesArr.push({
-        display: dt.minus({ days: i }).toFormat("dd LLL"),
-        formatted: dt.minus({ days: i }).toFormat("yyyy-MM-dd"),
-      });
-    }
-    console.log(datesArr);
-    // setDates(datesArr);
-    return dt;
-  }
+  const showDetailsHandle = (dayStr: any) => {
+    setData(dayStr);
+    setShowDetails(true);
+  };
 
-  useEffect(() => {
-    DatesArray();
-  }, []);
+  // const [projectList, setProjectList] = useState<Project[]>([]);
+  // const { clientList, setClientList, dates, selectedDate, setSelectedDate } =
+  //   useGlobalContext();
+
+  // function DatesArray() {
+  //   const datesArr = [];
+  //   let dt = DateTime.now();
+  //   for (let i = 6; i >= 0; i--) {
+  //     datesArr.push({
+  //       display: dt.minus({ days: i }).toFormat("dd LLL"),
+  //       formatted: dt.minus({ days: i }).toFormat("yyyy-MM-dd"),
+  //     });
+  //   }
+  //   console.log(datesArr);
+  //   // setDates(datesArr);
+  //   return dates;
+  // }
+
+  // useEffect(() => {
+  //   DatesArray();
+  // }, []);
 
   return (
     <>
@@ -45,11 +60,14 @@ const Time = () => {
       <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <p>This is time tracking page.</p>
-        <DatesButton
+        {/* <DatesButton
           dates={dates}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
-        />
+        /> */}
+        <Calendar showDetailsHandle={showDetailsHandle} />
+        <br />
+        {showDetails && <Details data={data} />}
       </div>
       <Footer />
     </>
