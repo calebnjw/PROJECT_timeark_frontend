@@ -95,7 +95,7 @@ const ClientSidebar = () => {
           justifyContent: "center",
           alignItems: "center",
           position: "fixed",
-          bottom: 0,
+          bottom: "55px",
         }}
       >
         <Button component={Link} to="/clients/new">

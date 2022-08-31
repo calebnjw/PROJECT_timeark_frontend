@@ -67,7 +67,10 @@ export default function NewClientForm() {
     };
 
     try {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/clients/new`, clientDetails);
+      axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/clients/new`,
+        clientDetails
+      );
       console.log(clientDetails);
       navigate("/clients");
     } catch (error) {
@@ -76,7 +79,11 @@ export default function NewClientForm() {
   };
 
   return (
-    <Box component="form" autoComplete="off">
+    <Box
+      style={{ width: "80%", marginTop: "80px" }}
+      component="form"
+      autoComplete="off"
+    >
       <Typography variant="h5" align="center">
         New Client
       </Typography>
