@@ -86,7 +86,10 @@ const SingleProject = () => {
             <p>
               Tasks:
               {taskList?.map((t) => (
-                <li key={t._id}>{t.name}</li>
+                <li key={t._id}>
+                  <p>name: {t.name}</p>
+                  <p>category: {t.category}</p>
+                </li>
               ))}{" "}
             </p>
             <button
