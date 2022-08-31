@@ -126,18 +126,24 @@ const Calendar = ({ showDetailsHandle }: Props) => {
   };
   const renderFooter = () => {
     return (
-      <div
-        className="header row flex-middle"
-        style={{ display: "flex", flexDirection: "row" }}
-      >
+      <div className="header row flex-middle">
         <div className="col col-start">
-          <div className="icon" onClick={() => changeWeekHandle("prev")}>
+          <div
+            // className="icon"
+            onClick={() => changeWeekHandle("prev")}
+            style={{ color: "black", backgroundColor: "pink" }}
+          >
             prev week
           </div>
         </div>
-        <div>{currentWeek}</div>
+        <div>Current week: {currentWeek}</div>
         <div className="col col-end" onClick={() => changeWeekHandle("next")}>
-          <div className="icon">next week</div>
+          <div
+            // className="icon"
+            style={{ color: "black", backgroundColor: "pink" }}
+          >
+            next week
+          </div>
         </div>
       </div>
     );

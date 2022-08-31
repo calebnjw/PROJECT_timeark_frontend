@@ -3,7 +3,7 @@ interface Props {
 }
 
 const Details = (props: Props) => {
-  return <div>{props.data}</div>;
+  return <div>Selected Date: {props.data}</div>;
 };
 
 export default Details;
