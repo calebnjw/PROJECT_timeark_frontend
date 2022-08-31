@@ -92,7 +92,6 @@ export default function NewClientForm() {
           required
           id="clientName"
           label="Client Name"
-          variant="standard"
           onChange={clientNameChange}
           sx={{ width: 600 }}
         />
@@ -102,7 +101,6 @@ export default function NewClientForm() {
           required
           id="companyName"
           label="Company Name"
-          variant="standard"
           onChange={companyNameChange}
           sx={{ width: 600 }}
         />
@@ -112,7 +110,6 @@ export default function NewClientForm() {
           required
           id="streetName"
           label="Street Name"
-          variant="standard"
           onChange={streetNumberChange}
           sx={{ width: 600 }}
         />
@@ -122,7 +119,6 @@ export default function NewClientForm() {
           required
           id="unitNumber"
           label="Unit Number"
-          variant="standard"
           onChange={unitNumberChange}
           sx={{ width: 600 }}
         />
@@ -132,7 +128,6 @@ export default function NewClientForm() {
           required
           id="buildingName"
           label="Building Name"
-          variant="standard"
           onChange={buildingNameChange}
           sx={{ width: 600 }}
         />
@@ -142,7 +137,6 @@ export default function NewClientForm() {
           required
           id="cityName"
           label="City Name"
-          variant="standard"
           sx={{ width: 600 }}
           onChange={cityNameChange}
         />
@@ -152,7 +146,6 @@ export default function NewClientForm() {
           required
           id="countryName"
           label="Country"
-          variant="standard"
           sx={{ width: 600 }}
           onChange={countryNameChange}
         />
@@ -162,7 +155,6 @@ export default function NewClientForm() {
           required
           id="postalCode"
           label="Postal Code"
-          variant="standard"
           onChange={postalCodeChange}
           sx={{ width: 600 }}
         />
@@ -172,7 +164,6 @@ export default function NewClientForm() {
           required
           id="companyreg"
           label="Company Registration"
-          variant="standard"
           onChange={companyregChange}
           sx={{ width: 600 }}
         />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Home from "./pages/home/home";
+import Login from "./pages/login/login";
 import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
 import SingleClient from "./pages/clients/singleClient";
@@ -9,7 +10,8 @@ import Projects from "./pages/projects/projects";
 import Invoices from "./pages/invoices/invoices";
 import Tasks from "././pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
-// import EditTask from "./pages/tasks/editTask";
+import SingleTask from "./pages/tasks/singleTask";
+import EditTask from "./pages/tasks/editTask";
 import Page404 from "./pages/notFound/Page404";
 import EditSingleClient from "./pages/clients/editSingleClients";
 import { ClientGlobalContext } from "./context/clientContext";
@@ -85,7 +87,14 @@ function App() {
             element={<EditProjectForm />}
           />
           <Route path="tasks" element={<Tasks />} />
-          {/* <Route path="tasks/:task_id/update" element={<EditTask />} /> */}
+          <Route
+            path="projects/:project_id/tasks/:task_id"
+            element={<SingleTask />}
+          />
+          <Route
+            path="projects/:project_id/tasks/:task_id/update"
+            element={<EditTask />}
+          />
           <Route path="tasks/new" element={<NewTask />} />
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
