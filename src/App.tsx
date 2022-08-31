@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
-
-// import HomeLayout from "./layout/homeLayout";
-
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import Clients from "./pages/clients/clients";
