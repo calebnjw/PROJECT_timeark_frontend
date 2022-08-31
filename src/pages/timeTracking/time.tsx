@@ -8,7 +8,7 @@ const Time = () => {
       <Navbar />
       <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        This is time tracking page.
+        <p>This is time tracking page.</p>
       </div>
     </>
   );
