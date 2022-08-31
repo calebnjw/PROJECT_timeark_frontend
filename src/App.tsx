@@ -23,6 +23,7 @@ import EditProjectForm from "./pages/projects/editProjectForm";
 import { Dates } from "./types/tasks";
 import { DateTime } from "luxon";
 import Dashboard from "./pages/dashboard/dashboard";
+import Time from "./pages/timeTracking/time";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -73,6 +74,8 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
+
+          {/********* Clients routes {/*********/}
           <Route index element={<Clients />} />
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />
@@ -81,6 +84,8 @@ function App() {
             path="clients/:clientId/update"
             element={<EditSingleClient />}
           />
+
+          {/********* Projects routes {/*********/}
           <Route path="projects" element={<Projects />} />
           <Route path="projects/new" element={<NewProject />} />
           <Route path="projects/:project_id" element={<SingleProject />} />
@@ -88,9 +93,15 @@ function App() {
             path="projects/:project_id/update"
             element={<EditProjectForm />}
           />
+
+          {/********* Tasks routes {/*********/}
           <Route path="tasks" element={<Tasks />} />
           <Route path="tasks/new" element={<NewTask />} />
 
+          {/********* Time Tracking routes {/*********/}
+          <Route path="time" element={<Time />} />
+
+          {/********* Invoices routes {/*********/}
           <Route path="invoices" element={<Invoices />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
