@@ -47,8 +47,8 @@ export default function Sidebar() {
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/tasks" replace={true}>
-                Tasks
+              <Link to="/timetracking" replace={true}>
+                Time Tracking
               </Link>
             </ListItemButton>
           </ListItem>

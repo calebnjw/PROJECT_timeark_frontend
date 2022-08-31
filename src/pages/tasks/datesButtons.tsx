@@ -19,7 +19,7 @@ const DatesButtons = ({ dates, selectedDate, setSelectedDate }: Props) => {
   return (
     <>
       <Box
-        style={{ width: "80%", marginLeft: "25%", marginTop: "80px" }}
+        style={{ width: "80%", marginLeft: "15%", marginTop: "80px" }}
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -46,7 +46,7 @@ const DatesButtons = ({ dates, selectedDate, setSelectedDate }: Props) => {
         ))}
       </Box>
       <Box
-        style={{ width: "80%", marginLeft: "25%", marginTop: "5px" }}
+        style={{ width: "80%", marginLeft: "15%", marginTop: "5px" }}
         sx={{
           display: "flex",
           justifyContent: "center",

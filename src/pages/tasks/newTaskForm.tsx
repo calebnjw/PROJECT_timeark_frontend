@@ -11,7 +11,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Project } from "../../types/project";
-import TaskSideBar from "./taskSideBar";
 import DatesButton from "../tasks/datesButtons";
 
 import axios from "axios";
@@ -28,27 +27,8 @@ const NewTaskFrom = () => {
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedCategory, setselectedCategory] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
-  // const [dates, setDates] = useState<Dates[]>([]);
 
   const navigate = useNavigate();
-
-  // function DatesArray() {
-  //   const datesArr = [];
-  //   let dt = DateTime.now();
-  //   for (let i = 4; i >= 0; i--) {
-  //     datesArr.push({
-  //       display: dt.minus({ days: i }).toFormat("dd LLL"),
-  //       formatted: dt.minus({ days: i }).toFormat("yyyy-MM-dd"),
-  //     });
-  //   }
-  //   console.log(datesArr);
-  //   setDates(datesArr);
-  //   return dt;
-  //   }
-
-  //   useEffect(() => {
-  //     DatesArray();
-  //   }, []);
 
   const clientOptions: any = clientList.map((c) => {
     return { id: c._id, name: c.client_name };
@@ -62,15 +42,18 @@ const NewTaskFrom = () => {
     const NewTask = {
       name: selectedTask,
       category: selectedCategory,
-      date: selectedDate,
-      hours: 0,
+      isDone: false,
+      // time_tracking: {
+      //   date: selectedDate,
+      //   hours: 0,
+      // },
       project_id: selectedProject,
     };
 
     try {
       axios.post(`${process.env.REACT_APP_BACKEND_URL}/tasks/new`, NewTask);
       console.log(NewTask);
-      navigate("/tasks");
+      navigate(`/projects/${selectedProject}`);
     } catch (error) {
       console.error(error);
     }
@@ -132,13 +115,12 @@ const NewTaskFrom = () => {
     <>
       <Navbar />
       <Sidebar />
-      <TaskSideBar />
-      <DatesButton
+      {/* <DatesButton
         dates={dates}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
-      />
-      <Box style={{ width: "80%", marginLeft: "40%", marginTop: "30px" }}>
+      /> */}
+      <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
         <h3>New Task</h3>
         <form onSubmit={(e: React.SyntheticEvent) => handleGetProject(e)}>
           <div
@@ -188,7 +170,7 @@ const NewTaskFrom = () => {
           </Button>
         </>
       ) : (
-        <Box style={{ width: "80%", marginLeft: "40%", marginTop: "20px" }}>
+        <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
           <div
             style={{
               display: "flex",
@@ -225,7 +207,7 @@ const NewTaskFrom = () => {
       {!categoryExists ? (
         <></>
       ) : (
-        <Box style={{ width: "80%", marginLeft: "40%", marginTop: "20px" }}>
+        <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
           <div
             style={{
               display: "flex",

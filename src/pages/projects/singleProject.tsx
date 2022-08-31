@@ -75,6 +75,16 @@ const SingleProject = () => {
           <p>Project Due Date: {project?.due_date}</p>
           <p>Tasks: To be added </p>
         </div>
+        <br />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            navigate(`/tasks/new`);
+          }}
+        >
+          Add New Task
+        </Button>
       </div>
     </>
   );
