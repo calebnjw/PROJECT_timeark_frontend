@@ -29,6 +29,7 @@ function Profile() {
     <>
       <Navbar />
       <Sidebar />
+
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         {!userProfile && <h1>You are not logged in.</h1>}
         {userProfile && (

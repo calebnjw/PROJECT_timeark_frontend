@@ -77,7 +77,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
-
+        {/* <Outlet /> */}
         {/* <Route path="app" element={<Outlet />}> */}
         {/* can we do this instead? 
         we make a new "Clients" page with an outlet, in app.tsx we put: 
