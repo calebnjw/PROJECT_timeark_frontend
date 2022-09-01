@@ -103,17 +103,11 @@ function App() {
         <Route path="projects/new" element={<NewProject />} />
         <Route path="projects/:project_id" element={<SingleProject />} />
         <Route path="projects/:project_id/update" element={<EditProjectForm />} />
+        <Route path="projects/:project_id/tasks/:task_id" element={<SingleTask />} />
+        <Route path="projects/:project_id/tasks/:task_id/update" element={<EditTask />} />
 
         <Route path="tasks" element={<Tasks />} />
         <Route path="tasks/new" element={<NewTask />} />
-        <Route
-          path="projects/:project_id/tasks/:task_id"
-          element={<SingleTask />}
-        />
-        <Route
-          path="projects/:project_id/tasks/:task_id/update"
-          element={<EditTask />}
-        />
 
         <Route path="invoices" element={<Invoices />} />
 
