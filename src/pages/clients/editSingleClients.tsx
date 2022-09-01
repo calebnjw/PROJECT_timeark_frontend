@@ -55,7 +55,7 @@ export default function EditSingleClient() {
   return (
     <div>
       <NavBar />
-      <Box sx={{ mt: "2rem" }}>
+      <Box style={{ width: "80%", marginTop: "80px" }}>
         <Grid
           container
           direction="row"
