@@ -14,18 +14,22 @@ interface Props {
   client: Client;
 }
 
+const handleSubmit = () => {
+  console.log("form submit button clicked");
+}
+
 //=================================return function=====================//
-const InvoiceForm = ({ client }: Props) => {
+const InvoiceForm = () => {
   const { clientList, setClientList } = useGlobalContext();
-  const clientId = client._id;
+  // const clientId = client._id;
   const [projectList, setProjectList] = useState<Project[]>([]);
-  const [address, setAddress] = useState("");
-  const [issuedDate, setIssuedDate] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [task, setTask] = useState("");
-  const [hour, setHour] = useState("");
-  const [rate, setRate] = useState("");
-  const [totalAmount, setTotalAmount] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [issuedDate, setIssuedDate] = useState("");
+  // const [dueDate, setDueDate] = useState("");
+  // const [task, setTask] = useState("");
+  // const [hour, setHour] = useState("");
+  // const [rate, setRate] = useState("");
+  // const [totalAmount, setTotalAmount] = useState("");
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -36,7 +40,7 @@ const InvoiceForm = ({ client }: Props) => {
     const getProjects = async () => {
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        { params: { client_id: clientId, autoCorrect: true } }
+        // { params: { client_id: clientId, autoCorrect: true } }
       );
       setProjectList(result.data.projects);
     };
@@ -52,7 +56,7 @@ const InvoiceForm = ({ client }: Props) => {
     return { id: project._id, name: project.name };
   });
 
-  console.log("Client Options: ", clientOptions);
+  console.log("Client Options: ", clientOptions)
   console.log("Project Options: ", projectOptions);
 
   //handle submit button
@@ -94,7 +98,7 @@ const InvoiceForm = ({ client }: Props) => {
         console.log("Invoice_id: ", invoice_id);
         const newProjectList: any = projectList.map((p) => {
           if (p._id === newInvoice.project_id) {
-            return { ...p, invoice_ids: [...p.invoice_ids, invoice_id] };
+            return { ...p, invoice_ids: [...p.invoices, invoice_id] };
           }
           return p;
         });
@@ -173,6 +177,7 @@ const InvoiceForm = ({ client }: Props) => {
               color="primary"
               type="submit"
               value="Submit"
+              onClick={handleSubmit}
             >
               Submit
             </Button>

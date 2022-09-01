@@ -5,22 +5,26 @@ import InvoiceForm from "./newInvoiceForm";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Table, TableRow, TableCell, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import axios from "axios";
+import Sidebar from "../../components/sidebar";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
-//===================handle button click=============================//
-
-//======================other variables & data======================//
-
 //===============================return==============================//
-const ProjectInvoices: React.FC = () => {
 
+const ProjectInvoices: React.FC = () => {
+  const navigate = useNavigate();
+
+  //===================handle button click=============================//
+
+  const handleGenerateInvoice = () => {
+    navigate(`/invoices`);
+  };
   return (
     <>
       <Navbar />
+      <Sidebar />
       <div className="prime-container">
         {/* <InvoiceForm /> */}
         <div className="invoice-heading">
@@ -53,7 +57,7 @@ const ProjectInvoices: React.FC = () => {
               <TableCell align="left">Unbilled Hours: </TableCell>
               <TableCell align="left">10 Hours 20 Minutes</TableCell>
               <TableCell align="right">
-                <Button variant="outlined" /*onClick={handleGenerateInvoice}*/>
+                <Button variant="outlined" onClick={handleGenerateInvoice}>
                   Generate Invoice
                 </Button>
               </TableCell>

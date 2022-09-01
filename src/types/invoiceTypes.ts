@@ -17,12 +17,11 @@ export interface FormProps {
 
 }
 
-
-
 export interface TableProps {
-  // rows: Array <{
-    id: string;
-    issuedDate: Date;
-    dueDate: Date;
-  // }>;
+  client:{
+    _id?: string,
+    project_id?: string,
+    issuedDate?: Date,
+    dueDate?: Date
+  }
 }
