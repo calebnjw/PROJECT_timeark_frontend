@@ -12,13 +12,19 @@ export default function ButtonAppBar() {
         }}
       >
         <Toolbar>
-          <Grid container spacing={2}>
-            <Grid item xs={10}>
+          <Grid container>
+            <Grid item xs={8}>
               <Typography variant="h6" component="div" align="left">
                 Time Ark
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid
+              item
+              xs={3}
+              style={{
+                marginLeft: "90px",
+              }}
+            >
               <Button color="inherit" component={Link} to="/signup">
                 Signup
               </Button>
@@ -26,7 +32,7 @@ export default function ButtonAppBar() {
                 Login
               </Button>
               <Button
-                color="inherit"
+                color="secondary"
                 href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
                 variant="contained"
               >

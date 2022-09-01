@@ -5,7 +5,7 @@ import Sidebar from "../../components/sidebar";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { useGlobalContext } from "../../context/clientContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
@@ -85,8 +85,12 @@ const SingleProject = () => {
           <div>
             <p>
               Tasks:
-              {taskList?.map((t) => (
-                <li key={t._id}>{t.name}</li>
+              {taskList?.map((task) => (
+                <li key={task._id}>
+                  <Link to={`tasks/${task._id}`} state={{ project, task }}>
+                    {task.name}
+                  </Link>
+                </li>
               ))}{" "}
             </p>
           </div>

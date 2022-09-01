@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
+
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 
 import "./App.scss";
-
-// import HomeLayout from "./layout/homeLayout";
-
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 
@@ -22,6 +20,8 @@ import EditProjectForm from "./pages/projects/editProjectForm";
 
 import Tasks from "././pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
+import SingleTask from "./pages/tasks/singleTask";
+import EditTask from "./pages/tasks/editTask";
 
 import Invoices from "./pages/invoices/invoices";
 
@@ -106,6 +106,14 @@ function App() {
 
         <Route path="tasks" element={<Tasks />} />
         <Route path="tasks/new" element={<NewTask />} />
+        <Route
+          path="projects/:project_id/tasks/:task_id"
+          element={<SingleTask />}
+        />
+        <Route
+          path="projects/:project_id/tasks/:task_id/update"
+          element={<EditTask />}
+        />
 
         <Route path="invoices" element={<Invoices />} />
 

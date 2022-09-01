@@ -111,6 +111,10 @@ const NewTaskFrom = () => {
     }
   };
 
+  const handleCancelButton = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <Navbar />
@@ -121,6 +125,13 @@ const NewTaskFrom = () => {
         setSelectedDate={setSelectedDate}
       /> */}
       <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={handleCancelButton}
+        >
+          CANCEL
+        </Button>
         <h3>New Task</h3>
         <form onSubmit={(e: React.SyntheticEvent) => handleGetProject(e)}>
           <div
