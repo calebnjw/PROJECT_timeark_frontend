@@ -76,11 +76,10 @@ function App() {
       }}
     >
       <Routes>
-        <Route index element={<Home />} />
-        <Route path="home" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
         <Route path="dashboard" element={<Dashboard />} />
 
-        <Route index element={<Clients />} />
         <Route path="clients" element={<Clients />} />
         <Route path="clients/new" element={<AddClient />} />
         <Route path="clients/:clientId" element={<SingleClient />} />
