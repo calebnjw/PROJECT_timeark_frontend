@@ -26,7 +26,7 @@ export default function Sidebar() {
         <List>
           <ListItem>
             <ListItemButton>
-              <Link to="/home" replace={true}>
+              <Link to="/dashboard" replace={true}>
                 Dashboard
               </Link>
             </ListItemButton>
@@ -42,6 +42,13 @@ export default function Sidebar() {
             <ListItemButton>
               <Link to="/projects" replace={true}>
                 Projects
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <Link to="/timetracking" replace={true}>
+                Time Tracking
               </Link>
             </ListItemButton>
           </ListItem>

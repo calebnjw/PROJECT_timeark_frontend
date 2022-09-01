@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import { Spinner } from "../../components/spinner/spinner";
 import { ClientGlobalContext } from "../../context/clientContext";
 import { Client, Billing } from "../../types/client";
+
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
@@ -56,7 +57,7 @@ export default function SingleClient() {
   return (
     <div>
       <NavBar />
-      <Box sx={{ mt: "2rem" }}>
+      <Box style={{ width: "80%", marginLeft: "20%", marginTop: "100px" }}>
         <Grid
           container
           direction="row"

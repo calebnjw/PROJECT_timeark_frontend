@@ -1,17 +1,10 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import CssBaseline from "@mui/material/CssBaseline";
 import { Link } from "react-router-dom";
+
+import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 
 export default function ButtonAppBar() {
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -19,18 +12,31 @@ export default function ButtonAppBar() {
         }}
       >
         <Toolbar>
-          <Grid container spacing={2}>
-            <Grid item xs={10}>
+          <Grid container>
+            <Grid item xs={8}>
               <Typography variant="h6" component="div" align="left">
                 Time Ark
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid
+              item
+              xs={3}
+              style={{
+                marginLeft: "90px",
+              }}
+            >
               <Button color="inherit" component={Link} to="/signup">
                 Signup
               </Button>
               <Button color="inherit" component={Link} to="/login">
                 Login
+              </Button>
+              <Button
+                color="secondary"
+                href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
+                variant="contained"
+              >
+                LOGOUT
               </Button>
             </Grid>
           </Grid>

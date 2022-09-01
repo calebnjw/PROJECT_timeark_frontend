@@ -9,9 +9,7 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
-import { Client } from "../../types/client";
 import { Link, useNavigate } from "react-router-dom";
-import Projects from "../projects/projects";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -27,29 +25,10 @@ const useStyles = makeStyles({
   },
 });
 
-interface Props {
-  clientList: Client[];
-  setClientList: React.Dispatch<React.SetStateAction<Client[]>>;
-}
-
 // export default function ClientSidebar() {
-const ClientSidebar = () => {
+const TaskSidebar = () => {
   const classes = useStyles();
-  const [clientList, setClientList] = useState<Client[]>([]);
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getClients = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/clients`
-      ); // add query user_id as 2nd param
-      console.log(result);
-      setClientList(result.data);
-    };
-    getClients();
-  }, []);
-  console.log("client list: ", clientList);
 
   return (
     <Drawer
@@ -69,24 +48,9 @@ const ClientSidebar = () => {
     >
       <Box sx={{ overflow: "auto" }} mt={"5rem"}>
         <Typography variant="h5" align="center">
-          Clients
+          Tasks
         </Typography>
-        <List>
-          {clientList.map((c, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton>
-                <Button
-                  onClick={() => {
-                    navigate(`/clients/${c._id}`);
-                    navigate(0);
-                  }}
-                >
-                  {c.client_name}
-                </Button>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <List></List>
       </Box>
       <Box
         sx={{
@@ -95,16 +59,17 @@ const ClientSidebar = () => {
           justifyContent: "center",
           alignItems: "center",
           position: "fixed",
-          bottom: "55px",
+          bottom: 60,
+          paddingLeft: "30px",
         }}
       >
-        <Button component={Link} to="/clients/new">
+        <Button component={Link} to="/tasks/new">
           <AddCircleOutlineIcon fontSize="medium" />
-          <Typography>Add New Client</Typography>
+          <Typography>Add New Task</Typography>
         </Button>
       </Box>
     </Drawer>
   );
 };
 
-export default ClientSidebar;
+export default TaskSidebar;

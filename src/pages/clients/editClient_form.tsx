@@ -109,7 +109,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="clientName"
           label="Client Name"
-          variant="standard"
           value={clientName}
           onChange={clientNameChange}
           sx={{ width: 600 }}
@@ -120,7 +119,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="companyName"
           label="Company Name"
-          variant="standard"
           value={companyName}
           onChange={companyNameChange}
           sx={{ width: 600 }}
@@ -131,7 +129,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="streetName"
           label="Street Name"
-          variant="standard"
           value={streetNumber}
           onChange={streetNumberChange}
           sx={{ width: 600 }}
@@ -142,7 +139,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="unitNumber"
           label="Unit Number"
-          variant="standard"
           value={unitNumber}
           onChange={unitNumberChange}
           sx={{ width: 600 }}
@@ -153,7 +149,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="buildingName"
           label="Building Name"
-          variant="standard"
           value={buildingName}
           onChange={buildingNameChange}
           sx={{ width: 600 }}
@@ -164,7 +159,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="cityName"
           label="City Name"
-          variant="standard"
           value={cityName}
           sx={{ width: 600 }}
           onChange={cityNameChange}
@@ -175,7 +169,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="countryName"
           label="Country"
-          variant="standard"
           value={countryName}
           sx={{ width: 600 }}
           onChange={countryNameChange}
@@ -186,7 +179,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="postalCode"
           label="Postal Code"
-          variant="standard"
           value={postalCode}
           onChange={postalCodeChange}
           sx={{ width: 600 }}
@@ -197,7 +189,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
           required
           id="companyreg"
           label="Company Registration"
-          variant="standard"
           value={companyreg}
           onChange={companyregChange}
           sx={{ width: 600 }}

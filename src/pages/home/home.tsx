@@ -1,22 +1,28 @@
-import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Image from "material-ui-image";
 import Typography from "@mui/material/Typography";
-import freelancerImg from "../../assets/images/freelancer.jpg";
+
+import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
+
+// import Sidebar from "../../components/sidebar";
 import Clients from "../clients/clients";
 import Projects from "../projects/projects";
 
 export default function Home() {
   return (
     <div>
-      <NavBar />
-      <Sidebar />
+      <Navbar />
       {/* <Sidebar /> */}
-      <Box sx={{ mt: "2rem" }}>
-        <Typography variant="h3" align="center" mb={"2rem"}>
+
+      <Box
+        style={{
+          marginTop: "80px",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="h3" align="center">
           Time Tracking &#38; Invoicing App for Freelancers
         </Typography>
         <Grid
@@ -24,8 +30,10 @@ export default function Home() {
           direction="row"
           justifyContent="center"
           alignItems="center"
+          marginTop="30px"
         >
-          <Grid item xs={4}>
+          <br />
+          <Grid item xs={8}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id
             justo eget quam tristique volutpat in non ante. Praesent egestas
             varius diam, eu volutpat felis malesuada non. Phasellus suscipit
@@ -36,13 +44,8 @@ export default function Home() {
             lobortis sollicitudin lectus lacinia. Curabitur eleifend sit amet
             quam vel rutrum. Phasellus sed mollis quam, eget mollis augue.
           </Grid>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={2}>
-            <Image src={freelancerImg} />
-          </Grid>
         </Grid>
       </Box>
-      <Footer />
     </div>
   );
 }
