@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -14,6 +14,8 @@ const DashboardList = ({ client }: Props) => {
   const clientId = client._id;
   const [projectList, setProjectList] = useState<Project[]>([]);
   const navigate = useNavigate();
+
+  const colors = ["Blue", "Red", "Orange", "Green", "Yellow"];
 
   useEffect(() => {
     const getProjects = async () => {
@@ -34,11 +36,12 @@ const DashboardList = ({ client }: Props) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            width: "50%",
+            width: "500px",
             justifyContent: "space-between",
             margin: "5px 0 5px 0",
             height: "50px",
-            borderLeft: "5px solid red",
+            borderLeft: "5px solid",
+            borderLeftColor: colors[idx % colors.length],
             borderTop: "1px solid black",
             borderRight: "1px solid black",
             borderBottom: "1px solid black",
@@ -66,6 +69,7 @@ const DashboardList = ({ client }: Props) => {
             <p
               style={{
                 marginTop: "-50px",
+                fontWeight: "600",
               }}
             >
               {project.name}
@@ -73,7 +77,6 @@ const DashboardList = ({ client }: Props) => {
           </Box>
           <p
             style={{
-              // marginTop: "10px",
               paddingRight: "5px",
             }}
           >

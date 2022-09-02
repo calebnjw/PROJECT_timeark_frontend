@@ -14,7 +14,7 @@ const Dashboard = () => {
       <Sidebar />
       <div
         style={{
-          width: "60%",
+          width: "50%",
           marginLeft: "20%",
           marginTop: "80px",
           border: "1px solid black",
