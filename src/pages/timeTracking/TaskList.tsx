@@ -20,7 +20,6 @@ const TaskList = (props: Props) => {
         `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`
       );
       const taskArr = tasks.data.tasksBySelectedDate;
-      console.log("selected data task list: ", taskArr);
       if (taskArr) {
         setTaskList(taskArr);
       } else {

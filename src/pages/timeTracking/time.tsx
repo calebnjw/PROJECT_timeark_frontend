@@ -29,11 +29,16 @@ const Time = () => {
     setShowDetails(true);
   };
 
+  const handleNewTimeTracking = () => {
+    console.log("you click me");
+  };
+
   return (
     <>
       <Navbar />
       <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
+        <button onClick={handleNewTimeTracking}>+ Track Time</button>
         <Calendar showDetailsHandle={showDetailsHandle} />
         <br />
 
