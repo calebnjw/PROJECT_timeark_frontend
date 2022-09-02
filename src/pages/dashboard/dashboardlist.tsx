@@ -48,7 +48,6 @@ const DashboardList = ({ client }: Props) => {
           <Box
             style={{
               flexDirection: "column",
-              alignItems: "center",
               marginLeft: "5px",
               marginTop: "5px",
               paddingTop: "8px",
@@ -64,11 +63,17 @@ const DashboardList = ({ client }: Props) => {
             >
               {client.client_name}
             </p>
-            <p>{project.name}</p>
+            <p
+              style={{
+                marginTop: "-50px",
+              }}
+            >
+              {project.name}
+            </p>
           </Box>
           <p
             style={{
-              marginTop: "10px",
+              // marginTop: "10px",
               paddingRight: "5px",
             }}
           >
