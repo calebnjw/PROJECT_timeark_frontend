@@ -22,6 +22,7 @@ import "./time.css";
 const Time = () => {
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [data, setData] = useState("");
+  const today = new Date();
 
   const showDetailsHandle = (dayStr: any) => {
     setData(dayStr);
@@ -35,7 +36,12 @@ const Time = () => {
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <Calendar showDetailsHandle={showDetailsHandle} />
         <br />
-        {showDetails && <TaskList data={data} />}
+
+        {showDetails ? (
+          <TaskList data={data} />
+        ) : (
+          <TaskList data={String(today)} />
+        )}
       </div>
       <Footer />
     </>
