@@ -14,8 +14,6 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const newProjectForm = () => {
-  // const today = new Date();
-  // console.log(today);
   const { clientList, setClientList } = useGlobalContext();
   const navigate = useNavigate();
   const clientOptions: any = clientList.map((c) => {

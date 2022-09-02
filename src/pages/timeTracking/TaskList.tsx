@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { Task, Time } from "../../types/task";
+import { Task } from "../../types/task";
 
 import axios from "axios";
 import el from "date-fns/esm/locale/el/index.js";

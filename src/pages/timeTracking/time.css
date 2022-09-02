@@ -237,3 +237,28 @@ header #logo {
   flex-basis: calc(100% / 7);
   width: calc(100% / 7);
 }
+
+/* Modal  */
+.modal-container {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  /* background-color: rgba(128, 128, 128, 0.619); */
+  top: 50px;
+}
+
+.modal {
+  margin: 30px auto;
+  padding: 30px;
+  background-color: rgb(192, 190, 190);
+  width: 50%;
+  height: 60%;
+  top: 50px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
