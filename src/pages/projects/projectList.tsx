@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ const ProjectList = ({ client }: Props) => {
     <ul>
       {projectList.map((project, idx) => (
         <li
-          key={idx}
+          key={project._id}
           style={{
             display: "flex",
             flexDirection: "row",
@@ -43,7 +43,7 @@ const ProjectList = ({ client }: Props) => {
             alignItems: "center",
           }}
         >
-          <p>{project.name}</p>
+          {project.name}
           <Button
             size="small"
             onClick={() => {

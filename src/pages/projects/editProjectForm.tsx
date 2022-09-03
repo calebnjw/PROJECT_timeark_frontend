@@ -23,11 +23,6 @@ const EditProjectForm = () => {
     }
   });
   const clientName = client?.client_name;
-  // const clientOptions = clientList.map((c) => {
-  //   return { id: c._id, name: c.client_name };
-  // });
-
-  // console.log("client: ", clientOptions);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
