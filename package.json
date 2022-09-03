@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "cors": "^2.8.5",
     "date-fns": "^2.29.2",
+    "echarts": "^5.3.3",
     "lodash": "^4.17.21",
     "luxon": "^3.0.1",
     "material-ui-image": "^3.3.2",
