@@ -29,7 +29,7 @@ const TaskList = (props: Props) => {
     getTasksBySelectedDate();
   }, [selectedDate]);
 
-  if (taskList) {
+  if (taskList.length) {
     return (
       <div>
         <p>Selected Date: {props.data}</p>
@@ -38,10 +38,12 @@ const TaskList = (props: Props) => {
             {taskList.length &&
               taskList.map((task, idx) => (
                 <li key={idx}>
-                  Task Name: {task.name} <br /> Hours Spent:{" "}
+                  {/* Task Name: {task.name} | Hours Spent:{" "} */}
                   <ul>
                     {task.time_tracking.map((time, idx) => (
-                      <li key={idx}>{time.hours}</li>
+                      <li key={idx}>
+                        Task Name: {task.name} | Hours Spent: {time.hours}
+                      </li>
                     ))}
                   </ul>
                 </li>
@@ -51,7 +53,7 @@ const TaskList = (props: Props) => {
       </div>
     );
   } else {
-    return <div>No Task Available</div>;
+    return <div>You haven't done any task today.</div>;
   }
 };
 

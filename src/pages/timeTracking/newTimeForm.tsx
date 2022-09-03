@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -13,7 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const newTimeForm = () => {
+const NewTimeForm = () => {
   const { clientList, setClientList } = useGlobalContext();
   const navigate = useNavigate();
   const clientOptions: any = clientList.map((c) => {
@@ -91,7 +89,7 @@ const newTimeForm = () => {
               type="submit"
               value="Submit"
             >
-              Submit
+              Start Tracker
             </Button>
           </div>
         </form>
@@ -100,4 +98,4 @@ const newTimeForm = () => {
   );
 };
 
-export default newTimeForm;
+export default NewTimeForm;
