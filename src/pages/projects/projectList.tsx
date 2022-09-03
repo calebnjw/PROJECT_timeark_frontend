@@ -39,7 +39,8 @@ const ProjectList = ({ client }: Props) => {
             width: "80%",
             justifyContent: "space-between",
             margin: "4px 0 4px 0",
-            height: "30px",
+            height: "35px",
+            alignItems: "center",
           }}
         >
           <p>{project.name}</p>
