@@ -4,6 +4,7 @@ import { Task } from "../../types/task";
 
 import axios from "axios";
 import el from "date-fns/esm/locale/el/index.js";
+import { time } from "console";
 axios.defaults.withCredentials = true;
 
 interface Props {
@@ -29,6 +30,14 @@ const TaskList = (props: Props) => {
     getTasksBySelectedDate();
   }, [selectedDate]);
 
+  const computeTime = (t1: Date, t2: Date) => {
+    let endDate: any = new Date(t1);
+    let startDate: any = new Date(t2);
+    let timeDifference = endDate - startDate;
+    const hours = timeDifference / (1000 * 60 * 60);
+    return hours.toFixed(2);
+  };
+
   if (taskList.length) {
     return (
       <div>
@@ -40,9 +49,10 @@ const TaskList = (props: Props) => {
                 <li key={idx}>
                   {/* Task Name: {task.name} | Hours Spent:{" "} */}
                   <ul>
-                    {task.time_tracking.map((time, idx) => (
+                    {task.time_trackings.map((time, idx) => (
                       <li key={idx}>
-                        Task Name: {task.name} | Hours Spent: {time.hours}
+                        Task Name: {task.name} | Hours Spent:{" "}
+                        {computeTime(time.endDate, time.startDate)}
                       </li>
                     ))}
                   </ul>
