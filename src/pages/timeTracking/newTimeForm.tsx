@@ -7,16 +7,22 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const NewTimeForm = () => {
+interface Props {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NewTimeForm = ({ setOpen }: Props) => {
   const { clientList, setClientList } = useGlobalContext();
   const [projectList, setProjectList] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [selectedTask, setSelectedTask] = useState("");
+  const navigate = useNavigate();
 
   // Get user's all projects:
   const getUsersAllProjects = async () => {
@@ -25,7 +31,6 @@ const NewTimeForm = () => {
       `${process.env.REACT_APP_BACKEND_URL}/projects/all`,
       { params: { user_id: user_id } }
     );
-    // console.log("all projects: ", getProjects.data.projects);
     const projects = getProjects.data.projects;
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     console.log("projects with tasks: ", projectsHasTasks);
@@ -37,8 +42,13 @@ const NewTimeForm = () => {
       `${process.env.REACT_APP_BACKEND_URL}/tasks`,
       { params: { project_id: defaultProjectId } }
     );
-    console.log("tasks: ", getDefaultTasks.data.tasks);
     setTaskList(getDefaultTasks.data.tasks);
+
+    // Set default selected task
+    const defaultTasks = getDefaultTasks.data.tasks;
+    const defaultTaskId = defaultTasks[0]._id;
+    console.log("defaut task id: ", defaultTaskId);
+    setSelectedTask(defaultTaskId);
     return projectsHasTasks;
   };
 
@@ -56,8 +66,15 @@ const NewTimeForm = () => {
       `${process.env.REACT_APP_BACKEND_URL}/tasks`,
       { params: { project_id: selectedProject } }
     );
-    console.log("tasks: ", getTasks.data.tasks);
-    setTaskList(getTasks.data.tasks);
+    const tasks = getTasks.data.tasks;
+    setTaskList(tasks);
+
+    // set default selected task according to selected project
+    console.log("task list: ", tasks[0]._id);
+    setSelectedTask("");
+    setSelectedTask(tasks[0]._id);
+
+    return tasks;
   };
 
   const handleProjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,20 +84,29 @@ const NewTimeForm = () => {
   };
 
   const handleTaskChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedTask("");
     setSelectedTask(event.target.value);
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      project_id: { value: string };
-      task_id: { value: string };
-    };
-    console.log("target: ", target);
+    console.log("task id: ", selectedTask);
+    console.log("you clicked: ");
+    if (selectedTask) {
+      try {
+        const result = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
+        );
+        console.log("added time tracking: ", result.data.task);
+        setOpen(false);
+        navigate(`/time`);
+      } catch (error) {
+        console.log("Error message: ", error);
+      }
+    }
   };
 
-  console.log("task list: ", taskList);
-  console.log("task options: ", taskOptions);
+  console.log("selected task: ", selectedTask);
 
   useEffect(() => {
     getUsersAllProjects();
@@ -90,7 +116,6 @@ const NewTimeForm = () => {
     <div>
       <p>New Time Tracker</p>
       <Box style={{ marginTop: "0px" }}>
-        {/* <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}> */}
         <div
           style={{
             display: "flex",
@@ -147,9 +172,17 @@ const NewTimeForm = () => {
             variant="contained"
             color="primary"
             type="submit"
-            value="Submit"
+            onClick={handleSubmit}
           >
             Start Tracker
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            type="submit"
+            onClick={() => setOpen(false)}
+          >
+            Cancel
           </Button>
         </div>
         {/* </form> */}

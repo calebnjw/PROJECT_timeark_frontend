@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { Task } from "../../types/task";
 
 import axios from "axios";
-import el from "date-fns/esm/locale/el/index.js";
-import { time } from "console";
 axios.defaults.withCredentials = true;
 
 interface Props {
@@ -14,6 +12,8 @@ interface Props {
 const TaskList = (props: Props) => {
   const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
   const [taskList, setTaskList] = useState<Task[]>([]);
+
+  console.log("task list: ", taskList);
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -38,6 +38,17 @@ const TaskList = (props: Props) => {
     return hours.toFixed(2);
   };
 
+  const handleStopTimer = async (taskId: string, timerId: string) => {
+    if (taskId && timerId) {
+      try {
+        const result = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/tasks/${taskId}/timetrackings/${timerId}/stop`
+        );
+        console.log("stoppded timer: ", result.data.msg);
+      } catch (error) {}
+    }
+  };
+
   if (taskList.length) {
     return (
       <div>
@@ -47,12 +58,34 @@ const TaskList = (props: Props) => {
             {taskList.length &&
               taskList.map((task, idx) => (
                 <li key={idx}>
-                  {/* Task Name: {task.name} | Hours Spent:{" "} */}
                   <ul>
                     {task.time_trackings.map((time, idx) => (
                       <li key={idx}>
-                        Task Name: {task.name} | Hours Spent:{" "}
-                        {computeTime(time.endDate, time.startDate)}
+                        {time.endDate ? (
+                          <>
+                            <b>
+                              {" "}
+                              Task Name: {task.name} | Hours Spent:{" "}
+                              {computeTime(time.endDate, time.startDate)}
+                            </b>
+                            <button>Edit</button>
+                          </>
+                        ) : (
+                          <>
+                            <b style={{ backgroundColor: "pink" }}>
+                              Task Name: {task.name} | Hours Spent:{" "}
+                              {computeTime(new Date(), time.startDate)}
+                            </b>
+                            <button
+                              onClick={() => {
+                                console.log("time id: ", time._id);
+                                handleStopTimer(task._id, time._id);
+                              }}
+                            >
+                              Stop
+                            </button>
+                          </>
+                        )}
                       </li>
                     ))}
                   </ul>

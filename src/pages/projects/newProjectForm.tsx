@@ -42,7 +42,6 @@ const newProjectForm = () => {
       client_id: target.client_id.value,
     };
 
-    console.log("new project: ", newProject);
     if (newProject) {
       try {
         const result = await axios.post(
@@ -58,7 +57,7 @@ const newProjectForm = () => {
           }
           return c;
         });
-        console.log("updated client list: ", newClientList);
+
         setClientList(newClientList);
         navigate(`/projects/${project_id}`);
       } catch (error) {

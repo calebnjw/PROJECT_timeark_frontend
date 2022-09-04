@@ -1,6 +1,7 @@
 export interface Time {
   startDate: Date;
   endDate: Date;
+  _id: string;
 }
 
 export interface Task {
