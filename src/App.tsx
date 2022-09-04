@@ -19,16 +19,10 @@ import Tasks from "././pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
 import SingleTask from "./pages/tasks/singleTask";
 import EditTask from "./pages/tasks/editTask";
-
 import Invoices from "./pages/invoices/invoices";
-
 import Profile from "./pages/profile/profile";
-
 import Page404 from "./pages/notFound/Page404";
-
 import { ClientGlobalContext } from "./context/clientContext";
-import { Dates } from "./types/tasks";
-import { DateTime } from "luxon";
 import Dashboard from "./pages/dashboard/dashboard";
 import Time from "./pages/timeTracking/time";
 
@@ -37,42 +31,29 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
-  const [dates, setDates] = useState<Dates[]>([]);
-  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [userId, setUserId] = useState("630ee57c4e9cd2d99b739643");
 
   useEffect(() => {
+    console.log("user id: ", `${process.env.REACT_APP_BACKEND_URL}`);
     const getClients = async () => {
       const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/clients`
+        `${process.env.REACT_APP_BACKEND_URL}/clients`,
+        { params: { user_id: userId } }
       ); // add query user_id as 2nd param: {params: {user_id: userId}}
       setClientList(result.data);
     };
 
-    const DatesArray = async () => {
-      const datesArr = [];
-      let dt = DateTime.now();
-      for (let i = 4; i >= 0; i--) {
-        datesArr.push({
-          display: dt.minus({ days: i }).toFormat("dd LLL"),
-          formatted: dt.minus({ days: i }).toFormat("yyyy-MM-dd"),
-        });
-      }
-      setDates(datesArr);
-      return dt;
-    };
     getClients();
-    DatesArray();
   }, []);
-  // console.log("client list: ", clientList);
+
+  console.log("client list: ", clientList);
 
   return (
     <ClientGlobalContext.Provider
       value={{
         clientList,
         setClientList,
-        dates,
-        selectedDate,
-        setSelectedDate,
+        userId,
       }}
     >
       <Routes>
