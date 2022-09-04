@@ -31,7 +31,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
-  const [userId, setUserId] = useState("630ee57c4e9cd2d99b739643");
+  const [userId, setUserId] = useState("630ee57c4e9cd2d99b739643"); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
 
   useEffect(() => {
     console.log("user id: ", `${process.env.REACT_APP_BACKEND_URL}`);
