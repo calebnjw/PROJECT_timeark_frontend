@@ -11,10 +11,3 @@ export interface Project {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export interface ProjectOption {
-  clientName: string;
-  projectName: string;
-  projectId: string;
-  task_ids: [];
-}
