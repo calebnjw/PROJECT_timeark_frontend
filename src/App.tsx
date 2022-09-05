@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+
+import Dashboard from "./pages/dashboard/dashboard";
+
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Home from "./pages/home/home";
-import Dashboard from "./pages/dashboard/dashboard";
-
+// import Login from "./pages/login/login";
 import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
 import SingleClient from "./pages/clients/singleClient";
@@ -28,6 +30,7 @@ import Page404 from "./pages/notFound/Page404";
 import { ClientGlobalContext } from "./context/clientContext";
 import { Dates } from "./types/tasks";
 import { DateTime } from "luxon";
+import Time from "./pages/timeTracking/time";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -39,7 +42,9 @@ function App() {
 
   useEffect(() => {
     const getClients = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`); // add query user_id as 2nd param: {params: {user_id: userId}}
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/clients`
+      ); // add query user_id as 2nd param: {params: {user_id: userId}}
       setClientList(result.data);
     };
 
@@ -88,6 +93,7 @@ function App() {
         {/* index route to be updated to whichever page to land on after login*/}
         <Route index element={<Projects />} />
 
+        {/* <Route path="login" element={<Login />} /> */}
         <Route path="dashboard" element={<Dashboard />} />
 
         <Route path="clients" element={<Clients />} />
@@ -98,7 +104,10 @@ function App() {
         <Route path="projects" element={<Projects />} />
         <Route path="projects/new" element={<NewProject />} />
         <Route path="projects/:project_id" element={<SingleProject />} />
-        <Route path="projects/:project_id/update" element={<EditProjectForm />} />
+        <Route
+          path="projects/:project_id/update"
+          element={<EditProjectForm />}
+        />
 
         <Route path="tasks" element={<Tasks />} />
         <Route path="tasks/new" element={<NewTask />} />
@@ -111,14 +120,14 @@ function App() {
           element={<EditTask />}
         />
 
-<Route path="invoices" element={<InvoicePage />} />
-            <Route path="invoices/:project_id" element={<GenerateInvoice />} />
-            <Route path="invoices/:project_id/new" element={<InvoiceForm />} />
-            <Route path="invoices/:invoice_id" element={<InvoiceDisplay />} />
+        <Route path="invoices" element={<InvoicePage />} />
+        <Route path="invoices/:project_id" element={<GenerateInvoice />} />
+        <Route path="invoices/:project_id/new" element={<InvoiceForm />} />
+        <Route path="invoices/:invoice_id" element={<InvoiceDisplay />} />
 
+        <Route path="time" element={<Time />} />
         <Route path="profile" element={<Profile />} />
 
-        {/* </Route> */}
         <Route path="*" element={<Page404 />} />
       </Routes>
     </ClientGlobalContext.Provider>
