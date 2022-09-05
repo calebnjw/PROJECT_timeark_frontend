@@ -94,10 +94,8 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
-        console.log("added time tracking: ", result.data.task);
 
         const updatedTask = result.data.task;
-
         const updatedTaskList = taskList.map((t) => {
           if (t._id == updatedTask._id) {
             return (t = updatedTask);
@@ -105,12 +103,10 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
           return t;
         });
 
-        console.log("updated task list: ", updatedTaskList);
         setTaskList([]);
         setTaskList(updatedTaskList);
 
         setOpen(false);
-        navigate(`/time`);
       } catch (error) {
         console.log("Error message: ", error);
       }

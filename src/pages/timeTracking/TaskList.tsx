@@ -49,8 +49,20 @@ const TaskList = (props: Props) => {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${taskId}/timetrackings/${timerId}/stop`
         );
-        console.log("stoppded timer: ", result.data.msg);
-      } catch (error) {}
+        console.log("updated task: ", result.data.getUpdatedTask);
+
+        const updatedTask = result.data.getUpdatedTask;
+        const updatedTaskList = taskList.map((t) => {
+          if (t._id == updatedTask._id) {
+            return (t = updatedTask);
+          }
+          return t;
+        });
+        setTaskList([]);
+        setTaskList(updatedTaskList);
+      } catch (error) {
+        console.log("Error message: ", error);
+      }
     }
   };
 
@@ -83,7 +95,7 @@ const TaskList = (props: Props) => {
                             </b>
                             <button
                               onClick={() => {
-                                console.log("time id: ", time._id);
+                                // console.log("time id: ", time._id);
                                 handleStopTimer(task._id, time._id);
                               }}
                             >
