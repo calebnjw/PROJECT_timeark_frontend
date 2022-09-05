@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Task } from "../../types/task";
+import { useGlobalContext } from "../../context/clientContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -12,13 +13,15 @@ interface Props {
 const TaskList = (props: Props) => {
   const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
   const [taskList, setTaskList] = useState<Task[]>([]);
+  const { userId } = useGlobalContext();
 
   console.log("task list: ", taskList);
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
       const tasks = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`,
+        { params: { user_id: userId } }
       );
       const taskArr = tasks.data.tasksBySelectedDate;
       if (taskArr) {
