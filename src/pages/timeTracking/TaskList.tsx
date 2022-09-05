@@ -8,14 +8,16 @@ axios.defaults.withCredentials = true;
 
 interface Props {
   data: string;
+  taskList: Task[];
+  setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
 const TaskList = (props: Props) => {
   const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
-  const [taskList, setTaskList] = useState<Task[]>([]);
+  // const [taskList, setTaskList] = useState<Task[]>([]);
+  const taskList = props.taskList;
+  const setTaskList = props.setTaskList;
   const { userId } = useGlobalContext();
-
-  console.log("task list: ", taskList);
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
