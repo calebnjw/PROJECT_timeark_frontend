@@ -17,8 +17,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const NewTaskFrom = () => {
-  const { clientList, setClientList, dates, selectedDate, setSelectedDate } =
-    useGlobalContext();
+  const { clientList, setClientList } = useGlobalContext();
   const [projectExists, setProjectExists] = useState<boolean>(false);
   const [categoryExists, setCategoryExist] = useState<boolean>(false);
   const [projectList, setProjectList] = useState<Project[]>([]);

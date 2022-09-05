@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import { Client } from "../../types/client";
 import { Link, useNavigate } from "react-router-dom";
 import Projects from "../projects/projects";
+import { useGlobalContext } from "../../context/clientContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -36,13 +37,15 @@ interface Props {
 const ClientSidebar = () => {
   const classes = useStyles();
   const [clientList, setClientList] = useState<Client[]>([]);
+  const { userId } = useGlobalContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const getClients = async () => {
       const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/clients`
+        `${process.env.REACT_APP_BACKEND_URL}/clients`,
+        { params: { user_id: userId } }
       ); // add query user_id as 2nd param
       console.log(result);
       setClientList(result.data);
