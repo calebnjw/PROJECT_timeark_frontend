@@ -19,7 +19,7 @@ import {
   Paper,
 } from "@mui/material";
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
@@ -49,7 +49,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 //===============================onClick & onChange functions==========================//
 const navigate = useNavigate();
 const handleInvoices = () => {
-  // navigate(`/invoices/${}`)
+  // navigate(`/invoices/${invoice_id}`)
   console.log("Invoices button clicked");
 };
 
@@ -63,28 +63,21 @@ interface Props {
 }
 
 //======================================Return section=======================//
-const MyTable = ({ client }: TableProps) => {
+const MyTable = () => {
   const { clientList, setClientList } = useGlobalContext();
-  const [table, setTable] = useState();
-  const clientId = client._id;
-  const projectId = client.project_id;
+  const [table, setTable] = useState<TableProps[]>([]);
+  // const clientId = client._id;
+
+  const { project_id } = useParams();
+  
   useEffect(() => {
     const getInvoice = async () => {
       try {
         const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/invoices`,
-          {
-            params: {
-              client_id: clientId,
-              project_id: projectId,
-              autoCorrect: true,
-            },
-          }
+          `${process.env.REACT_APP_BACKEND_URL}/invoices/${project_id}`
         );
-        if (setTable) {
           setTable(result.data);
           console.log(result.data);
-        }
       } catch (err) {
         console.log(err);
       }
@@ -110,9 +103,9 @@ const MyTable = ({ client }: TableProps) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {table.map((i) => ( */}
-                  <StyledTableRow /*key={row.id}*/>
-                    <StyledTableCell align="left">{}</StyledTableCell>
+                {table.map((i: any) => (
+                  <StyledTableRow key={i.id}>
+                    <StyledTableCell align="left">{i._id}</StyledTableCell>
                     <StyledTableCell align="left">
                       {}
                     </StyledTableCell>
@@ -141,7 +134,7 @@ const MyTable = ({ client }: TableProps) => {
                       </Button>
                     </StyledTableCell>
                   </StyledTableRow>
-                {/* ))} */}
+                ))} 
               </TableBody>
             </Table>
           </Paper>

@@ -46,7 +46,6 @@ const ClientSidebar = (props: Props
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/clients`
       ); // add query user_id as 2nd param
-      console.log(result);
       setClientList(result.data);
     };
     getClients();
@@ -79,8 +78,6 @@ const ClientSidebar = (props: Props
                 <Button
                   onClick={() => {
                     setClientId(`${c._id}`)
-                    // navigate(`/invoices`);
-                    // navigate(0);
                   }}
                 >
                   {c.client_name}
@@ -89,21 +86,6 @@ const ClientSidebar = (props: Props
             </ListItem>
           ))}
         </List>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "fixed",
-          bottom: 0,
-        }}
-      >
-        <Button component={Link} to="/clients/new">
-          <AddCircleOutlineIcon fontSize="medium" />
-          <Typography>Add New Client</Typography>
-        </Button>
       </Box>
     </Drawer>
   );

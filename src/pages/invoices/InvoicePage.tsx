@@ -50,7 +50,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const InvoicePage = () => {
   const [clientId, setClientId] = useState<string>();
   const [project, setProject] = useState<[Project]>();
-  const [invoice, setInvoice] = useState<[InvoiceProps]>();
 
   //useStates
   const [page, setPage] = React.useState(0);
@@ -74,27 +73,6 @@ const InvoicePage = () => {
       projectData();
     }
   }, [clientId]);
-
-  
-  //fetch project invoice data
-  useEffect(() => {
-    const invoiceData = async () => {
-      try {
-        const result = await axios.get(`${BACKEND_URL}/invoices`);
-        //error handling
-        if (!result) {
-          throw new Error("Fail to fetch data");
-        }
-        if (result) {
-          setInvoice(result.data.invoices);
-          console.log(result.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    invoiceData();
-  }, []);
 
   const navigate = useNavigate();
 
@@ -133,7 +111,6 @@ const InvoicePage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                {console.log(project)}
                 {project === undefined ? (
                   <Box>
                     <Typography>Loading Project</Typography>
@@ -146,7 +123,8 @@ const InvoicePage = () => {
                             <Button
                               variant="outlined"
                               onClick={()=> {
-                                navigate(`/invoices/${i._id}`)
+                                navigate(`/invoices/${i._id}`
+                                )
                               }}
                             >
                               <ReceiptRoundedIcon />
@@ -159,11 +137,11 @@ const InvoicePage = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            {invoice && (
+            {project && (
               <TablePagination
                 rowsPerPageOptions={[5, 10]}
                 component="div"
-                count={invoice.length}
+                count={project.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

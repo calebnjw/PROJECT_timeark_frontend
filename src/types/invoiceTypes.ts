@@ -18,10 +18,8 @@ export interface FormProps {
 }
 
 export interface TableProps {
-  client:{
     _id?: string,
     project_id?: string,
     issuedDate?: Date,
     dueDate?: Date
-  }
 }

@@ -1,39 +1,98 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ClientGlobalContext } from "../../context/clientContext";
 import Navbar from "../../components/navbar";
-import InvoiceForm from "./newInvoiceForm";
-// import MyTable from "./MyTable";
+import ClientSidebar from "./clients_sidebar";
+import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Table, TableRow, TableCell, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { Project } from "../../types/project";
+import { Client } from "../../types/client";
+import { TableProps } from "../../types/invoiceTypes"
 import Sidebar from "../../components/sidebar";
+import { useGlobalContext } from "../../context/clientContext";
+import { TabUnselected } from "@mui/icons-material";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
+//===============================props==============================//
+interface Props {
+  clientId?: (value: string) => void;
+  setClientId?: (value: string) => void;
+  client?: Client;
+}
+
 //===============================return==============================//
 
-const ProjectInvoices: React.FC = () => {
+const GenerateInvoice = (props: Props) => {
   const navigate = useNavigate();
+  const { clientId, setClientId } = props;
+  const [client, setClient] = useState("");
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [project, setProject] = useState<Project>();
+  const { clientList } = useContext(ClientGlobalContext);
+
+  const { project_id } = useParams();
+  console.log(project_id);
+  //==============================query===================================//
+  
+  //query projectName
+  useEffect(() => {
+    const projectData = async() => {
+      try {
+        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${project_id}`)
+        setProject(result.data.project);
+        console.log("GenerateInvoice projectData :" , result.data)
+      } catch(err){
+        console.log(err)
+      }
+    }
+    projectData();
+  }, [])
+
+
+  //query clientName
+  // useEffect(() => {
+  //     function singleClientData (
+  //       clientlist: Client[]
+  //     ): Client[] { 
+  //       return clientList.filter((element) => element._id === project_id)
+  //     } if (!isLoaded && clientList.length !== 0) {
+  //       const selectedClient = singleClientData(project_id,);
+  //       console.log("Selected Client: ", selectedClient);
+  //       setClient(selectedClient);
+  //       setIsLoaded(true);
+  //     }
+  // }, [isLoaded, clientList, clientId]);
+
+
 
   //===================handle button click=============================//
 
   const handleGenerateInvoice = () => {
-    navigate(`/invoices`);
+    navigate(`/invoices/${project_id}/new`);
   };
+
+  const handleProjectButton = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <Navbar />
       <Sidebar />
+      {setClientId && <ClientSidebar setClientId={setClientId} />}
       <div className="prime-container">
-        {/* <InvoiceForm /> */}
         <div className="invoice-heading">
           <Button
             variant="outlined"
             style={{
               left: "30px",
               top: "20px",
-            }} /*onClick={handleProjectButton}*/
+            }}
+            onClick={handleProjectButton}
           >
             <KeyboardArrowLeftIcon fontSize="large" />
             Projects
@@ -47,15 +106,15 @@ const ProjectInvoices: React.FC = () => {
           <Table>
             <TableRow sx={{ "& td": { border: 0 } }}>
               <TableCell align="left">Project Name: </TableCell>
-              <TableCell align="left">Rocket Ship</TableCell>
+              <TableCell align="left">{project?.name}</TableCell>
             </TableRow>
             <TableRow sx={{ "& td": { border: 0 } }}>
               <TableCell align="left">Client Name: </TableCell>
-              <TableCell align="left">Foong Co</TableCell>
+              <TableCell align="left">{}</TableCell>
             </TableRow>
             <TableRow sx={{ "& td": { border: 0 } }}>
               <TableCell align="left">Unbilled Hours: </TableCell>
-              <TableCell align="left">10 Hours 20 Minutes</TableCell>
+              <TableCell align="left">10 hours 30mins</TableCell>
               <TableCell align="right">
                 <Button variant="outlined" onClick={handleGenerateInvoice}>
                   Generate Invoice
@@ -63,11 +122,11 @@ const ProjectInvoices: React.FC = () => {
               </TableCell>
             </TableRow>
           </Table>
-          {/* <MyTable rows={rows} /> */}
+          {/* <MyTable/> */}
         </div>
       </div>
     </>
   );
 };
 
-export default ProjectInvoices;
+export default GenerateInvoice;
