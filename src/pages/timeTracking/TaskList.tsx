@@ -1,8 +1,8 @@
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Task } from "../../types/task";
 import { useGlobalContext } from "../../context/clientContext";
-
+import ShowTimer from "./ShowTimer";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -14,7 +14,6 @@ interface Props {
 
 const TaskList = (props: Props) => {
   const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
-  // const [taskList, setTaskList] = useState<Task[]>([]);
   const taskList = props.taskList;
   const setTaskList = props.setTaskList;
   const { userId } = useGlobalContext();
@@ -36,12 +35,16 @@ const TaskList = (props: Props) => {
   }, [selectedDate]);
 
   const computeTime = (t1: Date, t2: Date) => {
-    let endDate: any = new Date(t1);
-    let startDate: any = new Date(t2);
-    let timeDifference = endDate - startDate;
+    const endDate: any = new Date(t1);
+    const startDate: any = new Date(t2);
+    const timeDifference = endDate - startDate;
     const hours = timeDifference / (1000 * 60 * 60);
     return hours.toFixed(2);
   };
+
+  function padTo2Digits(num: number) {
+    return num.toString().padStart(2, "0");
+  }
 
   const handleStopTimer = async (taskId: string, timerId: string) => {
     if (taskId && timerId) {
@@ -49,7 +52,6 @@ const TaskList = (props: Props) => {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${taskId}/timetrackings/${timerId}/stop`
         );
-        console.log("updated task: ", result.data.getUpdatedTask);
 
         const updatedTask = result.data.getUpdatedTask;
         const updatedTaskList = taskList.map((t) => {
@@ -82,16 +84,19 @@ const TaskList = (props: Props) => {
                           <>
                             <b>
                               {" "}
-                              Task Name: {task.name} | Hours Spent:{" "}
-                              {computeTime(time.endDate, time.startDate)}
+                              Task Name: {task.name} | Time Spent:{" "}
+                              {computeTime(time.endDate, time.startDate)} {"H"}
                             </b>
                             <button>Edit</button>
                           </>
                         ) : (
                           <>
                             <b style={{ backgroundColor: "pink" }}>
-                              Task Name: {task.name} | Hours Spent:{" "}
-                              {computeTime(new Date(), time.startDate)}
+                              Task Name: {task.name} | Time Spent:{" "}
+                              {/* {computeTime(new Date(), time.startDate)} {" | "} */}
+                              {/* {"timer will be showing here: "} */}
+                              {/* {setStartDate(time.startDate)} */}
+                              <span>{<ShowTimer />}</span>
                             </b>
                             <button
                               onClick={() => {
