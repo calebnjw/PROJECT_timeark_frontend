@@ -8,32 +8,33 @@ import { useState } from "react";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
+import TaskList from "./TaskList";
 axios.defaults.withCredentials = true;
 
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  taskList: Task[];
+  setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
+  userId: string;
 }
 
-const NewTimeForm = ({ setOpen }: Props) => {
+const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
   const { clientList, setClientList } = useGlobalContext();
   const [projectList, setProjectList] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
-  const [taskList, setTaskList] = useState<Task[]>([]);
+  const [taskLocalList, setTaskLocalList] = useState<Task[]>([]);
   const [selectedTask, setSelectedTask] = useState("");
   const navigate = useNavigate();
 
   // Get user's all projects:
   const getUsersAllProjects = async () => {
-    const user_id = "630ee57c4e9cd2d99b739643"; // hardcoded user id
     const getProjects = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/projects/all`,
-      { params: { user_id: user_id } }
+      { params: { user_id: userId } }
     );
     const projects = getProjects.data.projects;
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
-    console.log("projects with tasks: ", projectsHasTasks);
     setProjectList(projectsHasTasks);
 
     // Get default task list:
@@ -42,12 +43,11 @@ const NewTimeForm = ({ setOpen }: Props) => {
       `${process.env.REACT_APP_BACKEND_URL}/tasks`,
       { params: { project_id: defaultProjectId } }
     );
-    setTaskList(getDefaultTasks.data.tasks);
+    setTaskLocalList(getDefaultTasks.data.tasks);
 
     // Set default selected task
     const defaultTasks = getDefaultTasks.data.tasks;
     const defaultTaskId = defaultTasks[0]._id;
-    console.log("defaut task id: ", defaultTaskId);
     setSelectedTask(defaultTaskId);
     return projectsHasTasks;
   };
@@ -56,7 +56,7 @@ const NewTimeForm = ({ setOpen }: Props) => {
     return { id: p._id, name: p.name };
   });
 
-  const taskOptions: any = taskList.map((t) => {
+  const taskOptions: any = taskLocalList.map((t) => {
     return { id: t._id, name: t.name };
   });
 
@@ -67,10 +67,9 @@ const NewTimeForm = ({ setOpen }: Props) => {
       { params: { project_id: selectedProject } }
     );
     const tasks = getTasks.data.tasks;
-    setTaskList(tasks);
+    setTaskLocalList(tasks);
 
     // set default selected task according to selected project
-    console.log("task list: ", tasks[0]._id);
     setSelectedTask("");
     setSelectedTask(tasks[0]._id);
 
@@ -79,7 +78,7 @@ const NewTimeForm = ({ setOpen }: Props) => {
 
   const handleProjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedProject(event.target.value);
-    setTaskList([]);
+    setTaskLocalList([]);
     getTasksBySelectedProject(event.target.value);
   };
 
@@ -90,23 +89,29 @@ const NewTimeForm = ({ setOpen }: Props) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("task id: ", selectedTask);
-    console.log("you clicked: ");
     if (selectedTask) {
       try {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
-        console.log("added time tracking: ", result.data.task);
+
+        const updatedTask = result.data.task;
+        const updatedTaskList = taskList.map((t) => {
+          if (t._id == updatedTask._id) {
+            return (t = updatedTask);
+          }
+          return t;
+        });
+
+        setTaskList([]);
+        setTaskList(updatedTaskList);
+
         setOpen(false);
-        navigate(`/time`);
       } catch (error) {
         console.log("Error message: ", error);
       }
     }
   };
-
-  console.log("selected task: ", selectedTask);
 
   useEffect(() => {
     getUsersAllProjects();
@@ -145,8 +150,7 @@ const NewTimeForm = ({ setOpen }: Props) => {
           ) : (
             <>Loading Project Options</>
           )}
-          {/* </div>
-        <div> */}
+
           {taskOptions.length ? (
             <>
               <TextField

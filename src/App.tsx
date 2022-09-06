@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import { Route, Routes } from "react-router-dom";
-
 import "./App.scss";
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
@@ -9,12 +7,10 @@ import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
 import SingleClient from "./pages/clients/singleClient";
 import EditSingleClient from "./pages/clients/editSingleClients";
-
 import Projects from "./pages/projects/projects";
 import NewProject from "./pages/projects/newProjectForm";
 import SingleProject from "./pages/projects/singleProject";
 import EditProjectForm from "./pages/projects/editProjectForm";
-
 import Tasks from "././pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
 import SingleTask from "./pages/tasks/singleTask";
@@ -25,7 +21,6 @@ import Page404 from "./pages/notFound/Page404";
 import { ClientGlobalContext } from "./context/clientContext";
 import Dashboard from "./pages/dashboard/dashboard";
 import Time from "./pages/timeTracking/time";
-
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -34,19 +29,16 @@ function App() {
   const [userId, setUserId] = useState("6310b08c2af46259c5514504"); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
 
   useEffect(() => {
-    console.log("user id: ", `${process.env.REACT_APP_BACKEND_URL}`);
     const getClients = async () => {
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/clients`,
         { params: { user_id: userId } }
-      ); // add query user_id as 2nd param: {params: {user_id: userId}}
+      );
       setClientList(result.data);
     };
 
     getClients();
   }, []);
-
-  console.log("client list: ", clientList);
 
   return (
     <ClientGlobalContext.Provider
