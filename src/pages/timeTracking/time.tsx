@@ -35,6 +35,7 @@ const Time = () => {
   const handleClose = () => setOpen(false);
   const [taskList, setTaskList] = useState<Task[]>([]);
   const { userId } = useGlobalContext();
+
   if (taskList.length) {
     console.log("task list: ", taskList);
   }

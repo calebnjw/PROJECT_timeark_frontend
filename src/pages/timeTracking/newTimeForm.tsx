@@ -34,6 +34,8 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
       { params: { user_id: userId } }
     );
     const projects = getProjects.data.projects;
+    // console.log("projects: ", projects);
+
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     setProjectList(projectsHasTasks);
 
@@ -94,17 +96,25 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
-
         const updatedTask = result.data.task;
-        const updatedTaskList = taskList.map((t) => {
-          if (t._id == updatedTask._id) {
-            return (t = updatedTask);
-          }
-          return t;
-        });
-
-        setTaskList([]);
-        setTaskList(updatedTaskList);
+        // Check if task already exists in taskList,
+        const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
+        if (isNewTask) {
+          // If task already exists then update task
+          const updatedTaskList = taskList.map((t) => {
+            if (t._id == updatedTask._id) {
+              t = updatedTask;
+            }
+            return t;
+          });
+          setTaskList([]);
+          setTaskList(updatedTaskList);
+        } else {
+          //if not, add it to task list
+          const updatedTaskList = [...taskList, updatedTask];
+          setTaskList([]);
+          setTaskList(updatedTaskList);
+        }
 
         setOpen(false);
       } catch (error) {
