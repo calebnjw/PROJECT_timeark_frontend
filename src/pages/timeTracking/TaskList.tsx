@@ -1,8 +1,27 @@
 import { format } from "date-fns";
 import { useEffect } from "react";
 import { Task } from "../../types/task";
-import { useGlobalContext } from "../../context/clientContext";
 import ShowTimer from "./ShowTimer";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import EditTimeTrackingForm from "./editTimeTrackingForm";
+import { useGlobalContext } from "../../context/clientContext";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 470,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -17,6 +36,10 @@ const TaskList = (props: Props) => {
   const taskList = props.taskList;
   const setTaskList = props.setTaskList;
   const { userId } = useGlobalContext();
+  const today = format(new Date(), "yyyy-MM-dd");
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -41,10 +64,6 @@ const TaskList = (props: Props) => {
     const hours = timeDifference / (1000 * 60 * 60);
     return hours.toFixed(2);
   };
-
-  function padTo2Digits(num: number) {
-    return num.toString().padStart(2, "0");
-  }
 
   const handleStopTimer = async (taskId: string, timerId: string) => {
     if (taskId && timerId) {
@@ -87,20 +106,49 @@ const TaskList = (props: Props) => {
                               Task Name: {task.name} | Time Spent:{" "}
                               {computeTime(time.endDate, time.startDate)} {"H"}
                             </b>
-                            <button>Edit</button>
+                            <>
+                              <button onClick={handleOpen}>Edit</button>
+                              {/* <Button onClick={handleOpen}>Edit</Button> */}
+
+                              {/* Modal Window: edit time tracking */}
+                              <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                              >
+                                <Box sx={style}>
+                                  <Typography
+                                    id="modal-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    <EditTimeTrackingForm
+                                    // setOpen={setOpen}
+                                    // taskList={taskList}
+                                    // setTaskList={setTaskList}
+                                    // userId={userId}
+                                    />
+                                  </Typography>
+                                  <Typography
+                                    id="modal-modal-description"
+                                    sx={{ mt: 2 }}
+                                  >
+                                    Please select your project and task to start
+                                    tracker. Happy Working!
+                                  </Typography>
+                                </Box>
+                              </Modal>
+                            </>
                           </>
                         ) : (
                           <>
                             <b style={{ backgroundColor: "pink" }}>
                               Task Name: {task.name} | Time Spent:{" "}
-                              {/* {computeTime(new Date(), time.startDate)} {" | "} */}
-                              {/* {"timer will be showing here: "} */}
-                              {/* {setStartDate(time.startDate)} */}
                               <span>{<ShowTimer />}</span>
                             </b>
                             <button
                               onClick={() => {
-                                // console.log("time id: ", time._id);
                                 handleStopTimer(task._id, time._id);
                               }}
                             >
@@ -118,7 +166,11 @@ const TaskList = (props: Props) => {
       </div>
     );
   } else {
-    return <div>You haven't done any task today.</div>;
+    if (today === selectedDate) {
+      return <>Loading Data</>;
+    } else {
+      return <>You haven't done any task here.</>;
+    }
   }
 };
 
