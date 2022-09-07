@@ -38,7 +38,7 @@ function App() {
   const [clientList, setClientList] = useState<[]>([]);
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>(""); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
+  const [userId, setUserId] = useState<string>("");
 
   // get user info
   useEffect(() => {
@@ -59,7 +59,7 @@ function App() {
         const result = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/clients`,
           {
-            params: { user_id: userProfile?._id },
+            params: { user_id: userProfile._id },
           }
         );
         setClientList(result.data);
