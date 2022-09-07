@@ -32,6 +32,7 @@ function Profile() {
                   src={userProfile?.photos[0].value}
                   // src="https://www.redditstatic.com/avatars/avatar_default_02_0DD3BB.png"
                   alt={`${userProfile?.displayName}'s profile`}
+                  referrerPolicy="no-referrer"
                 ></img>
                 <h1>Hello {`${userProfile.displayName}`}</h1>
               </div>
