@@ -65,12 +65,14 @@ const EditTaskForm = () => {
       name: { value: string };
       category: { value: string };
       project_id: { value: string };
+      isDone: { value: boolean };
     };
 
     const updateTask = {
       name: target.name.value,
       category: target.category.value,
       project_id: target.project_id.value,
+      isDone: target.isDone.value,
     };
 
     console.log("update task: ", updateTask);
@@ -138,19 +140,31 @@ const EditTaskForm = () => {
           {!categoryExists ? (
             <></>
           ) : (
-            <TextField
-              select
-              name="category"
-              label="*Category"
-              sx={{ width: 600 }}
-              defaultValue={task.category}
-            >
-              {categoryList.map((category) => (
-                <MenuItem key={category} value={category}>
-                  {category}
-                </MenuItem>
-              ))}
-            </TextField>
+            <>
+              <TextField
+                select
+                name="category"
+                label="*Category"
+                sx={{ width: 600 }}
+                defaultValue={task.category}
+              >
+                {categoryList.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                select
+                name="isDone"
+                label="*Status"
+                sx={{ width: 600 }}
+                defaultValue={task.isDone}
+              >
+                <MenuItem value={false as any}>In Progress</MenuItem>
+                <MenuItem value={true as any}>Done</MenuItem>
+              </TextField>
+            </>
           )}
           <Button type="submit" value="Submit" variant="contained">
             Update Task

@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
@@ -8,17 +8,16 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-// import Typography from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Project } from "../../types/project";
-// import DatesButton from "../tasks/datesButtons";
+// import DatesButton from "../timeTracking/datesButtons";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const NewTaskFrom = () => {
-  const { clientList, setClientList, dates, selectedDate, setSelectedDate } =
-    useGlobalContext();
+  const { clientList, setClientList } = useGlobalContext();
   const [projectExists, setProjectExists] = useState<boolean>(false);
   const [categoryExists, setCategoryExist] = useState<boolean>(false);
   const [projectList, setProjectList] = useState<Project[]>([]);
@@ -119,11 +118,7 @@ const NewTaskFrom = () => {
     <>
       <Navbar />
       <Sidebar />
-      {/* <DatesButton
-        dates={dates}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-      /> */}
+
       <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
         <Button
           color="secondary"

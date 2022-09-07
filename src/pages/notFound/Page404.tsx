@@ -6,7 +6,7 @@ const Page404 = () => {
     <div>
       <h1>Page404</h1>
       <p>Page is not found!</p>
-      <Link to="/home">Back To Home</Link>
+      <Link to="/">Back To Home</Link>
     </div>
   );
 };

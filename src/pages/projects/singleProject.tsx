@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
@@ -16,7 +16,6 @@ const SingleProject = () => {
   const navigate = useNavigate();
   const { clientList } = useGlobalContext();
   let { project_id } = useParams();
-  console.log("project id: ", project_id);
   const [project, setProject] = useState<Project>();
   const [taskList, setTaskList] = useState<Task[]>();
   const client = clientList.find((c) => {

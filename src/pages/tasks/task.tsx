@@ -7,7 +7,7 @@ import { DateTime } from "luxon";
 import { Spinner } from "../../components/spinner/spinner";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import DatesButton from "../tasks/datesButtons";
+import DatesButton from "../timeTracking/datesButtons";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
@@ -23,8 +23,7 @@ const Tasks = () => {
   // const [dates, setDates] = useState<Dates[]>([]);
   // const [selectedDate, setSelectedDates] = useState<string>("");
   const [projectList, setProjectList] = useState<Project[]>([]);
-  const { clientList, setClientList, dates, selectedDate, setSelectedDate } =
-    useGlobalContext();
+  const { clientList, setClientList } = useGlobalContext();
 
   // function DatesArray() {
   //   const datesArr = [];
@@ -49,11 +48,11 @@ const Tasks = () => {
       <Navbar />
       <Sidebar />
       <TaskSideBar />
-      <DatesButton
+      {/* <DatesButton
         dates={dates}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
-      />
+      /> */}
       <Footer />
     </>
   );
