@@ -53,7 +53,7 @@ function Onboard() {
       });
       console.log(result.data);
     }
-    navigate("/profile");
+    navigate("/dashboard");
   };
 
   // a whole bunch of state change handlers
