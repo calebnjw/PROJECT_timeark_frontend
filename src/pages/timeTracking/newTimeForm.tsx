@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Button from "@mui/material/Button";
 import { useGlobalContext } from "../../context/clientContext";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -199,7 +199,6 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
             Cancel
           </Button>
         </div>
-        {/* </form> */}
       </Box>
     </div>
   );

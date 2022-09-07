@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Task } from "../../types/task";
 import ShowTimer from "./ShowTimer";
 import * as React from "react";
@@ -40,6 +40,9 @@ const TaskList = (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
+    React.useState("");
+  const [selectedTaskId, setSelectedTaskId] = React.useState("");
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -87,6 +90,16 @@ const TaskList = (props: Props) => {
     }
   };
 
+  const showEditTimeTrackingModal = (
+    taskId: string,
+    timeTrackingId: string
+  ) => {
+    handleOpen();
+    console.log("openned");
+    setSelectedTaskId(taskId);
+    setSelectedTimeTrackingId(timeTrackingId);
+  };
+
   if (taskList.length) {
     return (
       <div>
@@ -107,38 +120,16 @@ const TaskList = (props: Props) => {
                               {computeTime(time.endDate, time.startDate)} {"H"}
                             </b>
                             <>
-                              <button onClick={handleOpen}>Edit</button>
-                              {/* <Button onClick={handleOpen}>Edit</Button> */}
+                              <button
+                                onClick={() => {
+                                  console.log("you clicked");
 
-                              {/* Modal Window: edit time tracking */}
-                              <Modal
-                                open={open}
-                                onClose={handleClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
+                                  showEditTimeTrackingModal(task._id, time._id);
+                                }}
                               >
-                                <Box sx={style}>
-                                  <Typography
-                                    id="modal-modal-title"
-                                    variant="h6"
-                                    component="h2"
-                                  >
-                                    <EditTimeTrackingForm
-                                    // setOpen={setOpen}
-                                    // taskList={taskList}
-                                    // setTaskList={setTaskList}
-                                    // userId={userId}
-                                    />
-                                  </Typography>
-                                  <Typography
-                                    id="modal-modal-description"
-                                    sx={{ mt: 2 }}
-                                  >
-                                    Please select your project and task to start
-                                    tracker. Happy Working!
-                                  </Typography>
-                                </Box>
-                              </Modal>
+                                Edit
+                              </button>
+                              {/* <Button onClick={handleOpen}>Edit</Button> */}
                             </>
                           </>
                         ) : (
@@ -162,6 +153,32 @@ const TaskList = (props: Props) => {
                 </li>
               ))}
           </ul>
+        </div>
+        <div>
+          {/* Modal Window: edit time tracking */}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <EditTimeTrackingForm
+                  setOpen={setOpen}
+                  taskList={taskList}
+                  setTaskList={setTaskList}
+                  userId={userId}
+                  selectedTaskId={selectedTaskId}
+                  selectedTimeTrackingId={selectedTimeTrackingId}
+                />
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Please select your project and task to start tracker. Happy
+                Working!
+              </Typography>
+            </Box>
+          </Modal>
         </div>
       </div>
     );
