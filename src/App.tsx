@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import Dashboard from "./pages/dashboard/dashboard";
-
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Home from "./pages/home/home";
@@ -15,7 +14,6 @@ import InvoicePage from "./pages/invoices/InvoicePage";
 import GenerateInvoice from "./pages/invoices/GenerateInvoice";
 import InvoiceForm from "./pages/invoices/newInvoiceForm";
 import EditSingleClient from "./pages/clients/editSingleClients";
-
 import Projects from "./pages/projects/projects";
 import NewProject from "./pages/projects/newProjectForm";
 import EditProjectForm from "./pages/projects/editProjectForm";
@@ -31,48 +29,31 @@ import { ClientGlobalContext } from "./context/clientContext";
 import { Dates } from "./types/tasks";
 import { DateTime } from "luxon";
 import Time from "./pages/timeTracking/time";
-
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
-  const [dates, setDates] = useState<Dates[]>([]);
-  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [userId, setUserId] = useState("6310b08c2af46259c5514504"); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
 
   useEffect(() => {
     const getClients = async () => {
       const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/clients`
-      ); // add query user_id as 2nd param: {params: {user_id: userId}}
+        `${process.env.REACT_APP_BACKEND_URL}/clients`,
+        { params: { user_id: userId } }
+      );
       setClientList(result.data);
     };
 
-    const DatesArray = async () => {
-      const datesArr = [];
-      let dt = DateTime.now();
-      for (let i = 4; i >= 0; i--) {
-        datesArr.push({
-          display: dt.minus({ days: i }).toFormat("dd LLL"),
-          formatted: dt.minus({ days: i }).toFormat("yyyy-MM-dd"),
-        });
-      }
-      setDates(datesArr);
-      return dt;
-    };
     getClients();
-    DatesArray();
   }, []);
-  // console.log("client list: ", clientList);
 
   return (
     <ClientGlobalContext.Provider
       value={{
         clientList,
         setClientList,
-        dates,
-        selectedDate,
-        setSelectedDate,
+        userId,
       }}
     >
       <Routes>

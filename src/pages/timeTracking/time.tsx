@@ -10,8 +10,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-
+import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
+import { useGlobalContext } from "../../context/clientContext";
 
 const style = {
   position: "absolute" as "absolute",
@@ -32,6 +33,11 @@ const Time = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [taskList, setTaskList] = useState<Task[]>([]);
+  const { userId } = useGlobalContext();
+  if (taskList.length) {
+    console.log("task list: ", taskList);
+  }
 
   const showDetailsHandle = (dayStr: any) => {
     setData(dayStr);
@@ -42,8 +48,16 @@ const Time = () => {
     <>
       <Navbar />
       <Sidebar />
-      <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        style={{
+          width: "80%",
+          marginLeft: "20%",
+          marginTop: "80px",
+        }}
+      >
+        <div
+          style={{ display: "flex", flexDirection: "row", overflow: "auto" }}
+        >
           <div>
             <Button onClick={handleOpen}>+ New Tracker</Button>
             <Modal
@@ -54,7 +68,12 @@ const Time = () => {
             >
               <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                  <NewTimeForm />
+                  <NewTimeForm
+                    setOpen={setOpen}
+                    taskList={taskList}
+                    setTaskList={setTaskList}
+                    userId={userId}
+                  />
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   Please select your project and task to start tracker. Happy
@@ -68,9 +87,13 @@ const Time = () => {
         <br />
 
         {showDetails ? (
-          <TaskList data={data} />
+          <TaskList data={data} taskList={taskList} setTaskList={setTaskList} />
         ) : (
-          <TaskList data={String(today)} />
+          <TaskList
+            data={String(today)}
+            taskList={taskList}
+            setTaskList={setTaskList}
+          />
         )}
       </div>
       <Footer />

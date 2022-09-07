@@ -1,6 +1,7 @@
 export interface Time {
-  date: Date;
-  hours: number;
+  startDate: Date;
+  endDate: Date;
+  _id: string;
 }
 
 export interface Task {
@@ -8,7 +9,7 @@ export interface Task {
   name: string;
   category: string;
   isDone: boolean;
-  time_tracking: Time[];
+  time_trackings: Time[];
   project_id: string;
   createdAt: Date;
   updatedAt: Date;

@@ -5,8 +5,8 @@ export interface Project {
   rate: number;
   due_date: Date;
   category_name: [];
-  tasks: [];
-  invoices: [];
+  task_ids: [];
+  invoice_ids: [];
   client_id: string;
   createdAt: Date;
   updatedAt: Date;
