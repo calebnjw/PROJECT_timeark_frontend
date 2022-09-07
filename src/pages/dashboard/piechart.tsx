@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
-import { Project } from "../../types/project";
 import { useGlobalContext } from "../../context/clientContext";
+import { Typography, Box } from "@mui/material";
+import { Spinner } from "../../components/spinner/spinner";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function TimeSpentChart() {
-  // const [projectList, setProjectList] = useState<Project[]>([]);
-  const { clientList, setClientList } = useGlobalContext();
+  const { userId } = useGlobalContext();
+  const [getData, setGetData] = useState<any>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    // 1. get user id
-    // 2. get all the clients by the user -> client list done
-    // 3. get all the projects from the client -> from client list
-
-    const projectsArray: string[] = [];
-
-    clientList.forEach((client, idx) => {
-      projectsArray.push(...client.project_ids);
-      return projectsArray;
-    });
-    console.log("projectsArray", projectsArray);
-    // 4. get all the tasks from all the respective projects
-    // 4. Get all the hours spent from all projects
+    const pieChartData = async () => {
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/all`,
+        { params: { user_id: userId } }
+      );
+      setGetData(result.data);
+      setIsLoaded(true);
+    };
+    pieChartData();
+    console.log(getData.nameTimeArray);
   }, []);
 
   const option = {
     title: {
       text: "Time Spent Per Project",
       subtext: "In Hours",
+      left: "center",
     },
     tooltip: {
       trigger: "item",
@@ -44,13 +44,7 @@ function TimeSpentChart() {
         name: "Time Spent",
         type: "pie",
         radius: "50%",
-        data: [
-          { value: 1048, name: "Search Engine" },
-          { value: 700.5, name: "Direct" },
-          { value: 580, name: "Email" },
-          { value: 484, name: "Union Ads" },
-          { value: 300, name: "Video Ads" },
-        ],
+        data: getData.nameTimeArray,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -61,7 +55,18 @@ function TimeSpentChart() {
       },
     ],
   };
-  return <ReactEcharts option={option} />;
-}
 
+  return (
+    <div>
+      {!isLoaded ? (
+        <Box>
+          <Typography>Loading the client</Typography>
+          <Spinner />
+        </Box>
+      ) : (
+        <ReactEcharts option={option} />
+      )}
+    </div>
+  );
+}
 export default TimeSpentChart;
