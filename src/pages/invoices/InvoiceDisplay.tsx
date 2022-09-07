@@ -7,6 +7,19 @@ import Navbar from "../../components/navbar";
 
 const InvoiceDisplay = () => {
 
+  //what we need >>>>
+  //invoice from: user's name
+  //invoice for: client name & address
+  //invoice ID
+  //Issued date
+  //due date
+  //Task: task name
+  //Description: Category 
+  //Hours
+  //Rate
+  //Amount
+  //Total Amount (final)
+
   return (
     <>
       <Navbar />

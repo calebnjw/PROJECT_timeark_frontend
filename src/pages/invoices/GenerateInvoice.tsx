@@ -13,23 +13,20 @@ import { TableProps } from "../../types/invoiceTypes"
 import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import { TabUnselected } from "@mui/icons-material";
+import { conformsTo } from "lodash";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 //===============================props==============================//
-interface Props {
-  clientId?: (value: string) => void;
-  setClientId?: (value: string) => void;
-  client?: Client;
-}
+
 
 //===============================return==============================//
 
-const GenerateInvoice = (props: Props) => {
+const GenerateInvoice = () => {
   const navigate = useNavigate();
-  const { clientId, setClientId } = props;
-  const [client, setClient] = useState("");
+  const [clientId, setClientId] = useState("");
+  const [client, setClient] = useState<Client>();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [project, setProject] = useState<Project>();
   const { clientList } = useContext(ClientGlobalContext);
@@ -44,6 +41,7 @@ const GenerateInvoice = (props: Props) => {
       try {
         const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${project_id}`)
         setProject(result.data.project);
+        setClientId(result.data.project.client_id)
         console.log("GenerateInvoice projectData :" , result.data)
       } catch(err){
         console.log(err)
@@ -53,6 +51,21 @@ const GenerateInvoice = (props: Props) => {
   }, [])
 
 
+  useEffect(() => {
+    if(clientId){
+      console.log(clientId)
+      const clientData = async() => {
+        try {
+          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`)
+          setClient(result.data[0])
+          console.log("Client data: ", result.data[0])
+        } catch(err){
+          console.log(err)
+        }
+      }
+      clientData();
+    }
+  }, [clientId])
   //query clientName
   // useEffect(() => {
   //     function singleClientData (
@@ -101,7 +114,7 @@ const GenerateInvoice = (props: Props) => {
         </div>
         <div
           className="generate-invoice-container"
-          style={{ width: "70%", paddingLeft: "300px" }}
+          style={{ width: "70%", paddingLeft: "500px" }}
         >
           <Table>
             <TableRow sx={{ "& td": { border: 0 } }}>
@@ -110,17 +123,11 @@ const GenerateInvoice = (props: Props) => {
             </TableRow>
             <TableRow sx={{ "& td": { border: 0 } }}>
               <TableCell align="left">Client Name: </TableCell>
-              <TableCell align="left">{}</TableCell>
+              <TableCell align="left">{client?.client_name}</TableCell>
             </TableRow>
-            <TableRow sx={{ "& td": { border: 0 } }}>
-              <TableCell align="left">Unbilled Hours: </TableCell>
-              <TableCell align="left">10 hours 30mins</TableCell>
-              <TableCell align="right">
                 <Button variant="outlined" onClick={handleGenerateInvoice}>
                   Generate Invoice
                 </Button>
-              </TableCell>
-            </TableRow>
           </Table>
           {/* <MyTable/> */}
         </div>
