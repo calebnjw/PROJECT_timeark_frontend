@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Link, Outlet, Route, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Box, Divider, Grid, TextField } from "@mui/material";
 
-import { User, Name, Email, Photo } from "../../../types/user";
-import { Billing } from "../../../types/billingDetails";
+import { useUserContext } from "../../../context/userContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-// interface Props {
-//   userProfile: User;
-// }
-
 function ProfileInfo() {
-  const [userProfile, setUserProfile] = useState<User>();
+  const { userProfile } = useUserContext();
+  // const [userProfile, setUserProfile] = useState<User>();
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-      setUserProfile(result.data.user);
-    };
-    getProfile();
-  }, []);
+  // useEffect(() => {
+  //   const getProfile = async () => {
+  //     const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+  //     setUserProfile(result.data.user);
+  //   };
+  //   getProfile();
+  // }, []);
 
   return (
     <>
@@ -61,7 +57,7 @@ function ProfileInfo() {
               </p>
             </div>
           )}
-          <Button component={Link} to="/profile/edit">
+          <Button variant="contained" component={Link} to="/profile/edit">
             Edit Information
           </Button>
         </div>

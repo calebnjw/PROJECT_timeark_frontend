@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, Route, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Box, Divider, Grid, TextField } from "@mui/material";
 
-import { User, Name, Email, Photo } from "../../../types/user";
-import { Billing } from "../../../types/billingDetails";
+import { useUserContext } from "../../../context/userContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function ProfileEdit() {
   // user profile
-  const [userProfile, setUserProfile] = useState<User>();
+  const { userProfile } = useUserContext();
+  // const [userProfile, setUserProfile] = useState<User>();
   // names
   const [familyName, setFamilyName] = useState<string>("");
   const [givenName, setGivenName] = useState<string>("");
@@ -29,13 +29,13 @@ function ProfileEdit() {
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-      setUserProfile(result.data.user);
-    };
-    getProfile();
-  }, []);
+  // useEffect(() => {
+  //   const getProfile = async () => {
+  //     const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+  //     setUserProfile(result.data.user);
+  //   };
+  //   getProfile();
+  // }, []);
 
   // setting initial values of fields
   useEffect(() => {
@@ -86,9 +86,6 @@ function ProfileEdit() {
   const handleUpdate = async () => {
     if (userProfile) {
       const updatedProfile = {
-        _id: userProfile._id,
-        provider: userProfile.provider,
-        externalId: userProfile.externalId,
         displayName: `${givenName} ${familyName}`,
         name: {
           familyName,
@@ -96,8 +93,8 @@ function ProfileEdit() {
           middleName,
         },
         // not changing for now, since we're only using google login
-        emails: userProfile.emails,
-        photos: userProfile.photos,
+        // emails: userProfile.emails,
+        // photos: userProfile.photos,
         billingDetails: {
           companyName,
           buildingName,
@@ -173,17 +170,20 @@ function ProfileEdit() {
               <TextField
                 required
                 label="First Name"
+                value={givenName}
                 defaultValue={userProfile.name.givenName}
                 onChange={userGivenNameChange}
               />
               <TextField
                 label="Middle Name"
+                value={middleName}
                 defaultValue={userProfile.name.middleName}
                 onChange={userMiddleNameChange}
               />
               <TextField
                 required
                 label="Family Name"
+                value={familyName}
                 defaultValue={userProfile.name.familyName}
                 onChange={userFamilyNameChange}
               />
@@ -192,16 +192,12 @@ function ProfileEdit() {
               <h3>Email</h3>
               {(userProfile.provider && (
                 // disable editing of email if it's provided by external service
-                <TextField
-                  disabled
-                  label="Email"
-                  defaultValue={userProfile.emails[0].value}
-                  onChange={userEmailChange}
-                />
+                <TextField disabled label="Email" defaultValue={userProfile.emails[0].value} />
               )) || (
                 <TextField
                   required
                   label="Email"
+                  value={email}
                   defaultValue={userProfile.emails[0].value}
                   onChange={userEmailChange}
                 />
@@ -212,6 +208,7 @@ function ProfileEdit() {
               <TextField
                 required
                 label="Company Name"
+                value={companyName}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.companyName) || ""
                 }
@@ -219,6 +216,7 @@ function ProfileEdit() {
               />
               <TextField
                 label="Registration Number"
+                value={companyRegistration}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.companyRegistration) ||
                   ""
@@ -228,6 +226,7 @@ function ProfileEdit() {
               <TextField
                 required
                 label="Contact Number"
+                value={contactNumber}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
                 }
@@ -236,6 +235,7 @@ function ProfileEdit() {
               <h3>Address</h3>
               <TextField
                 label="Building Name"
+                value={buildingName}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
                 }
@@ -244,6 +244,7 @@ function ProfileEdit() {
               <TextField
                 required
                 label="Street Name"
+                value={streetName}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
                 }
@@ -251,6 +252,7 @@ function ProfileEdit() {
               />
               <TextField
                 label="Unit Number"
+                value={unitNumber}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
                 }
@@ -259,6 +261,7 @@ function ProfileEdit() {
               <TextField
                 required
                 label="Postal Code"
+                value={postalCode}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
                 }
@@ -267,12 +270,14 @@ function ProfileEdit() {
               <TextField
                 required
                 label="City"
+                value={city}
                 defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
                 onChange={userCityChange}
               />
               <TextField
                 required
                 label="Country"
+                value={country}
                 defaultValue={
                   (userProfile.billingDetails && userProfile.billingDetails.country) || ""
                 }
@@ -281,11 +286,15 @@ function ProfileEdit() {
             </div>
           </div>
           <div>
-            <Button onClick={handleDeleteUser}>Delete Account</Button>
+            <Button variant="contained" color="warning" onClick={handleDeleteUser}>
+              Delete Account
+            </Button>
             <Button component={Link} to="/profile">
               Cancel
             </Button>
-            <Button onClick={handleUpdate}>Save</Button>
+            <Button variant="contained" onClick={handleUpdate}>
+              Save
+            </Button>
           </div>
         </>
       )}

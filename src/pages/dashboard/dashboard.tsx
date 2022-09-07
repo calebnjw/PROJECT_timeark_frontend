@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useGlobalContext } from "../../context/clientContext";
 import TimeSpentChart from "./piechart";
 import DashboardList from "./dashboardlist";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
+import { useUserContext } from "../../context/userContext";
 
 const Dashboard = () => {
   const { clientList, setClientList } = useGlobalContext();
+  const { newUser } = useUserContext();
+
+  let navigate = useNavigate();
+  // redirect user to fill in billing details on first time loggin in
+  if (newUser) navigate("/onboard");
 
   return (
     <>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, Route } from "react-router-dom";
-import { Button, Box, Divider, Grid } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import { Divider } from "@mui/material";
+
+import { useUserContext } from "../../context/userContext";
 
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
@@ -14,15 +16,15 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function Profile() {
-  const [userProfile, setUserProfile] = useState<User>();
+  const { userProfile } = useUserContext();
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-      setUserProfile(result.data.user);
-    };
-    getProfile();
-  }, []);
+  // useEffect(() => {
+  //   const getProfile = async () => {
+  //     const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+  //     setUserProfile(result.data.user);
+  //   };
+  //   getProfile();
+  // }, []);
 
   return (
     <>

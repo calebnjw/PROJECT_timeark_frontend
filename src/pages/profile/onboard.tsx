@@ -2,20 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet, Route, useLocation, useNavigate } from "react-router-dom";
 import { Button, Box, Divider, Grid, TextField } from "@mui/material";
 
-import { User, Name, Email, Photo } from "../../types/user";
+import { User } from "../../types/user";
 import { Billing } from "../../types/billingDetails";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-function ProfileEdit() {
+function Onboard() {
   // user profile
   const [userProfile, setUserProfile] = useState<User>();
-  // names
-  const [familyName, setFamilyName] = useState<string>("");
-  const [givenName, setGivenName] = useState<string>("");
-  const [middleName, setMiddleName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   // billing details
   const [companyName, setCompanyName] = useState<string>("");
   const [buildingName, setBuildingName] = useState<string>("");
@@ -37,58 +32,9 @@ function ProfileEdit() {
     getProfile();
   }, []);
 
-  // setting initial values of fields
-  useEffect(() => {
-    if (userProfile) {
-      setFamilyName(userProfile.name.familyName);
-      setGivenName(userProfile.name.givenName);
-      userProfile.name.middleName ? setMiddleName(userProfile.name.familyName) : setMiddleName("");
-      setEmail(userProfile.emails[0].value);
-      if (userProfile.billingDetails) {
-        userProfile.billingDetails.companyName
-          ? setCompanyName(userProfile.billingDetails.companyName)
-          : setCompanyName("");
-        userProfile.billingDetails.buildingName
-          ? setBuildingName(userProfile.billingDetails.buildingName)
-          : setBuildingName("");
-        userProfile.billingDetails.unitNumber
-          ? setUnitNumber(userProfile.billingDetails.unitNumber)
-          : setUnitNumber("");
-        userProfile.billingDetails.streetName
-          ? setStreetName(userProfile.billingDetails.streetName)
-          : setStreetName("");
-        userProfile.billingDetails.city ? setCity(userProfile.billingDetails.city) : setCity("");
-        userProfile.billingDetails.country
-          ? setCountry(userProfile.billingDetails.country)
-          : setCountry("");
-        userProfile.billingDetails.postalCode
-          ? setPostalCode(userProfile.billingDetails.postalCode)
-          : setPostalCode("");
-        userProfile.billingDetails.contactNumber
-          ? setContactNumber(userProfile.billingDetails.contactNumber)
-          : setContactNumber("");
-        userProfile.billingDetails.companyRegistration
-          ? setContactNumber(userProfile.billingDetails.companyRegistration)
-          : setCompanyRegistration("");
-      }
-    }
-  }, [userProfile]);
-
   const handleUpdate = async () => {
     if (userProfile) {
       const updatedProfile = {
-        _id: userProfile._id,
-        provider: userProfile.provider,
-        externalId: userProfile.externalId,
-        displayName: `${givenName} ${familyName}`,
-        name: {
-          familyName,
-          givenName,
-          middleName,
-        },
-        // not changing for now, since we're only using google login
-        emails: userProfile.emails,
-        photos: userProfile.photos,
         billingDetails: {
           companyName,
           buildingName,
@@ -110,19 +56,7 @@ function ProfileEdit() {
     navigate("/profile");
   };
 
-  // a whole bunch of state changes
-  const userFamilyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFamilyName(e.target.value);
-  };
-  const userGivenNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGivenName(e.target.value);
-  };
-  const userMiddleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMiddleName(e.target.value);
-  };
-  const userEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  // a whole bunch of state change handlers
   const userCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompanyName(e.target.value);
   };
@@ -153,121 +87,89 @@ function ProfileEdit() {
 
   return (
     <>
-      {!userProfile && <h1>You are not logged in.</h1>}
+      {!userProfile && <h1>Please log in.</h1>}
       {userProfile && (
         <div>
-          <div>
-            <h3>Name</h3>
-            <TextField
-              required
-              label="First Name"
-              defaultValue={userProfile.name.givenName}
-              onChange={userGivenNameChange}
-            />
-            <TextField
-              label="Middle Name"
-              defaultValue={userProfile.name.middleName}
-              onChange={userMiddleNameChange}
-            />
-            <TextField
-              required
-              label="Family Name"
-              defaultValue={userProfile.name.familyName}
-              onChange={userFamilyNameChange}
-            />
-          </div>
-          <div>
-            <h3>Email</h3>
-            {(userProfile.provider && (
-              // disable editing of email if it's provided by external service
-              <TextField
-                disabled
-                label="Email"
-                defaultValue={userProfile.emails[0].value}
-                onChange={userEmailChange}
-              />
-            )) || (
-              <TextField
-                required
-                label="Email"
-                defaultValue={userProfile.emails[0].value}
-                onChange={userEmailChange}
-              />
-            )}
-          </div>
-          <div>
-            <h3>Billing Details</h3>
-            <TextField
-              required
-              label="Company Name"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.companyName) || ""
-              }
-              onChange={userCompanyNameChange}
-            />
-            <TextField
-              label="Registration Number"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.companyRegistration) || ""
-              }
-              onChange={userCompanyRegistrationChange}
-            />
-            <TextField
-              required
-              label="Contact Number"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
-              }
-              onChange={userContactNumberChange}
-            />
-            <h3>Address</h3>
-            <TextField
-              label="Building Name"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
-              }
-              onChange={userBuildingNameChange}
-            />
-            <TextField
-              required
-              label="Street Name"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
-              }
-              onChange={userStreetNameChange}
-            />
-            <TextField
-              label="Unit Number"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
-              }
-              onChange={userUnitNumberChange}
-            />
-            <TextField
-              required
-              label="Postal Code"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
-              }
-              onChange={userPostalCodeChange}
-            />
-            <TextField required label="City" defaultValue={city} onChange={userCityChange} />
-            <TextField
-              required
-              label="Country"
-              defaultValue={
-                (userProfile.billingDetails && userProfile.billingDetails.country) || ""
-              }
-              onChange={userCountryChange}
-            />
-          </div>
+          <h3>Save Your Billing Information</h3>
+          <p>This information will be filled into the invoices that you generate. </p>
+          <br />
+          <TextField
+            required
+            label="Company Name"
+            defaultValue={
+              (userProfile.billingDetails && userProfile.billingDetails.companyName) || ""
+            }
+            onChange={userCompanyNameChange}
+          />
+          <TextField
+            label="Registration Number"
+            defaultValue={
+              (userProfile.billingDetails && userProfile.billingDetails.companyRegistration) || ""
+            }
+            onChange={userCompanyRegistrationChange}
+          />
+          <TextField
+            required
+            label="Contact Number"
+            defaultValue={
+              (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
+            }
+            onChange={userContactNumberChange}
+          />
+          <h3>Address</h3>
+          <TextField
+            label="Building Name"
+            defaultValue={
+              (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
+            }
+            onChange={userBuildingNameChange}
+          />
+          <TextField
+            required
+            label="Street Name"
+            defaultValue={
+              (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
+            }
+            onChange={userStreetNameChange}
+          />
+          <TextField
+            label="Unit Number"
+            defaultValue={
+              (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
+            }
+            onChange={userUnitNumberChange}
+          />
+          <TextField
+            required
+            label="Postal Code"
+            defaultValue={
+              (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
+            }
+            onChange={userPostalCodeChange}
+          />
+          <TextField
+            required
+            label="City"
+            defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
+            onChange={userCityChange}
+          />
+          <TextField
+            required
+            label="Country"
+            defaultValue={(userProfile.billingDetails && userProfile.billingDetails.country) || ""}
+            onChange={userCountryChange}
+          />
+          <br />
+          <br />
         </div>
       )}
       <div>
-        <Button onClick={handleUpdate}>Save</Button>
+        <Button variant="contained" onClick={handleUpdate}>
+          Done!
+        </Button>
       </div>
     </>
   );
 }
 
-export default ProfileEdit;
+export default Onboard;
