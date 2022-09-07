@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
-import { useGlobalContext } from "../../context/clientContext";
+import { useUserContext } from "../../context/userContext";
 import { Typography, Box } from "@mui/material";
 import { Spinner } from "../../components/spinner/spinner";
 
@@ -8,22 +8,25 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function TimeSpentChart() {
-  const { userId } = useGlobalContext();
+  const { userProfile } = useUserContext();
   const [getData, setGetData] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(userProfile);
     const pieChartData = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/tasks/all`,
-        { params: { user_id: userId } }
-      );
-      setGetData(result.data);
-      setIsLoaded(true);
+      if (userProfile) {
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/tasks/all`,
+          { params: { user_id: userProfile._id } }
+        );
+        setGetData(result.data);
+        setIsLoaded(true);
+      }
     };
     pieChartData();
     console.log(getData.nameTimeArray);
-  }, []);
+  }, [userProfile]);
 
   const option = {
     title: {

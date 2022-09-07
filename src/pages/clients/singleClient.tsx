@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useContext, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { Spinner } from "../../components/spinner/spinner";
-import { ClientGlobalContext } from "../../context/clientContext";
+import { useGlobalContext } from "../../context/clientContext";
 import { Client, Billing } from "../../types/client";
 
 import Button from "@mui/material/Button";
@@ -36,8 +36,7 @@ export default function SingleClient() {
   });
 
   let { clientId } = useParams();
-
-  const { clientList } = useContext(ClientGlobalContext);
+  let { clientList } = useGlobalContext();
 
   useEffect(() => {
     function getSingleClient(
