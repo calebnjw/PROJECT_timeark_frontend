@@ -13,9 +13,11 @@ import { useState } from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const newProjectForm = () => {
+const NewProjectForm = () => {
   const { clientList, setClientList } = useGlobalContext();
+
   const navigate = useNavigate();
+
   const clientOptions: any = clientList.map((c) => {
     return { id: c._id, name: c.client_name };
   });
@@ -137,4 +139,4 @@ const newProjectForm = () => {
   );
 };
 
-export default newProjectForm;
+export default NewProjectForm;

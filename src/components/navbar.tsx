@@ -25,9 +25,6 @@ export default function ButtonAppBar() {
                 marginLeft: "90px",
               }}
             >
-              <Button color="inherit" component={Link} to="/signup">
-                Signup
-              </Button>
               <Button color="inherit" component={Link} to="/login">
                 Login
               </Button>
