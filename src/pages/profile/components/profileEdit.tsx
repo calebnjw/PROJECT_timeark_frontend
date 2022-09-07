@@ -40,6 +40,7 @@ function ProfileEdit() {
   // setting initial values of fields
   useEffect(() => {
     if (userProfile) {
+      console.log("USER PROFILE", userProfile);
       setFamilyName(userProfile.name.familyName);
       setGivenName(userProfile.name.givenName);
       userProfile.name.middleName ? setMiddleName(userProfile.name.familyName) : setMiddleName("");
@@ -68,7 +69,7 @@ function ProfileEdit() {
           ? setContactNumber(userProfile.billingDetails.contactNumber)
           : setContactNumber("");
         userProfile.billingDetails.companyRegistration
-          ? setContactNumber(userProfile.billingDetails.companyRegistration)
+          ? setCompanyRegistration(userProfile.billingDetails.companyRegistration)
           : setCompanyRegistration("");
       }
     }
@@ -263,7 +264,12 @@ function ProfileEdit() {
                 }
                 onChange={userPostalCodeChange}
               />
-              <TextField required label="City" defaultValue={city} onChange={userCityChange} />
+              <TextField
+                required
+                label="City"
+                defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
+                onChange={userCityChange}
+              />
               <TextField
                 required
                 label="Country"
