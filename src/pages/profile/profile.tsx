@@ -28,56 +28,32 @@ function Profile() {
     <>
       <Navbar />
       <Sidebar />
-
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        {!userProfile && <h1>You are not logged in.</h1>}
         {userProfile && (
           <div>
             {userProfile.photos && (
-              <div style={{ display: "flex", flexDirection: "row" }}>
+              <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                 <img
-                  src={`${userProfile?.photos[0].value}`}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                    marginRight: "20px",
+                  }}
+                  // src={`${userProfile?.photos[0].value}`}
+                  src="https://www.redditstatic.com/avatars/avatar_default_02_0DD3BB.png"
                   alt={`${userProfile?.displayName}'s profile`}
                 ></img>
                 <h1>Hello {`${userProfile.displayName}`}</h1>
               </div>
             )}
             <Divider />
-            <div>
-              <h3>name: familyName: string; givenName: string; middleName?:</h3>
-              <p>{userProfile.name.familyName}</p>
-              <p>{userProfile.name.givenName}</p>
-              {userProfile.name.middleName && <p>{userProfile.name.middleName}</p>}
-              <h3>emails: IEmail[];</h3>
-              {!userProfile.emails && <p>No email address provided</p>}
-              {userProfile.emails && <p>{userProfile.emails[0].value}</p>}
-              <h3>billingDetails?: IBilling;</h3>
-              {!userProfile.billingDetails && <p>Please update your billing details</p>}
-              {userProfile.billingDetails && (
-                <div>
-                  <p>Company Name: {userProfile.billingDetails.company_name}</p>
-                  <p>Registration Number: {userProfile.billingDetails.company_registration}</p>
-                  <p>Address: </p>
-                  <p>
-                    {userProfile.billingDetails.building_name}
-                    <br />
-                    {userProfile.billingDetails.street_name}
-                    <br />
-                    {userProfile.billingDetails.unit_number}
-                    <br />
-                    {userProfile.billingDetails.postal_code}, {userProfile.billingDetails.city}{" "}
-                    <br />
-                    {userProfile.billingDetails.country}
-                    <br />
-                    {userProfile.billingDetails.contact_number}
-                    <br />
-                  </p>
-                </div>
-              )}
-            </div>
+            <Outlet />
           </div>
         )}
       </div>
+      {/* <Route path="edit" />
+      <Route path="new" /> */}
     </>
   );
 }

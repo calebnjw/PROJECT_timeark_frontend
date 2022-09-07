@@ -26,6 +26,8 @@ import EditTask from "./pages/tasks/editTask";
 import Invoices from "./pages/invoices/invoices";
 
 import Profile from "./pages/profile/profile";
+import ProfileInfo from "./pages/profile/components/profileInfo";
+import ProfileEdit from "./pages/profile/components/profileEdit";
 
 import Page404 from "./pages/notFound/Page404";
 
@@ -90,8 +92,6 @@ function App() {
           <Route path=":clientId/update" element={<EditSingleClient />} />
         */}
         {/* index route to be updated to whichever page to land on after login*/}
-        <Route index element={<Projects />} />
-
         <Route path="dashboard" element={<Dashboard />} />
 
         <Route path="clients" element={<Clients />} />
@@ -111,7 +111,10 @@ function App() {
 
         <Route path="invoices" element={<Invoices />} />
 
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<Profile />}>
+          <Route index element={<ProfileInfo />} />
+          <Route path="edit" element={<ProfileEdit />} />
+        </Route>
 
         {/* </Route> */}
         <Route path="*" element={<Page404 />} />
