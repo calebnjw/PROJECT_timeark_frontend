@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useGlobalContext } from "../../context/clientContext";
+import TimeSpentChart from "./piechart";
 import DashboardList from "./dashboardlist";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
@@ -39,6 +40,17 @@ const Dashboard = () => {
             </li>
           ))}
         </ul>
+      </div>
+      <div
+        style={{
+          width: "50%",
+          marginLeft: "20%",
+          marginTop: "80px",
+          border: "1px solid black",
+          backgroundColor: "pink",
+        }}
+      >
+        <TimeSpentChart />
       </div>
     </>
   );
