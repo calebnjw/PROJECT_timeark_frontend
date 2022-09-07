@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Box, Divider, Grid, TextField } from "@mui/material";
 
 import { useUserContext } from "../../../context/userContext";
@@ -9,17 +9,6 @@ axios.defaults.withCredentials = true;
 
 function ProfileInfo() {
   const { userProfile } = useUserContext();
-  // const [userProfile, setUserProfile] = useState<User>();
-
-  let navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const getProfile = async () => {
-  //     const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-  //     setUserProfile(result.data.user);
-  //   };
-  //   getProfile();
-  // }, []);
 
   return (
     <>

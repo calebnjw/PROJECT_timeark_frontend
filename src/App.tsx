@@ -38,7 +38,7 @@ function App() {
   const [clientList, setClientList] = useState<[]>([]);
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>("6310b08c2af46259c5514504"); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
+  const [userId, setUserId] = useState<string>(""); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
 
   // get user info
   useEffect(() => {
@@ -52,16 +52,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (userId) {
+    if (userProfile) {
       const getClients = async () => {
         const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`, {
-          params: { user_id: userId },
+          params: { user_id: userProfile?._id },
         });
         setClientList(result.data);
       };
       getClients();
     }
-  }, [userId]);
+  }, [userProfile]);
 
   return (
     <UserContext.Provider

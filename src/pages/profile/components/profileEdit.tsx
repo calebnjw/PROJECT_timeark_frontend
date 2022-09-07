@@ -10,7 +10,6 @@ axios.defaults.withCredentials = true;
 function ProfileEdit() {
   // user profile
   const { userProfile } = useUserContext();
-  // const [userProfile, setUserProfile] = useState<User>();
   // names
   const [familyName, setFamilyName] = useState<string>("");
   const [givenName, setGivenName] = useState<string>("");
@@ -28,14 +27,6 @@ function ProfileEdit() {
   const [companyRegistration, setCompanyRegistration] = useState<string>("");
 
   let navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const getProfile = async () => {
-  //     const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-  //     setUserProfile(result.data.user);
-  //   };
-  //   getProfile();
-  // }, []);
 
   // setting initial values of fields
   useEffect(() => {

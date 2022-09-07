@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { Divider } from "@mui/material";
 
@@ -7,24 +7,11 @@ import { useUserContext } from "../../context/userContext";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 
-import { User, Name, Email, Photo } from "../../types/user";
-import { Billing } from "../../types/billingDetails";
-
-// import { useGlobalContext } from "../../context/clientContext";
-
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function Profile() {
   const { userProfile } = useUserContext();
-
-  // useEffect(() => {
-  //   const getProfile = async () => {
-  //     const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-  //     setUserProfile(result.data.user);
-  //   };
-  //   getProfile();
-  // }, []);
 
   return (
     <>
@@ -42,8 +29,8 @@ function Profile() {
                     borderRadius: "50%",
                     marginRight: "20px",
                   }}
-                  // src={`${userProfile?.photos[0].value}`}
-                  src="https://www.redditstatic.com/avatars/avatar_default_02_0DD3BB.png"
+                  src={userProfile?.photos[0].value}
+                  // src="https://www.redditstatic.com/avatars/avatar_default_02_0DD3BB.png"
                   alt={`${userProfile?.displayName}'s profile`}
                 ></img>
                 <h1>Hello {`${userProfile.displayName}`}</h1>
@@ -54,8 +41,6 @@ function Profile() {
           </div>
         )}
       </div>
-      {/* <Route path="edit" />
-      <Route path="new" /> */}
     </>
   );
 }

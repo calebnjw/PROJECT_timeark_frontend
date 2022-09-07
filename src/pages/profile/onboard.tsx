@@ -32,6 +32,7 @@ function Onboard() {
     getProfile();
   }, []);
 
+  // TODO: data validation. should not allow user to pass in blank fields.
   const handleUpdate = async () => {
     if (userProfile) {
       const updatedProfile = {
