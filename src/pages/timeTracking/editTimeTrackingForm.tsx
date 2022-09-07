@@ -29,6 +29,8 @@ interface Props {
   userId: string;
   selectedTaskId: string;
   selectedTimeTrackingId: string;
+  setUpdatedEndDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  setIsDeleted: React.Dispatch<React.SetStateAction<Boolean>>;
 }
 
 interface TimeTracking {
@@ -44,6 +46,8 @@ const EditTimeTrackingForm = ({
   userId,
   selectedTaskId,
   selectedTimeTrackingId,
+  setUpdatedEndDate,
+  setIsDeleted,
 }: Props) => {
   const [currentTask, setCurrentTask] = useState<Task>();
   const [currentTimeTracking, setCurrentTimeTracking] =
@@ -78,15 +82,11 @@ const EditTimeTrackingForm = ({
     const hours = timeDifference / (1000 * 60 * 60);
     return hours.toFixed(2);
   };
-  console.log("current task list: ", taskList);
 
   if (isLoaded) {
-    console.log("current task: ", currentTask);
-    console.log("current Time Tracking: ", currentTimeTracking);
     const endD: any = currentTimeTracking?.endDate;
     const startD: any = currentTimeTracking?.startDate;
     const timeSpent = computeTime(endD, startD);
-    console.log("current time: ", timeSpent);
 
     const handleTaskChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const timeEntry: any = event.target.value;
@@ -95,14 +95,6 @@ const EditTimeTrackingForm = ({
 
     const handleUpdateTimeEntry = async (e: any) => {
       e.preventDefault();
-      console.log(
-        "time entry done: ",
-        updatedTimeSpent,
-        "task id: ",
-        selectedTaskId,
-        "time tracking id: ",
-        selectedTimeTrackingId
-      );
 
       if (updatedTimeSpent) {
         try {
@@ -111,16 +103,10 @@ const EditTimeTrackingForm = ({
             { updatedTimeSpent: updatedTimeSpent }
           );
 
-          const updatedTime = result.data.updatedTimeTracking;
-          const updatedTaskList = taskList.map((t) => {
-            if (t._id == selectedTaskId) {
-              t.time_trackings = [updatedTime];
-            }
-            return t;
-          });
-
-          setTaskList([]);
-          setTaskList(updatedTaskList);
+          const updatedTimeEntryObj = result.data.updatedTimeTracking;
+          const newEndDate: Date = updatedTimeEntryObj?.endDate;
+          setUpdatedEndDate(newEndDate);
+          setOpen(false);
         } catch (error) {
           console.error(error);
         }
@@ -133,17 +119,11 @@ const EditTimeTrackingForm = ({
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTaskId}/timetrackings/${selectedTimeTrackingId}`
         );
 
-        console.log("delete info: ", result.data.msg);
+        if (result.data.msg === "time tracking record removed!") {
+          // setIsDeleted(true);
+        }
 
-        const updatedTaskList = taskList.filter((t) => {
-          if (t.time_trackings.length) {
-            t.time_trackings.filter((tt) => {
-              return tt._id !== selectedTimeTrackingId;
-            });
-          }
-        });
-
-        console.log("updated task list: ", updatedTaskList);
+        setOpen(false);
       } catch (error) {
         console.error(error);
       }

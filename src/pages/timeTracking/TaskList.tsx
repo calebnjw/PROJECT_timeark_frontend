@@ -43,6 +43,9 @@ const TaskList = (props: Props) => {
   const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
     React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
+  // Props for edit&delete time entry below:
+  const [updatedEndDate, setUpdatedEndDate] = React.useState<Date>();
+  const [isDeleted, setIsDeleted] = React.useState<Boolean>(false);
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -95,10 +98,42 @@ const TaskList = (props: Props) => {
     timeTrackingId: string
   ) => {
     handleOpen();
-    console.log("openned");
     setSelectedTaskId(taskId);
     setSelectedTimeTrackingId(timeTrackingId);
   };
+
+  if (updatedEndDate) {
+    console.log("updated EndDate: ", updatedEndDate);
+    const updatedTaskList = taskList.map((t) => {
+      if (t._id == selectedTaskId) {
+        t.time_trackings.map((tt) => {
+          if (tt._id == selectedTimeTrackingId) {
+            return (tt.endDate = updatedEndDate);
+          }
+        });
+      }
+      return t;
+    });
+    setUpdatedEndDate(undefined);
+  }
+
+  if (isDeleted) {
+    console.log("is deleted: ", isDeleted);
+
+    // Check if the task has only one time entry that's deleted
+    const taskWithDeletedTimeEntry = taskList.find(
+      (t) => t._id == selectedTaskId
+    );
+    console.log("tageted task: ", taskWithDeletedTimeEntry);
+    if (taskWithDeletedTimeEntry?.time_trackings.length === 1) {
+      const updatedTaskList = taskList.map((t) => {
+        return t._id !== selectedTaskId;
+      });
+      console.log("updated task list: ", updatedTaskList);
+      // setTaskList(updatedTaskList);
+    }
+    setIsDeleted(false);
+  }
 
   if (taskList.length) {
     return (
@@ -171,6 +206,8 @@ const TaskList = (props: Props) => {
                   userId={userId}
                   selectedTaskId={selectedTaskId}
                   selectedTimeTrackingId={selectedTimeTrackingId}
+                  setUpdatedEndDate={setUpdatedEndDate}
+                  setIsDeleted={setIsDeleted}
                 />
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
