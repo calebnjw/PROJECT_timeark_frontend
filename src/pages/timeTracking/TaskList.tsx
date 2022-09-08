@@ -47,7 +47,6 @@ const TaskList = (props: Props) => {
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
   // Props for edit&delete time entry below:
   const [updatedEndDate, setUpdatedEndDate] = React.useState<Date>();
-  // const [isDeleted, setIsDeleted] = React.useState<Boolean>(false);
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {

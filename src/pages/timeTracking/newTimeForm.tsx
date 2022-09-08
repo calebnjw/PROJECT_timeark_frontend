@@ -107,6 +107,8 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
             }
             return t;
           });
+          console.log("updatd task: ", updatedTaskList);
+
           setTaskList([]);
           setTaskList(updatedTaskList);
         } else {

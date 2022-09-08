@@ -39,7 +39,7 @@ function App() {
 
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("630ee57c4e9cd2d99b739643");
 
   // get user info
   useEffect(() => {
@@ -49,7 +49,7 @@ function App() {
       );
       setUserProfile(result.data.user);
       setNewUser(result.data.newUser);
-      setUserId(result.data.user.id);
+      // setUserId(result.data.user.id);
     };
     getProfile();
   }, []);
