@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditTimeTrackingForm from "./editTimeTrackingForm";
 import { useGlobalContext } from "../../context/clientContext";
+import * as _ from "lodash";
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,6 +24,7 @@ const style = {
 };
 
 import axios from "axios";
+import { AnalyticsRounded } from "@mui/icons-material";
 axios.defaults.withCredentials = true;
 
 interface Props {
@@ -45,7 +47,7 @@ const TaskList = (props: Props) => {
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
   // Props for edit&delete time entry below:
   const [updatedEndDate, setUpdatedEndDate] = React.useState<Date>();
-  const [isDeleted, setIsDeleted] = React.useState<Boolean>(false);
+  // const [isDeleted, setIsDeleted] = React.useState<Boolean>(false);
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -102,6 +104,7 @@ const TaskList = (props: Props) => {
     setSelectedTimeTrackingId(timeTrackingId);
   };
 
+  // const handleUpdate = () => {
   if (updatedEndDate) {
     console.log("updated EndDate: ", updatedEndDate);
     const updatedTaskList = taskList.map((t) => {
@@ -114,26 +117,33 @@ const TaskList = (props: Props) => {
       }
       return t;
     });
+
+    console.log("updated list: ", updatedTaskList);
     setUpdatedEndDate(undefined);
   }
+  // };
 
-  if (isDeleted) {
-    console.log("is deleted: ", isDeleted);
-
-    // Check if the task has only one time entry that's deleted
-    const taskWithDeletedTimeEntry = taskList.find(
-      (t) => t._id == selectedTaskId
-    );
-    console.log("tageted task: ", taskWithDeletedTimeEntry);
-    if (taskWithDeletedTimeEntry?.time_trackings.length === 1) {
-      const updatedTaskList = taskList.map((t) => {
-        return t._id !== selectedTaskId;
-      });
-      console.log("updated task list: ", updatedTaskList);
-      // setTaskList(updatedTaskList);
-    }
-    setIsDeleted(false);
-  }
+  const handleDeletion = () => {
+    const updatedTaskList = taskList.map((t) => {
+      if (t._id === selectedTaskId) {
+        // check time_trackings arr length
+        if (t.time_trackings.length === 1) {
+          const idxOfTaskToDelete = taskList.findIndex(
+            (t) => t._id == selectedTaskId
+          );
+          taskList.splice(idxOfTaskToDelete, 1);
+          return t;
+        } else {
+          const filtered = t.time_trackings.filter(
+            (tt) => tt._id !== selectedTimeTrackingId
+          );
+          t.time_trackings = filtered;
+          return t;
+        }
+      }
+      return t;
+    });
+  };
 
   if (taskList.length) {
     return (
@@ -157,8 +167,6 @@ const TaskList = (props: Props) => {
                             <>
                               <button
                                 onClick={() => {
-                                  console.log("you clicked");
-
                                   showEditTimeTrackingModal(task._id, time._id);
                                 }}
                               >
@@ -207,7 +215,8 @@ const TaskList = (props: Props) => {
                   selectedTaskId={selectedTaskId}
                   selectedTimeTrackingId={selectedTimeTrackingId}
                   setUpdatedEndDate={setUpdatedEndDate}
-                  setIsDeleted={setIsDeleted}
+                  // handleUpdate={handleUpdate}
+                  handleDeletion={handleDeletion}
                 />
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>

@@ -30,7 +30,8 @@ interface Props {
   selectedTaskId: string;
   selectedTimeTrackingId: string;
   setUpdatedEndDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
-  setIsDeleted: React.Dispatch<React.SetStateAction<Boolean>>;
+  // handleUpdate: any;
+  handleDeletion: any;
 }
 
 interface TimeTracking {
@@ -47,7 +48,8 @@ const EditTimeTrackingForm = ({
   selectedTaskId,
   selectedTimeTrackingId,
   setUpdatedEndDate,
-  setIsDeleted,
+  // handleUpdate,
+  handleDeletion,
 }: Props) => {
   const [currentTask, setCurrentTask] = useState<Task>();
   const [currentTimeTracking, setCurrentTimeTracking] =
@@ -95,7 +97,6 @@ const EditTimeTrackingForm = ({
 
     const handleUpdateTimeEntry = async (e: any) => {
       e.preventDefault();
-
       if (updatedTimeSpent) {
         try {
           const result = await axios.put(
@@ -105,7 +106,9 @@ const EditTimeTrackingForm = ({
 
           const updatedTimeEntryObj = result.data.updatedTimeTracking;
           const newEndDate: Date = updatedTimeEntryObj?.endDate;
+          console.log("from form: new end date: ", newEndDate);
           setUpdatedEndDate(newEndDate);
+          // handleUpdate();
           setOpen(false);
         } catch (error) {
           console.error(error);
@@ -120,9 +123,8 @@ const EditTimeTrackingForm = ({
         );
 
         if (result.data.msg === "time tracking record removed!") {
-          // setIsDeleted(true);
+          handleDeletion();
         }
-
         setOpen(false);
       } catch (error) {
         console.error(error);
