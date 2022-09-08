@@ -1,8 +1,4 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
-// import Navbar from "../../components/navbar";
-// import Sidebar from "../../components/sidebar";
-// import Footer from "../../components/footer";
-// import { DateTime } from "luxon";
 import { Spinner } from "../../components/spinner/spinner";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";

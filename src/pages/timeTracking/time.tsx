@@ -27,7 +27,8 @@ const style = {
 };
 
 const Time = () => {
-  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [isShowSelectedDateTimeEntrys, SetIsShowSelectedDateTimeEntrys] =
+    useState<boolean>(false);
   const [data, setData] = useState("");
   const today = new Date();
   const [open, setOpen] = React.useState(false);
@@ -35,13 +36,14 @@ const Time = () => {
   const handleClose = () => setOpen(false);
   const [taskList, setTaskList] = useState<Task[]>([]);
   const { userId } = useGlobalContext();
+
   if (taskList.length) {
     console.log("task list: ", taskList);
   }
 
-  const showDetailsHandle = (dayStr: any) => {
+  const HandleShowSelectedDateTimeEntrys = (dayStr: any) => {
     setData(dayStr);
-    setShowDetails(true);
+    SetIsShowSelectedDateTimeEntrys(true);
   };
 
   return (
@@ -82,11 +84,13 @@ const Time = () => {
               </Box>
             </Modal>
           </div>
-          <Calendar showDetailsHandle={showDetailsHandle} />
+          <Calendar
+            HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
+          />
         </div>
         <br />
 
-        {showDetails ? (
+        {isShowSelectedDateTimeEntrys ? (
           <TaskList data={data} taskList={taskList} setTaskList={setTaskList} />
         ) : (
           <TaskList

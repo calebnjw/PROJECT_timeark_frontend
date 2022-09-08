@@ -46,9 +46,6 @@ const SingleProject = () => {
     getProjectInfo();
   }, []);
 
-  console.log("project info: ", project);
-  console.log("client name: ", client);
-
   return (
     <>
       <Navbar />

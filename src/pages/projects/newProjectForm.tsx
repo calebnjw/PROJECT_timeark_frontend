@@ -22,8 +22,6 @@ const NewProjectForm = () => {
     return { id: c._id, name: c.client_name };
   });
 
-  console.log("client options: ", clientOptions);
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {

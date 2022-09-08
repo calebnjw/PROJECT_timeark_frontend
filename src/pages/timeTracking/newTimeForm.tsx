@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Button from "@mui/material/Button";
 import { useGlobalContext } from "../../context/clientContext";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -34,6 +34,8 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
       { params: { user_id: userId } }
     );
     const projects = getProjects.data.projects;
+    // console.log("projects: ", projects);
+
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     setProjectList(projectsHasTasks);
 
@@ -94,17 +96,27 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
-
         const updatedTask = result.data.task;
-        const updatedTaskList = taskList.map((t) => {
-          if (t._id == updatedTask._id) {
-            return (t = updatedTask);
-          }
-          return t;
-        });
+        // Check if task already exists in taskList,
+        const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
+        if (isNewTask) {
+          // If task already exists then update task
+          const updatedTaskList = taskList.map((t) => {
+            if (t._id == updatedTask._id) {
+              t = updatedTask;
+            }
+            return t;
+          });
+          console.log("updatd task: ", updatedTaskList);
 
-        setTaskList([]);
-        setTaskList(updatedTaskList);
+          setTaskList([]);
+          setTaskList(updatedTaskList);
+        } else {
+          //if not, add it to task list
+          const updatedTaskList = [...taskList, updatedTask];
+          setTaskList([]);
+          setTaskList(updatedTaskList);
+        }
 
         setOpen(false);
       } catch (error) {
@@ -189,7 +201,6 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
             Cancel
           </Button>
         </div>
-        {/* </form> */}
       </Box>
     </div>
   );

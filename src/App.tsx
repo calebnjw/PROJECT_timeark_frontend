@@ -36,17 +36,20 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
+
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>(""); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
+  const [userId, setUserId] = useState<string>("");
 
   // get user info
   useEffect(() => {
     const getProfile = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/users/user`
+      );
       setUserProfile(result.data.user);
       setNewUser(result.data.newUser);
-      setUserId(result.data.user.id);
+      setUserId(result.data.user._id);
     };
     getProfile();
   }, []);
@@ -54,14 +57,19 @@ function App() {
   useEffect(() => {
     if (userProfile) {
       const getClients = async () => {
-        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`, {
-          params: { user_id: userProfile?._id },
-        });
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/clients`,
+          {
+            params: { user_id: userProfile?._id },
+          }
+        );
         setClientList(result.data);
       };
       getClients();
     }
   }, [userProfile]);
+  console.log("user id: ", userId);
+  console.log("user profile: ", userProfile);
 
   return (
     <UserContext.Provider
@@ -87,12 +95,18 @@ function App() {
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />
           <Route path="clients/:clientId" element={<SingleClient />} />
-          <Route path="clients/:clientId/update" element={<EditSingleClient />} />
+          <Route
+            path="clients/:clientId/update"
+            element={<EditSingleClient />}
+          />
 
           <Route path="projects" element={<Projects />} />
           <Route path="projects/new" element={<NewProject />} />
           <Route path="projects/:project_id" element={<SingleProject />} />
-          <Route path="projects/:project_id/update" element={<EditProjectForm />} />
+          <Route
+            path="projects/:project_id/update"
+            element={<EditProjectForm />}
+          />
 
           <Route path="tasks" element={<Tasks />} />
           <Route path="tasks/new" element={<NewTask />} />

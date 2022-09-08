@@ -13,10 +13,10 @@ import {
 } from "date-fns";
 
 interface Props {
-  showDetailsHandle: (params: any) => void;
+  HandleShowSelectedDateTimeEntrys: (params: any) => void;
 }
 
-const Calendar = ({ showDetailsHandle }: Props) => {
+const Calendar = ({ HandleShowSelectedDateTimeEntrys }: Props) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -46,7 +46,7 @@ const Calendar = ({ showDetailsHandle }: Props) => {
 
   const onDateClickHandle = (day: Date, dayStr: string) => {
     setSelectedDate(day);
-    showDetailsHandle(dayStr);
+    HandleShowSelectedDateTimeEntrys(dayStr);
   };
 
   const renderHeader = () => {
