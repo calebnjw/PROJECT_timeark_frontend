@@ -87,20 +87,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
     try {
       await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/clients/${client._id}/update`,
-        {
-          client_name: clientName,
-          billing_details: {
-            company_name: companyName,
-            building_name: buildingName,
-            unit_number: unitNumber,
-            street_name: streetNumber,
-            city: cityName,
-            country: countryName,
-            postal_code: postalCode,
-            company_registration: companyreg,
-          },
-          project_ids: [],
-        }
+        clientDetails
       );
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/clients`
