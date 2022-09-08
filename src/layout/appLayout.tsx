@@ -34,16 +34,16 @@ function AppLayout() {
   }, []);
 
   useEffect(() => {
-    if (userProfile) {
+    if (userId !== "") {
       const getClients = async () => {
         const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`, {
-          params: { user_id: userProfile?._id },
+          params: { user_id: userId },
         });
         setClientList(result.data);
       };
       getClients();
     }
-  }, [userProfile]);
+  }, [userId]);
 
   return (
     <UserContext.Provider
@@ -51,13 +51,13 @@ function AppLayout() {
         userProfile,
         setUserProfile,
         newUser,
+        userId,
       }}
     >
       <ClientGlobalContext.Provider
         value={{
           clientList,
           setClientList,
-          userId,
         }}
       >
         <Box sx={{ minHeight: "100vh" }}>

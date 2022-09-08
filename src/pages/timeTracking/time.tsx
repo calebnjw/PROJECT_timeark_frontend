@@ -9,7 +9,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
-import { useGlobalContext } from "../../context/clientContext";
+
+import { useUserContext } from "../../context/userContext";
 
 const style = {
   position: "absolute" as "absolute",
@@ -31,7 +32,7 @@ const Time = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [taskList, setTaskList] = useState<Task[]>([]);
-  const { userId } = useGlobalContext();
+  const { userId } = useUserContext();
   if (taskList.length) {
     console.log("task list: ", taskList);
   }

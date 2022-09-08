@@ -1,8 +1,11 @@
 import { format } from "date-fns";
 import { useEffect } from "react";
 import { Task } from "../../types/task";
-import { useGlobalContext } from "../../context/clientContext";
+
+import { useUserContext } from "../../context/userContext";
+
 import ShowTimer from "./ShowTimer";
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -16,7 +19,7 @@ const TaskList = (props: Props) => {
   const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
   const taskList = props.taskList;
   const setTaskList = props.setTaskList;
-  const { userId } = useGlobalContext();
+  const { userId } = useUserContext();
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
