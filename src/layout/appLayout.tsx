@@ -28,7 +28,7 @@ function AppLayout() {
       const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
       setUserProfile(result.data.user);
       setNewUser(result.data.newUser);
-      setUserId(result.data.user.id);
+      setUserId(result.data.user._id);
     };
     getProfile();
   }, []);
