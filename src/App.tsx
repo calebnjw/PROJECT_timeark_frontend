@@ -39,7 +39,7 @@ function App() {
 
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>("630ee57c4e9cd2d99b739643");
+  const [userId, setUserId] = useState<string>("");
 
   // get user info
   useEffect(() => {
@@ -49,7 +49,7 @@ function App() {
       );
       setUserProfile(result.data.user);
       setNewUser(result.data.newUser);
-      // setUserId(result.data.user.id);
+      setUserId(result.data.user._id);
     };
     getProfile();
   }, []);
@@ -68,6 +68,8 @@ function App() {
       getClients();
     }
   }, [userProfile]);
+  console.log("user id: ", userId);
+  console.log("user profile: ", userProfile);
 
   return (
     <UserContext.Provider
