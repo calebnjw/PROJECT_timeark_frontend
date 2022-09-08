@@ -1,7 +1,4 @@
 import { useState } from "react";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
-import Footer from "../../components/footer";
 import Calendar from "./Calendar";
 import TaskList from "./TaskList";
 import "./time.css";
@@ -46,8 +43,6 @@ const Time = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <div
         style={{
           width: "80%",
@@ -55,9 +50,7 @@ const Time = () => {
           marginTop: "80px",
         }}
       >
-        <div
-          style={{ display: "flex", flexDirection: "row", overflow: "auto" }}
-        >
+        <div style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
           <div>
             <Button onClick={handleOpen}>+ New Tracker</Button>
             <Modal
@@ -76,8 +69,7 @@ const Time = () => {
                   />
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Please select your project and task to start tracker. Happy
-                  Working!
+                  Please select your project and task to start tracker. Happy Working!
                 </Typography>
               </Box>
             </Modal>
@@ -89,14 +81,9 @@ const Time = () => {
         {showDetails ? (
           <TaskList data={data} taskList={taskList} setTaskList={setTaskList} />
         ) : (
-          <TaskList
-            data={String(today)}
-            taskList={taskList}
-            setTaskList={setTaskList}
-          />
+          <TaskList data={String(today)} taskList={taskList} setTaskList={setTaskList} />
         )}
       </div>
-      <Footer />
     </>
   );
 };

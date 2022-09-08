@@ -1,27 +1,31 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Divider } from "@mui/material";
+import { Box, Divider, Grid } from "@mui/material";
 
 import { useUserContext } from "../context/userContext";
 
-import Navbar from "../components/navbar";
+import AppNavbar from "../components/navbar-App";
 import Sidebar from "../components/sidebar";
 
 import axios from "axios";
+import Footer from "../components/footer";
 axios.defaults.withCredentials = true;
 
-function Profile() {
+function AppLayout() {
   const { userProfile } = useUserContext();
 
   return (
-    <>
-      <Navbar />
-      <div>
-        <Sidebar />
+    <Box sx={{ minHeight: "100vh" }}>
+      <AppNavbar />
+      <Grid container direction="row" justifyContent="space-between" alignItems="center">
+        <Grid item>
+          <Sidebar />
+        </Grid>
         <Outlet />
-      </div>
-    </>
+      </Grid>
+      <Footer />
+    </Box>
   );
 }
 
-export default Profile;
+export default AppLayout;

@@ -1,7 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -46,10 +44,9 @@ const EditTaskForm = () => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        { params: { client_id: project.client_id, autoCorrect: true } }
-      );
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
+        params: { client_id: project.client_id, autoCorrect: true },
+      });
       setProjectList(result.data.projects);
     };
     getProjects();
@@ -90,14 +87,8 @@ const EditTaskForm = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
-        <Button
-          color="secondary"
-          variant="contained"
-          onClick={handleCancelButton}
-        >
+        <Button color="secondary" variant="contained" onClick={handleCancelButton}>
           CANCEL
         </Button>
         <h3>Edit Task</h3>
@@ -111,12 +102,7 @@ const EditTaskForm = () => {
               justifyContent: "space-around",
             }}
           >
-            <TextField
-              type="text"
-              name="name"
-              label="*Task Name"
-              defaultValue={task.name}
-            />
+            <TextField type="text" name="name" label="*Task Name" defaultValue={task.name} />
           </div>
           {projectList.length ? (
             <>

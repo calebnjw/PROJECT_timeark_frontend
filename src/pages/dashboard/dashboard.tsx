@@ -4,8 +4,6 @@ import axios from "axios";
 import { useGlobalContext } from "../../context/clientContext";
 import TimeSpentChart from "./piechart";
 import DashboardList from "./dashboardlist";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useUserContext } from "../../context/userContext";
 
 const Dashboard = () => {
@@ -18,8 +16,6 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <div
         style={{
           width: "50%",

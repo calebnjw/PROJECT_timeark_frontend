@@ -15,8 +15,8 @@ import SingleProject from "./pages/projects/singleProject";
 import EditProjectForm from "./pages/projects/editProjectForm";
 import Tasks from "././pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
-import SingleTask from "./pages/tasks/singleTask";
-import EditTask from "./pages/tasks/editTask";
+// import SingleTask from "./pages/tasks/singleTask";
+// import EditTask from "./pages/tasks/editTask";
 import Invoices from "./pages/invoices/invoices";
 import Profile from "./pages/profile/profile";
 import Onboard from "./pages/profile/onboard";
@@ -32,6 +32,8 @@ import { ClientGlobalContext } from "./context/clientContext";
 import { UserContext } from "./context/userContext";
 
 import axios from "axios";
+import HomeLayout from "./layout/homeLayout";
+import AppLayout from "./layout/appLayout";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -64,52 +66,58 @@ function App() {
   }, [userProfile]);
 
   return (
-    <UserContext.Provider
-      value={{
-        userProfile,
-        setUserProfile,
-        newUser,
-      }}
-    >
-      <ClientGlobalContext.Provider
+    <Routes>
+      <Route path="/" element={<HomeLayout />}>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+      </Route>
+
+      <UserContext.Provider
         value={{
-          clientList,
-          setClientList,
-          userId,
+          userProfile,
+          setUserProfile,
+          newUser,
         }}
       >
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="onboard" element={<Onboard />} />
+        <ClientGlobalContext.Provider
+          value={{
+            clientList,
+            setClientList,
+            userId,
+          }}
+        >
+          <Route path="app" element={<AppLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="onboard" element={<Onboard />} />
 
-          <Route path="clients" element={<Clients />} />
-          <Route path="clients/new" element={<AddClient />} />
-          <Route path="clients/:clientId" element={<SingleClient />} />
-          <Route path="clients/:clientId/update" element={<EditSingleClient />} />
+            <Route path="clients" element={<Clients />} />
+            <Route path="clients/new" element={<AddClient />} />
+            <Route path="clients/:clientId" element={<SingleClient />} />
+            <Route path="clients/:clientId/update" element={<EditSingleClient />} />
 
-          <Route path="projects" element={<Projects />} />
-          <Route path="projects/new" element={<NewProject />} />
-          <Route path="projects/:project_id" element={<SingleProject />} />
-          <Route path="projects/:project_id/update" element={<EditProjectForm />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="projects/new" element={<NewProject />} />
+            <Route path="projects/:project_id" element={<SingleProject />} />
+            <Route path="projects/:project_id/update" element={<EditProjectForm />} />
 
-          <Route path="tasks" element={<Tasks />} />
-          <Route path="tasks/new" element={<NewTask />} />
+            <Route path="tasks" element={<Tasks />} />
+            <Route path="tasks/new" element={<NewTask />} />
 
-          <Route path="profile" element={<Profile />}>
-            <Route index element={<ProfileInfo />} />
-            <Route path="edit" element={<ProfileEdit />} />
+            <Route path="profile" element={<Profile />}>
+              <Route index element={<ProfileInfo />} />
+              <Route path="edit" element={<ProfileEdit />} />
+            </Route>
+
+            <Route path="time" element={<Time />} />
+
+            <Route path="invoices" element={<Invoices />} />
           </Route>
+        </ClientGlobalContext.Provider>
+      </UserContext.Provider>
 
-          <Route path="time" element={<Time />} />
-
-          <Route path="invoices" element={<Invoices />} />
-
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </ClientGlobalContext.Provider>
-    </UserContext.Provider>
+      <Route path="*" element={<Page404 />} />
+    </Routes>
   );
 }
 

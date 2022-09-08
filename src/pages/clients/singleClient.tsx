@@ -1,6 +1,4 @@
 import axios from "axios";
-import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
@@ -40,10 +38,7 @@ export default function SingleClient() {
   const { clientList } = useContext(ClientGlobalContext);
 
   useEffect(() => {
-    function getSingleClient(
-      clientid: string | undefined,
-      clientlist: Client[]
-    ): Client[] {
+    function getSingleClient(clientid: string | undefined, clientlist: Client[]): Client[] {
       return clientList.filter((element) => element._id === clientid);
     }
     if (!isLoaded && clientId !== undefined && clientList.length !== 0) {
@@ -56,14 +51,8 @@ export default function SingleClient() {
 
   return (
     <div>
-      <NavBar />
       <Box style={{ width: "80%", marginLeft: "20%", marginTop: "100px" }}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
+        <Grid container direction="row" justifyContent="center" alignItems="center">
           <Sidebar />
           <ClientSidebar />
           <Grid item xs={6}>
@@ -76,38 +65,19 @@ export default function SingleClient() {
               <Grid item xs={6}>
                 <Box alignContent="left">
                   <Typography>Client Name: {client.client_name} </Typography>
+                  <Typography>Company Name: {client.billing_details.company_name}</Typography>
+                  <Typography>Street Name: {client.billing_details.street_name}</Typography>
+                  <Typography>Unit Number: {client.billing_details.unit_number}</Typography>
+                  <Typography>Building Name: {client.billing_details.building_name}</Typography>
+                  <Typography>City Name: {client.billing_details.city}</Typography>
+                  <Typography>Country: {client.billing_details.country}</Typography>
+                  <Typography>Postal Code: {client.billing_details.postal_code}</Typography>
                   <Typography>
-                    Company Name: {client.billing_details.company_name}
-                  </Typography>
-                  <Typography>
-                    Street Name: {client.billing_details.street_name}
-                  </Typography>
-                  <Typography>
-                    Unit Number: {client.billing_details.unit_number}
-                  </Typography>
-                  <Typography>
-                    Building Name: {client.billing_details.building_name}
-                  </Typography>
-                  <Typography>
-                    City Name: {client.billing_details.city}
-                  </Typography>
-                  <Typography>
-                    Country: {client.billing_details.country}
-                  </Typography>
-                  <Typography>
-                    Postal Code: {client.billing_details.postal_code}
-                  </Typography>
-                  <Typography>
-                    Company Registration:{" "}
-                    {client.billing_details.company_registration}
+                    Company Registration: {client.billing_details.company_registration}
                   </Typography>
                 </Box>
                 <Box mt="2rem">
-                  <Button
-                    variant="contained"
-                    component={Link}
-                    to={`/clients/${client._id}/update`}
-                  >
+                  <Button variant="contained" component={Link} to={`/clients/${client._id}/update`}>
                     Edit
                   </Button>
                 </Box>
@@ -116,7 +86,6 @@ export default function SingleClient() {
           </Grid>
         </Grid>
       </Box>
-      <Footer />
     </div>
   );
 }

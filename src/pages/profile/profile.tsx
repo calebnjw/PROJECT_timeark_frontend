@@ -4,9 +4,6 @@ import { Divider } from "@mui/material";
 
 import { useUserContext } from "../../context/userContext";
 
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
-
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -15,8 +12,6 @@ function Profile() {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         {userProfile && (
           <div>

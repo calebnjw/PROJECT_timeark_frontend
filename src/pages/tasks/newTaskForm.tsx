@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -93,12 +91,9 @@ const NewTaskFrom = () => {
 
   const handleGetProject = async (e: any) => {
     try {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        {
-          params: { client_id: selectedClient, autoCorrect: true },
-        }
-      );
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
+        params: { client_id: selectedClient, autoCorrect: true },
+      });
       if (result.data.msg === "no project found") {
         setProjectExists(false);
       }
@@ -116,15 +111,8 @@ const NewTaskFrom = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
-
       <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
-        <Button
-          color="secondary"
-          variant="contained"
-          onClick={handleCancelButton}
-        >
+        <Button color="secondary" variant="contained" onClick={handleCancelButton}>
           CANCEL
         </Button>
         <h3>New Task</h3>
@@ -147,13 +135,11 @@ const NewTaskFrom = () => {
                   defaultValue=""
                   onChange={selectedClientChange}
                 >
-                  {clientOptions.map(
-                    (option?: { id: string; name: string }) => (
-                      <MenuItem key={option?.id} value={option?.id}>
-                        {option?.name}
-                      </MenuItem>
-                    )
-                  )}
+                  {clientOptions.map((option?: { id: string; name: string }) => (
+                    <MenuItem key={option?.id} value={option?.id}>
+                      {option?.name}
+                    </MenuItem>
+                  ))}
                 </TextField>
                 <Button onClick={handleGetProject}>Get Projects</Button>
               </>
@@ -195,13 +181,11 @@ const NewTaskFrom = () => {
                   onChange={selectedProjectChange}
                   defaultValue=""
                 >
-                  {projectOptions.map(
-                    (option?: { id: string; name: string }) => (
-                      <MenuItem key={option?.id} value={option?.id}>
-                        {option?.name}
-                      </MenuItem>
-                    )
-                  )}
+                  {projectOptions.map((option?: { id: string; name: string }) => (
+                    <MenuItem key={option?.id} value={option?.id}>
+                      {option?.name}
+                    </MenuItem>
+                  ))}
                 </TextField>
               </>
             ) : (
@@ -240,17 +224,9 @@ const NewTaskFrom = () => {
                   ))}
                 </TextField>
                 <br />
-                <TextField
-                  name="task"
-                  label="task"
-                  onChange={selectedTaskChange}
-                />
+                <TextField name="task" label="task" onChange={selectedTaskChange} />
                 <br />
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={submitNewTask}
-                >
+                <Button variant="contained" color="success" onClick={submitNewTask}>
                   Create Task
                 </Button>
               </>

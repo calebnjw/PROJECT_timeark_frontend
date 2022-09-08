@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -70,8 +68,6 @@ const NewProjectForm = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <Box style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <Button variant="contained" color="secondary">
           <Link to="/projects" style={{ color: "white" }}>
