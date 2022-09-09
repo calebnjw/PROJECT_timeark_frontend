@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Button from "@mui/material/Button";
 import { useGlobalContext } from "../../context/clientContext";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,7 +9,6 @@ import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import TaskList from "./TaskList";
 axios.defaults.withCredentials = true;
 
 interface Props {
@@ -17,9 +16,16 @@ interface Props {
   taskList: Task[];
   setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
   userId: string;
+  handleAddTimeEntry: any;
 }
 
-const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
+const NewTimeForm = ({
+  setOpen,
+  taskList,
+  setTaskList,
+  userId,
+  handleAddTimeEntry,
+}: Props) => {
   const { clientList, setClientList } = useGlobalContext();
   const [projectList, setProjectList] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
@@ -34,6 +40,8 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
       { params: { user_id: userId } }
     );
     const projects = getProjects.data.projects;
+    // console.log("projects: ", projects);
+
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     setProjectList(projectsHasTasks);
 
@@ -94,18 +102,8 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
-
         const updatedTask = result.data.task;
-        const updatedTaskList = taskList.map((t) => {
-          if (t._id == updatedTask._id) {
-            return (t = updatedTask);
-          }
-          return t;
-        });
-
-        setTaskList([]);
-        setTaskList(updatedTaskList);
-
+        handleAddTimeEntry(updatedTask);
         setOpen(false);
       } catch (error) {
         console.log("Error message: ", error);
@@ -189,7 +187,6 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
             Cancel
           </Button>
         </div>
-        {/* </form> */}
       </Box>
     </div>
   );
