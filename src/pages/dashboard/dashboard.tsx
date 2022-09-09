@@ -7,10 +7,12 @@ import DashboardList from "./dashboardlist";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import { useUserContext } from "../../context/userContext";
+import { Button } from "@mui/material";
 
 const Dashboard = () => {
   const { clientList, setClientList } = useGlobalContext();
   const { newUser } = useUserContext();
+  const [timeperiod, setTimePeriod] = useState("");
 
   let navigate = useNavigate();
   // redirect user to fill in billing details on first time loggin in
@@ -48,6 +50,29 @@ const Dashboard = () => {
           ))}
         </ul>
       </div>
+      <div>
+        <Button
+          onClick={() => {
+            setTimePeriod("week");
+          }}
+        >
+          Week View
+        </Button>
+        <Button
+          onClick={() => {
+            setTimePeriod("month");
+          }}
+        >
+          Month View
+        </Button>
+        <Button
+          onClick={() => {
+            setTimePeriod("all");
+          }}
+        >
+          All Time
+        </Button>
+      </div>
       <div
         style={{
           width: "50%",
@@ -57,7 +82,7 @@ const Dashboard = () => {
           backgroundColor: "pink",
         }}
       >
-        <TimeSpentChart />
+        <TimeSpentChart timeperiod={timeperiod} />
       </div>
     </>
   );
