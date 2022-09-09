@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import { Client } from "../../types/client";
 import { Link, useNavigate } from "react-router-dom";
 import Projects from "../projects/projects";
+import { useGlobalContext } from "../../context/clientContext";
 import { useUserContext } from "../../context/userContext";
 
 import axios from "axios";
@@ -36,24 +37,24 @@ interface Props {
 // export default function ClientSidebar() {
 const ClientSidebar = () => {
   const classes = useStyles();
-  const [clientList, setClientList] = useState<Client[]>([]);
   const { userProfile } = useUserContext();
+  const { clientList } = useGlobalContext();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getClients = async () => {
-      if (userProfile) {
-        const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/clients`,
-          { params: { user_id: userProfile._id } }
-        ); // add query user_id as 2nd param
-        console.log(result);
-        setClientList(result.data);
-      }
-    };
-    getClients();
-  }, []);
+  // useEffect(() => {
+  //   const getClients = async () => {
+  //     if (userProfile) {
+  //       const result = await axios.get(
+  //         `${process.env.REACT_APP_BACKEND_URL}/clients`,
+  //         { params: { user_id: userProfile._id } }
+  //       ); // add query user_id as 2nd param
+  //       console.log(result);
+  //       setClientList(result.data);
+  //     }
+  //   };
+  //   getClients();
+  // }, []);
   console.log("client list: ", clientList);
 
   return (
@@ -83,7 +84,6 @@ const ClientSidebar = () => {
                 <Button
                   onClick={() => {
                     navigate(`/clients/${c._id}`);
-                    navigate(0);
                   }}
                 >
                   {c.client_name}
