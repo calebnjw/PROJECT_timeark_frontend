@@ -23,7 +23,7 @@ function TimeSpentChart() {
     };
     pieChartData();
     console.log(getData.nameTimeArray);
-  }, []);
+  }, [userId]);
 
   const option = {
     title: {
