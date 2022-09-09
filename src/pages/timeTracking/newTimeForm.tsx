@@ -17,9 +17,16 @@ interface Props {
   taskList: Task[];
   setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
   userId: string;
+  handleAddTimeEntry: any;
 }
 
-const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
+const NewTimeForm = ({
+  setOpen,
+  taskList,
+  setTaskList,
+  userId,
+  handleAddTimeEntry,
+}: Props) => {
   const { clientList, setClientList } = useGlobalContext();
   const [projectList, setProjectList] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
@@ -97,27 +104,7 @@ const NewTimeForm = ({ setOpen, taskList, setTaskList, userId }: Props) => {
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
         const updatedTask = result.data.task;
-        // Check if task already exists in taskList,
-        const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
-        if (isNewTask) {
-          // If task already exists then update task
-          const updatedTaskList = taskList.map((t) => {
-            if (t._id == updatedTask._id) {
-              t = updatedTask;
-            }
-            return t;
-          });
-          console.log("updatd task: ", updatedTaskList);
-
-          setTaskList([]);
-          setTaskList(updatedTaskList);
-        } else {
-          //if not, add it to task list
-          const updatedTaskList = [...taskList, updatedTask];
-          setTaskList([]);
-          setTaskList(updatedTaskList);
-        }
-
+        handleAddTimeEntry(updatedTask);
         setOpen(false);
       } catch (error) {
         console.log("Error message: ", error);

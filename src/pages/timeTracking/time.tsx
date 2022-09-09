@@ -45,6 +45,27 @@ const Time = () => {
     setData(dayStr);
     SetIsShowSelectedDateTimeEntrys(true);
   };
+  //* Refactor add new time entry */
+  const handleAddTimeEntry = (updatedTask: any) => {
+    const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
+    if (isNewTask) {
+      // If task already exists then update task
+      const updatedTaskList = taskList.map((t) => {
+        if (t._id == updatedTask._id) {
+          t = updatedTask;
+        }
+        return t;
+      });
+
+      setTaskList([]);
+      setTaskList(updatedTaskList);
+    } else {
+      //if not, add it to task list
+      const updatedTaskList = [...taskList, updatedTask];
+      setTaskList([]);
+      setTaskList(updatedTaskList);
+    }
+  };
 
   return (
     <>
@@ -75,6 +96,7 @@ const Time = () => {
                     taskList={taskList}
                     setTaskList={setTaskList}
                     userId={userId}
+                    handleAddTimeEntry={handleAddTimeEntry}
                   />
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
