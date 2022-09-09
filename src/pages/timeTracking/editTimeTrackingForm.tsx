@@ -30,7 +30,7 @@ interface Props {
   selectedTaskId: string;
   selectedTimeTrackingId: string;
   setUpdatedEndDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
-  // handleUpdate: any;
+  handleUpdate: any;
   handleDeletion: any;
 }
 
@@ -48,7 +48,7 @@ const EditTimeTrackingForm = ({
   selectedTaskId,
   selectedTimeTrackingId,
   setUpdatedEndDate,
-  // handleUpdate,
+  handleUpdate,
   handleDeletion,
 }: Props) => {
   const [currentTask, setCurrentTask] = useState<Task>();
@@ -99,16 +99,23 @@ const EditTimeTrackingForm = ({
       e.preventDefault();
       if (updatedTimeSpent) {
         try {
+          console.log("selectedTimeTrackingId: ", selectedTimeTrackingId);
+          console.log("updatedTimeSpent: ", updatedTimeSpent);
           const result = await axios.put(
             `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTaskId}/timetrackings/${selectedTimeTrackingId}/update`,
             { updatedTimeSpent: updatedTimeSpent }
           );
+          const selectedTask = result.data.getUpdatedTask;
+          const timeEntrys = selectedTask.time_trackings;
 
-          const updatedTimeEntryObj = result.data.updatedTimeTracking;
-          const newEndDate: Date = updatedTimeEntryObj?.endDate;
-          console.log("from form: new end date: ", newEndDate);
-          setUpdatedEndDate(newEndDate);
-          // handleUpdate();
+          const updatedTimeEntry = timeEntrys.find(
+            (t: any) => t._id == selectedTimeTrackingId
+          );
+
+          const newEndDate = updatedTimeEntry.endDate;
+          console.log("new end date from form: ", newEndDate);
+          // setUpdatedEndDate(newEndDate);
+          handleUpdate(newEndDate);
           setOpen(false);
         } catch (error) {
           console.error(error);

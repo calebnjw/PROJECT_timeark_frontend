@@ -103,24 +103,27 @@ const TaskList = (props: Props) => {
     setSelectedTimeTrackingId(timeTrackingId);
   };
 
-  // const handleUpdate = () => {
-  if (updatedEndDate) {
-    console.log("updated EndDate: ", updatedEndDate);
-    const updatedTaskList = taskList.map((t) => {
-      if (t._id == selectedTaskId) {
-        t.time_trackings.map((tt) => {
-          if (tt._id == selectedTimeTrackingId) {
-            return (tt.endDate = updatedEndDate);
-          }
-        });
-      }
-      return t;
-    });
+  const handleUpdate = (updatedEndDate: Date) => {
+    console.log("new end date: ", updatedEndDate);
 
-    console.log("updated list: ", updatedTaskList);
+    if (updatedEndDate) {
+      console.log("updated EndDate: ", updatedEndDate);
+      const updatedTaskList = taskList.map((t) => {
+        if (t._id == selectedTaskId) {
+          t.time_trackings.map((tt) => {
+            if (tt._id == selectedTimeTrackingId) {
+              return (tt.endDate = updatedEndDate);
+            }
+          });
+        }
+        return t;
+      });
+
+      console.log("updated list: ", updatedTaskList);
+    }
     setUpdatedEndDate(undefined);
-  }
-  // };
+    return;
+  };
 
   const handleDeletion = () => {
     const updatedTaskList = taskList.map((t) => {
@@ -214,7 +217,7 @@ const TaskList = (props: Props) => {
                   selectedTaskId={selectedTaskId}
                   selectedTimeTrackingId={selectedTimeTrackingId}
                   setUpdatedEndDate={setUpdatedEndDate}
-                  // handleUpdate={handleUpdate}
+                  handleUpdate={handleUpdate}
                   handleDeletion={handleDeletion}
                 />
               </Typography>
