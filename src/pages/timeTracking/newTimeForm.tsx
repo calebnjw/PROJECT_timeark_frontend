@@ -9,7 +9,6 @@ import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import TaskList from "./TaskList";
 axios.defaults.withCredentials = true;
 
 interface Props {
