@@ -113,8 +113,6 @@ const EditTimeTrackingForm = ({
           );
 
           const newEndDate = updatedTimeEntry.endDate;
-          console.log("new end date from form: ", newEndDate);
-          // setUpdatedEndDate(newEndDate);
           handleUpdate(newEndDate);
           setOpen(false);
         } catch (error) {

@@ -104,10 +104,7 @@ const TaskList = (props: Props) => {
   };
 
   const handleUpdate = (updatedEndDate: Date) => {
-    console.log("new end date: ", updatedEndDate);
-
     if (updatedEndDate) {
-      console.log("updated EndDate: ", updatedEndDate);
       const updatedTaskList = taskList.map((t) => {
         if (t._id == selectedTaskId) {
           t.time_trackings.map((tt) => {
@@ -119,9 +116,8 @@ const TaskList = (props: Props) => {
         return t;
       });
 
-      console.log("updated list: ", updatedTaskList);
+      setUpdatedEndDate(undefined);
     }
-    setUpdatedEndDate(undefined);
     return;
   };
 
