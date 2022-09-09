@@ -7,26 +7,31 @@ import { Spinner } from "../../components/spinner/spinner";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-function TimeSpentChart() {
+interface Props {
+  timeperiod: string;
+}
+
+function TimeSpentChart({ timeperiod }: Props) {
   const { userProfile } = useUserContext();
   const [getData, setGetData] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     console.log(userProfile);
+    console.log(timeperiod);
     const pieChartData = async () => {
       if (userProfile) {
         const result = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
-          { params: { user_id: userProfile._id, time_period: "all" } }
+          { params: { user_id: userProfile._id, time_period: { timeperiod } } }
         );
+        console.log(result.data);
         setGetData(result.data);
         setIsLoaded(true);
       }
     };
     pieChartData();
-    console.log(getData.nameTimeArray);
-  }, [userProfile]);
+  }, [userProfile, timeperiod]);
 
   const option = {
     title: {
@@ -63,11 +68,14 @@ function TimeSpentChart() {
     <div>
       {!isLoaded ? (
         <Box>
-          <Typography>Loading the client</Typography>
+          <Typography>Loading the piechart</Typography>
           <Spinner />
         </Box>
       ) : (
-        <ReactEcharts option={option} />
+        <>
+          {timeperiod} view
+          <ReactEcharts option={option} />
+        </>
       )}
     </div>
   );

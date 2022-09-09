@@ -12,7 +12,7 @@ import { Button } from "@mui/material";
 const Dashboard = () => {
   const { clientList, setClientList } = useGlobalContext();
   const { newUser } = useUserContext();
-  const [timeperiod, setTimePeriod] = useState("");
+  const [timeperiod, setTimePeriod] = useState<string>("all");
 
   let navigate = useNavigate();
   // redirect user to fill in billing details on first time loggin in
@@ -50,8 +50,18 @@ const Dashboard = () => {
           ))}
         </ul>
       </div>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginLeft: "20%",
+          marginTop: "50px",
+          width: "600px",
+        }}
+      >
         <Button
+          variant="contained"
+          color="secondary"
           onClick={() => {
             setTimePeriod("week");
           }}
@@ -59,6 +69,8 @@ const Dashboard = () => {
           Week View
         </Button>
         <Button
+          variant="contained"
+          color="secondary"
           onClick={() => {
             setTimePeriod("month");
           }}
@@ -66,6 +78,8 @@ const Dashboard = () => {
           Month View
         </Button>
         <Button
+          variant="contained"
+          color="secondary"
           onClick={() => {
             setTimePeriod("all");
           }}
@@ -77,12 +91,29 @@ const Dashboard = () => {
         style={{
           width: "50%",
           marginLeft: "20%",
-          marginTop: "80px",
+          marginTop: "20px",
           border: "1px solid black",
           backgroundColor: "pink",
         }}
       >
-        <TimeSpentChart timeperiod={timeperiod} />
+        {(() => {
+          if (timeperiod === "week") {
+            return <TimeSpentChart timeperiod={timeperiod} />;
+          }
+          return null;
+        })()}
+        {(() => {
+          if (timeperiod === "month") {
+            return <TimeSpentChart timeperiod={timeperiod} />;
+          }
+          return null;
+        })()}
+        {(() => {
+          if (timeperiod === "all") {
+            return <TimeSpentChart timeperiod={timeperiod} />;
+          }
+          return null;
+        })()}
       </div>
     </>
   );
