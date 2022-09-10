@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useGlobalContext } from "../../context/clientContext";
 import TimeSpentChart from "./piechart";
+import AmtEarnedChart from "./barchart";
 import DashboardList from "./dashboardlist";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
@@ -114,6 +115,7 @@ const Dashboard = () => {
           }
           return null;
         })()}
+        <AmtEarnedChart />
       </div>
     </>
   );
