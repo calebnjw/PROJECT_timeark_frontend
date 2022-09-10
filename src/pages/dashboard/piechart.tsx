@@ -15,6 +15,7 @@ function TimeSpentChart({ timeperiod }: Props) {
   const { userProfile } = useUserContext();
   const [getData, setGetData] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  console.log(timeperiod);
 
   useEffect(() => {
     console.log(userProfile);
@@ -23,7 +24,12 @@ function TimeSpentChart({ timeperiod }: Props) {
       if (userProfile) {
         const result = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
-          { params: { user_id: userProfile._id, time_period: { timeperiod } } }
+          {
+            params: {
+              user_id: userProfile._id,
+              time_period: timeperiod,
+            },
+          }
         );
         console.log(result.data);
         setGetData(result.data);
