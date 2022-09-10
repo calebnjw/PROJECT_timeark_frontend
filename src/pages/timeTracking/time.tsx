@@ -36,6 +36,7 @@ const Time = () => {
   const handleClose = () => setOpen(false);
   const [taskList, setTaskList] = useState<Task[]>([]);
   const { userId } = useGlobalContext();
+  // const [initialTimerValue, setInitialTimerValue] = useState(0);
 
   if (taskList.length) {
     console.log("task list: ", taskList);
@@ -45,6 +46,7 @@ const Time = () => {
     setData(dayStr);
     SetIsShowSelectedDateTimeEntrys(true);
   };
+
   //* Refactor add new time entry */
   const handleAddTimeEntry = (updatedTask: any) => {
     const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
@@ -116,7 +118,7 @@ const Time = () => {
           <TaskList data={data} taskList={taskList} setTaskList={setTaskList} />
         ) : (
           <TaskList
-            data={String(today)}
+            data={String(today).slice(0, 13)}
             taskList={taskList}
             setTaskList={setTaskList}
           />

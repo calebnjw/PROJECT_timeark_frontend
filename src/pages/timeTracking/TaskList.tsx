@@ -116,7 +116,7 @@ const TaskList = (props: Props) => {
         return t;
       });
 
-      setUpdatedEndDate(undefined);
+      // setUpdatedEndDate(undefined);
     }
     return;
   };
@@ -177,7 +177,7 @@ const TaskList = (props: Props) => {
                           <>
                             <b style={{ backgroundColor: "pink" }}>
                               Task Name: {task.name} | Time Spent:{" "}
-                              <span>{<ShowTimer />}</span>
+                              <ShowTimer startDate={time.startDate} />
                             </b>
                             <button
                               onClick={() => {
