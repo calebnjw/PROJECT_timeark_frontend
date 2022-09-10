@@ -55,7 +55,7 @@ const ClientSidebar = () => {
   //   };
   //   getClients();
   // }, []);
-  console.log("client list: ", clientList);
+  console.log("client-sidebar list: ", clientList);
 
   return (
     <Drawer

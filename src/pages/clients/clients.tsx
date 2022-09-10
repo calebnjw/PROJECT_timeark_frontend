@@ -22,7 +22,7 @@ export default function Clients() {
           <Grid item xs={6}></Grid>
         </Grid>
       </Box>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
