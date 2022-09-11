@@ -27,24 +27,18 @@ const style = {
 };
 
 const Time = () => {
-  const [isShowSelectedDateTimeEntrys, SetIsShowSelectedDateTimeEntrys] =
-    useState<boolean>(false);
-  const [data, setData] = useState("");
+  const [data, setData] = useState(String(new Date()));
   const today = new Date();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [taskList, setTaskList] = useState<Task[]>([]);
   const { userId } = useGlobalContext();
-  // const [initialTimerValue, setInitialTimerValue] = useState(0);
 
-  if (taskList.length) {
-    console.log("task list: ", taskList);
-  }
+  console.log("task list: ", taskList);
 
   const HandleShowSelectedDateTimeEntrys = (dayStr: any) => {
     setData(dayStr);
-    SetIsShowSelectedDateTimeEntrys(true);
   };
 
   //* Refactor add new time entry */
@@ -113,16 +107,7 @@ const Time = () => {
           />
         </div>
         <br />
-
-        {isShowSelectedDateTimeEntrys ? (
-          <TaskList data={data} taskList={taskList} setTaskList={setTaskList} />
-        ) : (
-          <TaskList
-            data={String(today).slice(0, 13)}
-            taskList={taskList}
-            setTaskList={setTaskList}
-          />
-        )}
+        {<TaskList data={data} taskList={taskList} setTaskList={setTaskList} />}
       </div>
       <Footer />
     </>

@@ -36,7 +36,6 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
-
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
@@ -68,8 +67,6 @@ function App() {
       getClients();
     }
   }, [userProfile]);
-  console.log("user id: ", userId);
-  console.log("user profile: ", userProfile);
 
   return (
     <UserContext.Provider

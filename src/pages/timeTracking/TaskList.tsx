@@ -51,8 +51,7 @@ const TaskList = (props: Props) => {
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
       const tasks = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`,
-        { params: { user_id: userId } }
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`
       );
       const taskArr = tasks.data.tasksBySelectedDate;
       if (taskArr) {
