@@ -11,6 +11,10 @@ import EditTimeTrackingForm from "./editTimeTrackingForm";
 import { useGlobalContext } from "../../context/clientContext";
 import * as _ from "lodash";
 
+import axios from "axios";
+import { AnalyticsRounded } from "@mui/icons-material";
+axios.defaults.withCredentials = true;
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -22,10 +26,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-import axios from "axios";
-import { AnalyticsRounded } from "@mui/icons-material";
-axios.defaults.withCredentials = true;
 
 interface Props {
   data: string;

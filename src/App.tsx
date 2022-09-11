@@ -36,7 +36,6 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [clientList, setClientList] = useState<[]>([]);
-
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
@@ -55,21 +54,20 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (userProfile) {
+    if (userId && userId.length > 0) {
       const getClients = async () => {
         const result = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/clients`,
           {
-            params: { user_id: userProfile?._id },
+            params: { user_id: userId },
           }
         );
+        console.log(result.data);
         setClientList(result.data);
       };
       getClients();
     }
-  }, [userProfile]);
-  console.log("user id: ", userId);
-  console.log("user profile: ", userProfile);
+  }, [userId]);
 
   return (
     <UserContext.Provider
@@ -108,7 +106,15 @@ function App() {
             element={<EditProjectForm />}
           />
 
-          <Route path="tasks" element={<Tasks />} />
+          <Route
+            path="projects/:project_id/tasks/:task_id"
+            element={<SingleTask />}
+          />
+          <Route
+            path="projects/:project_id/tasks/:task_id/update"
+            element={<EditTask />}
+          />
+
           <Route path="tasks/new" element={<NewTask />} />
 
           <Route path="profile" element={<Profile />}>
