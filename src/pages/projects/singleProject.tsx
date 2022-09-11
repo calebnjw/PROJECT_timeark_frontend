@@ -43,9 +43,6 @@ const SingleProject = () => {
     getProjectInfo();
   }, []);
 
-  console.log("project info: ", project);
-  console.log("client name: ", client);
-
   return (
     <>
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>

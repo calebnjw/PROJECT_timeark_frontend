@@ -13,7 +13,6 @@ const SingleTask = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { clientList } = useGlobalContext();
   let { task_id } = useParams();
   console.log("task id: ", task_id);
 

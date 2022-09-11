@@ -25,7 +25,7 @@ const style = {
 };
 
 const Time = () => {
-  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [isShowSelectedDateTimeEntrys, SetIsShowSelectedDateTimeEntrys] = useState<boolean>(false);
   const [data, setData] = useState("");
   const today = new Date();
   const [open, setOpen] = React.useState(false);
@@ -37,9 +37,30 @@ const Time = () => {
     console.log("task list: ", taskList);
   }
 
-  const showDetailsHandle = (dayStr: any) => {
+  const HandleShowSelectedDateTimeEntrys = (dayStr: any) => {
     setData(dayStr);
-    setShowDetails(true);
+    SetIsShowSelectedDateTimeEntrys(true);
+  };
+  //* Refactor add new time entry */
+  const handleAddTimeEntry = (updatedTask: any) => {
+    const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
+    if (isNewTask) {
+      // If task already exists then update task
+      const updatedTaskList = taskList.map((t) => {
+        if (t._id == updatedTask._id) {
+          t = updatedTask;
+        }
+        return t;
+      });
+
+      setTaskList([]);
+      setTaskList(updatedTaskList);
+    } else {
+      //if not, add it to task list
+      const updatedTaskList = [...taskList, updatedTask];
+      setTaskList([]);
+      setTaskList(updatedTaskList);
+    }
   };
 
   return (
@@ -67,6 +88,7 @@ const Time = () => {
                     taskList={taskList}
                     setTaskList={setTaskList}
                     userId={userId}
+                    handleAddTimeEntry={handleAddTimeEntry}
                   />
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -75,11 +97,11 @@ const Time = () => {
               </Box>
             </Modal>
           </div>
-          <Calendar showDetailsHandle={showDetailsHandle} />
+          <Calendar HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys} />
         </div>
         <br />
 
-        {showDetails ? (
+        {isShowSelectedDateTimeEntrys ? (
           <TaskList data={data} taskList={taskList} setTaskList={setTaskList} />
         ) : (
           <TaskList data={String(today)} taskList={taskList} setTaskList={setTaskList} />

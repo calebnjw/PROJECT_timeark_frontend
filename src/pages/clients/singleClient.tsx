@@ -3,11 +3,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useContext, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { Spinner } from "../../components/spinner/spinner";
-import { ClientGlobalContext } from "../../context/clientContext";
+import { useGlobalContext } from "../../context/clientContext";
 import { Client, Billing } from "../../types/client";
 
 import Button from "@mui/material/Button";
@@ -32,10 +32,10 @@ export default function SingleClient() {
     createdAt: null,
     updatedAt: null,
   });
-
+  const navigate = useNavigate();
+  const location = useLocation();
   let { clientId } = useParams();
-
-  const { clientList } = useContext(ClientGlobalContext);
+  let { clientList } = useGlobalContext();
 
   useEffect(() => {
     function getSingleClient(clientid: string | undefined, clientlist: Client[]): Client[] {
@@ -58,26 +58,32 @@ export default function SingleClient() {
           <Grid item xs={6}>
             {!isLoaded && client === undefined ? (
               <Box>
-                <Typography>Loading the client</Typography>
+                <p>Loading the client</p>
                 <Spinner />
               </Box>
             ) : (
               <Grid item xs={6}>
                 <Box alignContent="left">
-                  <Typography>Client Name: {client.client_name} </Typography>
-                  <Typography>Company Name: {client.billing_details.company_name}</Typography>
-                  <Typography>Street Name: {client.billing_details.street_name}</Typography>
-                  <Typography>Unit Number: {client.billing_details.unit_number}</Typography>
-                  <Typography>Building Name: {client.billing_details.building_name}</Typography>
-                  <Typography>City Name: {client.billing_details.city}</Typography>
-                  <Typography>Country: {client.billing_details.country}</Typography>
-                  <Typography>Postal Code: {client.billing_details.postal_code}</Typography>
-                  <Typography>
-                    Company Registration: {client.billing_details.company_registration}
-                  </Typography>
+                  <p>Client Name: {client.client_name} </p>
+                  <p>Company Name: {client.billing_details.company_name}</p>
+                  <p>Street Name: {client.billing_details.street_name}</p>
+                  <p>Unit Number: {client.billing_details.unit_number}</p>
+                  <p>Building Name: {client.billing_details.building_name}</p>
+                  <p>City Name: {client.billing_details.city}</p>
+                  <p>Country: {client.billing_details.country}</p>
+                  <p>Postal Code: {client.billing_details.postal_code}</p>
+                  <p>Company Registration: {client.billing_details.company_registration}</p>
                 </Box>
                 <Box mt="2rem">
-                  <Button variant="contained" component={Link} to={`/clients/${client._id}/update`}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      navigate(`/clients/${client._id}/update`, {
+                        state: { client },
+                      });
+                    }}
+                  >
                     Edit
                   </Button>
                 </Box>

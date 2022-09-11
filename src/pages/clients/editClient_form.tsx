@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { Client } from "../../types/client";
+import { useUserContext } from "../../context/userContext";
 
 axios.defaults.withCredentials = true;
 
@@ -26,6 +27,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
   const [companyreg, setCompanyreg] = useState("");
 
   const navigate = useNavigate();
+  const { userProfile } = useUserContext();
 
   useEffect(() => {
     setClientName(client.client_name);
@@ -69,25 +71,22 @@ export default function EditClientForm({ client, setClientList }: Props) {
   };
 
   const handleEditClient = async () => {
-    const clientDetails = {
-      client_name: clientName,
-      billing_details: {
-        company_name: companyName,
-        building_name: buildingName,
-        unit_number: unitNumber,
-        street_name: streetNumber,
-        city: cityName,
-        country: countryName,
-        postal_code: postalCode,
-        company_registration: companyreg,
-      },
-      project_ids: [],
-    };
-
     try {
       await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/clients/${client._id}/update`,
-        clientDetails
+        {
+          client_name: clientName,
+          billing_details: {
+            company_name: companyName,
+            building_name: buildingName,
+            unit_number: unitNumber,
+            street_name: streetNumber,
+            city: cityName,
+            country: countryName,
+            postal_code: postalCode,
+            company_registration: companyreg,
+          },
+        }
       );
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/clients`
