@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/userContext";
 
 axios.defaults.withCredentials = true;
 
@@ -20,6 +21,7 @@ export default function NewClientForm() {
   const [companyreg, setCompanyreg] = useState("");
 
   const navigate = useNavigate();
+  const { userProfile } = useUserContext();
 
   const clientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClientName(e.target.value);
@@ -71,7 +73,6 @@ export default function NewClientForm() {
         `${process.env.REACT_APP_BACKEND_URL}/clients/new`,
         clientDetails
       );
-      console.log(clientDetails);
       navigate("/clients");
     } catch (error) {
       console.error(error);
