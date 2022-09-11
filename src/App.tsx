@@ -41,21 +41,32 @@ function App() {
 
       <Route path="app" element={<AppLayout />}>
         <Route index element={<Dashboard />} />
+
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="onboard" element={<Onboard />} />
 
-        <Route path="clients" element={<Clients />} />
-        <Route path="clients/new" element={<AddClient />} />
-        <Route path="clients/:clientId" element={<SingleClient />} />
-        <Route path="clients/:clientId/update" element={<EditSingleClient />} />
+        <Route path="clients">
+          <Route index element={<Clients />} />
+          <Route path="new" element={<AddClient />} />
+          <Route path=":clientId">
+            <Route index element={<SingleClient />} />
+            <Route path="update" element={<EditSingleClient />} />
+          </Route>
+        </Route>
 
-        <Route path="projects" element={<Projects />} />
-        <Route path="projects/new" element={<NewProject />} />
-        <Route path="projects/:project_id" element={<SingleProject />} />
-        <Route path="projects/:project_id/update" element={<EditProjectForm />} />
+        <Route path="projects">
+          <Route index element={<Projects />} />
+          <Route path="new" element={<NewProject />} />
+          <Route path=":project_id">
+            <Route index element={<SingleProject />} />
+            <Route path="update" element={<EditProjectForm />} />
+          </Route>
+        </Route>
 
-        <Route path="tasks" element={<Tasks />} />
-        <Route path="tasks/new" element={<NewTask />} />
+        <Route path="tasks">
+          <Route index element={<Tasks />} />
+          <Route path="new" element={<NewTask />} />
+        </Route>
 
         <Route path="profile" element={<Profile />}>
           <Route index element={<ProfileInfo />} />

@@ -26,37 +26,27 @@ export default function Sidebar() {
         <List>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/dashboard" replace={true}>
-                Dashboard
-              </Link>
+              <Link to="/app/dashboard">Dashboard</Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/clients" replace={true}>
-                Clients
-              </Link>
+              <Link to="/app/clients">Clients</Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/projects" replace={true}>
-                Projects
-              </Link>
+              <Link to="/app/projects">Projects</Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/time" replace={true}>
-                Time Tracking
-              </Link>
+              <Link to="/app/time">Time Tracking</Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/invoices" replace={true}>
-                Invoices
-              </Link>
+              <Link to="/app/invoices">Invoices</Link>
             </ListItemButton>
           </ListItem>
         </List>

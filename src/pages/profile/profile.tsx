@@ -25,7 +25,6 @@ function Profile() {
                     marginRight: "20px",
                   }}
                   src={userProfile?.photos[0].value}
-                  // src="https://www.redditstatic.com/avatars/avatar_default_02_0DD3BB.png"
                   alt={`${userProfile?.displayName}'s profile`}
                   referrerPolicy="no-referrer"
                 ></img>
