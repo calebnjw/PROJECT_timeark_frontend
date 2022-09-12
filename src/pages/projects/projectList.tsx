@@ -25,7 +25,7 @@ const ProjectList = ({ client }: Props) => {
       setProjectList(result.data.projects);
     };
     getProjects();
-  }, []);
+  }, [clientId]);
 
   return (
     <ul>

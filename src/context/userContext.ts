@@ -1,14 +1,48 @@
-export {};
+import React, { createContext, useContext } from "react";
+import { User } from "../types/user";
 
-// import { createContext, useContext } from "react";
-// import { User, Name, Email, Photo } from "../types/user";
+export interface UserContextInterface {
+  userProfile?: User;
+  setUserProfile: (value: User) => void;
+  newUser: boolean;
+}
 
-// interface UserContextInterface {
-//   user: User;
-// }
+// create context that stores userState.
+export const UserContext = createContext<UserContextInterface>({
+  userProfile: {
+    _id: "",
+    provider: "",
+    externalId: "",
+    displayName: "",
+    name: {
+      familyName: "",
+      givenName: "",
+    },
+    emails: [
+      {
+        value: "",
+      },
+    ],
+    photos: [
+      {
+        value: "",
+      },
+    ],
+    billingDetails: {
+      companyName: "",
+      buildingName: "",
+      unitNumber: "",
+      streetName: "",
+      city: "",
+      country: "",
+      postalCode: "",
+      contactNumber: "",
+      companyRegistration: "",
+    },
+    clientIds: [],
+  },
+  setUserProfile: () => {},
+  newUser: true,
+});
 
-// export const UserContext = createContext<UserContextInterface>({
-//   user: {},
-// });
-
-// export const useUserContext = () => useContext(UserContext);
+export const useUserContext = () => useContext(UserContext);

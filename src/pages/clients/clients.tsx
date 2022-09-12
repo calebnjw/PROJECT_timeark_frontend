@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
-import { Client } from "../../types/client";
 
 export default function Clients() {
   return (
@@ -23,7 +22,7 @@ export default function Clients() {
           <Grid item xs={6}></Grid>
         </Grid>
       </Box>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

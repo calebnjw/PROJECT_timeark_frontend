@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -21,8 +20,6 @@ const NewProjectForm = () => {
   const clientOptions: any = clientList.map((c) => {
     return { id: c._id, name: c.client_name };
   });
-
-  console.log("client options: ", clientOptions);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
