@@ -2,6 +2,7 @@ import { TableProps } from "../../types/invoiceTypes";
 import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
+import { InvoiceProps } from "../../types/invoiceTypes";
 import {
   Table,
   TableRow,
@@ -64,6 +65,7 @@ const MyTable = () => {
   const navigate = useNavigate();
   const { clientList, setClientList } = useGlobalContext();
   const [table, setTable] = useState<TableProps[]>([]);
+  const [invoice, setInvoice] = useState<InvoiceProps>();
   // const clientId = client._id;
   
   const { project_id } = useParams();
@@ -73,21 +75,30 @@ const MyTable = () => {
     console.log("Invoices button clicked");
   };
 
-
+  
+  
   useEffect(() => {
     const getInvoice = async () => {
       try {
         const result = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/invoices/`, {params: {project_id: project_id}}
-        );
-        console.log("setTable", result.data.invoices);
-        setTable(result.data.invoices);
-      } catch (err) {
-        console.log(err);
+          );
+          console.log("setTable", result.data.invoices);
+          setTable(result.data.invoices);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getInvoice();
+    }, []);
+
+    const handleDeleteButton = async(invoiceId: any) => {
+      try {
+        const result = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`)
+      } catch(err){
+        console.log(err)
       }
-    };
-    getInvoice();
-  }, []);
+    }
 
   //due date
   const invoiceIssuedDate = new Date();
@@ -109,6 +120,8 @@ const MyTable = () => {
                   <StyledTableCell align="center">Due Date</StyledTableCell>
                   <StyledTableCell align="center">Status</StyledTableCell>
                   <StyledTableCell align="center">View Invoices</StyledTableCell>
+                  <StyledTableCell align="center"></StyledTableCell>
+
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -147,6 +160,15 @@ const MyTable = () => {
                           <ReceiptRoundedIcon />
                         </Button>
                       </StyledTableCell>
+                      <StyledTableCell align="center"><Button
+                variant="contained"
+                color="error"
+                type="submit"
+                onClick = {() => {handleDeleteButton(i._id)}}
+              >
+                Delete
+              </Button></StyledTableCell>
+
                     </StyledTableRow>
                   ))}
               </TableBody>

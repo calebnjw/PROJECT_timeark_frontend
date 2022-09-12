@@ -89,13 +89,13 @@ const ClientSidebar = (props: Props
         </List>
       </Box>
 
-{/*       
+      
         <Button onClick={() => {
           navigate(`/invoices/new`)
         }}>
           <AddCircleOutlineIcon fontSize="medium" />
           <Typography>Generate Invoice</Typography>
-        </Button> */}
+        </Button>
     </Drawer>
   );
 };

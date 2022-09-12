@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-import { Button, Divider } from "@mui/material";
+import { Button, Divider, Grid } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import Navbar from "../../components/navbar";
 import { Project } from "../../types/project";
@@ -17,27 +17,32 @@ const InvoiceDisplay = () => {
   const [client, setClient] = useState<Client>();
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [taskExists, setTaskExist] = useState<boolean>(false);
-  const [invoice, setInvoice] = useState<InvoiceProps>()
+  const [invoice, setInvoice] = useState<InvoiceProps>();
 
   const { invoice_id } = useParams();
-  console.log("project", project)
-  console.log("taskList", taskList)
-  console.log("invoice", invoice)
+  console.log("project", project);
+  console.log("taskList", taskList);
+  console.log("invoice", invoice);
+  const navigate = useNavigate();
 
 
-  useEffect(()=> {
+  const handleBackButton = () => {
+    navigate(-1);
+  }
+  useEffect(() => {
     const invoiceData = async () => {
       try {
-        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/invoices/${invoice_id}`)
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/invoices/${invoice_id}`
+        );
         setInvoice(result.data.invoice);
-        console.log("invoiceresultdata",result.data)
+        console.log("invoiceresultdata", result.data);
+      } catch (err) {
+        console.log(err);
       }
-      catch(err){
-        console.log(err)
-      }
-    }
-    invoiceData()
-  }, [])
+    };
+    invoiceData();
+  }, []);
 
   useEffect(() => {
     if (invoice) {
@@ -56,6 +61,24 @@ const InvoiceDisplay = () => {
       projectData();
     }
   }, [invoice]);
+
+  useEffect(() => {
+    if (clientId) {
+      console.log(clientId);
+      const clientData = async () => {
+        try {
+          const result = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`
+          );
+          setClient(result.data[0]);
+          console.log("Client data: ", result.data[0]);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      clientData();
+    }
+  }, [clientId]);
 
   useEffect(() => {
     if (project) {
@@ -80,9 +103,8 @@ const InvoiceDisplay = () => {
     }
   }, [project]);
 
-
   useEffect(() => {
-    if(!taskList){
+    if (!taskList) {
       return;
     }
 
@@ -94,7 +116,7 @@ const InvoiceDisplay = () => {
       const hours = timeDifference / (1000 * 60 * 60);
       return hours.toFixed(2);
     };
-  
+
     //get task id filtered by month
     const monthStrings = [
       "January",
@@ -119,10 +141,10 @@ const InvoiceDisplay = () => {
       }
       const dateObject = new Date(date);
       const taskListMonth = monthStrings[dateObject.getUTCMonth()];
-      console.log("tasklistmonth&invoicemonth", taskListMonth, invoice?.month )
+      console.log("tasklistmonth&invoicemonth", taskListMonth, invoice?.month);
       return taskListMonth === invoice?.month;
     });
-  
+
     let totalHours = 0;
     const taskDetails = [];
     for (let task of tasks) {
@@ -146,42 +168,46 @@ const InvoiceDisplay = () => {
     }
     console.log("Total Hours:", totalHours);
     console.log("task list id: ", tasks);
-
-  }, [taskList])
-
+  }, [taskList]);
 
 
-  //what we need >>>>
-  //invoice from: user's name
-  
-  //invoice for: client name & address
-  console.log("client data", client)
-  //invoice ID
-  console.log("invoiceID", invoice_id)
-  //Issued date
-  console.log("Issueddate", )
-  //due date
-  console.log("duedate", project?.due_date)
-  //Task: task name
-  console.log("TaskName")
-  //Hours
-  //Rate
-  //Amount
-  //Total Amount (final)
 
   return (
     <>
       <Navbar />
       <div className="main-container">
         <div className="invoice-header">
-          <Button variant="outlined" style={{ left: "50px", top: "30px" }}>
+          <Button variant="outlined" style={{ left: "50px", top: "80px" }} onClick={handleBackButton}>
             <KeyboardArrowLeftIcon fontSize="large" />
             Invoices
           </Button>
           <h1 style={{ textAlign: "center" }}>Invoice</h1>
         </div>
-        <Divider />
       </div>
+
+      <p>User's Name: </p>
+      <p>Client's Name: {client?.client_name}</p>
+      <p>Company Name: {client?.billing_details.company_name}</p>
+      <p>
+        Client's Address:
+        {client?.billing_details.unit_number} 
+        {client?.billing_details.street_name}
+        {client?.billing_details.building_name}
+        {client?.billing_details.postal_code}
+        {client?.billing_details.city}
+      </p>
+      {client?.billing_details.country}
+      <p>Invoice number: </p>
+      <p>Project name: {project?.name}</p>
+      <p>Issued Date: {invoice?.issuedDate}</p>
+      <p>Due Date: </p>
+
+      {/* {taskList && taskList.map((i) => ( */}
+      <p>Task: </p>
+      <p>Task total amount: {}</p>
+      {/* ))} */}
+      <p>Rate: {project?.rate}</p>
+      <p>Total Amount: </p>
     </>
   );
 };

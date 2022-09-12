@@ -41,7 +41,6 @@ const InvoiceForm = () => {
   const [client, setClient] = useState<Client>();
 
 
-  const { project_id } = useParams();
   const navigate = useNavigate();
 
   const clientOptions: any = clientList.map((c) => {
@@ -68,7 +67,7 @@ const InvoiceForm = () => {
   useEffect(() => {
       const projectData = async() => {
         try {
-          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${project_id}`)
+          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${selectedProject}`)
           setProject(result.data.project);
           setClientId(result.data.project.client_id)
           console.log("GenerateInvoice projectData :" , result.data)
@@ -98,7 +97,8 @@ const InvoiceForm = () => {
 
   console.log("Tasklist: ", taskList)
   console.log("SelectedProject", selectedProject)
-  function submitNewInvoice() {
+
+  async function submitNewInvoice () {
 
     const computeTime = (t1: Date, t2: Date) => {
       const endDate: any = new Date(t1);
@@ -143,7 +143,7 @@ const InvoiceForm = () => {
 
     
     const NewInvoice = {
-      project_id: project_id,
+      project_id: selectedProject,
       selectedMonth: month
       // client_id: selectedClient,
       // client_data: client,
@@ -154,9 +154,9 @@ const InvoiceForm = () => {
     };
 
     try {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/invoices/new`, NewInvoice);
+      const result = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/invoices/new`, NewInvoice);
       console.log(NewInvoice);
-      navigate(`/invoices/${project_id}`);
+      navigate(`/invoices/${selectedProject}`);
     } catch (err) {
       console.log(err);
     }

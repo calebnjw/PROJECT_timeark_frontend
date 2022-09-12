@@ -72,12 +72,12 @@ const GenerateInvoice = () => {
 
   //===================handle button click=============================//
 
-  const handleGenerateInvoice = () => {
-    navigate(`/invoices/${project_id}/new`);
-  };
+  // const handleGenerateInvoice = () => {
+  //   navigate(`/invoices/${project_id}/new`);
+  // };
 
   const handleProjectButton = () => {
-    navigate(-1);
+    navigate("/invoices")
   };
 
   return (
@@ -102,7 +102,7 @@ const GenerateInvoice = () => {
             onClick={handleProjectButton}
             >
             <KeyboardArrowLeftIcon fontSize="large" />
-            Projects
+            Back
           </Button>
           </Grid>
           <Grid item xs={11}>
@@ -118,9 +118,9 @@ const GenerateInvoice = () => {
               <TableCell align="left">Client Name: </TableCell>
               <TableCell align="left">{client?.client_name}</TableCell>
             </TableRow>
-                <Button variant="outlined" onClick={handleGenerateInvoice}>
+                {/* <Button variant="outlined" onClick={handleGenerateInvoice}>
                   Generate Invoice
-                </Button>
+                </Button> */}
           </Table>
           <MyTable/>
         </div>

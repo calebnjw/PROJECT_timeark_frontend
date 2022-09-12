@@ -5,6 +5,8 @@ export interface InvoiceProps {
   project_name: string;
   project_id: [];
   month: string
+  issuedDate: Date;
+  dueDate: Date;
 }
 
 export interface FormProps {
