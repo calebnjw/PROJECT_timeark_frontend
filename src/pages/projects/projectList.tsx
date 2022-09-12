@@ -4,6 +4,16 @@ import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { format } from "date-fns";
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -28,33 +38,48 @@ const ProjectList = ({ client }: Props) => {
   }, [clientId]);
 
   return (
-    <ul>
-      {projectList.map((project, idx) => (
-        <li
-          key={project._id}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            backgroundColor: "pink",
-            width: "80%",
-            justifyContent: "space-between",
-            margin: "4px 0 4px 0",
-            height: "35px",
-            alignItems: "center",
-          }}
-        >
-          {project.name}
-          <Button
-            size="small"
-            onClick={() => {
-              navigate(`/projects/${project._id}`);
-            }}
-          >
-            View
-          </Button>
-        </li>
-      ))}
-    </ul>
+    <>
+      <TableContainer component={Paper} style={{ width: "92%" }}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "lightgray" }}>
+              <TableCell>Project Name</TableCell>
+              <TableCell align="right">Budget&nbsp;($)</TableCell>
+              <TableCell align="right">Rate&nbsp;($/h)</TableCell>
+              <TableCell align="right">Due Date</TableCell>
+              <TableCell align="right">View</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {projectList.map((project) => (
+              <TableRow
+                key={client._id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {project.name}
+                </TableCell>
+                <TableCell align="right">{project.budget}</TableCell>
+                <TableCell align="right">{project.rate}</TableCell>
+                <TableCell align="right">
+                  {format(new Date(project.due_date), "MM/dd/yyyy")}
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      navigate(`/projects/${project._id}`);
+                    }}
+                  >
+                    View
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

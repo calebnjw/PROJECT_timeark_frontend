@@ -15,9 +15,10 @@ export default function Footer() {
         justifyContent: "center",
         alignItems: "center",
         zIndex: (theme) => theme.zIndex.drawer + 1,
+        width: "100%",
       }}
     >
-      <BottomNavigationAction label="Copyright &copy; 2022 Time Ark" />
+      <BottomNavigationAction label="&copy; 2022 Time Ark" />
     </BottomNavigation>
   );
 }

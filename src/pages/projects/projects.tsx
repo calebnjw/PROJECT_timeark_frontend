@@ -12,19 +12,39 @@ const Projects = () => {
     <>
       <Navbar />
       <Sidebar />
-      <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        <div style={{ textAlign: "right", marginRight: "100px" }}>
-          <Button variant="contained" color="success">
-            <Link to="/projects/new" style={{ color: "white" }}>
-              + New Project
-            </Link>
-          </Button>
-        </div>
+
+      <div
+        style={{
+          width: "80%",
+          marginLeft: "20%",
+          marginTop: "80px",
+        }}
+      >
         <div>
-          <h2>Clients/Projects</h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <h2>Clients/Projects</h2>
+            </div>
+            <div style={{ textAlign: "right", marginRight: "100px" }}>
+              <Button variant="contained" color="success">
+                <Link
+                  to="/projects/new"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  + New Project
+                </Link>
+              </Button>
+            </div>
+          </div>
           <ul>
             {clientList.map((client, idx) => (
-              <li key={idx}>
+              <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
                 <p style={{ fontWeight: "200" }}>
                   <b>{client.client_name}</b>
                 </p>
