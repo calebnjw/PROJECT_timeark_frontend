@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-
+import { useUserContext } from "../context/userContext";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 
 export default function ButtonAppBar() {
+  const { userProfile } = useUserContext();
+
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -25,16 +27,19 @@ export default function ButtonAppBar() {
                 marginLeft: "90px",
               }}
             >
-              <Button color="inherit" component={Link} to="/login">
-                Login
-              </Button>
-              <Button
-                color="secondary"
-                href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
-                variant="contained"
-              >
-                LOGOUT
-              </Button>
+              {userProfile ? (
+                <Button
+                  color="secondary"
+                  href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
+                  variant="contained"
+                >
+                  LOGOUT
+                </Button>
+              ) : (
+                <Button color="inherit" component={Link} to="/login">
+                  Login
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Toolbar>
