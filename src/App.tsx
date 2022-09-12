@@ -42,9 +42,7 @@ function App() {
 
   // get client list
   const getClients = async () => {
-    const result = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/clients`
-    );
+    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
     // console.log("fetch user's client list: ", result.data);
     setClientList(result.data);
   };
@@ -53,9 +51,7 @@ function App() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/users/user`
-        );
+        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
         // console.log("get user info: ", result.data);
         const userId = result.data.user._id;
         if (userId) {
@@ -94,6 +90,7 @@ function App() {
         userProfile,
         setUserProfile,
         newUser,
+        setNewUser,
       }}
     >
       <ClientGlobalContext.Provider
@@ -112,27 +109,15 @@ function App() {
           <Route path="clients" element={<Clients />} />
           <Route path="clients/new" element={<AddClient />} />
           <Route path="clients/:clientId" element={<SingleClient />} />
-          <Route
-            path="clients/:clientId/update"
-            element={<EditSingleClient />}
-          />
+          <Route path="clients/:clientId/update" element={<EditSingleClient />} />
 
           <Route path="projects" element={<Projects />} />
           <Route path="projects/new" element={<NewProject />} />
           <Route path="projects/:project_id" element={<SingleProject />} />
-          <Route
-            path="projects/:project_id/update"
-            element={<EditProjectForm />}
-          />
+          <Route path="projects/:project_id/update" element={<EditProjectForm />} />
 
-          <Route
-            path="projects/:project_id/tasks/:task_id"
-            element={<SingleTask />}
-          />
-          <Route
-            path="projects/:project_id/tasks/:task_id/update"
-            element={<EditTask />}
-          />
+          <Route path="projects/:project_id/tasks/:task_id" element={<SingleTask />} />
+          <Route path="projects/:project_id/tasks/:task_id/update" element={<EditTask />} />
 
           <Route path="tasks/new" element={<NewTask />} />
 
