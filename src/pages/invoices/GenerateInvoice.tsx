@@ -4,7 +4,7 @@ import Navbar from "../../components/navbar";
 import ClientSidebar from "./clients_sidebar";
 import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { Table, TableRow, TableCell, Button } from "@mui/material";
+import { Table, TableRow, TableCell, Button, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Project } from "../../types/project";
@@ -33,6 +33,8 @@ const GenerateInvoice = () => {
 
   const { project_id } = useParams();
   console.log(project_id);
+
+
   //==============================query===================================//
   
   //query projectName
@@ -66,20 +68,6 @@ const GenerateInvoice = () => {
       clientData();
     }
   }, [clientId])
-  //query clientName
-  // useEffect(() => {
-  //     function singleClientData (
-  //       clientlist: Client[]
-  //     ): Client[] { 
-  //       return clientList.filter((element) => element._id === project_id)
-  //     } if (!isLoaded && clientList.length !== 0) {
-  //       const selectedClient = singleClientData(project_id,);
-  //       console.log("Selected Client: ", selectedClient);
-  //       setClient(selectedClient);
-  //       setIsLoaded(true);
-  //     }
-  // }, [isLoaded, clientList, clientId]);
-
 
 
   //===================handle button click=============================//
@@ -97,8 +85,14 @@ const GenerateInvoice = () => {
       <Navbar />
       <Sidebar />
       {setClientId && <ClientSidebar setClientId={setClientId} />}
-      <div className="prime-container">
         <div className="invoice-heading">
+        <div
+          className="generate-invoice-container"
+          style={{ width: "100%", paddingLeft: "530px", paddingTop: "50px", paddingRight: "50px" }}
+          >
+          <Grid container spacing={2}>
+            <Grid item xs={1}>
+      
           <Button
             variant="outlined"
             style={{
@@ -106,16 +100,15 @@ const GenerateInvoice = () => {
               top: "20px",
             }}
             onClick={handleProjectButton}
-          >
+            >
             <KeyboardArrowLeftIcon fontSize="large" />
             Projects
           </Button>
-          <h1 style={{ textAlign: "center" }}>Invoices</h1>
-        </div>
-        <div
-          className="generate-invoice-container"
-          style={{ width: "70%", paddingLeft: "500px" }}
-        >
+          </Grid>
+          <Grid item xs={11}>
+              <h1 style={{ textAlign: "center" }}>Invoices</h1>
+          </Grid>
+              </Grid>
           <Table>
             <TableRow sx={{ "& td": { border: 0 } }}>
               <TableCell align="left">Project Name: </TableCell>
@@ -129,7 +122,7 @@ const GenerateInvoice = () => {
                   Generate Invoice
                 </Button>
           </Table>
-          {/* <MyTable/> */}
+          <MyTable/>
         </div>
       </div>
     </>

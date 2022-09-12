@@ -47,11 +47,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 //===============================onClick & onChange functions==========================//
-const navigate = useNavigate();
-const handleInvoices = () => {
-  // navigate(`/invoices/${invoice_id}`)
-  console.log("Invoices button clicked");
-};
+
+
 
 const handleSelector = () => {
   console.log("Paid/overdue selected");
@@ -64,77 +61,94 @@ interface Props {
 
 //======================================Return section=======================//
 const MyTable = () => {
+  const navigate = useNavigate();
   const { clientList, setClientList } = useGlobalContext();
   const [table, setTable] = useState<TableProps[]>([]);
   // const clientId = client._id;
-
+  
   const { project_id } = useParams();
   
+  const handleInvoices = (invoice_id: any) => {
+    navigate(`/invoices/invoice/${invoice_id}`) 
+    console.log("Invoices button clicked");
+  };
+
+
   useEffect(() => {
     const getInvoice = async () => {
       try {
         const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/invoices/${project_id}`
+          `${process.env.REACT_APP_BACKEND_URL}/invoices/`, {params: {project_id: project_id}}
         );
-          setTable(result.data);
-          console.log(result.data);
+        console.log("setTable", result.data.invoices);
+        setTable(result.data.invoices);
       } catch (err) {
         console.log(err);
       }
-      getInvoice();
     };
+    getInvoice();
   }, []);
+
+  //due date
+  const invoiceIssuedDate = new Date();
+  const invoiceDueDate = new Date(invoiceIssuedDate.getTime());
+  invoiceDueDate.setDate(invoiceDueDate.getDate() + 7);
 
   return (
     <>
       <div className="invoice-list">
-        <TableContainer style={{ paddingLeft: "100px", paddingRight: "100px" }}>
+        <TableContainer>
           <Paper>
             <Table>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center" >
                     Invoice Number
                   </StyledTableCell>
-                  <StyledTableCell align="right">Issued Date</StyledTableCell>
-                  <StyledTableCell align="right">Due Date</StyledTableCell>
-                  <StyledTableCell align="right">Status</StyledTableCell>
-                  <StyledTableCell align="right">View Invoices</StyledTableCell>
+                  <StyledTableCell align="center">Issued Date</StyledTableCell>
+                  <StyledTableCell align="center">Due Date</StyledTableCell>
+                  <StyledTableCell align="center">Status</StyledTableCell>
+                  <StyledTableCell align="center">View Invoices</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {table.map((i: any) => (
-                  <StyledTableRow key={i.id}>
-                    <StyledTableCell align="left">{i._id}</StyledTableCell>
-                    <StyledTableCell align="left">
-                      {}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                      {}
-                    </StyledTableCell>
-                    <FormControl sx={{ m: 1, minWidth: 90 }}>
-                      <InputLabel id="demo-simple-select-label">
-                        Status
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        // value={age}
-                        label="Status"
-                        onChange={handleSelector}
-                        variant="outlined"
-                      >
-                        <MenuItem value={"paid"}>Paid</MenuItem>
-                        <MenuItem value={"overdue"}>Overdue</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <StyledTableCell align="right">
-                      <Button variant="outlined" onClick={handleInvoices}>
-                        <ReceiptRoundedIcon />
-                      </Button>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))} 
+                {table &&
+                  table.map((i: any) => (
+                    <StyledTableRow key={i.id}>
+                      <StyledTableCell align="center">{i._id}</StyledTableCell>
+                      <StyledTableCell align="center">
+                        {`${invoiceIssuedDate.getDate()}/${invoiceIssuedDate.getUTCMonth()}/${
+                          invoiceIssuedDate.getFullYear()
+                        }`}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        {`${invoiceDueDate.getDate()}/${invoiceDueDate.getUTCMonth()}/${
+                          invoiceDueDate.getFullYear()
+                        }`}
+                      </StyledTableCell>
+                      <FormControl sx={{ m: 1, minWidth: 90 }} >
+                        <InputLabel id="demo-simple-select-label">
+                          Status
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          // value={age}
+                          label="Status"
+                          onChange={handleSelector}
+                          variant="outlined"
+                        >
+                          <MenuItem value={"paid"}>Paid</MenuItem>
+                          <MenuItem value={"overdue"}>Overdue</MenuItem>
+                        </Select>
+                      </FormControl>
+                      <StyledTableCell align="center">
+                        <Button variant="outlined" onClick={() => handleInvoices(i._id)}>
+                          <ReceiptRoundedIcon />
+                        </Button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
               </TableBody>
             </Table>
           </Paper>

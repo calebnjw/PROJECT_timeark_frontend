@@ -104,7 +104,7 @@ function App() {
         <Route path="invoices" element={<InvoicePage />} />
         <Route path="invoices/:project_id" element={<GenerateInvoice />} />
         <Route path="invoices/:project_id/new" element={<InvoiceForm />} />
-        <Route path="invoices/:invoice_id" element={<InvoiceDisplay />} />
+        <Route path="invoices/invoice/:invoice_id" element={<InvoiceDisplay />} />
 
         <Route path="time" element={<Time />} />
         <Route path="profile" element={<Profile />} />

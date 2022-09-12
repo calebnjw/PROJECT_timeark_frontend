@@ -36,6 +36,10 @@ const InvoiceForm = () => {
   const [taskExists, setTaskExist] = useState<boolean>(false);
   const [dueDate, setDueDate] = useState(null)
   const [month, setMonth] = useState("");
+  const [project, setProject] = useState<Project>()
+  const [clientId, setClientId] = useState("");
+  const [client, setClient] = useState<Client>();
+
 
   const { project_id } = useParams();
   const navigate = useNavigate();
@@ -48,22 +52,109 @@ const InvoiceForm = () => {
     return { id: c._id, name: c.name };
   });
 
-  const monthOptions = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((c) => {
+  const monthStrings = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  const monthOptions = monthStrings.map((c) => {
     return { id: c, name: c };
   });
 
+  useEffect(() => {
+    for (let projectItem of projectList){
+      if(projectItem._id === selectedProject){
+        setProject(projectItem)
+      }
+    } 
+  },[selectedProject])
+
+  useEffect(() => {
+      const projectData = async() => {
+        try {
+          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${project_id}`)
+          setProject(result.data.project);
+          setClientId(result.data.project.client_id)
+          console.log("GenerateInvoice projectData :" , result.data)
+        } catch(err){
+          console.log(err)
+        }
+      }
+      projectData();
+  }, [])
+
+  useEffect(() => {
+    if(clientId){
+      console.log(clientId)
+      const clientData = async() => {
+        try {
+          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`)
+          setClient(result.data[0])
+          console.log("Client data: ", result.data[0])
+        } catch(err){
+          console.log(err)
+        }
+      }
+      clientData();
+    }
+  }, [clientId])
+  console.log("Client data", client)
 
   console.log("Tasklist: ", taskList)
   console.log("SelectedProject", selectedProject)
   function submitNewInvoice() {
+
+    const computeTime = (t1: Date, t2: Date) => {
+      const endDate: any = new Date(t1);
+      const startDate: any = new Date(t2);
+      const timeDifference = endDate.getTime() - startDate.getTime();
+      console.log("Time difference:", timeDifference)
+      const hours = timeDifference / (1000 * 60 * 60);
+      return hours.toFixed(2);
+    };
+
+    
+    //get task id filtered by month
+    const tasks = taskList.filter((c) => {
+      let date;
+      if (c.updatedAt){
+        date = c.updatedAt
+      } else {
+        date = c.createdAt
+      }
+      const dateObject = new Date(date)
+      const taskListMonth = monthStrings[dateObject.getUTCMonth()];
+      return taskListMonth === month
+    })
+
+    let totalHours = 0;
+    const taskDetails = []
+    for (let task of tasks){
+      const taskObject = { taskName: task.name, totalAmount: 0}
+      console.log("taskObject:", taskObject)
+      let taskTotalAmount = 0
+      for (let timeTrackingObj of task.time_trackings){
+        const hours = computeTime(timeTrackingObj.endDate, timeTrackingObj.startDate)
+        console.log("hours", hours)
+        if (project) {
+          taskTotalAmount += parseInt(hours) * project?.rate}
+        totalHours += parseInt(hours)
+      }
+      console.log("taskTotalAmount:", taskTotalAmount)
+      taskObject.totalAmount = taskTotalAmount
+      taskDetails.push(taskObject)
+    }
+
+    
     const NewInvoice = {
-      client_id: selectedClient,
-      project_id: selectedProject,
-      
+      project_id: project_id,
+      selectedMonth: month
+      // client_id: selectedClient,
+      // client_data: client,
+      // project_name: project?.name,
+      // task_rate: project?.rate,
+      // task_details: taskDetails,
+      // total_hours: totalHours,
     };
 
     try {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/new`, NewInvoice);
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/invoices/new`, NewInvoice);
       console.log(NewInvoice);
       navigate(`/invoices/${project_id}`);
     } catch (err) {
@@ -80,6 +171,7 @@ const InvoiceForm = () => {
   };
 
   const selectedMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("selected month",e.target.value)
     setMonth(e.target.value);
   };
 
@@ -228,7 +320,7 @@ const InvoiceForm = () => {
             <Button
               variant="contained"
               color="primary"
-              type="submit"
+              type="button"
               value="Submit"
               onClick={submitNewInvoice}
             >

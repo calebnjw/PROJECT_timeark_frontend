@@ -67,6 +67,7 @@ const ClientSidebar = (props: Props
         },
       }}
     >
+      
       <Box sx={{ overflow: "auto" }} mt={"5rem"}>
         <Typography variant="h5" align="center">
           Clients
@@ -87,6 +88,14 @@ const ClientSidebar = (props: Props
           ))}
         </List>
       </Box>
+
+{/*       
+        <Button onClick={() => {
+          navigate(`/invoices/new`)
+        }}>
+          <AddCircleOutlineIcon fontSize="medium" />
+          <Typography>Generate Invoice</Typography>
+        </Button> */}
     </Drawer>
   );
 };

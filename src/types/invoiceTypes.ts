@@ -4,6 +4,7 @@ export interface InvoiceProps {
   client_id: [];
   project_name: string;
   project_id: [];
+  month: string
 }
 
 export interface FormProps {
