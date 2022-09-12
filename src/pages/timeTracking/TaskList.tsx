@@ -51,8 +51,7 @@ const TaskList = (props: Props) => {
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
       const tasks = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`,
-        { params: { user_id: userId } }
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`
       );
       const taskArr = tasks.data.tasksBySelectedDate;
       if (taskArr) {
@@ -116,7 +115,7 @@ const TaskList = (props: Props) => {
         return t;
       });
 
-      setUpdatedEndDate(undefined);
+      // setUpdatedEndDate(undefined);
     }
     return;
   };
@@ -177,7 +176,7 @@ const TaskList = (props: Props) => {
                           <>
                             <b style={{ backgroundColor: "pink" }}>
                               Task Name: {task.name} | Time Spent:{" "}
-                              <span>{<ShowTimer />}</span>
+                              <ShowTimer startDate={time.startDate} />
                             </b>
                             <button
                               onClick={() => {
