@@ -6,10 +6,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context/userContext";
+import { useGlobalContext } from "../../context/clientContext";
 
 axios.defaults.withCredentials = true;
 
 export default function NewClientForm() {
+  const { clientList, setClientList } = useGlobalContext();
+
   const [clientName, setClientName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [streetNumber, setStreetNumber] = useState("");
@@ -52,7 +55,7 @@ export default function NewClientForm() {
     setCompanyreg(e.target.value);
   };
 
-  const handleNewClient = () => {
+  const handleNewClient = async () => {
     const clientDetails = {
       client_name: clientName,
       billing_details: {
@@ -69,11 +72,15 @@ export default function NewClientForm() {
     };
 
     try {
-      axios.post(
+      const result = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/clients/new`,
         clientDetails
       );
-      navigate("/clients");
+      const newClient = result.data;
+      const clientId: any = newClient._id;
+      const updatedClientList: any = [...clientList, newClient];
+      setClientList(updatedClientList);
+      navigate(`/clients/${clientId}`);
     } catch (error) {
       console.error(error);
     }
