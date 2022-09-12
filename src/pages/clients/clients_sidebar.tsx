@@ -29,12 +29,6 @@ const useStyles = makeStyles({
   },
 });
 
-interface Props {
-  clientList: Client[];
-  setClientList: React.Dispatch<React.SetStateAction<Client[]>>;
-}
-
-// export default function ClientSidebar() {
 const ClientSidebar = () => {
   const classes = useStyles();
   const { userProfile } = useUserContext();
@@ -42,19 +36,6 @@ const ClientSidebar = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const getClients = async () => {
-  //     if (userProfile) {
-  //       const result = await axios.get(
-  //         `${process.env.REACT_APP_BACKEND_URL}/clients`,
-  //         { params: { user_id: userProfile._id } }
-  //       ); // add query user_id as 2nd param
-  //       console.log(result);
-  //       setClientList(result.data);
-  //     }
-  //   };
-  //   getClients();
-  // }, []);
   console.log("client-sidebar list: ", clientList);
 
   return (
@@ -83,7 +64,7 @@ const ClientSidebar = () => {
               <ListItemButton>
                 <Button
                   onClick={() => {
-                    navigate(`/clients/${c._id}`);
+                    navigate(`/app/clients/${c._id}`);
                   }}
                 >
                   {c.client_name}
@@ -103,7 +84,7 @@ const ClientSidebar = () => {
           bottom: "55px",
         }}
       >
-        <Button component={Link} to="/clients/new">
+        <Button component={Link} to="/app/clients/new">
           <AddCircleOutlineIcon fontSize="medium" />
           <Typography>Add New Client</Typography>
         </Button>

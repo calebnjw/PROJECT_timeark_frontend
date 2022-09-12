@@ -38,7 +38,7 @@ const SingleTask = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              navigate(`/projects/${project._id}/tasks/${task._id}/update`, {
+              navigate(`/app/projects/${project._id}/tasks/${task._id}/update`, {
                 state: { task, project },
               });
             }}

@@ -5,6 +5,7 @@ export interface UserContextInterface {
   userProfile?: User;
   setUserProfile: (value: User) => void;
   newUser: boolean;
+  setNewUser: (value: boolean) => void;
   userId: string;
 }
 
@@ -44,6 +45,7 @@ export const UserContext = createContext<UserContextInterface>({
   },
   setUserProfile: () => {},
   newUser: true,
+  setNewUser: () => {},
   userId: "",
 });
 

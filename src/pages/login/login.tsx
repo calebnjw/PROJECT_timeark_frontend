@@ -14,38 +14,8 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 export default function Login() {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const usernameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-  //   setUsername(e.target.value);
-  // };
-
-  // const passwordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-  //   setPassword(e.target.value);
-  // };
-
-  // const handleLogin = () => {
-  //   type LoginDetails = {
-  //     username: String;
-  //     password: String;
-  //   };
-  //   const loginDetails: LoginDetails = {
-  //     username,
-  //     password,
-  //   };
-
-  //   // console.log("LOGIN DETAILS", loginDetails);
-  //   console.log("BACKEND URL", `${process.env.REACT_APP_BACKEND_URL}/users/login`);
-  //   try {
-  //     // axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/login`, loginDetails);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
-    <Grid item direction={"column"} justifyContent="center" alignItems="center">
+    <Grid item justifyContent="center" alignItems="center">
       <Card>
         <CardContent>
           <Typography variant="h4" textAlign={"center"}>

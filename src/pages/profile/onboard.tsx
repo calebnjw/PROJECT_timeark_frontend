@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet, Route, useLocation, useNavigate } from "react-router-dom";
 import { Button, Box, Divider, Grid, TextField } from "@mui/material";
 
-import { User } from "../../types/user";
 import { Billing } from "../../types/billingDetails";
+
+import { useUserContext } from "../../context/userContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function Onboard() {
   // user profile
-  const [userProfile, setUserProfile] = useState<User>();
+  const { userProfile, setNewUser } = useUserContext();
   // billing details
   const [companyName, setCompanyName] = useState<string>("");
   const [buildingName, setBuildingName] = useState<string>("");
@@ -23,14 +24,6 @@ function Onboard() {
   const [companyRegistration, setCompanyRegistration] = useState<string>("");
 
   let navigate = useNavigate();
-
-  useEffect(() => {
-    const getProfile = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-      setUserProfile(result.data.user);
-    };
-    getProfile();
-  }, []);
 
   // TODO: data validation. should not allow user to pass in blank fields.
   const handleUpdate = async () => {
@@ -54,7 +47,8 @@ function Onboard() {
       });
       console.log(result.data);
     }
-    navigate("/dashboard");
+    setNewUser(false);
+    navigate("/app/dashboard");
   };
 
   // a whole bunch of state change handlers

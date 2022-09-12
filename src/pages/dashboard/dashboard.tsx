@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   let navigate = useNavigate();
   // redirect user to fill in billing details on first time loggin in
-  if (newUser) navigate("/onboard");
+  if (newUser) navigate("/app/onboard");
 
   return (
     <>

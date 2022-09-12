@@ -79,7 +79,7 @@ const EditTaskForm = () => {
         updateTask
       );
 
-      navigate(`/projects`);
+      navigate(`/app/projects`);
     } catch (error) {
       console.error(error);
     }

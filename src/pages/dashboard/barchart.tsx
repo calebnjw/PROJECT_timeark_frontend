@@ -9,7 +9,27 @@ axios.defaults.withCredentials = true;
 
 function AmtEarnedChart() {
   const { userProfile } = useUserContext();
+  const [getData, setGetData] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    const barChartData = async () => {
+      if (userProfile) {
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/invoices/barchart`,
+          {
+            params: {
+              user_id: userProfile._id,
+            },
+          }
+        );
+        console.log("barchartdata", result.data);
+        setGetData(result.data);
+        setIsLoaded(true);
+      }
+    };
+    barChartData();
+  }, [userProfile]);
 
   const option = {
     legend: {},
@@ -36,12 +56,13 @@ function AmtEarnedChart() {
       },
     },
     dataset: {
-      source: [
-        ["project name", "Amt Earned", "Total Budget"],
-        ["Project 1", 43.3, 85.8],
-        ["Project 2", 63.1, 83.4],
-        ["Project 3", 26.4, 89.2],
-      ],
+      source: getData,
+      // [
+      //   ["project name", "Amt Earned", "Total Budget"],
+      //   ["Project 1", 43.3, 85.8],
+      //   ["Project 2", 63.1, 83.4],
+      //   ["Project 3", 26.4, 89.2],
+      // ],
     },
     xAxis: { type: "category" },
     yAxis: {},
@@ -52,16 +73,16 @@ function AmtEarnedChart() {
 
   return (
     <div>
-      {/* {!isLoaded ? (
+      {!isLoaded ? (
         <Box>
           <Typography>Loading the BarChart</Typography>
           <Spinner />
         </Box>
-      ) : ( */}
-      <>
-        <ReactEcharts option={option} />
-      </>
-      {/* )} */}
+      ) : (
+        <>
+          <ReactEcharts option={option} />
+        </>
+      )}
     </div>
   );
 }

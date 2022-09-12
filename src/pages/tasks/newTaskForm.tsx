@@ -50,7 +50,7 @@ const NewTaskFrom = () => {
     try {
       axios.post(`${process.env.REACT_APP_BACKEND_URL}/tasks/new`, NewTask);
       console.log(NewTask);
-      navigate(`/projects/${selectedProject}`);
+      navigate(`/app/projects/${selectedProject}`);
     } catch (error) {
       console.error(error);
     }
@@ -155,7 +155,7 @@ const NewTaskFrom = () => {
             variant="contained"
             color="success"
             onClick={() => {
-              navigate(`/projects/new`);
+              navigate(`/app/projects/new`);
             }}
           >
             Add Project

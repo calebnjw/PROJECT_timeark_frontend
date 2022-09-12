@@ -36,11 +36,10 @@ const NewTimeForm = ({
   // Get user's all projects:
   const getUsersAllProjects = async () => {
     const getProjects = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/projects/all`,
-      { params: { user_id: userId } }
+      `${process.env.REACT_APP_BACKEND_URL}/projects/all`
     );
     const projects = getProjects.data.projects;
-    // console.log("projects: ", projects);
+    console.log("projects: ", projects);
 
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     setProjectList(projectsHasTasks);
@@ -103,6 +102,7 @@ const NewTimeForm = ({
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
         const updatedTask = result.data.task;
+        console.log("form: updated task: ", updatedTask);
         handleAddTimeEntry(updatedTask);
         setOpen(false);
       } catch (error) {

@@ -50,7 +50,7 @@ const EditProjectForm = () => {
           newProject
         );
 
-        navigate(`/projects/${projectInfo._id}`);
+        navigate(`/app/projects/${projectInfo._id}`);
       } catch (error) {
         console.error(error);
       }

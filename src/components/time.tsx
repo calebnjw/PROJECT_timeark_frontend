@@ -1,3 +1,5 @@
-import React from "react";
+// import React from "react";
 
-let myName = "Lucy";
+// let myName = "Lucy";
+
+export {};

@@ -51,7 +51,7 @@ const SingleProject = () => {
             variant="contained"
             color="secondary"
             onClick={() => {
-              navigate("/projects");
+              navigate("/app/projects");
             }}
           >
             Back
@@ -60,7 +60,7 @@ const SingleProject = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              navigate(`/projects/${project?._id}/update`, { state: project });
+              navigate(`/app/projects/${project?._id}/update`, { state: project });
             }}
           >
             Edit
@@ -91,7 +91,7 @@ const SingleProject = () => {
           variant="contained"
           color="primary"
           onClick={() => {
-            navigate(`/tasks/new`);
+            navigate(`/app/tasks/new`);
           }}
         >
           Add New Task

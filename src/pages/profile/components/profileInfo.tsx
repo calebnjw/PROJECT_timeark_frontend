@@ -46,7 +46,7 @@ function ProfileInfo() {
               </p>
             </div>
           )}
-          <Button variant="contained" component={Link} to="/profile/edit">
+          <Button variant="contained" component={Link} to="app/profile/edit">
             Edit Information
           </Button>
         </div>

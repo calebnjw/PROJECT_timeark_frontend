@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Box, Divider, Grid } from "@mui/material";
 
 import { ClientGlobalContext } from "../context/clientContext";
-import { UserContext } from "../context/userContext";
-
-import { useUserContext } from "../context/userContext";
+import { UserContext, useUserContext } from "../context/userContext";
 
 import AppNavbar from "../components/navbar-App";
 import Sidebar from "../components/sidebar";
@@ -20,30 +18,35 @@ function AppLayout() {
   const [clientList, setClientList] = useState<[]>([]);
   const [userProfile, setUserProfile] = useState<User>();
   const [newUser, setNewUser] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>(""); // Please replace your user id here!!! DONT FORGET ADD YOUR USER ID TO CLIENT IN DB
+  const [userId, setUserId] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  // get client list
+  const getClients = async () => {
+    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
+    setClientList(result.data);
+  };
 
   // get user info
   useEffect(() => {
     const getProfile = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-      setUserProfile(result.data.user);
-      setNewUser(result.data.newUser);
-      setUserId(result.data.user._id);
+      try {
+        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+        const userId = result.data.user._id;
+        if (userId) {
+          getClients();
+        }
+        setUserProfile(result.data.user);
+        setNewUser(result.data.newUser);
+        setUserId(userId);
+      } catch (error) {
+        console.log("Error message: ", error);
+        navigate("/login");
+      }
     };
     getProfile();
   }, []);
-
-  useEffect(() => {
-    if (userId !== "") {
-      const getClients = async () => {
-        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`, {
-          params: { user_id: userId },
-        });
-        setClientList(result.data);
-      };
-      getClients();
-    }
-  }, [userId]);
 
   return (
     <UserContext.Provider
@@ -51,6 +54,7 @@ function AppLayout() {
         userProfile,
         setUserProfile,
         newUser,
+        setNewUser,
         userId,
       }}
     >

@@ -79,7 +79,7 @@ export default function SingleClient() {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                      navigate(`/clients/${client._id}/update`, {
+                      navigate(`/app/clients/${client._id}/update`, {
                         state: { client },
                       });
                     }}
