@@ -45,7 +45,7 @@ const Projects = () => {
           <ul>
             {clientList.map((client, idx) => (
               <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
-                <p style={{ fontWeight: "200" }}>
+                <p style={{ fontWeight: "400" }}>
                   <b>{client.client_name}</b>
                 </p>
                 <ProjectList client={client} />
