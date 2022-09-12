@@ -43,7 +43,6 @@ function App() {
   // get client list
   const getClients = async () => {
     const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
-    // console.log("fetch user's client list: ", result.data);
     setClientList(result.data);
   };
 
@@ -52,7 +51,6 @@ function App() {
     const getProfile = async () => {
       try {
         const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
-        // console.log("get user info: ", result.data);
         const userId = result.data.user._id;
         if (userId) {
           getClients();
@@ -66,23 +64,6 @@ function App() {
     };
     getProfile();
   }, []);
-
-  // useEffect(() => {
-  //   if (userId && userId.length > 0) {
-  //     const getClients = async () => {
-  //       const result = await axios.get(
-  //         `${process.env.REACT_APP_BACKEND_URL}/clients`,
-  //         {
-  //           params: { user_id: userId },
-  //         }
-  //       );
-  //       console.log("fetch user's client list: ", result.data);
-
-  //       setClientList(result.data);
-  //     };
-  //     getClients();
-  //   }
-  // }, [userId]);
 
   return (
     <UserContext.Provider
