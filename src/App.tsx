@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from "react";
+
+import Dashboard from "./pages/dashboard/dashboard";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.scss";
 
 import Home from "./pages/home/home";
-import Login from "./pages/login/login";
+// import Login from "./pages/login/login";
 import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
 import SingleClient from "./pages/clients/singleClient";
+
+import InvoiceDisplay from "./pages/invoices/InvoiceDisplay";
+import InvoicePage from "./pages/invoices/InvoicePage";
+import GenerateInvoice from "./pages/invoices/GenerateInvoice";
+import InvoiceForm from "./pages/invoices/newInvoiceForm";
 import EditSingleClient from "./pages/clients/editSingleClients";
 import Projects from "./pages/projects/projects";
 import NewProject from "./pages/projects/newProjectForm";
-import SingleProject from "./pages/projects/singleProject";
 import EditProjectForm from "./pages/projects/editProjectForm";
-import Tasks from "././pages/tasks/task";
+import SingleProject from "./pages/projects/singleProject";
+import Login from "./pages/login/login";
+import Tasks from "./pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
 import SingleTask from "./pages/tasks/singleTask";
 import EditTask from "./pages/tasks/editTask";
-import Invoices from "./pages/invoices/invoices";
 import Profile from "./pages/profile/profile";
 import Onboard from "./pages/profile/onboard";
 import ProfileInfo from "./pages/profile/components/profileInfo";
 import ProfileEdit from "./pages/profile/components/profileEdit";
 import Page404 from "./pages/notFound/Page404";
-import Dashboard from "./pages/dashboard/dashboard";
+import { DateTime } from "luxon";
 import Time from "./pages/timeTracking/time";
 
 import { User } from "./types/user";
@@ -74,13 +81,13 @@ function App() {
         setNewUser,
       }}
     >
-      <ClientGlobalContext.Provider
-        value={{
-          clientList,
-          setClientList,
-          userId,
-        }}
-      >
+    <ClientGlobalContext.Provider
+    value={{
+      clientList,
+      setClientList,
+      userId,
+    }}
+    >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
@@ -109,7 +116,10 @@ function App() {
 
           <Route path="time" element={<Time />} />
 
-          <Route path="invoices" element={<Invoices />} />
+    <Route path="invoices" element={<InvoicePage />} />
+    <Route path="invoices/:project_id" element={<GenerateInvoice />} />
+    <Route path="invoices/new" element={<InvoiceForm />} />
+    <Route path="invoices/invoice/:invoice_id" element={<InvoiceDisplay />} />
 
           <Route path="*" element={<Page404 />} />
         </Routes>
