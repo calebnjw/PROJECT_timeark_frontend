@@ -5,8 +5,6 @@ import { useGlobalContext } from "../../context/clientContext";
 import TimeSpentChart from "./piechart";
 import AmtEarnedChart from "./barchart";
 import DashboardList from "./dashboardlist";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useUserContext } from "../../context/userContext";
 import { Button } from "@mui/material";
 
@@ -17,12 +15,10 @@ const Dashboard = () => {
 
   let navigate = useNavigate();
   // redirect user to fill in billing details on first time loggin in
-  if (newUser) navigate("/onboard");
+  if (newUser) navigate("/app/onboard");
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <div
         style={{
           width: "50%",

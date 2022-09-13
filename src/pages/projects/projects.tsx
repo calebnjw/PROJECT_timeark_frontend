@@ -1,4 +1,4 @@
-import Navbar from "../../components/navbar";
+import AppNavbar from "../../components/navbar-App";
 import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import ProjectList from "./projectList";
@@ -10,7 +10,7 @@ const Projects = () => {
 
   return (
     <>
-      <Navbar />
+      <AppNavbar />
       <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <div style={{ textAlign: "right", marginRight: "100px" }}>

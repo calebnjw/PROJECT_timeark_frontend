@@ -12,8 +12,6 @@ import Button from "@mui/material/Button";
 import { Client } from "../../types/client";
 import { Link, useNavigate } from "react-router-dom";
 import Projects from "../projects/projects";
-import { useGlobalContext } from "../../context/clientContext";
-import { useUserContext } from "../../context/userContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -29,14 +27,29 @@ const useStyles = makeStyles({
   },
 });
 
-const ClientSidebar = () => {
+interface Props {
+  //not sure if need React.Dispatch
+  setClientId: (value: string) => void;
+}
+
+// export default function ClientSidebar() {
+const ClientSidebar = (props: Props
+) => {
   const classes = useStyles();
-  const { userProfile } = useUserContext();
-  const { clientList } = useGlobalContext();
+  const { setClientId } = props;
+  const [clientList, setClientList] = useState<Client[]>([]);
 
   const navigate = useNavigate();
 
-  console.log("client-sidebar list: ", clientList);
+  useEffect(() => {
+    const getClients = async () => {
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/clients`
+      ); // add query user_id as 2nd param
+      setClientList(result.data);
+    };
+    getClients();
+  }, []);
 
   return (
     <Drawer
@@ -54,6 +67,7 @@ const ClientSidebar = () => {
         },
       }}
     >
+      
       <Box sx={{ overflow: "auto" }} mt={"5rem"}>
         <Typography variant="h5" align="center">
           Clients
@@ -64,7 +78,7 @@ const ClientSidebar = () => {
               <ListItemButton>
                 <Button
                   onClick={() => {
-                    navigate(`/app/clients/${c._id}`);
+                    setClientId(`${c._id}`)
                   }}
                 >
                   {c.client_name}
@@ -74,21 +88,14 @@ const ClientSidebar = () => {
           ))}
         </List>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "fixed",
-          bottom: "55px",
-        }}
-      >
-        <Button component={Link} to="/app/clients/new">
+
+      
+        <Button onClick={() => {
+          navigate(`/invoices/new`)
+        }}>
           <AddCircleOutlineIcon fontSize="medium" />
-          <Typography>Add New Client</Typography>
+          <Typography>Generate Invoice</Typography>
         </Button>
-      </Box>
     </Drawer>
   );
 };

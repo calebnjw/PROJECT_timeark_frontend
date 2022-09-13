@@ -5,6 +5,8 @@ export interface UserContextInterface {
   userProfile?: User;
   setUserProfile: (value: User) => void;
   newUser: boolean;
+  setNewUser: (value: boolean) => void;
+  userId: string;
 }
 
 // create context that stores userState.
@@ -43,6 +45,8 @@ export const UserContext = createContext<UserContextInterface>({
   },
   setUserProfile: () => {},
   newUser: true,
+  setNewUser: () => {},
+  userId: "",
 });
 
 export const useUserContext = () => useContext(UserContext);

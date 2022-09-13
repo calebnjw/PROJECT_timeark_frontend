@@ -1,6 +1,4 @@
 import axios from "axios";
-import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
@@ -55,14 +53,8 @@ export default function EditSingleClient() {
 
   return (
     <div>
-      <NavBar />
       <Box style={{ width: "80%", marginTop: "80px" }}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
+        <Grid container direction="row" justifyContent="center" alignItems="center">
           <Sidebar />
           <ClientSidebar />
           <Grid item xs={6}>
@@ -77,7 +69,6 @@ export default function EditSingleClient() {
           </Grid>
         </Grid>
       </Box>
-      {/* <Footer /> */}
     </div>
   );
 }
