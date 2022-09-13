@@ -6,6 +6,12 @@ import { useGlobalContext } from "../../context/clientContext";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { format } from "date-fns";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -46,9 +52,24 @@ const SingleProject = () => {
     getProjectInfo();
   }, []);
 
+  const handleFormatDate = (date: any) => {
+    return format(new Date(date), "MM/dd/yyyy");
+  };
+
   return (
     <>
-      <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
+      <Box
+        style={{
+          width: "100%",
+          marginLeft: "15%",
+          marginTop: "80px",
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+        sx={{ flexGrow: 1 }}
+      >
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
@@ -71,13 +92,29 @@ const SingleProject = () => {
             Edit
           </Button>
         </Stack>
-        <h3>Project Details: </h3>
-        <div>
-          <h5>{client?.client_name}</h5>
-          <p>Project Name: {project?.name}</p>
-          <p>Project Budget: {project?.budget}</p>
-          <p>Project Rate: {project?.rate}</p>
-          <p>Project Due Date: {project?.due_date}</p>
+        <Card style={{ width: "50%" }} sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography variant="h5">Project Details: </Typography>
+            <Typography variant="h6">{client?.client_name}</Typography>
+            <Typography>
+              <b>Name: </b>
+              {project?.name}
+            </Typography>
+            <Typography>
+              <b>Budget(S$): </b>
+              {project?.budget}
+            </Typography>
+            <Typography>
+              <b>Rate(S$/hour): </b>
+              {project?.rate}
+            </Typography>
+            <Typography>
+              <b>Due Date: </b>
+              {handleFormatDate(project?.due_date)}
+            </Typography>
+          </CardContent>
+        </Card>
+        <Box>
           <div>
             <p>
               Tasks:
@@ -90,7 +127,7 @@ const SingleProject = () => {
               ))}{" "}
             </p>
           </div>
-        </div>
+        </Box>
         <br />
         <Button
           variant="contained"
@@ -101,7 +138,7 @@ const SingleProject = () => {
         >
           Add New Task
         </Button>
-      </div>
+      </Box>
     </>
   );
 };

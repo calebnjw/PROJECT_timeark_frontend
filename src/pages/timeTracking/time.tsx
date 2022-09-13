@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
-
 import { useUserContext } from "../../context/userContext";
 
 const style = {
@@ -26,7 +25,6 @@ const style = {
 
 const Time = () => {
   const [data, setData] = useState(String(new Date()));
-  const today = new Date();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -62,18 +60,28 @@ const Time = () => {
 
   return (
     <>
-      <div
+      <Box
         style={{
-          width: "80%",
-          marginLeft: "20%",
+          width: "85%",
+          marginLeft: "25%",
+          marginRight: "10%",
           marginTop: "80px",
         }}
       >
-        <div
+        <Box style={{ textAlign: "right" }}>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleOpen}
+            style={{ width: "150px" }}
+          >
+            + New Tracker
+          </Button>
+        </Box>
+        <Box
           style={{ display: "flex", flexDirection: "row", overflow: "auto" }}
         >
-          <div>
-            <Button onClick={handleOpen}>+ New Tracker</Button>
+          <Box>
             <Modal
               open={open}
               onClose={handleClose}
@@ -96,14 +104,14 @@ const Time = () => {
                 </Typography>
               </Box>
             </Modal>
-          </div>
+          </Box>
           <Calendar
             HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
           />
-        </div>
-        <br />
+        </Box>
+        {/* <br /> */}
         {<TaskList data={data} taskList={taskList} setTaskList={setTaskList} />}
-      </div>
+      </Box>
     </>
   );
 };

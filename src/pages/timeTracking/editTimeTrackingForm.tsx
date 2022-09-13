@@ -29,7 +29,6 @@ interface Props {
   userId: string;
   selectedTaskId: string;
   selectedTimeTrackingId: string;
-  setUpdatedEndDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   handleUpdate: any;
   handleDeletion: any;
 }
@@ -42,12 +41,8 @@ interface TimeTracking {
 
 const EditTimeTrackingForm = ({
   setOpen,
-  taskList,
-  setTaskList,
-  userId,
   selectedTaskId,
   selectedTimeTrackingId,
-  setUpdatedEndDate,
   handleUpdate,
   handleDeletion,
 }: Props) => {

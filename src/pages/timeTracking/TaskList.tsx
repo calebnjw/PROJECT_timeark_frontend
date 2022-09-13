@@ -44,10 +44,10 @@ const TaskList = (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [selectedTimeTrackingId, setSelectedTimeTrackingId] = React.useState("");
+  const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
+    React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
   // Props for edit&delete time entry below:
-  const [updatedEndDate, setUpdatedEndDate] = React.useState<Date>();
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -94,7 +94,10 @@ const TaskList = (props: Props) => {
     }
   };
 
-  const showEditTimeTrackingModal = (taskId: string, timeTrackingId: string) => {
+  const showEditTimeTrackingModal = (
+    taskId: string,
+    timeTrackingId: string
+  ) => {
     handleOpen();
     setSelectedTaskId(taskId);
     setSelectedTimeTrackingId(timeTrackingId);
@@ -112,8 +115,6 @@ const TaskList = (props: Props) => {
         }
         return t;
       });
-
-      // setUpdatedEndDate(undefined);
     }
     return;
   };
@@ -123,11 +124,15 @@ const TaskList = (props: Props) => {
       if (t._id === selectedTaskId) {
         // check time_trackings arr length
         if (t.time_trackings.length === 1) {
-          const idxOfTaskToDelete = taskList.findIndex((t) => t._id == selectedTaskId);
+          const idxOfTaskToDelete = taskList.findIndex(
+            (t) => t._id == selectedTaskId
+          );
           taskList.splice(idxOfTaskToDelete, 1);
           return t;
         } else {
-          const filtered = t.time_trackings.filter((tt) => tt._id !== selectedTimeTrackingId);
+          const filtered = t.time_trackings.filter(
+            (tt) => tt._id !== selectedTimeTrackingId
+          );
           t.time_trackings = filtered;
           return t;
         }
@@ -205,13 +210,13 @@ const TaskList = (props: Props) => {
                   userId={userId}
                   selectedTaskId={selectedTaskId}
                   selectedTimeTrackingId={selectedTimeTrackingId}
-                  setUpdatedEndDate={setUpdatedEndDate}
                   handleUpdate={handleUpdate}
                   handleDeletion={handleDeletion}
                 />
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please select your project and task to start tracker. Happy Working!
+                Please select your project and task to start tracker. Happy
+                Working!
               </Typography>
             </Box>
           </Modal>
