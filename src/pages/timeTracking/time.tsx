@@ -10,6 +10,7 @@ import Modal from "@mui/material/Modal";
 import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
 import { useUserContext } from "../../context/userContext";
+import { format } from "date-fns";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,7 +25,8 @@ const style = {
 };
 
 const Time = () => {
-  const [data, setData] = useState(String(new Date()));
+  const today = format(new Date(), "ccc dd MMM yy");
+  const [data, setData] = useState(today);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -62,7 +64,7 @@ const Time = () => {
     <>
       <Box
         style={{
-          width: "85%",
+          width: "100%",
           marginLeft: "25%",
           marginRight: "10%",
           marginTop: "80px",
@@ -109,7 +111,6 @@ const Time = () => {
             HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
           />
         </Box>
-        {/* <br /> */}
         {<TaskList data={data} taskList={taskList} setTaskList={setTaskList} />}
       </Box>
     </>

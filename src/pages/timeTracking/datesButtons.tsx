@@ -12,7 +12,6 @@ interface Props {
 }
 
 const DatesButtons = ({ dates, selectedDate, setSelectedDate }: Props) => {
-  console.log("dates: ", dates);
   return (
     <>
       <Box
@@ -57,4 +56,4 @@ const DatesButtons = ({ dates, selectedDate, setSelectedDate }: Props) => {
   );
 };
 
-export default DatesButtons;
+// export default DatesButtons;

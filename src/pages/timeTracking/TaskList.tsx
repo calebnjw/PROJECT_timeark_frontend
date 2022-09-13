@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Task } from "../../types/task";
 import ShowTimer from "./ShowTimer";
 import * as React from "react";
@@ -224,10 +224,21 @@ const TaskList = (props: Props) => {
       </div>
     );
   } else {
-    if (today === selectedDate) {
-      return <>Loading Data</>;
+    if (today === selectedDate && taskList.length) {
+      return (
+        <Box>
+          <Box>Selected Date: {props.data}</Box>
+          <Box>Loading Data</Box>
+        </Box>
+      );
     } else {
-      return <>You haven't done any task here.</>;
+      return (
+        <Box>
+          <Box>Selected Date: {props.data}</Box>
+
+          <Box>You haven't done any task here.</Box>
+        </Box>
+      );
     }
   }
 };
