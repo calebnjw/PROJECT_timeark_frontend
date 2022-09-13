@@ -2,7 +2,7 @@ import { TableProps } from "../../types/invoiceTypes";
 import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
-import { InvoiceProps } from "../../types/invoiceTypes";
+import { Project } from "../../types/project";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   Table,
@@ -24,6 +24,7 @@ import {
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import GenerateInvoice from "./GenerateInvoice";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
@@ -68,7 +69,7 @@ const MyTable = () => {
   const navigate = useNavigate();
   const { clientList, setClientList } = useGlobalContext();
   const [table, setTable] = useState<TableProps[]>([]);
-  const [invoice, setInvoice] = useState<InvoiceProps>();
+  const [currentInvoices, setCurrentInvoices] = useState<Project>();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   // const clientId = client._id;
@@ -87,10 +88,9 @@ const MyTable = () => {
   };
   
   const handleInvoices = (invoice_id: any) => {
-    navigate(`/invoices/invoice/${invoice_id}`) 
+    navigate(`app/invoices/invoice/${invoice_id}`) 
     console.log("Invoices button clicked");
   };
-
   
   
   useEffect(() => {
@@ -111,7 +111,7 @@ const MyTable = () => {
     const handleDeleteButton = async(invoiceId: any) => {
       try {
         const result = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`)
-        // navigate(`/invoices/${project_id}`)
+        navigate(`app/invoices/${project_id}`)
       } catch(err){
         console.log(err)
       }

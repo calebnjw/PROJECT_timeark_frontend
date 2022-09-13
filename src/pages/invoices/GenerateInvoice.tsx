@@ -165,11 +165,4 @@ const GenerateInvoice = () => {
 
 export default GenerateInvoice;
 
-            // <TableRow sx={{ "& td": { border: 0 } }}>
-            //   <TableCell align="left">Project Name: </TableCell>
-            //   <TableCell align="left">{project?.name}</TableCell>
-            // </TableRow>
-            // <TableRow sx={{ "& td": { border: 0 } }}>
-            //   <TableCell align="left">Client Name: </TableCell>
-            //   <TableCell align="left">{client?.client_name}</TableCell>
-            // </TableRow>
+       

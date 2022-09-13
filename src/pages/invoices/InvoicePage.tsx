@@ -62,8 +62,8 @@ const InvoicePage = () => {
   // const [error, setError] = React.useState("");
 
   useEffect(() => {
-    console.log(clientId);
     if (clientId) {
+      console.log(clientId);
       const projectData = async () => {
         try {
           const result = await axios.get(

@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
 import { Client } from "../../types/client";
+import { Project } from "../../types/project";
 import { Link, useNavigate } from "react-router-dom";
 import Projects from "../projects/projects";
 
@@ -38,8 +39,11 @@ const ClientSidebar = (props: Props
   const classes = useStyles();
   const { setClientId } = props;
   const [clientList, setClientList] = useState<Client[]>([]);
+  const [project, setProject] = useState<Project>();
+  const [disable, setDisable] = React.useState(false);
 
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const getClients = async () => {
@@ -50,6 +54,8 @@ const ClientSidebar = (props: Props
     };
     getClients();
   }, []);
+
+
 
   return (
     <Drawer
@@ -76,22 +82,22 @@ const ClientSidebar = (props: Props
           {clientList.map((c, index) => (
             <ListItem key={index} disablePadding>
               <ListItemButton>
-                <Button
+                <Button disabled={true}
                   onClick={() => {
                     setClientId(`${c._id}`)
                   }}
-                >
+                > 
                   {c.client_name}
                 </Button>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-      </Box>
+      </Box> 
 
       
         <Button onClick={() => {
-          navigate(`/invoices/new`)
+          navigate(`app/invoices/new`)
         }}>
           <AddCircleOutlineIcon fontSize="medium" />
           <Typography>Generate Invoice</Typography>
