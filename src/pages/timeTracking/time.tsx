@@ -69,7 +69,9 @@ const Time = () => {
           marginTop: "80px",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
+        <div
+          style={{ display: "flex", flexDirection: "row", overflow: "auto" }}
+        >
           <div>
             <Button onClick={handleOpen}>+ New Tracker</Button>
             <Modal
@@ -89,12 +91,15 @@ const Time = () => {
                   />
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Please select your project and task to start tracker. Happy Working!
+                  Please select your project and task to start tracker. Happy
+                  Working!
                 </Typography>
               </Box>
             </Modal>
           </div>
-          <Calendar HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys} />
+          <Calendar
+            HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
+          />
         </div>
         <br />
         {<TaskList data={data} taskList={taskList} setTaskList={setTaskList} />}

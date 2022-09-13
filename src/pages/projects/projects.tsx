@@ -34,7 +34,7 @@ const Projects = () => {
             <div style={{ textAlign: "right", marginRight: "100px" }}>
               <Button variant="contained" color="success">
                 <Link
-                  to="/projects/new"
+                  to="new"
                   style={{ color: "white", textDecoration: "none" }}
                 >
                   + New Project

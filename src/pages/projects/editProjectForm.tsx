@@ -61,7 +61,7 @@ const EditProjectForm = () => {
     <>
       <Box style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <Button variant="contained" color="secondary">
-          <Link to="/projects" style={{ color: "white" }}>
+          <Link to="/app/projects" style={{ color: "white" }}>
             Cancel
           </Link>
         </Button>
@@ -89,7 +89,12 @@ const EditProjectForm = () => {
               label="*Budget"
               defaultValue={projectInfo.budget}
             />
-            <TextField type="number" name="rate" label="*Rate" defaultValue={projectInfo.rate} />
+            <TextField
+              type="number"
+              name="rate"
+              label="*Rate"
+              defaultValue={projectInfo.rate}
+            />
             <TextField
               type="date"
               name="due_date"

@@ -70,7 +70,7 @@ const ProjectList = ({ client }: Props) => {
                   <Button
                     size="small"
                     onClick={() => {
-                      navigate(`/projects/${project._id}`);
+                      navigate(`/app/projects/${project._id}`);
                     }}
                   >
                     {<VisibilityIcon />}

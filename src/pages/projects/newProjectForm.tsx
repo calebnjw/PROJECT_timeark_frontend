@@ -110,7 +110,7 @@ const NewProjectForm = () => {
             <Button
               color="success"
               variant="contained"
-              onClick={() => navigate("/clients/new")}
+              onClick={() => navigate("/app/clients/new")}
               style={{ height: "40px" }}
             >
               + New Client
@@ -143,7 +143,7 @@ const NewProjectForm = () => {
               </Button>
               <Button variant="contained" color="secondary">
                 <Link
-                  to="/projects"
+                  to="/app/projects"
                   style={{ color: "white", textDecoration: "none" }}
                 >
                   Cancel

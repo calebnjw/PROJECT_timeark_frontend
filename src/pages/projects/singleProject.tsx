@@ -30,9 +30,12 @@ const SingleProject = () => {
         );
         setProject(getProject.data.project);
 
-        const getTasks = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`, {
-          params: { project_id: project_id },
-        });
+        const getTasks = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/tasks`,
+          {
+            params: { project_id: project_id },
+          }
+        );
 
         console.log("tasks arr: ", getTasks.data.tasks);
         setTaskList(getTasks.data.tasks);
@@ -60,7 +63,9 @@ const SingleProject = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              navigate(`/app/projects/${project?._id}/update`, { state: project });
+              navigate(`/app/projects/${project?._id}/update`, {
+                state: project,
+              });
             }}
           >
             Edit
@@ -78,7 +83,7 @@ const SingleProject = () => {
               Tasks:
               {taskList?.map((task) => (
                 <li key={task._id}>
-                  <Link to={`tasks/${task._id}`} state={{ project, task }}>
+                  <Link to={`app/tasks/${task._id}`} state={{ project, task }}>
                     {task.name}
                   </Link>
                 </li>
