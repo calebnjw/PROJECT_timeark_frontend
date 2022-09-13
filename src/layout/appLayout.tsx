@@ -11,7 +11,7 @@ import Sidebar from "../components/sidebar";
 import { User } from "../types/user";
 
 import axios from "axios";
-import Footer from "../components/footer";
+// import Footer from "../components/footer";
 axios.defaults.withCredentials = true;
 
 function AppLayout() {
@@ -24,7 +24,9 @@ function AppLayout() {
 
   // get client list
   const getClients = async () => {
-    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
+    const result = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/clients`
+    );
     setClientList(result.data);
   };
 
@@ -32,7 +34,9 @@ function AppLayout() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/users/user`
+        );
         const userId = result.data.user._id;
         if (userId) {
           getClients();
@@ -66,13 +70,18 @@ function AppLayout() {
       >
         <Box sx={{ minHeight: "100vh" }}>
           <AppNavbar />
-          <Grid container direction="row" justifyContent="space-between" alignItems="center">
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Grid item>
               <Sidebar />
             </Grid>
             <Outlet />
           </Grid>
-          <Footer />
+          {/* <Footer /> */}
         </Box>
       </ClientGlobalContext.Provider>
     </UserContext.Provider>
