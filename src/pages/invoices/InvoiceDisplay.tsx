@@ -5,7 +5,6 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 import { Button, Divider, Grid } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import Navbar from "../../components/navbar";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { Client } from "../../types/client";
@@ -25,10 +24,9 @@ const InvoiceDisplay = () => {
   console.log("invoice", invoice);
   const navigate = useNavigate();
 
-
   const handleBackButton = () => {
     navigate(-1);
-  }
+  };
   useEffect(() => {
     const invoiceData = async () => {
       try {
@@ -84,12 +82,9 @@ const InvoiceDisplay = () => {
     if (project) {
       const taskData = async () => {
         try {
-          const result = await axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/tasks`,
-            {
-              params: { project_id: project._id, autocorrect: true },
-            }
-          );
+          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`, {
+            params: { project_id: project._id, autocorrect: true },
+          });
           if (result.data.msg === "No task found") {
             setTaskExist(false);
           }
@@ -152,10 +147,7 @@ const InvoiceDisplay = () => {
       console.log("taskObject:", taskObject);
       let taskTotalAmount = 0;
       for (let timeTrackingObj of task.time_trackings) {
-        const hours = computeTime(
-          timeTrackingObj.endDate,
-          timeTrackingObj.startDate
-        );
+        const hours = computeTime(timeTrackingObj.endDate, timeTrackingObj.startDate);
         console.log("hours", hours);
         if (project) {
           taskTotalAmount += parseInt(hours) * project?.rate;
@@ -170,14 +162,15 @@ const InvoiceDisplay = () => {
     console.log("task list id: ", tasks);
   }, [taskList]);
 
-
-
   return (
     <>
-      <Navbar />
       <div className="main-container">
         <div className="invoice-header">
-          <Button variant="outlined" style={{ left: "50px", top: "80px" }} onClick={handleBackButton}>
+          <Button
+            variant="outlined"
+            style={{ left: "50px", top: "80px" }}
+            onClick={handleBackButton}
+          >
             <KeyboardArrowLeftIcon fontSize="large" />
             Invoices
           </Button>
@@ -190,7 +183,7 @@ const InvoiceDisplay = () => {
       <p>Company Name: {client?.billing_details.company_name}</p>
       <p>
         Client's Address:
-        {client?.billing_details.unit_number} 
+        {client?.billing_details.unit_number}
         {client?.billing_details.street_name}
         {client?.billing_details.building_name}
         {client?.billing_details.postal_code}

@@ -64,7 +64,7 @@ const ClientSidebar = () => {
               <ListItemButton>
                 <Button
                   onClick={() => {
-                    navigate(`/clients/${c._id}`);
+                    navigate(`/app/clients/${c._id}`);
                   }}
                 >
                   {c.client_name}
@@ -84,7 +84,7 @@ const ClientSidebar = () => {
           bottom: "55px",
         }}
       >
-        <Button component={Link} to="/clients/new">
+        <Button component={Link} to="/app/clients/new">
           <AddCircleOutlineIcon fontSize="medium" />
           <Typography>Add New Client</Typography>
         </Button>

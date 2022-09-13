@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -52,7 +50,7 @@ const EditProjectForm = () => {
           newProject
         );
 
-        navigate(`/projects/${projectInfo._id}`);
+        navigate(`/app/projects/${projectInfo._id}`);
       } catch (error) {
         console.error(error);
       }
@@ -61,8 +59,6 @@ const EditProjectForm = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <Box style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <Button variant="contained" color="secondary">
           <Link to="/projects" style={{ color: "white" }}>
@@ -93,12 +89,7 @@ const EditProjectForm = () => {
               label="*Budget"
               defaultValue={projectInfo.budget}
             />
-            <TextField
-              type="number"
-              name="rate"
-              label="*Rate"
-              defaultValue={projectInfo.rate}
-            />
+            <TextField type="number" name="rate" label="*Rate" defaultValue={projectInfo.rate} />
             <TextField
               type="date"
               name="due_date"

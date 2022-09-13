@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
 import { InvoiceProps } from "../../types/invoiceTypes";
 import { Project } from "../../types/project";
@@ -22,8 +20,7 @@ import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 //=================================Styling=================================//
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -61,9 +58,7 @@ const InvoicePage = () => {
     if (clientId) {
       const projectData = async () => {
         try {
-          const result = await axios.get(
-            `${BACKEND_URL}/projects?client_id=${clientId}`
-          );
+          const result = await axios.get(`${BACKEND_URL}/projects?client_id=${clientId}`);
           setProject(result.data.projects);
           console.log(result.data);
         } catch (err) {
@@ -81,9 +76,7 @@ const InvoicePage = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -91,49 +84,41 @@ const InvoicePage = () => {
   //===============================return function===========================//
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <ClientSidebar setClientId={setClientId} />
       {clientId && (
         <div className="invoice-container">
           <h1 style={{ textAlign: "center" }}>All Projects</h1>
           <div className="project-table">
-            <TableContainer
-              style={{ paddingLeft: "500px", paddingRight: "50px" }}
-            >
+            <TableContainer style={{ paddingLeft: "500px", paddingRight: "50px" }}>
               <Table>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell align="left">Project Name</StyledTableCell>
-                    <StyledTableCell align="right">
-                      View Invoices
-                    </StyledTableCell>
+                    <StyledTableCell align="right">View Invoices</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                {project === undefined ? (
-                  <Box>
-                    <Typography>Loading Project</Typography>
-                  </Box>  
+                  {project === undefined ? (
+                    <Box>
+                      <Typography>Loading Project</Typography>
+                    </Box>
                   ) : (
-                      project.map((i) => (
-                        <StyledTableRow key={i._id}>
-                          <StyledTableCell align="left">{i.name}</StyledTableCell>
-                          <StyledTableCell align="right">
-                            <Button
-                              variant="outlined"
-                              onClick={()=> {
-                                navigate(`/invoices/${i._id}`
-                                )
-                              }}
-                            >
-                              <ReceiptRoundedIcon />
-                            </Button>
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      ))
-                    )}
-                    
+                    project.map((i) => (
+                      <StyledTableRow key={i._id}>
+                        <StyledTableCell align="left">{i.name}</StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Button
+                            variant="outlined"
+                            onClick={() => {
+                              navigate(`/invoices/${i._id}`);
+                            }}
+                          >
+                            <ReceiptRoundedIcon />
+                          </Button>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>

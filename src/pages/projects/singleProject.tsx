@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { useGlobalContext } from "../../context/clientContext";
@@ -32,10 +30,9 @@ const SingleProject = () => {
         );
         setProject(getProject.data.project);
 
-        const getTasks = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/tasks`,
-          { params: { project_id: project_id } }
-        );
+        const getTasks = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`, {
+          params: { project_id: project_id },
+        });
 
         console.log("tasks arr: ", getTasks.data.tasks);
         setTaskList(getTasks.data.tasks);
@@ -48,15 +45,13 @@ const SingleProject = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
             color="secondary"
             onClick={() => {
-              navigate("/projects");
+              navigate("/app/projects");
             }}
           >
             Back
@@ -65,7 +60,7 @@ const SingleProject = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              navigate(`/projects/${project?._id}/update`, { state: project });
+              navigate(`/app/projects/${project?._id}/update`, { state: project });
             }}
           >
             Edit
@@ -96,7 +91,7 @@ const SingleProject = () => {
           variant="contained"
           color="primary"
           onClick={() => {
-            navigate(`/tasks/new`);
+            navigate(`/app/tasks/new`);
           }}
         >
           Add New Task

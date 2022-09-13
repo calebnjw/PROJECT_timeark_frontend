@@ -18,10 +18,9 @@ const ProjectList = ({ client }: Props) => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        { params: { client_id: clientId, autoCorrect: true } }
-      );
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
+        params: { client_id: clientId, autoCorrect: true },
+      });
       setProjectList(result.data.projects);
     };
     getProjects();
@@ -47,7 +46,7 @@ const ProjectList = ({ client }: Props) => {
           <Button
             size="small"
             onClick={() => {
-              navigate(`/projects/${project._id}`);
+              navigate(`/app/projects/${project._id}`);
             }}
           >
             View

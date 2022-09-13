@@ -13,8 +13,6 @@ import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,12 +32,11 @@ const InvoiceForm = () => {
   const [selectedTask, setSelectedTask] = useState("");
   const [projectExists, setProjectExists] = useState<boolean>(false);
   const [taskExists, setTaskExist] = useState<boolean>(false);
-  const [dueDate, setDueDate] = useState(null)
+  const [dueDate, setDueDate] = useState(null);
   const [month, setMonth] = useState("");
-  const [project, setProject] = useState<Project>()
+  const [project, setProject] = useState<Project>();
   const [clientId, setClientId] = useState("");
   const [client, setClient] = useState<Client>();
-
 
   const navigate = useNavigate();
 
@@ -51,100 +48,115 @@ const InvoiceForm = () => {
     return { id: c._id, name: c.name };
   });
 
-  const monthStrings = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  const monthStrings = [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const monthOptions = monthStrings.map((c) => {
     return { id: c, name: c };
   });
 
   useEffect(() => {
-    for (let projectItem of projectList){
-      if(projectItem._id === selectedProject){
-        setProject(projectItem)
+    for (let projectItem of projectList) {
+      if (projectItem._id === selectedProject) {
+        setProject(projectItem);
       }
-    } 
-  },[selectedProject])
+    }
+  }, [selectedProject]);
 
   useEffect(() => {
-      const projectData = async() => {
-        try {
-          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${selectedProject}`)
-          setProject(result.data.project);
-          setClientId(result.data.project.client_id)
-          console.log("GenerateInvoice projectData :" , result.data)
-        } catch(err){
-          console.log(err)
-        }
+    const projectData = async () => {
+      try {
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/projects/${selectedProject}`
+        );
+        setProject(result.data.project);
+        setClientId(result.data.project.client_id);
+        console.log("GenerateInvoice projectData :", result.data);
+      } catch (err) {
+        console.log(err);
       }
-      projectData();
-  }, [])
+    };
+    projectData();
+  }, []);
 
   useEffect(() => {
-    if(clientId){
-      console.log(clientId)
-      const clientData = async() => {
+    if (clientId) {
+      console.log(clientId);
+      const clientData = async () => {
         try {
-          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`)
-          setClient(result.data[0])
-          console.log("Client data: ", result.data[0])
-        } catch(err){
-          console.log(err)
+          const result = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`
+          );
+          setClient(result.data[0]);
+          console.log("Client data: ", result.data[0]);
+        } catch (err) {
+          console.log(err);
         }
-      }
+      };
       clientData();
     }
-  }, [clientId])
-  console.log("Client data", client)
+  }, [clientId]);
+  console.log("Client data", client);
 
-  console.log("Tasklist: ", taskList)
-  console.log("SelectedProject", selectedProject)
+  console.log("Tasklist: ", taskList);
+  console.log("SelectedProject", selectedProject);
 
-  async function submitNewInvoice () {
-
+  async function submitNewInvoice() {
     const computeTime = (t1: Date, t2: Date) => {
       const endDate: any = new Date(t1);
       const startDate: any = new Date(t2);
       const timeDifference = endDate.getTime() - startDate.getTime();
-      console.log("Time difference:", timeDifference)
+      console.log("Time difference:", timeDifference);
       const hours = timeDifference / (1000 * 60 * 60);
       return hours.toFixed(2);
     };
 
-    
     //get task id filtered by month
     const tasks = taskList.filter((c) => {
       let date;
-      if (c.updatedAt){
-        date = c.updatedAt
+      if (c.updatedAt) {
+        date = c.updatedAt;
       } else {
-        date = c.createdAt
+        date = c.createdAt;
       }
-      const dateObject = new Date(date)
+      const dateObject = new Date(date);
       const taskListMonth = monthStrings[dateObject.getUTCMonth()];
-      return taskListMonth === month
-    })
+      return taskListMonth === month;
+    });
 
     let totalHours = 0;
-    const taskDetails = []
-    for (let task of tasks){
-      const taskObject = { taskName: task.name, totalAmount: 0}
-      console.log("taskObject:", taskObject)
-      let taskTotalAmount = 0
-      for (let timeTrackingObj of task.time_trackings){
-        const hours = computeTime(timeTrackingObj.endDate, timeTrackingObj.startDate)
-        console.log("hours", hours)
+    const taskDetails = [];
+    for (let task of tasks) {
+      const taskObject = { taskName: task.name, totalAmount: 0 };
+      console.log("taskObject:", taskObject);
+      let taskTotalAmount = 0;
+      for (let timeTrackingObj of task.time_trackings) {
+        const hours = computeTime(timeTrackingObj.endDate, timeTrackingObj.startDate);
+        console.log("hours", hours);
         if (project) {
-          taskTotalAmount += parseInt(hours) * project?.rate}
-        totalHours += parseInt(hours)
+          taskTotalAmount += parseInt(hours) * project?.rate;
+        }
+        totalHours += parseInt(hours);
       }
-      console.log("taskTotalAmount:", taskTotalAmount)
-      taskObject.totalAmount = taskTotalAmount
-      taskDetails.push(taskObject)
+      console.log("taskTotalAmount:", taskTotalAmount);
+      taskObject.totalAmount = taskTotalAmount;
+      taskDetails.push(taskObject);
     }
 
-    
     const NewInvoice = {
       project_id: selectedProject,
-      selectedMonth: month
+      selectedMonth: month,
       // client_id: selectedClient,
       // client_data: client,
       // project_name: project?.name,
@@ -154,7 +166,10 @@ const InvoiceForm = () => {
     };
 
     try {
-      const result = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/invoices/new`, NewInvoice);
+      const result = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/invoices/new`,
+        NewInvoice
+      );
       console.log(NewInvoice);
       navigate(`/invoices/${selectedProject}`);
     } catch (err) {
@@ -171,18 +186,15 @@ const InvoiceForm = () => {
   };
 
   const selectedMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("selected month",e.target.value)
+    console.log("selected month", e.target.value);
     setMonth(e.target.value);
   };
 
   const handleGetProject = async (e: any) => {
     try {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        {
-          params: { client_id: selectedClient, autoCorrect: true },
-        }
-      );
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
+        params: { client_id: selectedClient, autoCorrect: true },
+      });
       if (result.data.msg === "No project found") {
         setProjectExists(false);
       }
@@ -194,22 +206,20 @@ const InvoiceForm = () => {
     }
   };
 
-  const handleTaskMonth = async(e: any) => {
+  const handleTaskMonth = async (e: any) => {
     try {
       const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`, {
-        params: { project_id: selectedProject, autocorrect: true},
+        params: { project_id: selectedProject, autocorrect: true },
       });
       if (result.data.msg === "No task found") {
         setTaskExist(false);
       }
       setTaskExist(true);
       setTaskList(result.data.tasks);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
-
-
 
   const handleBackClick = () => {
     navigate(-1);
@@ -217,8 +227,6 @@ const InvoiceForm = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <Box
         style={{
           width: "80%",
@@ -241,7 +249,7 @@ const InvoiceForm = () => {
               justifyContent: "space-around",
             }}
           >
-            {clientOptions.length > 0 &&
+            {clientOptions.length > 0 && (
               <>
                 <TextField
                   select
@@ -250,18 +258,15 @@ const InvoiceForm = () => {
                   defaultValue=""
                   onChange={selectedClientChange}
                 >
-                  {clientOptions.map(
-                    (option?: { id: string; name: string }) => (
-                      <MenuItem key={option?.id} value={option?.id}>
-                        {option?.name}
-                      </MenuItem>
-                    )
-                  )}
+                  {clientOptions.map((option?: { id: string; name: string }) => (
+                    <MenuItem key={option?.id} value={option?.id}>
+                      {option?.name}
+                    </MenuItem>
+                  ))}
                 </TextField>
                 <Button onClick={handleGetProject}>Get Projects</Button>
               </>
-            
-            }
+            )}
           </div>
           <div
             style={{
@@ -271,7 +276,7 @@ const InvoiceForm = () => {
               justifyContent: "space-around",
             }}
           >
-            {projectList.length > 0 &&
+            {projectList.length > 0 && (
               <>
                 <TextField
                   select
@@ -280,42 +285,40 @@ const InvoiceForm = () => {
                   onChange={selectedProjectChange}
                   defaultValue=""
                 >
-                  {projectOptions.map(
-                    (option?: { id: string; name: string }) => (
-                      <MenuItem key={option?.id} value={option?.id}>
-                        {option?.name}
-                      </MenuItem>
-                    )
-                  )}
+                  {projectOptions.map((option?: { id: string; name: string }) => (
+                    <MenuItem key={option?.id} value={option?.id}>
+                      {option?.name}
+                    </MenuItem>
+                  ))}
                 </TextField>
                 <Button onClick={handleTaskMonth}>Select Month</Button>
               </>
-            }
+            )}
           </div>
-          {taskExists && <div 
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "600px",
-              justifyContent: "space-around",
-            }}
-          >
-            <TextField
-            select
-            name="monthOptions"
-            label="Month"
-            onChange={selectedMonthChange}
-            defaultValue=""
+          {taskExists && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "600px",
+                justifyContent: "space-around",
+              }}
             >
-            {monthOptions.map(
-                    (option?: { id: string; name: string }) => (
-                      <MenuItem key={option?.id} value={option?.id}>
-                        {option?.name}
-                      </MenuItem>
-                    )
-                  )}
-            </TextField>
-            </div>}
+              <TextField
+                select
+                name="monthOptions"
+                label="Month"
+                onChange={selectedMonthChange}
+                defaultValue=""
+              >
+                {monthOptions.map((option?: { id: string; name: string }) => (
+                  <MenuItem key={option?.id} value={option?.id}>
+                    {option?.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          )}
           <div>
             <Button
               variant="contained"
