@@ -68,14 +68,15 @@ const NewProjectForm = () => {
     <>
       <Box
         style={{
-          width: "80%",
-          marginLeft: "20%",
+          width: "100%",
+          marginLeft: "15%",
           marginTop: "80px",
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
         }}
+        sx={{ flexGrow: 1 }}
       >
         <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}>
           <div

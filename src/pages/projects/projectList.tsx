@@ -53,9 +53,9 @@ const ProjectList = ({ client }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {projectList.map((project) => (
+            {projectList.map((project, idx) => (
               <TableRow
-                key={client._id}
+                key={idx}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">

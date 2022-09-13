@@ -7,7 +7,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { Link, Route, Routes, Outlet } from "react-router-dom";
 
-const drawerWidth = 240;
+const drawerWidth = "15%";
 
 export default function Sidebar() {
   return (
