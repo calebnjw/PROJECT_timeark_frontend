@@ -46,6 +46,7 @@ function Onboard() {
         updatedProfile,
       });
       console.log(result.data);
+      setNewUser(false);
     }
     setNewUser(false);
     navigate("/app/dashboard");

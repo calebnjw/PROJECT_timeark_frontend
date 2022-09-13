@@ -3,32 +3,43 @@ import { Route, Routes } from "react-router-dom";
 
 import "./App.scss";
 
+import Dashboard from "./pages/dashboard/dashboard";
+
+import HomeLayout from "./layout/homeLayout";
+
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
+
+import AppLayout from "./layout/appLayout";
 import Clients from "./pages/clients/clients";
 import AddClient from "./pages/clients/addClients";
 import SingleClient from "./pages/clients/singleClient";
+
 import EditSingleClient from "./pages/clients/editSingleClients";
 import Projects from "./pages/projects/projects";
 import NewProject from "./pages/projects/newProjectForm";
-import SingleProject from "./pages/projects/singleProject";
 import EditProjectForm from "./pages/projects/editProjectForm";
-import Tasks from "././pages/tasks/task";
+import SingleProject from "./pages/projects/singleProject";
+import Tasks from "./pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
 import SingleTask from "./pages/tasks/singleTask";
 import EditTask from "./pages/tasks/editTask";
-import Invoices from "./pages/invoices/invoices";
+
 import Profile from "./pages/profile/profile";
 import Onboard from "./pages/profile/onboard";
 import ProfileInfo from "./pages/profile/components/profileInfo";
 import ProfileEdit from "./pages/profile/components/profileEdit";
-import Page404 from "./pages/notFound/Page404";
-import Dashboard from "./pages/dashboard/dashboard";
+
 import Time from "./pages/timeTracking/time";
 
+import InvoiceDisplay from "./pages/invoices/InvoiceDisplay";
+import InvoicePage from "./pages/invoices/InvoicePage";
+import GenerateInvoice from "./pages/invoices/GenerateInvoice";
+import InvoiceForm from "./pages/invoices/newInvoiceForm";
+
+import Page404 from "./pages/notFound/Page404";
+
 import axios from "axios";
-import HomeLayout from "./layout/homeLayout";
-import AppLayout from "./layout/appLayout";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -79,7 +90,12 @@ function App() {
 
         <Route path="time" element={<Time />} />
 
-        <Route path="invoices" element={<Invoices />} />
+        <Route path="invoices">
+          <Route index element={<InvoicePage />} />
+          <Route path=":project_id" element={<GenerateInvoice />} />
+          <Route path="new" element={<InvoiceForm />} />
+          <Route path="invoice/:invoice_id" element={<InvoiceDisplay />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<Page404 />} />

@@ -25,9 +25,6 @@ export default function Login() {
             <Button href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`} variant="contained">
               Login with Google
             </Button>
-            {/* <Button href={`${process.env.REACT_APP_BACKEND_URL}/auth/github`} variant="contained">
-                Login with GitHub
-              </Button> */}
             <Button href={`${process.env.REACT_APP_BACKEND_URL}/users/log`} variant="contained">
               LOG REQUEST.USER
             </Button>
