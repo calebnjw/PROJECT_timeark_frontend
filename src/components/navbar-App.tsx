@@ -6,7 +6,7 @@ function AppNavbar() {
   const { userProfile } = useUserContext();
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box>
       <AppBar
         position="fixed"
         sx={{
@@ -14,10 +14,31 @@ function AppNavbar() {
         }}
       >
         <Toolbar>
-          <Grid container>
+          <Grid
+            container
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <Grid item xs={8}>
+              <img
+                src="/logo-notext.png"
+                alt="logo"
+                style={{
+                  borderRadius: "50%",
+                  width: "50px",
+                }}
+              />
               <Typography variant="h6" component="div" align="left">
-                <Link to={"/app/dashboard"}>Time Ark</Link>
+                <Link
+                  to={"/app/dashboard"}
+                  style={{
+                    textDecoration: "none",
+                  }}
+                >
+                  Time Ark
+                </Link>
               </Typography>
             </Grid>
             <Grid

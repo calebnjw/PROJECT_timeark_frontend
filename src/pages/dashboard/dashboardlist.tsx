@@ -15,13 +15,24 @@ const DashboardList = ({ client }: Props) => {
   const [projectList, setProjectList] = useState<Project[]>([]);
   const navigate = useNavigate();
 
+  // function changeBackground(e: any) {
+  //   e.target.style.background = "yellow";
+  // }
+
+  // function revertBackground(e: any) {
+  //   e.target.style.background = "white";
+  // }
+
   const colors = ["Blue", "Red", "Orange", "Green", "Yellow"];
 
   useEffect(() => {
     const getProjects = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
-        params: { client_id: clientId, autoCorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/projects`,
+        {
+          params: { client_id: clientId, autoCorrect: true },
+        }
+      );
       setProjectList(result.data.projects);
     };
     getProjects();
@@ -35,16 +46,18 @@ const DashboardList = ({ client }: Props) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            width: "500px",
+            width: "600px",
             justifyContent: "space-between",
             margin: "5px 0 5px 0",
             height: "50px",
-            borderLeft: "5px solid",
+            borderLeft: "10px solid",
             borderLeftColor: colors[idx % colors.length],
             borderTop: "1px solid black",
             borderRight: "1px solid black",
             borderBottom: "1px solid black",
           }}
+          // onMouseOver={changeBackground}
+          // onMouseOut={revertBackground}
         >
           {" "}
           <Box
@@ -76,7 +89,8 @@ const DashboardList = ({ client }: Props) => {
           </Box>
           <p
             style={{
-              paddingRight: "5px",
+              paddingRight: "10px",
+              fontWeight: "600",
             }}
           >
             ${project.budget}
