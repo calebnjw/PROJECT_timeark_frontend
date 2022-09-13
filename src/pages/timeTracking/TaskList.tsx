@@ -8,14 +8,20 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditTimeTrackingForm from "./editTimeTrackingForm";
-
 import { useUserContext } from "../../context/userContext";
 
 import * as _ from "lodash";
 
 import axios from "axios";
-import { AnalyticsRounded } from "@mui/icons-material";
 axios.defaults.withCredentials = true;
+
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const style = {
   position: "absolute" as "absolute",
@@ -47,7 +53,6 @@ const TaskList = (props: Props) => {
   const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
     React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
-  // Props for edit&delete time entry below:
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -143,57 +148,91 @@ const TaskList = (props: Props) => {
 
   if (taskList.length) {
     return (
-      <div>
-        <p>Selected Date: {props.data}</p>
-        <div>
-          <ul>
-            {taskList.length &&
-              taskList.map((task, idx) => (
-                <li key={idx}>
-                  <ul>
-                    {task.time_trackings.map((time, idx) => (
-                      <li key={idx}>
-                        {time.endDate ? (
-                          <>
-                            <b>
-                              {" "}
-                              Task Name: {task.name} | Time Spent:{" "}
-                              {computeTime(time.endDate, time.startDate)} {"H"}
-                            </b>
+      <Box sx={{ width: "100%" }}>
+        <Box>Selected Date: {props.data}</Box>
+        <TableContainer>
+          <Table>
+            <TableHead sx={{ width: "100%" }}>
+              <TableRow sx={{ width: "100%" }}>
+                <TableCell align="center">Task Name</TableCell>
+                <TableCell align="center">Client/Project</TableCell>
+                <TableCell align="center">Time Entry</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {/* <ul> */}
+              {taskList.length &&
+                taskList.map((task, idx) => (
+                  <TableRow
+                    key={idx}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    {/* <li key={idx}> */}
+                    {/* <ul> */}
+                    <TableBody>
+                      {task.time_trackings.map((time, idx) => (
+                        <TableRow
+                          key={idx}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          {/* <li key={idx}> */}
+                          {time.endDate ? (
                             <>
-                              <button
+                              <TableCell component="th" scope="row">
+                                {" "}
+                                Task Name: {task.name} | Time Spent: {"H"}
+                              </TableCell>
+                              <TableCell align="right">
+                                {computeTime(time.endDate, time.startDate)}{" "}
+                              </TableCell>
+                              <>
+                                <Button
+                                  variant="outlined"
+                                  color="primary"
+                                  onClick={() => {
+                                    showEditTimeTrackingModal(
+                                      task._id,
+                                      time._id
+                                    );
+                                  }}
+                                >
+                                  Edit
+                                </Button>
+                              </>
+                            </>
+                          ) : (
+                            <>
+                              <b style={{ backgroundColor: "pink" }}>
+                                Task Name: {task.name} | Time Spent:{" "}
+                                <ShowTimer startDate={time.startDate} />
+                              </b>
+                              <Button
+                                variant="contained"
+                                color="secondary"
                                 onClick={() => {
-                                  showEditTimeTrackingModal(task._id, time._id);
+                                  handleStopTimer(task._id, time._id);
                                 }}
                               >
-                                Edit
-                              </button>
-                              {/* <Button onClick={handleOpen}>Edit</Button> */}
+                                Stop
+                              </Button>
                             </>
-                          </>
-                        ) : (
-                          <>
-                            <b style={{ backgroundColor: "pink" }}>
-                              Task Name: {task.name} | Time Spent:{" "}
-                              <ShowTimer startDate={time.startDate} />
-                            </b>
-                            <button
-                              onClick={() => {
-                                handleStopTimer(task._id, time._id);
-                              }}
-                            >
-                              Stop
-                            </button>
-                          </>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-          </ul>
-        </div>
-        <div>
+                          )}
+                          {/* </li> */}
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                    {/* </ul> */}
+                    {/* </li> */}
+                  </TableRow>
+                ))}
+              {/* </ul> */}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Box>
           {/* Modal Window: edit time tracking */}
           <Modal
             open={open}
@@ -220,8 +259,8 @@ const TaskList = (props: Props) => {
               </Typography>
             </Box>
           </Modal>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   } else {
     if (today === selectedDate && taskList.length) {
@@ -235,7 +274,6 @@ const TaskList = (props: Props) => {
       return (
         <Box>
           <Box>Selected Date: {props.data}</Box>
-
           <Box>You haven't done any task here.</Box>
         </Box>
       );
