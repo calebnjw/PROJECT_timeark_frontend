@@ -4,7 +4,6 @@ import Navbar from "../../components/navbar";
 import ClientSidebar from "./clients_sidebar";
 import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { Table, TableRow, TableCell, Button, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Project } from "../../types/project";
@@ -13,13 +12,48 @@ import { TableProps } from "../../types/invoiceTypes"
 import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import { TabUnselected } from "@mui/icons-material";
+import {
+  Table,
+  TableRow,
+  TableCell,
+  styled,
+  Button,
+  Grid,
+  tableCellClasses,
+  TableContainer,
+  TableHead,
+  TableBody,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+  Paper,
+} from "@mui/material";
 import { conformsTo } from "lodash";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
-//===============================props==============================//
+//===================================Table styling==========================//
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 //===============================return==============================//
 
@@ -96,32 +130,32 @@ const GenerateInvoice = () => {
           <Button
             variant="outlined"
             style={{
-              left: "30px",
               top: "20px",
             }}
             onClick={handleProjectButton}
             >
-            <KeyboardArrowLeftIcon fontSize="large" />
-            Back
+            <KeyboardArrowLeftIcon/>
           </Button>
           </Grid>
-          <Grid item xs={11}>
+          {/* <Grid item xs={11}>
               <h1 style={{ textAlign: "center" }}>Invoices</h1>
-          </Grid>
+          </Grid> */}
               </Grid>
-          <Table>
-            <TableRow sx={{ "& td": { border: 0 } }}>
-              <TableCell align="left">Project Name: </TableCell>
-              <TableCell align="left">{project?.name}</TableCell>
-            </TableRow>
-            <TableRow sx={{ "& td": { border: 0 } }}>
-              <TableCell align="left">Client Name: </TableCell>
-              <TableCell align="left">{client?.client_name}</TableCell>
-            </TableRow>
-                {/* <Button variant="outlined" onClick={handleGenerateInvoice}>
-                  Generate Invoice
-                </Button> */}
+          <Table style={{marginBottom: "30px", marginTop: "30px"}}>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">Project</StyledTableCell>
+                <StyledTableCell align="center">Client</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <StyledTableRow>
+                <StyledTableCell align="center">{project?.name}</StyledTableCell>
+                <StyledTableCell align="center">{client?.client_name}</StyledTableCell>
+              </StyledTableRow>
+            </TableBody>
           </Table>
+          <h1>Invoices</h1>
           <MyTable/>
         </div>
       </div>
@@ -130,3 +164,12 @@ const GenerateInvoice = () => {
 };
 
 export default GenerateInvoice;
+
+            // <TableRow sx={{ "& td": { border: 0 } }}>
+            //   <TableCell align="left">Project Name: </TableCell>
+            //   <TableCell align="left">{project?.name}</TableCell>
+            // </TableRow>
+            // <TableRow sx={{ "& td": { border: 0 } }}>
+            //   <TableCell align="left">Client Name: </TableCell>
+            //   <TableCell align="left">{client?.client_name}</TableCell>
+            // </TableRow>

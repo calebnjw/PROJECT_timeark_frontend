@@ -3,13 +3,19 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-import { Button, Divider, Grid } from "@mui/material";
+import {
+  Button,
+ 
+} from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import Navbar from "../../components/navbar";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { Client } from "../../types/client";
 import { InvoiceProps } from "../../types/invoiceTypes";
+
+
+//==================================function=============================//
 
 const InvoiceDisplay = () => {
   const [project, setProject] = useState<Project>();
@@ -175,14 +181,14 @@ const InvoiceDisplay = () => {
   return (
     <>
       <Navbar />
-      <div className="main-container">
         <div className="invoice-header">
           <Button variant="outlined" style={{ left: "50px", top: "80px" }} onClick={handleBackButton}>
-            <KeyboardArrowLeftIcon fontSize="large" />
-            Invoices
+            <KeyboardArrowLeftIcon />
           </Button>
           <h1 style={{ textAlign: "center" }}>Invoice</h1>
         </div>
+      <div className="invoice-display">
+
       </div>
 
       <p>User's Name: </p>

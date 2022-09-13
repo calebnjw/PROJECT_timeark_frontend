@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
 import { InvoiceProps } from "../../types/invoiceTypes";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   Table,
   TableRow,
@@ -17,6 +18,7 @@ import {
   MenuItem,
   Select,
   InputLabel,
+  TablePagination,
   Paper,
 } from "@mui/material";
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
@@ -55,6 +57,7 @@ const handleSelector = () => {
   console.log("Paid/overdue selected");
 };
 
+
 //===================================props=========================//
 interface Props {
   client: Client;
@@ -66,9 +69,22 @@ const MyTable = () => {
   const { clientList, setClientList } = useGlobalContext();
   const [table, setTable] = useState<TableProps[]>([]);
   const [invoice, setInvoice] = useState<InvoiceProps>();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   // const clientId = client._id;
   
   const { project_id } = useParams();
+  //=============================for changing the pages========================//
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+  
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   
   const handleInvoices = (invoice_id: any) => {
     navigate(`/invoices/invoice/${invoice_id}`) 
@@ -95,6 +111,7 @@ const MyTable = () => {
     const handleDeleteButton = async(invoiceId: any) => {
       try {
         const result = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`)
+        // navigate(`/invoices/${project_id}`)
       } catch(err){
         console.log(err)
       }
@@ -166,7 +183,7 @@ const MyTable = () => {
                 type="submit"
                 onClick = {() => {handleDeleteButton(i._id)}}
               >
-                Delete
+                <DeleteForeverIcon/>
               </Button></StyledTableCell>
 
                     </StyledTableRow>
@@ -175,6 +192,18 @@ const MyTable = () => {
             </Table>
           </Paper>
         </TableContainer>
+        {table && (
+        <TablePagination
+          rowsPerPageOptions={[5, 10]}
+          component="div"
+          count={table.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{ paddingLeft: "500px", paddingRight: "50px" }}
+        />
+      )}
       </div>
     </>
   );

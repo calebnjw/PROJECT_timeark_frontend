@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
-import { InvoiceProps } from "../../types/invoiceTypes";
+import { useGlobalContext } from "../../context/clientContext";
+import InvoicePageList from "./InvoicePageList";
 import { Project } from "../../types/project";
 import {
   styled,
@@ -10,6 +11,8 @@ import {
   Typography,
   Table,
   TableBody,
+  Link,
+  Paper,
   TableCell,
   tableCellClasses,
   TableContainer,
@@ -21,6 +24,7 @@ import {
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { CLIENT_RENEG_WINDOW } from "tls";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
@@ -49,6 +53,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 //=================================Page function=============================//
 const InvoicePage = () => {
   const [clientId, setClientId] = useState<string>();
+  const { clientList, setClientList } = useGlobalContext();
   const [project, setProject] = useState<[Project]>();
 
   //useStates
@@ -74,6 +79,7 @@ const InvoicePage = () => {
     }
   }, [clientId]);
 
+
   const navigate = useNavigate();
 
   //=============================for changing the pages========================//
@@ -93,69 +99,25 @@ const InvoicePage = () => {
     <>
       <Navbar />
       <Sidebar />
-      <ClientSidebar setClientId={setClientId} />
-      {clientId && (
-        <div className="invoice-container">
-          <h1 style={{ textAlign: "center" }}>All Projects</h1>
-          <div className="project-table">
-            <TableContainer
-              style={{ paddingLeft: "500px", paddingRight: "50px" }}
-            >
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell align="left">Project Name</StyledTableCell>
-                    <StyledTableCell align="right">
-                      View Invoices
-                    </StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                {project === undefined ? (
-                  <Box>
-                    <Typography>Loading Project</Typography>
-                  </Box>  
-                  ) : (
-                      project.map((i) => (
-                        <StyledTableRow key={i._id}>
-                          <StyledTableCell align="left">{i.name}</StyledTableCell>
-                          <StyledTableCell align="right">
-                            <Button
-                              variant="outlined"
-                              onClick={()=> {
-                                navigate(`/invoices/${i._id}`
-                                )
-                              }}
-                            >
-                              <ReceiptRoundedIcon />
-                            </Button>
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      ))
-                    )}
-                    
-                </TableBody>
-              </Table>
-            </TableContainer>
-            {project && (
-              <TablePagination
-                rowsPerPageOptions={[5, 10]}
-                component="div"
-                count={project.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                style={{ paddingLeft: "500px", paddingRight: "50px" }}
-              />
-            )}
-          </div>
-          {/* For error handling later on */}
-          <div className="error-container"></div>
+      <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
+        <div>
+          <h2>Invoices</h2>
+          <ul>
+            {clientList.map((client, idx) => (
+              <li key={idx}>
+                <p style={{ fontWeight: "200" }}>
+                  <b>{client.client_name}</b>
+                </p>
+                <InvoicePageList client={client} />
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
+      </div>
     </>
   );
 };
 
 export default InvoicePage;
+       
+    
