@@ -13,9 +13,10 @@ import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
+import { useNavigate, useParams } from "react-router-dom";
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
-import { useNavigate, useParams } from "react-router-dom";
 
 //=================================Props=================================//
 interface Props {
@@ -142,7 +143,10 @@ const InvoiceForm = () => {
       console.log("taskObject:", taskObject);
       let taskTotalAmount = 0;
       for (let timeTrackingObj of task.time_trackings) {
-        const hours = computeTime(timeTrackingObj.endDate, timeTrackingObj.startDate);
+        const hours = computeTime(
+          timeTrackingObj.endDate,
+          timeTrackingObj.startDate
+        );
         console.log("hours", hours);
         if (project) {
           taskTotalAmount += parseInt(hours) * project?.rate;
@@ -192,9 +196,12 @@ const InvoiceForm = () => {
 
   const handleGetProject = async (e: any) => {
     try {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
-        params: { client_id: selectedClient, autoCorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/projects`,
+        {
+          params: { client_id: selectedClient, autoCorrect: true },
+        }
+      );
       if (result.data.msg === "No project found") {
         setProjectExists(false);
       }
@@ -208,9 +215,12 @@ const InvoiceForm = () => {
 
   const handleTaskMonth = async (e: any) => {
     try {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`, {
-        params: { project_id: selectedProject, autocorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/tasks`,
+        {
+          params: { project_id: selectedProject, autocorrect: true },
+        }
+      );
       if (result.data.msg === "No task found") {
         setTaskExist(false);
       }
@@ -258,11 +268,13 @@ const InvoiceForm = () => {
                   defaultValue=""
                   onChange={selectedClientChange}
                 >
-                  {clientOptions.map((option?: { id: string; name: string }) => (
-                    <MenuItem key={option?.id} value={option?.id}>
-                      {option?.name}
-                    </MenuItem>
-                  ))}
+                  {clientOptions.map(
+                    (option?: { id: string; name: string }) => (
+                      <MenuItem key={option?.id} value={option?.id}>
+                        {option?.name}
+                      </MenuItem>
+                    )
+                  )}
                 </TextField>
                 <Button onClick={handleGetProject}>Get Projects</Button>
               </>
@@ -285,11 +297,13 @@ const InvoiceForm = () => {
                   onChange={selectedProjectChange}
                   defaultValue=""
                 >
-                  {projectOptions.map((option?: { id: string; name: string }) => (
-                    <MenuItem key={option?.id} value={option?.id}>
-                      {option?.name}
-                    </MenuItem>
-                  ))}
+                  {projectOptions.map(
+                    (option?: { id: string; name: string }) => (
+                      <MenuItem key={option?.id} value={option?.id}>
+                        {option?.name}
+                      </MenuItem>
+                    )
+                  )}
                 </TextField>
                 <Button onClick={handleTaskMonth}>Select Month</Button>
               </>
