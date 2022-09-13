@@ -8,7 +8,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditTimeTrackingForm from "./editTimeTrackingForm";
-import { useGlobalContext } from "../../context/clientContext";
+
+import { useUserContext } from "../../context/userContext";
+
 import * as _ from "lodash";
 
 import axios from "axios";
@@ -37,13 +39,12 @@ const TaskList = (props: Props) => {
   const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
   const taskList = props.taskList;
   const setTaskList = props.setTaskList;
-  const { userId } = useGlobalContext();
+  const { userId } = useUserContext();
   const today = format(new Date(), "yyyy-MM-dd");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
-    React.useState("");
+  const [selectedTimeTrackingId, setSelectedTimeTrackingId] = React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
   // Props for edit&delete time entry below:
   const [updatedEndDate, setUpdatedEndDate] = React.useState<Date>();
@@ -93,10 +94,7 @@ const TaskList = (props: Props) => {
     }
   };
 
-  const showEditTimeTrackingModal = (
-    taskId: string,
-    timeTrackingId: string
-  ) => {
+  const showEditTimeTrackingModal = (taskId: string, timeTrackingId: string) => {
     handleOpen();
     setSelectedTaskId(taskId);
     setSelectedTimeTrackingId(timeTrackingId);
@@ -125,15 +123,11 @@ const TaskList = (props: Props) => {
       if (t._id === selectedTaskId) {
         // check time_trackings arr length
         if (t.time_trackings.length === 1) {
-          const idxOfTaskToDelete = taskList.findIndex(
-            (t) => t._id == selectedTaskId
-          );
+          const idxOfTaskToDelete = taskList.findIndex((t) => t._id == selectedTaskId);
           taskList.splice(idxOfTaskToDelete, 1);
           return t;
         } else {
-          const filtered = t.time_trackings.filter(
-            (tt) => tt._id !== selectedTimeTrackingId
-          );
+          const filtered = t.time_trackings.filter((tt) => tt._id !== selectedTimeTrackingId);
           t.time_trackings = filtered;
           return t;
         }
@@ -217,8 +211,7 @@ const TaskList = (props: Props) => {
                 />
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please select your project and task to start tracker. Happy
-                Working!
+                Please select your project and task to start tracker. Happy Working!
               </Typography>
             </Box>
           </Modal>

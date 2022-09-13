@@ -1,6 +1,4 @@
 import axios from "axios";
-import NavBar from "../../components/navbar";
-import Footer from "../../components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Sidebar from "../../components/sidebar";
@@ -40,10 +38,7 @@ export default function SingleClient() {
   let { clientList } = useGlobalContext();
 
   useEffect(() => {
-    function getSingleClient(
-      clientid: string | undefined,
-      clientlist: Client[]
-    ): Client[] {
+    function getSingleClient(clientid: string | undefined, clientlist: Client[]): Client[] {
       return clientList.filter((element) => element._id === clientid);
     }
     if (!isLoaded && clientId !== undefined && clientList.length !== 0) {
@@ -56,14 +51,8 @@ export default function SingleClient() {
 
   return (
     <div>
-      <NavBar />
       <Box style={{ width: "80%", marginLeft: "20%", marginTop: "100px" }}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
+        <Grid container direction="row" justifyContent="center" alignItems="center">
           <Sidebar />
           <ClientSidebar />
           <Grid item xs={6}>
@@ -83,17 +72,14 @@ export default function SingleClient() {
                   <p>City Name: {client.billing_details.city}</p>
                   <p>Country: {client.billing_details.country}</p>
                   <p>Postal Code: {client.billing_details.postal_code}</p>
-                  <p>
-                    Company Registration:{" "}
-                    {client.billing_details.company_registration}
-                  </p>
+                  <p>Company Registration: {client.billing_details.company_registration}</p>
                 </Box>
                 <Box mt="2rem">
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                      navigate(`/clients/${client._id}/update`, {
+                      navigate(`/app/clients/${client._id}/update`, {
                         state: { client },
                       });
                     }}
@@ -106,7 +92,6 @@ export default function SingleClient() {
           </Grid>
         </Grid>
       </Box>
-      <Footer />
     </div>
   );
 }

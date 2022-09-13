@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 
-export default function ButtonAppBar() {
+function AppNavbar() {
   const { userProfile } = useUserContext();
 
   return (
@@ -17,7 +17,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={8}>
               <Typography variant="h6" component="div" align="left">
-                Time Ark
+                <Link to={"/app/dashboard"}>Time Ark</Link>
               </Typography>
             </Grid>
             <Grid
@@ -27,19 +27,28 @@ export default function ButtonAppBar() {
                 marginLeft: "90px",
               }}
             >
-              {userProfile ? (
-                <Button
-                  color="secondary"
-                  href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
-                  variant="contained"
-                >
-                  LOGOUT
-                </Button>
-              ) : (
-                <Button color="inherit" component={Link} to="/login">
-                  Login
-                </Button>
+              {userProfile?.photos && (
+                <Link to={"/app/profile"}>
+                  <img
+                    src={`${userProfile?.photos[0].value}`}
+                    alt="profile"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      marginRight: "20px",
+                    }}
+                  />
+                </Link>
               )}
+
+              <Button
+                color="secondary"
+                href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
+                variant="contained"
+              >
+                Logout
+              </Button>
             </Grid>
           </Grid>
         </Toolbar>
@@ -47,3 +56,5 @@ export default function ButtonAppBar() {
     </Box>
   );
 }
+
+export default AppNavbar;

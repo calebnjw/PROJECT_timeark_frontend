@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { useGlobalContext } from "../../context/clientContext";
@@ -25,8 +23,6 @@ const SingleTask = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <Stack direction="row" spacing={2}>
           <Button
@@ -42,7 +38,7 @@ const SingleTask = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              navigate(`/projects/${project._id}/tasks/${task._id}/update`, {
+              navigate(`/app/projects/${project._id}/tasks/${task._id}/update`, {
                 state: { task, project },
               });
             }}

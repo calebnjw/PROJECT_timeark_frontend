@@ -30,7 +30,9 @@ const ProjectList = ({ client }: Props) => {
     const getProjects = async () => {
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        { params: { client_id: clientId, autoCorrect: true } }
+        {
+          params: { client_id: clientId, autoCorrect: true },
+        }
       );
       setProjectList(result.data.projects);
     };

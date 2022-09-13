@@ -80,18 +80,14 @@ export default function NewClientForm() {
       const clientId: any = newClient._id;
       const updatedClientList: any = [...clientList, newClient];
       setClientList(updatedClientList);
-      navigate(`/clients/${clientId}`);
+      navigate(`/app/clients/${clientId}`);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <Box
-      style={{ width: "80%", marginTop: "80px" }}
-      component="form"
-      autoComplete="off"
-    >
+    <Box style={{ width: "80%", marginTop: "80px" }} component="form" autoComplete="off">
       <Typography variant="h5" align="center">
         New Client
       </Typography>

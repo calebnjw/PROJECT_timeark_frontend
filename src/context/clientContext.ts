@@ -6,7 +6,6 @@ import { Dates } from "../types/tasks";
 export interface GlobalContent {
   clientList: Client[];
   setClientList: (c: []) => void;
-  userId: string;
   // dates: Dates[];
   // selectedDate: string;
   // setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
@@ -17,7 +16,6 @@ export interface GlobalContent {
 export const ClientGlobalContext = createContext<GlobalContent>({
   clientList: [], // set a default value
   setClientList: () => {},
-  userId: "",
   // dates: [],
   // selectedDate: "",
   // setSelectedDate: () => {},

@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
-import Footer from "../../components/footer";
 import { useGlobalContext } from "../../context/clientContext";
 import { DateTime } from "luxon";
 import { Spinner } from "../../components/spinner/spinner";
@@ -45,15 +42,12 @@ const Tasks = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <TaskSideBar />
       {/* <DatesButton
         dates={dates}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       /> */}
-      <Footer />
     </>
   );
 };

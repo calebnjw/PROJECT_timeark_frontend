@@ -1,14 +1,4 @@
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Image from "material-ui-image";
-import Typography from "@mui/material/Typography";
-
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
-
-// import Sidebar from "../../components/sidebar";
-import Clients from "../clients/clients";
-import Projects from "../projects/projects";
+import { Box, Grid, Typography } from "@mui/material";
 
 export default function Home() {
   return (
