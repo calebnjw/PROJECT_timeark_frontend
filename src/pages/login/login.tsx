@@ -14,6 +14,10 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 export default function Login() {
+  console.log(
+    "backend url: ",
+    `${process.env.REACT_APP_BACKEND_URL}/auth/google`
+  );
   return (
     <Grid item justifyContent="center" alignItems="center">
       <Card>
@@ -22,10 +26,16 @@ export default function Login() {
             Log In
           </Typography>
           <Stack direction="row" spacing={2}>
-            <Button href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`} variant="contained">
+            <Button
+              href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`}
+              variant="contained"
+            >
               Login with Google
             </Button>
-            <Button href={`${process.env.REACT_APP_BACKEND_URL}/users/log`} variant="contained">
+            <Button
+              href={`${process.env.REACT_APP_BACKEND_URL}/users/log`}
+              variant="contained"
+            >
               LOG REQUEST.USER
             </Button>
           </Stack>
