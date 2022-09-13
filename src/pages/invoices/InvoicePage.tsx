@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import ClientSidebar from "./clients_sidebar";
+import AppNavbar from "../../components/navbar-App";
+import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import InvoicePageList from "./InvoicePageList";
 import { Project } from "../../types/project";
@@ -26,8 +26,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CLIENT_RENEG_WINDOW } from "tls";
 axios.defaults.withCredentials = true;
-const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 //=================================Styling=================================//
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -66,9 +65,7 @@ const InvoicePage = () => {
       console.log(clientId);
       const projectData = async () => {
         try {
-          const result = await axios.get(
-            `${BACKEND_URL}/projects?client_id=${clientId}`
-          );
+          const result = await axios.get(`${BACKEND_URL}/projects?client_id=${clientId}`);
           setProject(result.data.projects);
           console.log(result.data);
         } catch (err) {
@@ -87,9 +84,7 @@ const InvoicePage = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -97,7 +92,7 @@ const InvoicePage = () => {
   //===============================return function===========================//
   return (
     <>
-      <Navbar />
+      <AppNavbar />
       <Sidebar />
       <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <div>

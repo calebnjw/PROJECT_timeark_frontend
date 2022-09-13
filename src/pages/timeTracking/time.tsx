@@ -1,7 +1,4 @@
 import { useState } from "react";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
-import Footer from "../../components/footer";
 import Calendar from "./Calendar";
 import TaskList from "./TaskList";
 import "./time.css";
@@ -12,7 +9,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
-import { useGlobalContext } from "../../context/clientContext";
+
+import { useUserContext } from "../../context/userContext";
 
 const style = {
   position: "absolute" as "absolute",
@@ -33,8 +31,7 @@ const Time = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [taskList, setTaskList] = useState<Task[]>([]);
-  const { userId } = useGlobalContext();
-
+  const { userId } = useUserContext();
   console.log("task list: ", taskList);
 
   const HandleShowSelectedDateTimeEntrys = (dayStr: any) => {
@@ -65,8 +62,6 @@ const Time = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <div
         style={{
           width: "80%",
@@ -74,9 +69,7 @@ const Time = () => {
           marginTop: "80px",
         }}
       >
-        <div
-          style={{ display: "flex", flexDirection: "row", overflow: "auto" }}
-        >
+        <div style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
           <div>
             <Button onClick={handleOpen}>+ New Tracker</Button>
             <Modal
@@ -96,20 +89,16 @@ const Time = () => {
                   />
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Please select your project and task to start tracker. Happy
-                  Working!
+                  Please select your project and task to start tracker. Happy Working!
                 </Typography>
               </Box>
             </Modal>
           </div>
-          <Calendar
-            HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
-          />
+          <Calendar HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys} />
         </div>
         <br />
         {<TaskList data={data} taskList={taskList} setTaskList={setTaskList} />}
       </div>
-      <Footer />
     </>
   );
 };

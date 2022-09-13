@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Navbar from "../../components/navbar";
-import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +56,7 @@ const NewProjectForm = () => {
         });
 
         setClientList(newClientList);
-        navigate(`/projects/${project_id}`);
+        navigate(`/app/projects/${project_id}`);
       } catch (error) {
         console.error(error);
       }
@@ -67,8 +65,6 @@ const NewProjectForm = () => {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <Box style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
         <Button variant="contained" color="secondary">
           <Link to="/projects" style={{ color: "white" }}>
@@ -88,12 +84,7 @@ const NewProjectForm = () => {
             }}
           >
             {clientOptions.length ? (
-              <TextField
-                select
-                name="client_id"
-                label="*Client"
-                defaultValue={clientOptions[0].id}
-              >
+              <TextField select name="client_id" label="*Client" defaultValue={clientOptions[0].id}>
                 {clientOptions.map((option?: { id: string; name: string }) => (
                   <MenuItem key={option?.id} value={option?.id}>
                     {option?.name}
@@ -104,31 +95,17 @@ const NewProjectForm = () => {
               <>Loading Client Options</>
             )}
 
-            <Button
-              color="success"
-              variant="contained"
-              onClick={() => navigate("/clients/new")}
-            >
+            <Button color="success" variant="contained" onClick={() => navigate("/clients/new")}>
               + New Client
             </Button>
             <TextField type="text" name="name" label="*Project Name" />
             <TextField type="number" name="budget" label="*Budget" />
             <TextField type="number" name="rate" label="*Rate" />
-            <TextField
-              type="date"
-              name="due_date"
-              label="*Due Date"
-              defaultValue={"2022-08-26"}
-            />
+            <TextField type="date" name="due_date" label="*Due Date" defaultValue={"2022-08-26"} />
             <TextField name="category_name" label="Category" multiline />
           </div>
           <div>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              value="Submit"
-            >
+            <Button variant="contained" color="primary" type="submit" value="Submit">
               Submit
             </Button>
           </div>

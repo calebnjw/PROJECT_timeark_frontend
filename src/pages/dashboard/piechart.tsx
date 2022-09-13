@@ -22,15 +22,12 @@ function TimeSpentChart({ timeperiod }: Props) {
     console.log(timeperiod);
     const pieChartData = async () => {
       if (userProfile) {
-        const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
-          {
-            params: {
-              user_id: userProfile._id,
-              time_period: timeperiod,
-            },
-          }
-        );
+        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks/time`, {
+          params: {
+            user_id: userProfile._id,
+            time_period: timeperiod,
+          },
+        });
         console.log(result.data);
         setGetData(result.data);
         setIsLoaded(true);

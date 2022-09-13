@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet, Route, useLocation, useNavigate } from "react-router-dom";
 import { Button, Box, Divider, Grid, TextField } from "@mui/material";
 
-import { useUserContext } from "../../context/userContext";
-
-import { User } from "../../types/user";
 import { Billing } from "../../types/billingDetails";
+
+import { useUserContext } from "../../context/userContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -49,7 +48,8 @@ function Onboard() {
       console.log(result.data);
       setNewUser(false);
     }
-    navigate("/dashboard");
+    setNewUser(false);
+    navigate("/app/dashboard");
   };
 
   // a whole bunch of state change handlers
