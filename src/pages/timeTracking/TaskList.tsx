@@ -217,10 +217,16 @@ const TaskList = (props: Props) => {
                               <Typography>
                                 {hanleGetClientAndProjectName(task.project_id)}
                               </Typography>
-                              <Typography>
+                              <Typography
+                                style={{ width: "100px", textAlign: "center" }}
+                              >
                                 {computeTime(time.endDate, time.startDate)}{" "}
                               </Typography>
                               <Button
+                                style={{
+                                  marginRight: "0px",
+                                  marginLeft: "20px",
+                                }}
                                 variant="contained"
                                 color="primary"
                                 onClick={() => {
@@ -248,10 +254,13 @@ const TaskList = (props: Props) => {
                               <Typography>
                                 {hanleGetClientAndProjectName(task.project_id)}
                               </Typography>
-                              <Typography>
+                              <Typography
+                                style={{ width: "100px", textAlign: "center" }}
+                              >
                                 <ShowTimer startDate={time.startDate} />
                               </Typography>
                               <Button
+                                style={{ marginLeft: "0px" }}
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => {

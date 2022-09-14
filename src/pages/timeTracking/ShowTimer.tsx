@@ -1,5 +1,6 @@
 import React from "react";
 import { useCountUp } from "use-count-up";
+import Box from "@mui/material/Box";
 
 interface Props {
   startDate: Date;
@@ -28,7 +29,23 @@ const ShowTimer = ({ startDate }: Props) => {
       .join(":");
   };
 
-  return <b>{formatTime(startTime)}</b>;
+  return (
+    <Box
+      style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+    >
+      <iframe
+        src="https://giphy.com/embed/kaUIoIsHxbUAkiieAv"
+        style={{
+          position: "relative",
+          width: "70px",
+          height: "70px",
+          zIndex: "1",
+        }}
+        frameBorder="0"
+      ></iframe>
+      <b>{formatTime(startTime)}</b>
+    </Box>
+  );
 };
 
 export default ShowTimer;
