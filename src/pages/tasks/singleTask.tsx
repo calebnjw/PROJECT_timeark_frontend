@@ -8,6 +8,11 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
 axios.defaults.withCredentials = true;
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 const SingleTask = () => {
   const navigate = useNavigate();
@@ -23,7 +28,15 @@ const SingleTask = () => {
 
   return (
     <>
-      <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
+      <Card
+        style={{
+          width: "50%",
+          marginLeft: "20%",
+          marginTop: "100px",
+          marginRight: "15%",
+          height: "400px",
+        }}
+      >
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
@@ -38,9 +51,12 @@ const SingleTask = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              navigate(`/app/projects/${project._id}/tasks/${task._id}/update`, {
-                state: { task, project },
-              });
+              navigate(
+                `/app/projects/${project._id}/tasks/${task._id}/update`,
+                {
+                  state: { task, project },
+                }
+              );
             }}
           >
             Edit
@@ -52,7 +68,7 @@ const SingleTask = () => {
           <p>Project Name: {project.name}</p>
           <p>Category: {task.category}</p>
         </div>
-      </div>
+      </Card>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Task } from "../../types/task";
 import ShowTimer from "./ShowTimer";
 import * as React from "react";
@@ -8,13 +8,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditTimeTrackingForm from "./editTimeTrackingForm";
-
 import { useUserContext } from "../../context/userContext";
-
 import * as _ from "lodash";
-
 import axios from "axios";
-import { AnalyticsRounded } from "@mui/icons-material";
 axios.defaults.withCredentials = true;
 
 const style = {
@@ -44,10 +40,9 @@ const TaskList = (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [selectedTimeTrackingId, setSelectedTimeTrackingId] = React.useState("");
+  const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
+    React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
-  // Props for edit&delete time entry below:
-  const [updatedEndDate, setUpdatedEndDate] = React.useState<Date>();
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -94,7 +89,10 @@ const TaskList = (props: Props) => {
     }
   };
 
-  const showEditTimeTrackingModal = (taskId: string, timeTrackingId: string) => {
+  const showEditTimeTrackingModal = (
+    taskId: string,
+    timeTrackingId: string
+  ) => {
     handleOpen();
     setSelectedTaskId(taskId);
     setSelectedTimeTrackingId(timeTrackingId);
@@ -112,8 +110,6 @@ const TaskList = (props: Props) => {
         }
         return t;
       });
-
-      // setUpdatedEndDate(undefined);
     }
     return;
   };
@@ -123,11 +119,15 @@ const TaskList = (props: Props) => {
       if (t._id === selectedTaskId) {
         // check time_trackings arr length
         if (t.time_trackings.length === 1) {
-          const idxOfTaskToDelete = taskList.findIndex((t) => t._id == selectedTaskId);
+          const idxOfTaskToDelete = taskList.findIndex(
+            (t) => t._id == selectedTaskId
+          );
           taskList.splice(idxOfTaskToDelete, 1);
           return t;
         } else {
-          const filtered = t.time_trackings.filter((tt) => tt._id !== selectedTimeTrackingId);
+          const filtered = t.time_trackings.filter(
+            (tt) => tt._id !== selectedTimeTrackingId
+          );
           t.time_trackings = filtered;
           return t;
         }
@@ -136,59 +136,167 @@ const TaskList = (props: Props) => {
     });
   };
 
+  const hanleGetClientAndProjectName = async (projectId: any) => {
+    // try {
+    //   const result = await axios.get(
+    //     `${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`
+    //   );
+    //   const projectName = result.data.project.name;
+
+    //   return projectName;
+    // } catch (error) {
+    //   console.log("Error message: ", error);
+    // }
+    return "Project Name";
+  };
+
   if (taskList.length) {
     return (
-      <div>
-        <p>Selected Date: {props.data}</p>
-        <div>
-          <ul>
-            {taskList.length &&
-              taskList.map((task, idx) => (
-                <li key={idx}>
-                  <ul>
-                    {task.time_trackings.map((time, idx) => (
-                      <li key={idx}>
-                        {time.endDate ? (
-                          <>
-                            <b>
-                              {" "}
-                              Task Name: {task.name} | Time Spent:{" "}
-                              {computeTime(time.endDate, time.startDate)} {"H"}
-                            </b>
-                            <>
-                              <button
+      <Box
+        sx={{
+          width: "100%",
+          height: "500px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "auto",
+        }}
+      >
+        {/* <Box sx={{ width: "100%", textAlign: "center" }}>
+          Selected Date: {props.data}
+        </Box> */}
+        <Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              fontSize: "large",
+            }}
+          >
+            <Typography>
+              <b>Task Name</b>
+            </Typography>
+            <Typography>
+              <b>Client/Project</b>
+            </Typography>
+            <Typography>
+              <b>Time Entry(hours)</b>
+            </Typography>
+            <Typography>
+              <b>Actions</b>
+            </Typography>
+          </Box>
+          <hr />
+
+          <Box sx={{ width: "100%" }}>
+            <ul style={{ width: "100%" }}>
+              {taskList.length &&
+                taskList.map((task, idx) => (
+                  <li key={idx}>
+                    <ul style={{ width: "100%" }}>
+                      {task.time_trackings.map((time, idx) => (
+                        <li
+                          key={idx}
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            height: "50px",
+                            marginTop: "5px",
+                            marginBottom: "5px",
+                          }}
+                        >
+                          {time.endDate ? (
+                            <Box
+                              style={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                height: "50px",
+                                justifyContent: "space-around",
+                                // backgroundColor: "green",
+                                border: "solid 2px green",
+                                borderRadius: "8px",
+                              }}
+                            >
+                              <Typography>{task.name}</Typography>
+                              {/* <Typography>
+                                {task
+                                  ? hanleGetClientAndProjectName(
+                                      task.project_id
+                                    )
+                                  : "Loading"}
+                              </Typography> */}
+                              <Typography
+                                style={{ width: "100px", textAlign: "center" }}
+                              >
+                                {computeTime(time.endDate, time.startDate)}{" "}
+                              </Typography>
+                              <Button
+                                style={{
+                                  marginRight: "0px",
+                                  marginLeft: "20px",
+                                }}
+                                variant="contained"
+                                color="primary"
                                 onClick={() => {
                                   showEditTimeTrackingModal(task._id, time._id);
                                 }}
                               >
                                 Edit
-                              </button>
-                              {/* <Button onClick={handleOpen}>Edit</Button> */}
-                            </>
-                          </>
-                        ) : (
-                          <>
-                            <b style={{ backgroundColor: "pink" }}>
-                              Task Name: {task.name} | Time Spent:{" "}
-                              <ShowTimer startDate={time.startDate} />
-                            </b>
-                            <button
-                              onClick={() => {
-                                handleStopTimer(task._id, time._id);
+                              </Button>
+                            </Box>
+                          ) : (
+                            <Box
+                              style={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                height: "50px",
+                                backgroundColor: "pink",
+                                justifyContent: "space-around",
+                                border: "solid 2px gray",
+                                borderRadius: "8px",
                               }}
                             >
-                              Stop
-                            </button>
-                          </>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-          </ul>
-        </div>
-        <div>
+                              <Typography>{task.name}</Typography>
+                              {/* <Typography>
+                                {task
+                                  ? hanleGetClientAndProjectName(
+                                      task.project_id
+                                    )
+                                  : "Loading"}
+                              </Typography> */}
+                              <Box
+                                style={{ width: "100px", textAlign: "center" }}
+                              >
+                                <ShowTimer startDate={time.startDate} />
+                              </Box>
+                              <Button
+                                style={{ marginLeft: "0px" }}
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => {
+                                  handleStopTimer(task._id, time._id);
+                                }}
+                              >
+                                Stop
+                              </Button>
+                            </Box>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+            </ul>
+          </Box>
+        </Box>
+        <Box>
           {/* Modal Window: edit time tracking */}
           <Modal
             open={open}
@@ -196,33 +304,40 @@ const TaskList = (props: Props) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                <EditTimeTrackingForm
-                  setOpen={setOpen}
-                  taskList={taskList}
-                  setTaskList={setTaskList}
-                  userId={userId}
-                  selectedTaskId={selectedTaskId}
-                  selectedTimeTrackingId={selectedTimeTrackingId}
-                  setUpdatedEndDate={setUpdatedEndDate}
-                  handleUpdate={handleUpdate}
-                  handleDeletion={handleDeletion}
-                />
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please select your project and task to start tracker. Happy Working!
-              </Typography>
+            <Box
+              sx={style}
+              style={{ borderRadius: "10px", border: "solid 1px gray" }}
+            >
+              <EditTimeTrackingForm
+                setOpen={setOpen}
+                taskList={taskList}
+                setTaskList={setTaskList}
+                userId={userId}
+                selectedTaskId={selectedTaskId}
+                selectedTimeTrackingId={selectedTimeTrackingId}
+                handleUpdate={handleUpdate}
+                handleDeletion={handleDeletion}
+              />
             </Box>
           </Modal>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   } else {
-    if (today === selectedDate) {
-      return <>Loading Data</>;
+    if (today === selectedDate && taskList.length) {
+      return (
+        <Box>
+          <Box>Selected Date: {props.data}</Box>
+          <Box>Loading Data</Box>
+        </Box>
+      );
     } else {
-      return <>You haven't done any task here.</>;
+      return (
+        <Box>
+          <Box>Selected Date: {props.data}</Box>
+          <Box>You haven't done any task here.</Box>
+        </Box>
+      );
     }
   }
 };

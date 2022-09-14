@@ -5,6 +5,8 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -59,24 +61,32 @@ const EditProjectForm = () => {
 
   return (
     <>
-      <Box style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        <Button variant="contained" color="secondary">
-          <Link to="/projects" style={{ color: "white" }}>
-            Cancel
-          </Link>
-        </Button>
-        <h3>Update Project</h3>
+      <Box
+        style={{
+          width: "100%",
+          marginLeft: "15%",
+          marginTop: "80px",
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+        sx={{ flexGrow: 1 }}
+      >
         <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               width: "600px",
-              height: "500px",
+              height: "580px",
               justifyContent: "space-around",
             }}
           >
-            <h4>{clientName}</h4>
+            <h3 style={{ marginBottom: "20px", textAlign: "center" }}>
+              Update Project
+            </h3>
+            <Typography>Client: {clientName} </Typography>
             <TextField
               type="text"
               name="name"
@@ -86,10 +96,15 @@ const EditProjectForm = () => {
             <TextField
               type="number"
               name="budget"
-              label="*Budget"
+              label="*Budget(S$)"
               defaultValue={projectInfo.budget}
             />
-            <TextField type="number" name="rate" label="*Rate" defaultValue={projectInfo.rate} />
+            <TextField
+              type="number"
+              name="rate"
+              label="*Rate(S$/hour)"
+              defaultValue={projectInfo.rate}
+            />
             <TextField
               type="date"
               name="due_date"
@@ -98,15 +113,31 @@ const EditProjectForm = () => {
             />
             <TextField
               name="category_name"
-              label="Category"
+              label="*Category"
               multiline
               defaultValue={projectInfo.category_name}
             />
-          </div>
-          <div>
-            <Button type="submit" value="Submit" variant="contained">
-              Submit
-            </Button>
+
+            <Grid
+              container
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button type="submit" value="Submit" variant="contained">
+                Submit
+              </Button>
+              <Button variant="contained" color="secondary">
+                <Link
+                  to="/app/projects"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Cancel
+                </Link>
+              </Button>
+            </Grid>
           </div>
         </form>
       </Box>
