@@ -8,6 +8,8 @@ import { useState } from "react";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -116,10 +118,12 @@ const NewTimeForm = ({
   }, []);
 
   return (
-    <div>
-      <p>New Time Tracker</p>
+    <Box>
+      <Typography variant="h6" style={{ textAlign: "center" }}>
+        New Time Tracker
+      </Typography>
       <Box style={{ marginTop: "0px" }}>
-        <div
+        <Box
           style={{
             display: "flex",
             flexDirection: "column",
@@ -130,9 +134,10 @@ const NewTimeForm = ({
           }}
         >
           {projectOptions.length ? (
-            <>
+            <Box style={{ width: "100%" }}>
               <TextField
                 select
+                style={{ width: "100%" }}
                 name="project_id"
                 label="*Project"
                 defaultValue={projectOptions[0].id}
@@ -144,15 +149,16 @@ const NewTimeForm = ({
                   </MenuItem>
                 ))}
               </TextField>
-            </>
+            </Box>
           ) : (
-            <>Loading Project Options</>
+            <Box>Loading Project Options</Box>
           )}
 
           {taskOptions.length ? (
-            <>
+            <Box>
               <TextField
                 select
+                style={{ width: "100%", marginTop: "10px" }}
                 name="task_id"
                 label="*Task"
                 defaultValue={taskOptions[0].id}
@@ -164,13 +170,21 @@ const NewTimeForm = ({
                   </MenuItem>
                 ))}
               </TextField>
-            </>
+            </Box>
           ) : (
-            <>Loading Task Options</>
+            <Box>Loading Task Options</Box>
           )}
-        </div>
-        <div>
+        </Box>
+        <Box
+          style={{
+            marginTop: "0",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
           <Button
+            style={{ width: "150px" }}
             variant="contained"
             color="primary"
             type="submit"
@@ -179,6 +193,7 @@ const NewTimeForm = ({
             Start Tracker
           </Button>
           <Button
+            style={{ width: "150px" }}
             variant="contained"
             color="secondary"
             type="submit"
@@ -186,9 +201,9 @@ const NewTimeForm = ({
           >
             Cancel
           </Button>
-        </div>
+        </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 

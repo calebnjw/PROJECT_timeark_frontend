@@ -1,6 +1,7 @@
 import React from "react";
 import { useCountUp } from "use-count-up";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 interface Props {
   startDate: Date;
@@ -30,7 +31,7 @@ const ShowTimer = ({ startDate }: Props) => {
   };
 
   return (
-    <Box
+    <Typography
       style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
     >
       <iframe
@@ -44,7 +45,7 @@ const ShowTimer = ({ startDate }: Props) => {
         frameBorder="0"
       ></iframe>
       <b>{formatTime(startTime)}</b>
-    </Box>
+    </Typography>
   );
 };
 

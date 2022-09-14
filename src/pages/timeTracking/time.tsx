@@ -90,7 +90,10 @@ const Time = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box sx={style}>
+              <Box
+                sx={style}
+                style={{ borderRadius: "10px", border: "solid 1px gray" }}
+              >
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   <NewTimeForm
                     setOpen={setOpen}

@@ -136,8 +136,18 @@ const TaskList = (props: Props) => {
     });
   };
 
-  const hanleGetClientAndProjectName = (projectId: any) => {
-    return "Client Name/Project Name";
+  const hanleGetClientAndProjectName = async (projectId: any) => {
+    // try {
+    //   const result = await axios.get(
+    //     `${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`
+    //   );
+    //   const projectName = result.data.project.name;
+
+    //   return projectName;
+    // } catch (error) {
+    //   console.log("Error message: ", error);
+    // }
+    return "Project Name";
   };
 
   if (taskList.length) {
@@ -155,7 +165,6 @@ const TaskList = (props: Props) => {
           Selected Date: {props.data}
         </Box> */}
         <Box>
-          <hr />
           <Box
             sx={{
               width: "100%",
@@ -214,9 +223,13 @@ const TaskList = (props: Props) => {
                               }}
                             >
                               <Typography>{task.name}</Typography>
-                              <Typography>
-                                {hanleGetClientAndProjectName(task.project_id)}
-                              </Typography>
+                              {/* <Typography>
+                                {task
+                                  ? hanleGetClientAndProjectName(
+                                      task.project_id
+                                    )
+                                  : "Loading"}
+                              </Typography> */}
                               <Typography
                                 style={{ width: "100px", textAlign: "center" }}
                               >
@@ -246,19 +259,23 @@ const TaskList = (props: Props) => {
                                 height: "50px",
                                 backgroundColor: "pink",
                                 justifyContent: "space-around",
-                                border: "solid 1px gray",
+                                border: "solid 2px gray",
                                 borderRadius: "8px",
                               }}
                             >
                               <Typography>{task.name}</Typography>
-                              <Typography>
-                                {hanleGetClientAndProjectName(task.project_id)}
-                              </Typography>
-                              <Typography
+                              {/* <Typography>
+                                {task
+                                  ? hanleGetClientAndProjectName(
+                                      task.project_id
+                                    )
+                                  : "Loading"}
+                              </Typography> */}
+                              <Box
                                 style={{ width: "100px", textAlign: "center" }}
                               >
                                 <ShowTimer startDate={time.startDate} />
-                              </Typography>
+                              </Box>
                               <Button
                                 style={{ marginLeft: "0px" }}
                                 variant="contained"
@@ -287,23 +304,20 @@ const TaskList = (props: Props) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                <EditTimeTrackingForm
-                  setOpen={setOpen}
-                  taskList={taskList}
-                  setTaskList={setTaskList}
-                  userId={userId}
-                  selectedTaskId={selectedTaskId}
-                  selectedTimeTrackingId={selectedTimeTrackingId}
-                  handleUpdate={handleUpdate}
-                  handleDeletion={handleDeletion}
-                />
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please select your project and task to start tracker. Happy
-                Working!
-              </Typography>
+            <Box
+              sx={style}
+              style={{ borderRadius: "10px", border: "solid 1px gray" }}
+            >
+              <EditTimeTrackingForm
+                setOpen={setOpen}
+                taskList={taskList}
+                setTaskList={setTaskList}
+                userId={userId}
+                selectedTaskId={selectedTaskId}
+                selectedTimeTrackingId={selectedTimeTrackingId}
+                handleUpdate={handleUpdate}
+                handleDeletion={handleDeletion}
+              />
             </Box>
           </Modal>
         </Box>
