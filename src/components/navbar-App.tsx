@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
-import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Grid, Stack, Toolbar, Typography } from "@mui/material";
 
 function AppNavbar() {
   const { userProfile } = useUserContext();
@@ -14,64 +14,53 @@ function AppNavbar() {
         }}
       >
         <Toolbar>
-          <Grid
-            container
+          <Link
+            to={"/app/dashboard"}
             style={{
               display: "flex",
-              flexDirection: "row",
+              alignItems: "center",
+              textDecoration: "none",
+              color: "white",
+              marginRight: "100px",
+              flexGrow: 1,
             }}
           >
-            <Grid item xs={8}>
-              <img
-                src="/logo-notext.png"
-                alt="logo"
-                style={{
-                  borderRadius: "50%",
-                  width: "50px",
-                }}
-              />
-              <Typography variant="h6" component="div" align="left">
-                <Link
-                  to={"/app/dashboard"}
-                  style={{
-                    textDecoration: "none",
-                  }}
-                >
-                  Time Ark
-                </Link>
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={3}
+            <img
+              src="/logo-notext.png"
+              alt="logo"
               style={{
-                marginLeft: "90px",
+                borderRadius: "50%",
+                width: "40px",
+                marginRight: "10px",
               }}
+            />
+            <Typography variant="h4" align="left" style={{}}>
+              Time Ark
+            </Typography>
+          </Link>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+            {userProfile?.photos && (
+              <Link to={"/app/profile"}>
+                <img
+                  src={`${userProfile?.photos[0].value}`}
+                  alt="profile"
+                  style={{
+                    width: "40px",
+                    borderRadius: "50%",
+                    marginRight: "20px",
+                    marginTop: "7px",
+                  }}
+                />
+              </Link>
+            )}
+            <Button
+              color="secondary"
+              href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
+              variant="contained"
             >
-              {userProfile?.photos && (
-                <Link to={"/app/profile"}>
-                  <img
-                    src={`${userProfile?.photos[0].value}`}
-                    alt="profile"
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      marginRight: "20px",
-                    }}
-                  />
-                </Link>
-              )}
-
-              <Button
-                color="secondary"
-                href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
-                variant="contained"
-              >
-                Logout
-              </Button>
-            </Grid>
-          </Grid>
+              Logout
+            </Button>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
