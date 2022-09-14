@@ -53,11 +53,16 @@ export default function EditSingleClient() {
 
   return (
     <div>
-      <Box style={{ width: "80%", marginTop: "80px" }}>
-        <Grid container direction="row" justifyContent="center" alignItems="center">
+      <Box style={{ width: "70%", marginTop: "80px", marginLeft: "50%" }}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Sidebar />
           <ClientSidebar />
-          <Grid item xs={6}>
+          <Grid item>
             {!isLoaded && client === undefined ? (
               <Box>
                 <Typography>Loading the client</Typography>

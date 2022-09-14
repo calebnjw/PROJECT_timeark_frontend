@@ -4,9 +4,12 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import { Link, Route, Routes, Outlet } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
+import WorkIcon from "@mui/icons-material/Work";
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 const drawerWidth = 240;
 
 export default function Sidebar() {
@@ -26,27 +29,92 @@ export default function Sidebar() {
         <List>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/dashboard">Dashboard</Link>
+              <DashboardIcon
+                style={{
+                  marginRight: "10px",
+                }}
+              />
+              <Link
+                to="/app/dashboard"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+              >
+                Dashboard
+              </Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/clients">Clients</Link>
+              <PersonIcon
+                style={{
+                  marginRight: "10px",
+                }}
+              />
+              <Link
+                to="/app/clients"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+              >
+                Clients
+              </Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/projects">Projects</Link>
+              <WorkIcon
+                style={{
+                  marginRight: "10px",
+                }}
+              />
+              <Link
+                to="/app/projects"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+              >
+                Projects
+              </Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/time">Time Tracking</Link>
+              <AccessTimeFilledIcon
+                style={{
+                  marginRight: "10px",
+                }}
+              />
+              <Link
+                to="/app/time"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+              >
+                Time Tracking
+              </Link>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
-              <Link to="/app/invoices">Invoices</Link>
+              <ReceiptIcon
+                style={{
+                  marginRight: "10px",
+                }}
+              />
+              <Link
+                to="/app/invoices"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+              >
+                Invoices
+              </Link>
             </ListItemButton>
           </ListItem>
         </List>
