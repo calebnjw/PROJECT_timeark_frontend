@@ -50,12 +50,12 @@ const Time = () => {
         return t;
       });
 
-      // setTaskList([]);
+      setTaskList([]);
       setTaskList(updatedTaskList);
     } else {
       //if not, add it to task list
       const updatedTaskList = [...taskList, updatedTask];
-      // setTaskList([]);
+      setTaskList([]);
       setTaskList(updatedTaskList);
     }
   };

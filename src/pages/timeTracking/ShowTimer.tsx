@@ -28,7 +28,7 @@ const ShowTimer = ({ startDate }: Props) => {
       .join(":");
   };
 
-  return <>{formatTime(startTime)}</>;
+  return <b>{formatTime(startTime)}</b>;
 };
 
 export default ShowTimer;
