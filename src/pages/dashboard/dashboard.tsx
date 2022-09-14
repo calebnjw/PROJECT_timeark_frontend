@@ -4,7 +4,7 @@ import axios from "axios";
 import { useGlobalContext } from "../../context/clientContext";
 import TimeSpentChart from "./piechart";
 import AmtEarnedChart from "./barchart";
-import DashboardList from "./dashboardlist";
+import DashboardProject from "./dashboardproject";
 import { useUserContext } from "../../context/userContext";
 import { Button } from "@mui/material";
 
@@ -19,34 +19,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div
-        style={{
-          width: "50%",
-          marginLeft: "20%",
-          marginTop: "80px",
-          border: "1px solid black",
-          backgroundColor: "pink",
-        }}
-      >
-        <h2
-          style={{
-            marginLeft: "10%",
-          }}
-        >
-          Projects
-        </h2>
-        <ul
-          style={{
-            listStyleType: "none",
-          }}
-        >
-          {clientList.map((client, idx) => (
-            <li key={idx}>
-              <DashboardList client={client} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <DashboardProject />
       <div
         style={{
           display: "flex",

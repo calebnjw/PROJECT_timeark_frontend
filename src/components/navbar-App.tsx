@@ -1,59 +1,76 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
-import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button } from "@mui/material";
 
 function AppNavbar() {
   const { userProfile } = useUserContext();
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar
-        position="fixed"
-        sx={{
-          zIndex: (theme) => theme.zIndex.drawer + 1,
+    <AppBar
+      position="fixed"
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+      }}
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor: "#0047AB",
+        height: "10vh",
+      }}
+    >
+      <div
+        style={{
+          flexDirection: "row",
         }}
       >
-        <Toolbar>
-          <Grid container>
-            <Grid item xs={8}>
-              <Typography variant="h6" component="div" align="left">
-                <Link to={"/app/dashboard"}>Time Ark</Link>
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={3}
+        <a href="app/dashboard">
+          <img
+            src="/logo-notext.png"
+            alt="logo"
+            style={{
+              borderRadius: "50%",
+              width: "50px",
+              marginTop: "5px",
+              marginLeft: "10px",
+            }}
+          />
+        </a>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {userProfile?.photos && (
+          <Link to={"/app/profile"}>
+            <img
+              src={`${userProfile?.photos[0].value}`}
+              alt="profile"
               style={{
-                marginLeft: "90px",
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                marginTop: "5px",
+                marginRight: "20px",
               }}
-            >
-              {userProfile?.photos && (
-                <Link to={"/app/profile"}>
-                  <img
-                    src={`${userProfile?.photos[0].value}`}
-                    alt="profile"
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      marginRight: "20px",
-                    }}
-                  />
-                </Link>
-              )}
+            />
+          </Link>
+        )}
 
-              <Button
-                color="secondary"
-                href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
-                variant="contained"
-              >
-                Logout
-              </Button>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    </Box>
+        <Button
+          color="secondary"
+          href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
+          variant="contained"
+          style={{
+            marginRight: "10px",
+          }}
+        >
+          Logout
+        </Button>
+      </div>
+    </AppBar>
   );
 }
 

@@ -1,12 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-axios.defaults.withCredentials = true;
-import {
-  Button,
- 
-} from "@mui/material";
+import { Button, Divider, Grid } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
@@ -16,6 +11,9 @@ import AppNavbar from "../../components/navbar-App";
 
 
 //==================================function=============================//
+
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const InvoiceDisplay = () => {
   const [project, setProject] = useState<Project>();
@@ -89,9 +87,12 @@ const InvoiceDisplay = () => {
     if (project) {
       const taskData = async () => {
         try {
-          const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`, {
-            params: { project_id: project._id, autocorrect: true },
-          });
+          const result = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/tasks`,
+            {
+              params: { project_id: project._id, autocorrect: true },
+            }
+          );
           if (result.data.msg === "No task found") {
             setTaskExist(false);
           }
@@ -154,7 +155,10 @@ const InvoiceDisplay = () => {
       console.log("taskObject:", taskObject);
       let taskTotalAmount = 0;
       for (let timeTrackingObj of task.time_trackings) {
-        const hours = computeTime(timeTrackingObj.endDate, timeTrackingObj.startDate);
+        const hours = computeTime(
+          timeTrackingObj.endDate,
+          timeTrackingObj.startDate
+        );
         console.log("hours", hours);
         if (project) {
           taskTotalAmount += parseInt(hours) * project?.rate;
