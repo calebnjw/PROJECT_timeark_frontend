@@ -12,7 +12,7 @@ export default function Clients() {
         <Grid container direction="row" justifyContent="center" alignItems="center">
           <Sidebar />
           <ClientSidebar />
-          <Grid item xs={6}></Grid>
+          {/* <Grid item xs={6}></Grid> */}
         </Grid>
       </Box>
     </div>

@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context/userContext";
 import { useGlobalContext } from "../../context/clientContext";
+import AddIcon from "@mui/icons-material/Add";
 
 axios.defaults.withCredentials = true;
 
@@ -87,17 +88,33 @@ export default function NewClientForm() {
   };
 
   return (
-    <Box style={{ width: "80%", marginTop: "80px" }} component="form" autoComplete="off">
-      <Typography variant="h5" align="center">
-        New Client
-      </Typography>
+    <Box
+      style={{ width: "80%", marginTop: "60px", marginLeft: "15%" }}
+      component="form"
+      autoComplete="off"
+    >
+      <h3
+        style={{
+          fontSize: "24px",
+        }}
+      >
+        Add A New Client
+      </h3>
+      <hr
+        style={{
+          marginTop: "-5%",
+          marginRight: "-38%",
+        }}
+      ></hr>
       <div>
         <TextField
           required
           id="clientName"
           label="Client Name"
+          type="text"
+          variant="filled"
           onChange={clientNameChange}
-          sx={{ width: 600 }}
+          sx={{ width: 600, marginBottom: "8px", marginTop: "10px" }}
         />
       </div>
       <div>
@@ -105,8 +122,10 @@ export default function NewClientForm() {
           required
           id="companyName"
           label="Company Name"
+          type="text"
+          variant="filled"
           onChange={companyNameChange}
-          sx={{ width: 600 }}
+          sx={{ width: 600, marginBottom: "8px" }}
         />
       </div>
       <div>
@@ -114,8 +133,10 @@ export default function NewClientForm() {
           required
           id="streetName"
           label="Street Name"
+          type="text"
+          variant="filled"
           onChange={streetNumberChange}
-          sx={{ width: 600 }}
+          sx={{ width: 600, marginBottom: "8px" }}
         />
       </div>
       <div>
@@ -123,8 +144,9 @@ export default function NewClientForm() {
           required
           id="unitNumber"
           label="Unit Number"
+          variant="filled"
           onChange={unitNumberChange}
-          sx={{ width: 600 }}
+          sx={{ width: 600, marginBottom: "8px" }}
         />
       </div>
       <div>
@@ -132,8 +154,10 @@ export default function NewClientForm() {
           required
           id="buildingName"
           label="Building Name"
+          type="text"
+          variant="filled"
           onChange={buildingNameChange}
-          sx={{ width: 600 }}
+          sx={{ width: 600, marginBottom: "8px" }}
         />
       </div>
       <div>
@@ -141,7 +165,9 @@ export default function NewClientForm() {
           required
           id="cityName"
           label="City Name"
-          sx={{ width: 600 }}
+          type="text"
+          variant="filled"
+          sx={{ width: 600, marginBottom: "8px" }}
           onChange={cityNameChange}
         />
       </div>
@@ -150,7 +176,9 @@ export default function NewClientForm() {
           required
           id="countryName"
           label="Country"
-          sx={{ width: 600 }}
+          type="text"
+          variant="filled"
+          sx={{ width: 600, marginBottom: "5px" }}
           onChange={countryNameChange}
         />
       </div>
@@ -159,8 +187,10 @@ export default function NewClientForm() {
           required
           id="postalCode"
           label="Postal Code"
+          type="text"
+          variant="filled"
           onChange={postalCodeChange}
-          sx={{ width: 600 }}
+          sx={{ width: 600, marginBottom: "8px" }}
         />
       </div>
       <div>
@@ -168,12 +198,22 @@ export default function NewClientForm() {
           required
           id="companyreg"
           label="Company Registration"
+          type="text"
+          variant="filled"
           onChange={companyregChange}
-          sx={{ width: 600 }}
+          sx={{ width: 600, marginBottom: "8px" }}
         />
       </div>
       <Box mt="2rem">
-        <Button variant="contained" onClick={handleNewClient}>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          size="large"
+          onClick={handleNewClient}
+          style={{
+            marginBottom: "2rem",
+          }}
+        >
           Submit
         </Button>
       </Box>

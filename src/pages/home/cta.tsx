@@ -1,4 +1,4 @@
-import GoogleButton from "./google-button";
+import GoogleButton from "../../components/google-button";
 
 export default function CallToAction() {
   return (
