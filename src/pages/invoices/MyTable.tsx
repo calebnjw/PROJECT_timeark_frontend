@@ -111,7 +111,7 @@ const MyTable = () => {
     const handleDeleteButton = async(invoiceId: any) => {
       try {
         const result = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`)
-        navigate(`app/invoices/${project_id}`)
+        navigate(`/app/invoices/${project_id}`)
       } catch(err){
         console.log(err)
       }

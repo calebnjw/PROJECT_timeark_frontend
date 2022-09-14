@@ -139,8 +139,10 @@ const GenerateInvoice = () => {
           </Table>
           <h1>Invoices</h1>
           <MyTable/>
+          <div className="button-div"
+            style={{marginTop: "10px", marginLeft: "330px", marginBottom: "30px"}}
+          >
           <Button
-          style={{display: "flex", marginTop: "20px", alignItems: "center"}}
           variant="contained"
         onClick={() => {
           navigate(`/app/invoices/new`);
@@ -149,6 +151,7 @@ const GenerateInvoice = () => {
         <AddCircleOutlineIcon fontSize="medium" />
         <Typography>Generate Invoice</Typography>
       </Button>
+          </div>
         </div>
       </div>
     </>

@@ -114,6 +114,7 @@ const InvoiceForm = () => {
   console.log("SelectedProject", selectedProject);
 
   async function submitNewInvoice() {
+    //convert time to hours
     const computeTime = (t1: Date, t2: Date) => {
       const endDate: any = new Date(t1);
       const startDate: any = new Date(t2);
@@ -161,8 +162,10 @@ const InvoiceForm = () => {
     const NewInvoice = {
       project_id: selectedProject,
       selectedMonth: month, 
-      task: taskDetails
-      // amount: 
+      paid: false,
+      overdue: false,
+      amount: 100,
+      time_tracking: [{taskName: "name", timeSpent: 5}]
     };
 
     try {
@@ -171,7 +174,7 @@ const InvoiceForm = () => {
         NewInvoice
       );
       console.log(NewInvoice);
-      navigate(`/invoices/${selectedProject}`);
+      navigate(`/app/invoices/${selectedProject}`);
     } catch (err) {
       console.log(err);
     }
