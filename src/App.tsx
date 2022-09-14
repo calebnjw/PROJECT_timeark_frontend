@@ -5,8 +5,6 @@ import "./App.scss";
 
 import Dashboard from "./pages/dashboard/dashboard";
 
-import HomeLayout from "./layout/homeLayout";
-
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 
@@ -52,7 +50,6 @@ function App() {
 
       <Route path="app" element={<AppLayout />}>
         <Route index element={<Dashboard />} />
-
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="onboard" element={<Onboard />} />
 

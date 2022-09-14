@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, Route, useLocation, useNavigate } from "react-router-dom";
-import { Button, Box, Divider, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 import { Billing } from "../../types/billingDetails";
 
@@ -82,89 +95,156 @@ function Onboard() {
   };
 
   return (
-    <>
-      {!userProfile && <h1>Please log in.</h1>}
-      {userProfile && (
-        <div>
-          <h3>Save Your Billing Information</h3>
-          <p>This information will be filled into the invoices that you generate. </p>
-          <br />
-          <TextField
-            required
-            label="Company Name"
-            defaultValue={
-              (userProfile.billingDetails && userProfile.billingDetails.companyName) || ""
-            }
-            onChange={userCompanyNameChange}
-          />
-          <TextField
-            label="Registration Number"
-            defaultValue={
-              (userProfile.billingDetails && userProfile.billingDetails.companyRegistration) || ""
-            }
-            onChange={userCompanyRegistrationChange}
-          />
-          <TextField
-            required
-            label="Contact Number"
-            defaultValue={
-              (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
-            }
-            onChange={userContactNumberChange}
-          />
-          <h3>Address</h3>
-          <TextField
-            label="Building Name"
-            defaultValue={
-              (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
-            }
-            onChange={userBuildingNameChange}
-          />
-          <TextField
-            required
-            label="Street Name"
-            defaultValue={
-              (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
-            }
-            onChange={userStreetNameChange}
-          />
-          <TextField
-            label="Unit Number"
-            defaultValue={
-              (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
-            }
-            onChange={userUnitNumberChange}
-          />
-          <TextField
-            required
-            label="Postal Code"
-            defaultValue={
-              (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
-            }
-            onChange={userPostalCodeChange}
-          />
-          <TextField
-            required
-            label="City"
-            defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
-            onChange={userCityChange}
-          />
-          <TextField
-            required
-            label="Country"
-            defaultValue={(userProfile.billingDetails && userProfile.billingDetails.country) || ""}
-            onChange={userCountryChange}
-          />
-          <br />
-          <br />
-        </div>
-      )}
-      <div>
-        <Button variant="contained" onClick={handleUpdate}>
-          Done!
-        </Button>
-      </div>
-    </>
+    <Box
+      sx={{
+        margin: "auto",
+        marginTop: "10%",
+        width: "50vw",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      <Stack spacing={1} paddingBottom={3}>
+        <Typography variant="h4">Complete your profile!</Typography>
+        <Typography variant="body1">
+          We will include this information on invoices that you generate.
+        </Typography>
+      </Stack>
+      <Card
+        sx={{
+          borderRadius: 2,
+          p: 1,
+          paddingBottom: 0,
+        }}
+        raised
+      >
+        <CardContent>
+          {userProfile && (
+            <Stack spacing={0} paddingBottom={1}>
+              <Typography variant="h6">Company Information</Typography>
+              <Box
+                component="form"
+                paddingBottom={2}
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <TextField
+                  required
+                  label="Company Name"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.companyName) || ""
+                  }
+                  onChange={userCompanyNameChange}
+                  fullWidth
+                  sx={{ m: 1 }}
+                />
+                <TextField
+                  label="Registration Number"
+                  defaultValue={
+                    (userProfile.billingDetails &&
+                      userProfile.billingDetails.companyRegistration) ||
+                    ""
+                  }
+                  onChange={userCompanyRegistrationChange}
+                  sx={{ m: 1 }}
+                />
+                <TextField
+                  required
+                  label="Contact Number"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
+                  }
+                  onChange={userContactNumberChange}
+                  sx={{ m: 1 }}
+                />
+              </Box>
+            </Stack>
+          )}
+          {userProfile && (
+            <Stack spacing={0} paddingBottom={1}>
+              <Typography variant="h6">Address</Typography>
+              <Box
+                component="form"
+                paddingBottom={2}
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <TextField
+                  label="Building Name"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
+                  }
+                  onChange={userBuildingNameChange}
+                  fullWidth
+                  sx={{ m: 1 }}
+                />
+                <TextField
+                  required
+                  label="Street Name"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
+                  }
+                  onChange={userStreetNameChange}
+                  fullWidth
+                  sx={{ m: 1 }}
+                />
+                <TextField
+                  label="Unit Number"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
+                  }
+                  onChange={userUnitNumberChange}
+                  sx={{ m: 1 }}
+                />
+                <TextField
+                  required
+                  label="Postal Code"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
+                  }
+                  onChange={userPostalCodeChange}
+                  sx={{ m: 1 }}
+                />
+                <TextField
+                  required
+                  label="City"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.city) || ""
+                  }
+                  onChange={userCityChange}
+                  sx={{ m: 1 }}
+                />
+                <TextField
+                  required
+                  label="Country"
+                  defaultValue={
+                    (userProfile.billingDetails && userProfile.billingDetails.country) || ""
+                  }
+                  onChange={userCountryChange}
+                  sx={{ m: 1 }}
+                />
+              </Box>
+            </Stack>
+          )}
+          <Stack sx={{ m: 1 }}>
+            <Button
+              sx={{ alignSelf: "flex-end" }}
+              variant="contained"
+              size="large"
+              onClick={handleUpdate}
+              fullWidth
+            >
+              Done!
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
 
