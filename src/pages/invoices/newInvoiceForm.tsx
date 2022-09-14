@@ -236,9 +236,9 @@ const InvoiceForm = () => {
       <Box
         style={{
           width: "80%",
-          marginLeft: "20%",
-          marginTop: "80px",
-          paddingLeft: "100px",
+          marginLeft: "35%",
+          marginTop: "130px",
+          
         }}
       >
         <Button variant="contained" color="secondary" onClick={handleBackClick}>

@@ -71,7 +71,7 @@ const MyTable = () => {
   const [table, setTable] = useState<TableProps[]>([]);
   const [currentInvoices, setCurrentInvoices] = useState<Project>();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   // const clientId = client._id;
   
   const { project_id } = useParams();
@@ -126,8 +126,8 @@ const MyTable = () => {
     <>
       <div className="invoice-list">
         <TableContainer>
-          <Paper>
-            <Table>
+          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
                   <StyledTableCell align="center" >

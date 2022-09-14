@@ -4,12 +4,11 @@ import ClientSidebar from "./clients_sidebar";
 import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { useNavigate, useParams } from "react-router-dom";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
 import { Project } from "../../types/project";
 import { Client } from "../../types/client";
-import { TableProps } from "../../types/invoiceTypes";
 import { useGlobalContext } from "../../context/clientContext";
-import { TabUnselected } from "@mui/icons-material";
 import {
   Table,
   TableRow,
@@ -18,16 +17,10 @@ import {
   Button,
   Grid,
   tableCellClasses,
-  TableContainer,
+  Typography,
   TableHead,
   TableBody,
-  FormControl,
-  MenuItem,
-  Select,
-  InputLabel,
-  Paper,
 } from "@mui/material";
-import { conformsTo } from "lodash";
 axios.defaults.withCredentials = true;
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
@@ -105,16 +98,16 @@ const GenerateInvoice = () => {
   //===================handle button click=============================//
 
   const handleProjectButton = () => {
-    navigate("/invoices");
+    navigate("/app/invoices");
   };
 
   return (
     <>
-      {setClientId && <ClientSidebar setClientId={setClientId} />}
+      {/* {setClientId && <ClientSidebar setClientId={setClientId} />} */}
       <div className="invoice-heading">
         <div
           className="generate-invoice-container"
-          style={{ width: "100%", paddingLeft: "530px", paddingTop: "50px", paddingRight: "50px" }}
+          style={{ width: "100%", paddingLeft: "410px", paddingTop: "80px", paddingRight: "50px" }}
         >
           <Grid container spacing={2}>
             <Grid item xs={1}>
@@ -146,6 +139,16 @@ const GenerateInvoice = () => {
           </Table>
           <h1>Invoices</h1>
           <MyTable/>
+          <Button
+          style={{display: "flex", marginTop: "20px", alignItems: "center"}}
+          variant="contained"
+        onClick={() => {
+          navigate(`/app/invoices/new`);
+        }}
+      >
+        <AddCircleOutlineIcon fontSize="medium" />
+        <Typography>Generate Invoice</Typography>
+      </Button>
         </div>
       </div>
     </>

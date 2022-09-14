@@ -34,8 +34,7 @@ interface Props {
 }
 
 // export default function ClientSidebar() {
-const ClientSidebar = (props: Props
-) => {
+const ClientSidebar = (props: Props) => {
   const classes = useStyles();
   const { setClientId } = props;
   const [clientList, setClientList] = useState<Client[]>([]);
@@ -43,7 +42,6 @@ const ClientSidebar = (props: Props
   const [disable, setDisable] = React.useState(false);
 
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const getClients = async () => {
@@ -54,8 +52,6 @@ const ClientSidebar = (props: Props
     };
     getClients();
   }, []);
-
-
 
   return (
     <Drawer
@@ -73,8 +69,7 @@ const ClientSidebar = (props: Props
         },
       }}
     >
-      
-      <Box sx={{ overflow: "auto" }} mt={"5rem"}>
+      <Box style={{ paddingTop: "20px" }} sx={{ overflow: "auto" }} mt={"5rem"}>
         <Typography variant="h5" align="center">
           Clients
         </Typography>
@@ -82,26 +77,28 @@ const ClientSidebar = (props: Props
           {clientList.map((c, index) => (
             <ListItem key={index} disablePadding>
               <ListItemButton>
-                <Button disabled={true}
+                <Button
+                  disabled={true}
                   onClick={() => {
-                    setClientId(`${c._id}`)
+                    setClientId(`${c._id}`);
                   }}
-                > 
+                >
                   {c.client_name}
                 </Button>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-      </Box> 
+      </Box>
 
-      
-        <Button onClick={() => {
-          navigate(`app/invoices/new`)
-        }}>
-          <AddCircleOutlineIcon fontSize="medium" />
-          <Typography>Generate Invoice</Typography>
-        </Button>
+      <Button
+        onClick={() => {
+          navigate(`app/invoices/new`);
+        }}
+      >
+        <AddCircleOutlineIcon fontSize="medium" />
+        <Typography>Generate Invoice</Typography>
+      </Button>
     </Drawer>
   );
 };

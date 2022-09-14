@@ -1,7 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Divider, Grid } from "@mui/material";
+import {
+  Button,
+  styled,
+  TableRow,
+  tableCellClasses,
+  TableCell,
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  Paper,
+} from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
@@ -9,7 +20,26 @@ import { Client } from "../../types/client";
 import { InvoiceProps } from "../../types/invoiceTypes";
 import AppNavbar from "../../components/navbar-App";
 
+//===================================Table styling==========================//
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 //==================================function=============================//
 
 import axios from "axios";
@@ -176,39 +206,115 @@ const InvoiceDisplay = () => {
   return (
     <>
       <AppNavbar />
+      <div
+        className="main-container-display"
+        style={{
+          width: "80%",
+          marginTop: "100px",
+          paddingLeft: "100px",
+          paddingRight: "150px",
+        }}
+      >
         <div className="invoice-header">
-          <Button variant="outlined" style={{ left: "50px", top: "80px" }} onClick={handleBackButton}>
+          <Button variant="outlined" onClick={handleBackButton}>
             <KeyboardArrowLeftIcon />
           </Button>
-          <h1 style={{ textAlign: "center" }}>Invoice</h1>
+          <h1>Invoice</h1>
         </div>
-      <div className="invoice-display">
+        <div className="invoice-display">
+          <div
+            className="client-info"
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              flexDirection: "column",
+            }}
+          >
+            <table>
+              <tr>
+                <td>Issuer Name: </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Client's Name: </td>
+                <td>{client?.client_name}</td>
+              </tr>
+              <tr>
+                <td>Company: </td>
+                <td>{client?.billing_details.company_name}</td>
+              </tr>
+              <tr>
+                <td>Address: </td>
+                <td>
+                  {client?.billing_details.unit_number}
+                  {client?.billing_details.street_name}
+                  {client?.billing_details.building_name}
+                  <br />
+                  {client?.billing_details.postal_code}
+                  {client?.billing_details.city}
+                  {client?.billing_details.country}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div className="invoicing-details">
+            <table>
+              <tr>
+                <td>Invoice ID: </td>
+                <td>{invoice_id}</td>
+              </tr>
+              <tr>
+                <td>Project: </td>
+                <td>{project?.name}</td>
+              </tr>
+              <tr>
+                <td>Issued Date: </td>
+                <td>{invoice?.issuedDate}</td>
+              </tr>
+              <tr>
+                <td>Due Date: </td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
 
+          <div className="invoice-task-details" style={{ marginTop: "30px" }}>
+            <TableContainer>
+              <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align="center">Task</StyledTableCell>
+                      <StyledTableCell align="center">Rate</StyledTableCell>
+                      <StyledTableCell align="center">Hour</StyledTableCell>
+                      <StyledTableCell align="center">Amount</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {/* {taskList && taskList.map((i) => ( */}
+                    <StyledTableRow /*key={i.id}*/>
+                      <StyledTableCell align="center">Squat</StyledTableCell>
+                      <StyledTableCell align="center">
+                        {project?.rate}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">3</StyledTableCell>
+                      <StyledTableCell align="center">$ 75</StyledTableCell>
+                    </StyledTableRow>
+                    {/* ))} */}
+                    <TableRow>
+                      <TableCell />
+                      <TableCell colSpan={2} align="right">
+                        Total Amount
+                      </TableCell>
+                      <TableCell align="center">$ 75</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Paper>
+            </TableContainer>
+          </div>
+        </div>
       </div>
-
-      <p>User's Name: </p>
-      <p>Client's Name: {client?.client_name}</p>
-      <p>Company Name: {client?.billing_details.company_name}</p>
-      <p>
-        Client's Address:
-        {client?.billing_details.unit_number}
-        {client?.billing_details.street_name}
-        {client?.billing_details.building_name}
-        {client?.billing_details.postal_code}
-        {client?.billing_details.city}
-      </p>
-      {client?.billing_details.country}
-      <p>Invoice number: </p>
-      <p>Project name: {project?.name}</p>
-      <p>Issued Date: {invoice?.issuedDate}</p>
-      <p>Due Date: </p>
-
-      {/* {taskList && taskList.map((i) => ( */}
-      <p>Task: </p>
-      <p>Task total amount: {}</p>
-      {/* ))} */}
-      <p>Rate: {project?.rate}</p>
-      <p>Total Amount: </p>
     </>
   );
 };

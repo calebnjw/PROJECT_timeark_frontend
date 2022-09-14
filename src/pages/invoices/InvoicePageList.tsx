@@ -49,7 +49,7 @@ const InvoicePageList = ({ client }: Props) => {
           <Button
             size="small"
             onClick={() => {
-              navigate(`/invoices/${project._id}`);
+              navigate(`/app/invoices/${project._id}`);
             }}
           >
             View
