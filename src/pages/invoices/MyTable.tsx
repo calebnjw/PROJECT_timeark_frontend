@@ -88,7 +88,7 @@ const MyTable = () => {
   };
   
   const handleInvoices = (invoice_id: any) => {
-    navigate(`app/invoices/invoice/${invoice_id}`) 
+    navigate(`/app/invoices/invoice/${invoice_id}`) 
     console.log("Invoices button clicked");
   };
   

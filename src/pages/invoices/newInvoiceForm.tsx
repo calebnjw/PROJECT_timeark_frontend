@@ -156,7 +156,9 @@ const InvoiceForm = () => {
 
     const NewInvoice = {
       project_id: selectedProject,
-      selectedMonth: month
+      selectedMonth: month, 
+      task: taskDetails
+      // amount: 
     };
 
     try {
