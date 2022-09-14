@@ -45,7 +45,7 @@ axios.defaults.withCredentials = true;
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomeLayout />}>
+      <Route path="/">
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
       </Route>
