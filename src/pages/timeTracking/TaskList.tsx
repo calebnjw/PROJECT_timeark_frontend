@@ -9,19 +9,16 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditTimeTrackingForm from "./editTimeTrackingForm";
 import { useUserContext } from "../../context/userContext";
+import Grid from "@mui/material/Grid";
 
 import * as _ from "lodash";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 
 const style = {
   position: "absolute" as "absolute",
@@ -150,88 +147,83 @@ const TaskList = (props: Props) => {
     return (
       <Box sx={{ width: "100%" }}>
         <Box>Selected Date: {props.data}</Box>
-        <TableContainer>
-          <Table>
-            <TableHead sx={{ width: "100%" }}>
-              <TableRow sx={{ width: "100%" }}>
-                <TableCell align="center">Task Name</TableCell>
-                <TableCell align="center">Client/Project</TableCell>
-                <TableCell align="center">Time Entry</TableCell>
-              </TableRow>
-            </TableHead>
+        <Box>
+          <Box sx={{ width: "100%" }}>
+            <Grid container sx={{ width: "100%" }}>
+              <Grid>Task Name</Grid>
+              <Grid>Client/Project</Grid>
+              <Grid>Time Entry</Grid>
+            </Grid>
+          </Box>
 
-            <TableBody>
-              {/* <ul> */}
-              {taskList.length &&
-                taskList.map((task, idx) => (
-                  <TableRow
-                    key={idx}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    {/* <li key={idx}> */}
-                    {/* <ul> */}
-                    <TableBody>
-                      {task.time_trackings.map((time, idx) => (
-                        <TableRow
-                          key={idx}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          {/* <li key={idx}> */}
-                          {time.endDate ? (
+          <Box sx={{ width: "100%" }}>
+            {/* <ul> */}
+            {taskList.length &&
+              taskList.map((task, idx) => (
+                <Box
+                  key={idx}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  {/* <li key={idx}> */}
+                  {/* <ul> */}
+                  <Box>
+                    {task.time_trackings.map((time, idx) => (
+                      <Box
+                        key={idx}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        {/* <li key={idx}> */}
+                        {time.endDate ? (
+                          <>
+                            <Box component="th" scope="row">
+                              {" "}
+                              Task Name: {task.name} | Time Spent: {"H"}
+                            </Box>
+                            <Box>
+                              {computeTime(time.endDate, time.startDate)}{" "}
+                            </Box>
                             <>
-                              <TableCell component="th" scope="row">
-                                {" "}
-                                Task Name: {task.name} | Time Spent: {"H"}
-                              </TableCell>
-                              <TableCell align="right">
-                                {computeTime(time.endDate, time.startDate)}{" "}
-                              </TableCell>
-                              <>
-                                <Button
-                                  variant="outlined"
-                                  color="primary"
-                                  onClick={() => {
-                                    showEditTimeTrackingModal(
-                                      task._id,
-                                      time._id
-                                    );
-                                  }}
-                                >
-                                  Edit
-                                </Button>
-                              </>
-                            </>
-                          ) : (
-                            <>
-                              <b style={{ backgroundColor: "pink" }}>
-                                Task Name: {task.name} | Time Spent:{" "}
-                                <ShowTimer startDate={time.startDate} />
-                              </b>
                               <Button
-                                variant="contained"
-                                color="secondary"
+                                variant="outlined"
+                                color="primary"
                                 onClick={() => {
-                                  handleStopTimer(task._id, time._id);
+                                  showEditTimeTrackingModal(task._id, time._id);
                                 }}
                               >
-                                Stop
+                                Edit
                               </Button>
                             </>
-                          )}
-                          {/* </li> */}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                    {/* </ul> */}
-                    {/* </li> */}
-                  </TableRow>
-                ))}
-              {/* </ul> */}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                          </>
+                        ) : (
+                          <>
+                            <b style={{ backgroundColor: "pink" }}>
+                              Task Name: {task.name} | Time Spent:{" "}
+                              <ShowTimer startDate={time.startDate} />
+                            </b>
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              onClick={() => {
+                                handleStopTimer(task._id, time._id);
+                              }}
+                            >
+                              Stop
+                            </Button>
+                          </>
+                        )}
+                        {/* </li> */}
+                      </Box>
+                    ))}
+                  </Box>
+                  {/* </ul> */}
+                  {/* </li> */}
+                </Box>
+              ))}
+            {/* </ul> */}
+          </Box>
+        </Box>
         <Box>
           {/* Modal Window: edit time tracking */}
           <Modal
