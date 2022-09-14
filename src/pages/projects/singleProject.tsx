@@ -53,7 +53,8 @@ const SingleProject = () => {
   }, []);
 
   const handleFormatDate = (date: any) => {
-    return format(new Date(date), "MM/dd/yyyy");
+    const dateStr = format(new Date(date), "MM/dd/yyyy");
+    return String(dateStr);
   };
 
   return (
@@ -110,7 +111,7 @@ const SingleProject = () => {
             </Typography>
             <Typography>
               <b>Due Date: </b>
-              {handleFormatDate(project?.due_date)}
+              {project?.due_date && handleFormatDate(project.due_date)}
             </Typography>
           </CardContent>
         </Card>
