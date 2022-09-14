@@ -6,7 +6,6 @@ import TimeSpentChart from "./piechart";
 import AmtEarnedChart from "./barchart";
 import DashboardProject from "./dashboardproject";
 import { useUserContext } from "../../context/userContext";
-import { Button, Paper } from "@mui/material";
 import DashboardButtons from "./dashboardbuttons";
 
 const Dashboard = () => {
@@ -18,17 +17,18 @@ const Dashboard = () => {
   if (newUser) navigate("/app/onboard");
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "800px",
+        marginLeft: "23%",
+        marginTop: "20px",
+      }}
+    >
       <DashboardProject />
       <DashboardButtons setTimePeriod={setTimePeriod} />
-      <div
-        style={{
-          width: "800px",
-          marginLeft: "23%",
-          marginTop: "20px",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
+      <div>
         {(() => {
           if (timeperiod === "week") {
             return <TimeSpentChart timeperiod={timeperiod} />;
@@ -48,19 +48,10 @@ const Dashboard = () => {
           return null;
         })()}
       </div>
-      <div
-        style={{
-          width: "800px",
-          marginLeft: "23%",
-          marginTop: "20px",
-          paddingTop: "20px",
-          marginBottom: "50px",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
+      <div>
         <AmtEarnedChart />
       </div>
-    </>
+    </div>
   );
 };
 

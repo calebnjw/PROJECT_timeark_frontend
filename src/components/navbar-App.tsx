@@ -24,7 +24,7 @@ function AppNavbar() {
           flexDirection: "row",
         }}
       >
-        <a href="app/dashboard">
+        <a href="/dashboard">
           <img
             src="/logo-notext.png"
             alt="logo"

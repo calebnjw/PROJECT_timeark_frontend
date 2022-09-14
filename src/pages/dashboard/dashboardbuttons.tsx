@@ -12,9 +12,7 @@ export default function DashboardButtons({ setTimePeriod }: Props) {
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
-        marginLeft: "23%",
         marginTop: "30px",
-        width: "800px",
       }}
     >
       <Button
