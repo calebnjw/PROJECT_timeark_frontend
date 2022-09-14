@@ -81,7 +81,6 @@ function AppLayout() {
             </Grid>
             <Outlet />
           </Grid>
-          {/* <Footer /> */}
         </Box>
       </ClientGlobalContext.Provider>
     </UserContext.Provider>
