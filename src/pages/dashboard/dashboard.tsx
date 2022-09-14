@@ -6,10 +6,10 @@ import TimeSpentChart from "./piechart";
 import AmtEarnedChart from "./barchart";
 import DashboardProject from "./dashboardproject";
 import { useUserContext } from "../../context/userContext";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
+import DashboardButtons from "./dashboardbuttons";
 
 const Dashboard = () => {
-  const { clientList, setClientList } = useGlobalContext();
   const { newUser } = useUserContext();
   const [timeperiod, setTimePeriod] = useState<string>("all");
 
@@ -20,50 +20,13 @@ const Dashboard = () => {
   return (
     <>
       <DashboardProject />
+      <DashboardButtons setTimePeriod={setTimePeriod} />
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          marginLeft: "20%",
-          marginTop: "50px",
-          width: "600px",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            setTimePeriod("week");
-          }}
-        >
-          Week View
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            setTimePeriod("month");
-          }}
-        >
-          Month View
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            setTimePeriod("all");
-          }}
-        >
-          All Time
-        </Button>
-      </div>
-      <div
-        style={{
-          width: "50%",
-          marginLeft: "20%",
+          width: "800px",
+          marginLeft: "23%",
           marginTop: "20px",
-          border: "1px solid black",
-          backgroundColor: "pink",
+          backgroundColor: "#f0f0f0",
         }}
       >
         {(() => {
@@ -84,6 +47,17 @@ const Dashboard = () => {
           }
           return null;
         })()}
+      </div>
+      <div
+        style={{
+          width: "800px",
+          marginLeft: "23%",
+          marginTop: "20px",
+          paddingTop: "20px",
+          marginBottom: "50px",
+          backgroundColor: "#f0f0f0",
+        }}
+      >
         <AmtEarnedChart />
       </div>
     </>
