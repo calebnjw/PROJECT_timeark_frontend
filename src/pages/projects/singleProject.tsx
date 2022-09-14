@@ -12,8 +12,15 @@ import { format } from "date-fns";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 
 import axios from "axios";
+import { Tab } from "@mui/material";
 axios.defaults.withCredentials = true;
 
 const SingleProject = () => {
@@ -57,13 +64,28 @@ const SingleProject = () => {
     return String(dateStr);
   };
 
+  const computeTime = (timeArr: any) => {
+    const timeSpentArr = timeArr.map((t: any) => {
+      const endDate: any = new Date(t.endDate);
+      const startDate: any = new Date(t.startDate);
+      const timeDifference = endDate - startDate;
+      const hours = timeDifference / (1000 * 60 * 60);
+      return hours.toFixed(2);
+    });
+    const totalTime = timeSpentArr.reduce(
+      (a: any, b: any) => Number(a) + Number(b)
+    );
+    console.log("time arr", totalTime);
+    return totalTime;
+  };
+
   return (
     <>
       <Box
         style={{
           width: "100%",
           marginLeft: "15%",
-          marginTop: "80px",
+          marginTop: "100px",
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
@@ -71,29 +93,7 @@ const SingleProject = () => {
         }}
         sx={{ flexGrow: 1 }}
       >
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              navigate("/app/projects");
-            }}
-          >
-            Back
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              navigate(`/app/projects/${project?._id}/update`, {
-                state: project,
-              });
-            }}
-          >
-            Edit
-          </Button>
-        </Stack>
-        <Card style={{ width: "50%" }} sx={{ minWidth: 275 }}>
+        <Card style={{ width: "80%" }} sx={{ minWidth: 275 }}>
           <CardContent>
             <Typography variant="h5">Project Details: </Typography>
             <Typography variant="h6">{client?.client_name}</Typography>
@@ -113,32 +113,111 @@ const SingleProject = () => {
               <b>Due Date: </b>
               {project?.due_date && handleFormatDate(project.due_date)}
             </Typography>
+            <Stack direction="row" spacing={2} style={{ width: "100%" }}>
+              <Box style={{ width: "50%", textAlign: "center" }}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => {
+                    navigate("/app/projects");
+                  }}
+                >
+                  Back
+                </Button>
+              </Box>
+              <Box style={{ width: "50%", textAlign: "center" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    navigate(`/app/projects/${project?._id}/update`, {
+                      state: project,
+                    });
+                  }}
+                >
+                  Edit
+                </Button>
+              </Box>
+            </Stack>
           </CardContent>
         </Card>
-        <Box>
-          <div>
-            <p>
-              Tasks:
-              {taskList?.map((task) => (
-                <li key={task._id}>
-                  <Link to={`app/tasks/${task._id}`} state={{ project, task }}>
-                    {task.name}
-                  </Link>
-                </li>
-              ))}{" "}
-            </p>
-          </div>
-        </Box>
-        <br />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            navigate(`/app/tasks/new`);
-          }}
+        <Card
+          style={{ width: "80%", marginTop: "10px" }}
+          sx={{ minWidth: 275 }}
         >
-          Add New Task
-        </Button>
+          <CardContent>
+            <TableContainer>
+              <Typography gutterBottom variant="h6" component="div">
+                Tasks
+              </Typography>
+              <Table
+                sx={{ minWidth: 650 }}
+                stickyHeader
+                aria-label="sticky table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ width: "20%", textAlign: "center" }}>
+                      Name
+                    </TableCell>
+                    <TableCell style={{ width: "20%", textAlign: "center" }}>
+                      Category
+                    </TableCell>
+                    <TableCell style={{ width: "20%", textAlign: "center" }}>
+                      Status
+                    </TableCell>
+                    <TableCell style={{ width: "20%", textAlign: "center" }}>
+                      Time(h)
+                    </TableCell>
+                    <TableCell
+                      style={{ width: "20%", textAlign: "center" }}
+                    ></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody style={{ width: "100%" }}>
+                  {taskList?.map((task) => (
+                    <TableRow key={task._id} style={{ width: "100%" }}>
+                      <TableCell style={{ width: "30%", textAlign: "center" }}>
+                        {task.name}
+                      </TableCell>
+                      <TableCell style={{ width: "30%", textAlign: "center" }}>
+                        {task.category}
+                      </TableCell>
+                      <TableCell style={{ width: "30%", textAlign: "center" }}>
+                        {task.isDone ? "Done" : "In Process"}
+                      </TableCell>
+                      <TableCell style={{ width: "30%", textAlign: "center" }}>
+                        {task.time_trackings.length
+                          ? computeTime(task.time_trackings)
+                          : "-"}
+                      </TableCell>
+                      <TableCell>
+                        <Link
+                          to={`/app/projects/${project?._id}/tasks/${task._id}/update`}
+                          state={{ project, task }}
+                          style={{ width: "100%" }}
+                        >
+                          Update
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}{" "}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Box style={{ marginTop: "10px", textAlign: "center" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  navigate(`/app/tasks/new`);
+                }}
+              >
+                Add New Task
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
       </Box>
     </>
   );
