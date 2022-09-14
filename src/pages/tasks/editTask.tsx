@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { Project } from "../../types/project";
+import Typography from "@mui/material/Typography";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -44,9 +45,12 @@ const EditTaskForm = () => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
-        params: { client_id: project.client_id, autoCorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/projects`,
+        {
+          params: { client_id: project.client_id, autoCorrect: true },
+        }
+      );
       setProjectList(result.data.projects);
     };
     getProjects();
@@ -79,85 +83,108 @@ const EditTaskForm = () => {
         updateTask
       );
 
-      navigate(`/app/projects`);
+      navigate(-1);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <>
-      <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
-        <Button color="secondary" variant="contained" onClick={handleCancelButton}>
-          CANCEL
-        </Button>
-        <h3>Edit Task</h3>
-        <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}>
-          {" "}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "600px",
-              justifyContent: "space-around",
-            }}
-          >
-            <TextField type="text" name="name" label="*Task Name" defaultValue={task.name} />
-          </div>
-          {projectList.length ? (
-            <>
-              <TextField
-                select
-                name="project_id"
-                label="*Project"
-                sx={{ width: 600 }}
-                defaultValue={project._id}
-              >
-                {projectOptions.map((option?: { id: string; name: string }) => (
-                  <MenuItem key={option?.id} value={option?.id}>
-                    {option?.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </>
-          ) : (
-            <>Loading Project Options</>
-          )}
-          {!categoryExists ? (
-            <></>
-          ) : (
-            <>
-              <TextField
-                select
-                name="category"
-                label="*Category"
-                sx={{ width: 600 }}
-                defaultValue={task.category}
-              >
-                {categoryList.map((category) => (
-                  <MenuItem key={category} value={category}>
-                    {category}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
-                name="isDone"
-                label="*Status"
-                sx={{ width: 600 }}
-                defaultValue={task.isDone}
-              >
-                <MenuItem value={false as any}>In Progress</MenuItem>
-                <MenuItem value={true as any}>Done</MenuItem>
-              </TextField>
-            </>
-          )}
+    <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
+      <Typography variant="h5">Edit Task</Typography>
+      <form
+        onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
+        style={{ width: "50%" }}
+      >
+        {" "}
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "600px",
+            justifyContent: "space-around",
+          }}
+        >
+          <TextField
+            type="text"
+            name="name"
+            label="*Task Name"
+            defaultValue={task.name}
+            style={{ marginTop: "10px", marginBottom: "10px" }}
+          />
+        </Box>
+        {projectList.length ? (
+          <Box>
+            <TextField
+              select
+              name="project_id"
+              label="*Project"
+              sx={{ width: 600 }}
+              defaultValue={project._id}
+              style={{ marginTop: "10px", marginBottom: "10px" }}
+            >
+              {projectOptions.map((option?: { id: string; name: string }) => (
+                <MenuItem key={option?.id} value={option?.id}>
+                  {option?.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+        ) : (
+          <>Loading Project Options</>
+        )}
+        {!categoryExists ? (
+          <></>
+        ) : (
+          <Box>
+            <TextField
+              select
+              name="category"
+              label="*Category"
+              sx={{ width: 600 }}
+              defaultValue={task.category}
+              style={{ marginTop: "10px", marginBottom: "10px" }}
+            >
+              {categoryList.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              select
+              name="isDone"
+              label="*Status"
+              sx={{ width: 600 }}
+              defaultValue={task.isDone}
+              style={{ marginTop: "10px", marginBottom: "10px" }}
+            >
+              <MenuItem value={false as any}>In Progress</MenuItem>
+              <MenuItem value={true as any}>Done</MenuItem>
+            </TextField>
+          </Box>
+        )}
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            marginTop: "10px",
+          }}
+        >
           <Button type="submit" value="Submit" variant="contained">
             Update Task
           </Button>
-        </form>
-      </Box>
-    </>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={handleCancelButton}
+          >
+            CANCEL
+          </Button>
+        </Box>
+      </form>
+    </Box>
   );
 };
 export default EditTaskForm;
