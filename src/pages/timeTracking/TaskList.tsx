@@ -145,83 +145,91 @@ const TaskList = (props: Props) => {
 
   if (taskList.length) {
     return (
-      <Box sx={{ width: "100%" }}>
-        <Box>Selected Date: {props.data}</Box>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "auto",
+        }}
+      >
+        <Box sx={{ width: "100%", textAlign: "center" }}>
+          Selected Date: {props.data}
+        </Box>
         <Box>
-          <Box sx={{ width: "100%" }}>
-            <Grid container sx={{ width: "100%" }}>
-              <Grid>Task Name</Grid>
-              <Grid>Client/Project</Grid>
-              <Grid>Time Entry</Grid>
-            </Grid>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+            <Typography>Task Name</Typography>
+            <Typography>Client/Project</Typography>
+            <Typography>Time Entry</Typography>
           </Box>
+          <hr />
 
           <Box sx={{ width: "100%" }}>
-            {/* <ul> */}
-            {taskList.length &&
-              taskList.map((task, idx) => (
-                <Box
-                  key={idx}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  {/* <li key={idx}> */}
-                  {/* <ul> */}
-                  <Box>
-                    {task.time_trackings.map((time, idx) => (
-                      <Box
-                        key={idx}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        {/* <li key={idx}> */}
-                        {time.endDate ? (
-                          <>
-                            <Box component="th" scope="row">
-                              {" "}
-                              Task Name: {task.name} | Time Spent: {"H"}
-                            </Box>
-                            <Box>
-                              {computeTime(time.endDate, time.startDate)}{" "}
-                            </Box>
+            <ul>
+              {taskList.length &&
+                taskList.map((task, idx) => (
+                  <li key={idx}>
+                    <ul>
+                      {task.time_trackings.map((time, idx) => (
+                        <li
+                          key={idx}
+                          style={{ display: "flex", flexDirection: "row" }}
+                        >
+                          {time.endDate ? (
                             <>
+                              <Typography>
+                                {" "}
+                                Task Name: {task.name} | Time Spent: {"H"}
+                              </Typography>
+                              <Typography>
+                                {computeTime(time.endDate, time.startDate)}{" "}
+                              </Typography>
+                              <>
+                                <Button
+                                  variant="outlined"
+                                  color="primary"
+                                  onClick={() => {
+                                    showEditTimeTrackingModal(
+                                      task._id,
+                                      time._id
+                                    );
+                                  }}
+                                >
+                                  Edit
+                                </Button>
+                              </>
+                            </>
+                          ) : (
+                            <>
+                              <b style={{ backgroundColor: "pink" }}>
+                                Task Name: {task.name} | Time Spent:{" "}
+                                <ShowTimer startDate={time.startDate} />
+                              </b>
                               <Button
-                                variant="outlined"
-                                color="primary"
+                                variant="contained"
+                                color="secondary"
                                 onClick={() => {
-                                  showEditTimeTrackingModal(task._id, time._id);
+                                  handleStopTimer(task._id, time._id);
                                 }}
                               >
-                                Edit
+                                Stop
                               </Button>
                             </>
-                          </>
-                        ) : (
-                          <>
-                            <b style={{ backgroundColor: "pink" }}>
-                              Task Name: {task.name} | Time Spent:{" "}
-                              <ShowTimer startDate={time.startDate} />
-                            </b>
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              onClick={() => {
-                                handleStopTimer(task._id, time._id);
-                              }}
-                            >
-                              Stop
-                            </Button>
-                          </>
-                        )}
-                        {/* </li> */}
-                      </Box>
-                    ))}
-                  </Box>
-                  {/* </ul> */}
-                  {/* </li> */}
-                </Box>
-              ))}
-            {/* </ul> */}
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+            </ul>
           </Box>
         </Box>
         <Box>
