@@ -7,7 +7,7 @@ export default function DashboardProject() {
 
   return (
     <Paper
-      elevation={5}
+      elevation={7}
       variant="outlined"
       style={{
         display: "flex",
