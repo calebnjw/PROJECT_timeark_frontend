@@ -104,7 +104,7 @@ function ProfileEdit() {
       });
       if (result.data.success) {
         // TODO: Can add a message saying that information has been successfully updated
-        navigate("/profile?saved=true");
+        navigate("/app/profile?saved=true");
       }
     }
   };
@@ -280,7 +280,7 @@ function ProfileEdit() {
             <Button variant="contained" color="warning" onClick={handleDeleteUser}>
               Delete Account
             </Button>
-            <Button component={Link} to="/profile">
+            <Button component={Link} to="/app/profile">
               Cancel
             </Button>
             <Button variant="contained" onClick={handleUpdate}>

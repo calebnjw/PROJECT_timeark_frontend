@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
-import { AppBar, Button } from "@mui/material";
+import { AppBar, Box, Button, Grid, Stack, Toolbar, Typography } from "@mui/material";
 
 function AppNavbar() {
   const { userProfile } = useUserContext();
@@ -11,65 +11,63 @@ function AppNavbar() {
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        backgroundColor: "#0047AB",
-        height: "10vh",
-      }}
     >
-      <div
-        style={{
+      <Toolbar
+        sx={{
+          display: "flex",
           flexDirection: "row",
+          justifyContent: "space-between",
+          backgroundColor: "#0047AB",
+          height: "8vh",
         }}
       >
-        <a href="app/dashboard">
+        <Link
+          to={"/app/dashboard"}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "white",
+            flexGrow: 1,
+          }}
+        >
           <img
             src="/logo-notext.png"
             alt="logo"
             style={{
               borderRadius: "50%",
-              width: "50px",
-              marginTop: "5px",
-              marginLeft: "10px",
+              width: "40px",
+              marginRight: "15px",
             }}
           />
-        </a>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {userProfile?.photos && (
-          <Link to={"/app/profile"}>
-            <img
-              src={`${userProfile?.photos[0].value}`}
-              alt="profile"
-              style={{
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                marginTop: "5px",
-                marginRight: "20px",
-              }}
-            />
-          </Link>
-        )}
-
-        <Button
-          color="secondary"
-          href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
-          variant="contained"
-          style={{
-            marginRight: "10px",
-          }}
-        >
-          Logout
-        </Button>
-      </div>
+          <Typography variant="h4" align="left" style={{}}>
+            Time Ark
+          </Typography>
+        </Link>
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+          {userProfile?.photos && (
+            <Link to={"/app/profile"}>
+              <img
+                src={`${userProfile?.photos[0].value}`}
+                alt="profile"
+                style={{
+                  width: "40px",
+                  borderRadius: "50%",
+                  marginRight: "20px",
+                  marginTop: "7px",
+                }}
+              />
+            </Link>
+          )}
+          <Button
+            color="secondary"
+            href={`${process.env.REACT_APP_BACKEND_URL}/users/logout`}
+            variant="contained"
+          >
+            Logout
+          </Button>
+        </div>
+      </Toolbar>
     </AppBar>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 import { useUserContext } from "../../context/userContext";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Paper } from "@mui/material";
 import { Spinner } from "../../components/spinner/spinner";
 
 import axios from "axios";
@@ -22,12 +22,15 @@ function TimeSpentChart({ timeperiod }: Props) {
     console.log(timeperiod);
     const pieChartData = async () => {
       if (userProfile) {
-        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks/time`, {
-          params: {
-            user_id: userProfile._id,
-            time_period: timeperiod,
-          },
-        });
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
+          {
+            params: {
+              user_id: userProfile._id,
+              time_period: timeperiod,
+            },
+          }
+        );
         console.log(result.data);
         setGetData(result.data);
         setIsLoaded(true);
@@ -75,10 +78,22 @@ function TimeSpentChart({ timeperiod }: Props) {
           <Spinner />
         </Box>
       ) : (
-        <>
-          {timeperiod} view
+        <Paper
+          elevation={7}
+          style={{
+            marginTop: "30px",
+            backgroundColor: "#f0f0f0",
+          }}
+        >
+          {/* <p
+            style={{
+              textAlign: "center",
+            }}
+          >
+            {timeperiod} view
+          </p> */}
           <ReactEcharts option={option} />
-        </>
+        </Paper>
       )}
     </div>
   );
