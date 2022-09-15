@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   format,
   subMonths,
@@ -11,6 +11,11 @@ import {
   addWeeks,
   subWeeks,
 } from "date-fns";
+import Box from "@mui/material/Box";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 interface Props {
   HandleShowSelectedDateTimeEntrys: (params: any) => void;
@@ -31,14 +36,11 @@ const Calendar = ({ HandleShowSelectedDateTimeEntrys }: Props) => {
   };
 
   const changeWeekHandle = (btnType: any) => {
-    //console.log("current week", currentWeek);
     if (btnType === "prev") {
-      //console.log(subWeeks(currentMonth, 1));
       setCurrentMonth(subWeeks(currentMonth, 1));
       setCurrentWeek(getWeek(subWeeks(currentMonth, 1)));
     }
     if (btnType === "next") {
-      //console.log(addWeeks(currentMonth, 1));
       setCurrentMonth(addWeeks(currentMonth, 1));
       setCurrentWeek(getWeek(addWeeks(currentMonth, 1)));
     }
@@ -48,39 +50,62 @@ const Calendar = ({ HandleShowSelectedDateTimeEntrys }: Props) => {
     setSelectedDate(day);
     HandleShowSelectedDateTimeEntrys(dayStr);
   };
-
+  // Navigate Month
   const renderHeader = () => {
     const dateFormat = "MMM yyyy";
-    // console.log("selected day", selectedDate);
     return (
-      <div className="header row flex-middle">
-        <div className="col col-start">
-          {/* <div className="icon" onClick={() => changeMonthHandle("prev")}>
-            prev month
-          </div> */}
-        </div>
-        <div className="col col-center">
+      <Box className="header row flex-middle">
+        <Box className="col col-start">
+          <Box
+            className="icon"
+            onClick={() => changeMonthHandle("prev")}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "left",
+            }}
+          >
+            <KeyboardDoubleArrowLeftIcon />
+            <Box>month</Box>
+          </Box>
+        </Box>
+        <Box className="col col-center">
           <span>{format(currentMonth, dateFormat)}</span>
-        </div>
-        <div className="col col-end">
-          {/* <div className="icon" onClick={() => changeMonthHandle("next")}>next month</div> */}
-        </div>
-      </div>
+        </Box>
+        <Box className="col col-end">
+          <Box
+            className="icon"
+            onClick={() => changeMonthHandle("next")}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "right",
+            }}
+          >
+            <Box>Month</Box>
+            <KeyboardDoubleArrowRightIcon />
+          </Box>
+        </Box>
+      </Box>
     );
   };
+
+  // Show weekdays
   const renderDays = () => {
     const dateFormat = "EEE";
     const days = [];
     let startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div className="col col-center" key={i}>
+        <Box className="col col-center" key={i}>
           {format(addDays(startDate, i), dateFormat)}
-        </div>
+        </Box>
       );
     }
-    return <div className="days row">{days}</div>;
+    return <Box className="days row">{days}</Box>;
   };
+
+  // Show days cubes
   const renderCells = () => {
     const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
     const endDate = lastDayOfWeek(currentMonth, { weekStartsOn: 1 });
@@ -94,7 +119,7 @@ const Calendar = ({ HandleShowSelectedDateTimeEntrys }: Props) => {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
         days.push(
-          <div
+          <Box
             className={`col cell ${
               isSameDay(day, new Date())
                 ? "today"
@@ -110,51 +135,65 @@ const Calendar = ({ HandleShowSelectedDateTimeEntrys }: Props) => {
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
-          </div>
+          </Box>
         );
         day = addDays(day, 1);
       }
 
       rows.push(
-        <div className="row" key={String(day)}>
+        <Box className="row" key={String(day)} style={{}}>
           {days}
-        </div>
+        </Box>
       );
       days = [];
     }
-    return <div className="body">{rows}</div>;
+    return <Box className="body">{rows}</Box>;
   };
+
   const renderFooter = () => {
     return (
-      <div className="header row flex-middle">
-        <div className="col col-start">
-          <div
-            // className="icon"
+      <Box className="header row flex-middle">
+        <Box className="col col-start">
+          <Box
+            className="icon"
             onClick={() => changeWeekHandle("prev")}
-            style={{ color: "black", backgroundColor: "pink" }}
+            style={{
+              color: "black",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "left",
+            }}
           >
-            prev week
-          </div>
-        </div>
-        <div>Current week: {currentWeek}</div>
-        <div className="col col-end" onClick={() => changeWeekHandle("next")}>
-          <div
-            // className="icon"
-            style={{ color: "black", backgroundColor: "pink" }}
+            <NavigateBeforeIcon />
+            <Box>week</Box>
+          </Box>
+        </Box>
+        <Box>Current week: {currentWeek}</Box>
+        <Box className="col col-end" onClick={() => changeWeekHandle("next")}>
+          <Box
+            className="icon"
+            style={{
+              color: "black",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "right",
+            }}
           >
-            next week
-          </div>
-        </div>
-      </div>
+            <Box>week</Box>
+            <NavigateNextIcon />
+          </Box>
+        </Box>
+      </Box>
     );
   };
+
   return (
-    <div className="calendar">
+    <Box className="calendar">
       {renderHeader()}
       {renderDays()}
       {renderCells()}
       {renderFooter()}
-    </div>
+    </Box>
   );
 };
 

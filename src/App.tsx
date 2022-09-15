@@ -5,8 +5,6 @@ import "./App.scss";
 
 import Dashboard from "./pages/dashboard/dashboard";
 
-import HomeLayout from "./layout/homeLayout";
-
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 
@@ -52,7 +50,6 @@ function App() {
 
       <Route path="app" element={<AppLayout />}>
         <Route index element={<Dashboard />} />
-
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="onboard" element={<Onboard />} />
 
@@ -72,6 +69,8 @@ function App() {
             <Route index element={<SingleProject />} />
             <Route path="update" element={<EditProjectForm />} />
             <Route path="tasks">
+              <Route index element={<Tasks />} />
+              <Route path="new" element={<NewTask />} />
               <Route path=":task_id" element={<SingleTask />} />
               <Route path=":task_id/update" element={<EditTask />} />
             </Route>
@@ -81,6 +80,8 @@ function App() {
         <Route path="tasks">
           <Route index element={<Tasks />} />
           <Route path="new" element={<NewTask />} />
+          <Route path=":task_id" element={<SingleTask />} />
+          <Route path=":task_id/update" element={<EditTask />} />
         </Route>
 
         <Route path="profile" element={<Profile />}>

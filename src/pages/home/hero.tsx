@@ -1,4 +1,4 @@
-import GoogleButton from "./google-button";
+import GoogleButton from "../../components/google-button";
 
 export default function Hero() {
   return (
@@ -34,11 +34,10 @@ export default function Hero() {
         }}
       >
         <p>
-          TimeArk is a desktop only web application that helps freelancers to
-          keep track of their projects with their clients. Every task you start
-          is timed and the billable hours can be easily converted to an pdf
-          invoice which you can send to your clients. Best of all, it’s free to
-          use, just login with your Google Account to get started.
+          TimeArk is a desktop only web application that helps freelancers to keep track of their
+          projects with their clients. Every task you start is timed and the billable hours can be
+          easily converted to an pdf invoice which you can send to your clients. Best of all, it’s
+          free to use, just login with your Google Account to get started.
         </p>
       </div>
     </div>

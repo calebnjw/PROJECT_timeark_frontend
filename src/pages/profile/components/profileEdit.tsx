@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Box, Divider, Grid, TextField } from "@mui/material";
+import { Button, Box, Divider, Grid, TextField, Typography, Stack } from "@mui/material";
+
+import PersonIcon from "@mui/icons-material/Person";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import BusinessIcon from "@mui/icons-material/Business";
 
 import { useUserContext } from "../../../context/userContext";
 
@@ -104,7 +108,7 @@ function ProfileEdit() {
       });
       if (result.data.success) {
         // TODO: Can add a message saying that information has been successfully updated
-        navigate("/profile?saved=true");
+        navigate("/app/profile?saved=true");
       }
     }
   };
@@ -151,25 +155,44 @@ function ProfileEdit() {
   };
 
   return (
-    <>
-      {!userProfile && <h1>You are not logged in.</h1>}
+    <Box
+      sx={{
+        margin: "auto",
+        maxWidth: "60vw",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       {userProfile && (
-        <>
-          <div>
-            <div>
-              <h3>Name</h3>
+        <Stack spacing={3}>
+          <Stack spacing={1}>
+            <Stack direction="row" sx={{ alignItems: "center" }}>
+              <PersonIcon fontSize="large" sx={{ marginRight: "10px" }} />
+              <Typography variant="h4">Name</Typography>
+            </Stack>
+            <Box
+              component="form"
+              paddingBottom={2}
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
               <TextField
                 required
                 label="First Name"
                 value={givenName}
                 defaultValue={userProfile.name.givenName}
                 onChange={userGivenNameChange}
+                sx={{ m: 1, minWidth: "31%" }}
               />
               <TextField
                 label="Middle Name"
                 value={middleName}
                 defaultValue={userProfile.name.middleName}
                 onChange={userMiddleNameChange}
+                sx={{ m: 1, minWidth: "31%" }}
               />
               <TextField
                 required
@@ -177,13 +200,32 @@ function ProfileEdit() {
                 value={familyName}
                 defaultValue={userProfile.name.familyName}
                 onChange={userFamilyNameChange}
+                sx={{ m: 1, minWidth: "31%" }}
               />
-            </div>
-            <div>
-              <h3>Email</h3>
+            </Box>
+          </Stack>
+          <Stack spacing={1}>
+            <Stack direction="row" sx={{ alignItems: "center" }}>
+              <AlternateEmailIcon fontSize="large" sx={{ marginRight: "10px" }} />
+              <Typography variant="h4">Email</Typography>
+            </Stack>
+            <Box
+              component="form"
+              paddingBottom={2}
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
               {(userProfile.provider && (
                 // disable editing of email if it's provided by external service
-                <TextField disabled label="Email" defaultValue={userProfile.emails[0].value} />
+                <TextField
+                  disabled
+                  label="Email"
+                  defaultValue={userProfile.emails[0].value}
+                  fullWidth
+                  sx={{ m: 1 }}
+                />
               )) || (
                 <TextField
                   required
@@ -191,11 +233,25 @@ function ProfileEdit() {
                   value={email}
                   defaultValue={userProfile.emails[0].value}
                   onChange={userEmailChange}
+                  fullWidth
+                  sx={{ m: 1 }}
                 />
               )}
-            </div>
-            <div>
-              <h3>Billing Details</h3>
+            </Box>
+          </Stack>
+          <Stack spacing={1}>
+            <Stack direction="row" sx={{ alignItems: "center" }}>
+              <BusinessIcon fontSize="large" sx={{ marginRight: "10px" }} />
+              <Typography variant="h4">Billing Details</Typography>
+            </Stack>
+            <Box
+              component="form"
+              paddingBottom={2}
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
               <TextField
                 required
                 label="Company Name"
@@ -204,6 +260,8 @@ function ProfileEdit() {
                   (userProfile.billingDetails && userProfile.billingDetails.companyName) || ""
                 }
                 onChange={userCompanyNameChange}
+                fullWidth
+                sx={{ m: 1 }}
               />
               <TextField
                 label="Registration Number"
@@ -213,6 +271,7 @@ function ProfileEdit() {
                   ""
                 }
                 onChange={userCompanyRegistrationChange}
+                sx={{ m: 1, minWidth: "47%" }}
               />
               <TextField
                 required
@@ -222,8 +281,17 @@ function ProfileEdit() {
                   (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
                 }
                 onChange={userContactNumberChange}
+                sx={{ m: 1, minWidth: "47%" }}
               />
-              <h3>Address</h3>
+            </Box>
+            <Box
+              component="form"
+              paddingBottom={2}
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
               <TextField
                 label="Building Name"
                 value={buildingName}
@@ -231,6 +299,8 @@ function ProfileEdit() {
                   (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
                 }
                 onChange={userBuildingNameChange}
+                fullWidth
+                sx={{ m: 1 }}
               />
               <TextField
                 required
@@ -240,6 +310,8 @@ function ProfileEdit() {
                   (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
                 }
                 onChange={userStreetNameChange}
+                fullWidth
+                sx={{ m: 1 }}
               />
               <TextField
                 label="Unit Number"
@@ -248,6 +320,7 @@ function ProfileEdit() {
                   (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
                 }
                 onChange={userUnitNumberChange}
+                sx={{ m: 1, minWidth: "47%" }}
               />
               <TextField
                 required
@@ -257,6 +330,7 @@ function ProfileEdit() {
                   (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
                 }
                 onChange={userPostalCodeChange}
+                sx={{ m: 1, minWidth: "47%" }}
               />
               <TextField
                 required
@@ -264,6 +338,7 @@ function ProfileEdit() {
                 value={city}
                 defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
                 onChange={userCityChange}
+                sx={{ m: 1, minWidth: "47%" }}
               />
               <TextField
                 required
@@ -273,23 +348,34 @@ function ProfileEdit() {
                   (userProfile.billingDetails && userProfile.billingDetails.country) || ""
                 }
                 onChange={userCountryChange}
+                sx={{ m: 1, minWidth: "47%" }}
               />
-            </div>
-          </div>
-          <div>
-            <Button variant="contained" color="warning" onClick={handleDeleteUser}>
+            </Box>
+          </Stack>
+          <Stack direction="row">
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={handleDeleteUser}
+              sx={{ m: 1, minWidth: "20%" }}
+            >
               Delete Account
             </Button>
-            <Button component={Link} to="/profile">
+            <Button
+              component={Link}
+              to="/app/profile"
+              variant="outlined"
+              sx={{ m: 1, flexGrow: 1 }}
+            >
               Cancel
             </Button>
-            <Button variant="contained" onClick={handleUpdate}>
+            <Button variant="contained" onClick={handleUpdate} sx={{ m: 1, flexGrow: 1 }}>
               Save
             </Button>
-          </div>
-        </>
+          </Stack>
+        </Stack>
       )}
-    </>
+    </Box>
   );
 }
 

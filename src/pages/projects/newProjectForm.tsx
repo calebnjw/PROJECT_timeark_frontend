@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+import dayjs from "dayjs";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -65,26 +66,38 @@ const NewProjectForm = () => {
 
   return (
     <>
-      <Box style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        <Button variant="contained" color="secondary">
-          <Link to="/projects" style={{ color: "white" }}>
-            Cancel
-          </Link>
-        </Button>
-        <h3>New Project</h3>
-
+      <Box
+        style={{
+          width: "100%",
+          marginLeft: "15%",
+          marginTop: "80px",
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+        sx={{ flexGrow: 1 }}
+      >
         <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               width: "600px",
-              height: "500px",
+              height: "580px",
               justifyContent: "space-around",
             }}
           >
+            <h3 style={{ marginBottom: "20px", textAlign: "center" }}>
+              New Project
+            </h3>
             {clientOptions.length ? (
-              <TextField select name="client_id" label="*Client" defaultValue={clientOptions[0].id}>
+              <TextField
+                select
+                name="client_id"
+                label="*Client"
+                defaultValue={clientOptions[0].id}
+              >
                 {clientOptions.map((option?: { id: string; name: string }) => (
                   <MenuItem key={option?.id} value={option?.id}>
                     {option?.name}
@@ -95,19 +108,49 @@ const NewProjectForm = () => {
               <>Loading Client Options</>
             )}
 
-            <Button color="success" variant="contained" onClick={() => navigate("/clients/new")}>
+            <Button
+              color="success"
+              variant="contained"
+              onClick={() => navigate("/app/clients/new")}
+              style={{ height: "40px" }}
+            >
               + New Client
             </Button>
             <TextField type="text" name="name" label="*Project Name" />
-            <TextField type="number" name="budget" label="*Budget" />
-            <TextField type="number" name="rate" label="*Rate" />
-            <TextField type="date" name="due_date" label="*Due Date" defaultValue={"2022-08-26"} />
+            <TextField type="number" name="budget" label="*Budget(S$)" />
+            <TextField type="number" name="rate" label="*Rate(S$/hour)" />
+            <TextField
+              type="date"
+              name="due_date"
+              label="*Due Date"
+              defaultValue={dayjs(new Date()).format("YYYY-MM-DD")}
+            />
             <TextField name="category_name" label="Category" multiline />
-          </div>
-          <div>
-            <Button variant="contained" color="primary" type="submit" value="Submit">
-              Submit
-            </Button>
+            {/* </div> */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                value="Submit"
+              >
+                Submit
+              </Button>
+              <Button variant="contained" color="secondary">
+                <Link
+                  to="/app/projects"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Cancel
+                </Link>
+              </Button>
+            </div>
           </div>
         </form>
       </Box>

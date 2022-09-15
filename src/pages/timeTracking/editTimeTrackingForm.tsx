@@ -29,7 +29,6 @@ interface Props {
   userId: string;
   selectedTaskId: string;
   selectedTimeTrackingId: string;
-  setUpdatedEndDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   handleUpdate: any;
   handleDeletion: any;
 }
@@ -42,12 +41,8 @@ interface TimeTracking {
 
 const EditTimeTrackingForm = ({
   setOpen,
-  taskList,
-  setTaskList,
-  userId,
   selectedTaskId,
   selectedTimeTrackingId,
-  setUpdatedEndDate,
   handleUpdate,
   handleDeletion,
 }: Props) => {
@@ -138,9 +133,9 @@ const EditTimeTrackingForm = ({
 
     return (
       <>
-        <div>Update Task Time Entry </div>
+        <Box style={{ textAlign: "center" }}>Update Task Time Entry </Box>
         <div>
-          <p>Project/Task</p>
+          <Box style={{ textAlign: "center" }}>Project/Task</Box>
           <Box style={{ marginTop: "0px" }}>
             <div
               style={{
@@ -162,13 +157,20 @@ const EditTimeTrackingForm = ({
                 <TextField
                   name="time_entry"
                   label="*Time Entry(Hours)"
+                  style={{ textAlign: "center" }}
                   type="number"
                   defaultValue={timeSpent}
                   onChange={handleTaskChange}
                 ></TextField>
               </Stack>
             </div>
-            <div>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
               <Button
                 variant="contained"
                 color="primary"
@@ -193,7 +195,7 @@ const EditTimeTrackingForm = ({
               >
                 Delete
               </Button>
-            </div>
+            </Box>
           </Box>
         </div>
       </>

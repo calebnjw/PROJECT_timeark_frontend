@@ -6,10 +6,9 @@ import TimeSpentChart from "./piechart";
 import AmtEarnedChart from "./barchart";
 import DashboardProject from "./dashboardproject";
 import { useUserContext } from "../../context/userContext";
-import { Button } from "@mui/material";
+import DashboardButtons from "./dashboardbuttons";
 
 const Dashboard = () => {
-  const { clientList, setClientList } = useGlobalContext();
   const { newUser } = useUserContext();
   const [timeperiod, setTimePeriod] = useState<string>("all");
 
@@ -18,54 +17,18 @@ const Dashboard = () => {
   if (newUser) navigate("/app/onboard");
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "800px",
+        marginLeft: "23%",
+        marginTop: "20px",
+      }}
+    >
       <DashboardProject />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginLeft: "20%",
-          marginTop: "50px",
-          width: "600px",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            setTimePeriod("week");
-          }}
-        >
-          Week View
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            setTimePeriod("month");
-          }}
-        >
-          Month View
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            setTimePeriod("all");
-          }}
-        >
-          All Time
-        </Button>
-      </div>
-      <div
-        style={{
-          width: "50%",
-          marginLeft: "20%",
-          marginTop: "20px",
-          border: "1px solid black",
-          backgroundColor: "pink",
-        }}
-      >
+      <DashboardButtons setTimePeriod={setTimePeriod} />
+      <div>
         {(() => {
           if (timeperiod === "week") {
             return <TimeSpentChart timeperiod={timeperiod} />;
@@ -84,9 +47,11 @@ const Dashboard = () => {
           }
           return null;
         })()}
+      </div>
+      <div>
         <AmtEarnedChart />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 import { useUserContext } from "../../context/userContext";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Paper } from "@mui/material";
 import { Spinner } from "../../components/spinner/spinner";
 
 import axios from "axios";
@@ -57,18 +57,19 @@ function AmtEarnedChart() {
     },
     dataset: {
       source: getData,
-      // [
-      //   ["project name", "Amt Earned", "Total Budget"],
-      //   ["Project 1", 43.3, 85.8],
-      //   ["Project 2", 63.1, 83.4],
-      //   ["Project 3", 26.4, 89.2],
-      // ],
     },
     xAxis: { type: "category" },
     yAxis: {},
     // Declare several bar series, each will be mapped
     // to a column of dataset.source by default.
-    series: [{ type: "bar" }, { type: "bar" }],
+    series: [
+      {
+        type: "bar",
+        barGap: "20%",
+        barCategoryGap: "40%",
+      },
+      { type: "bar", barGap: "20%", barCategoryGap: "20%" },
+    ],
   };
 
   return (
@@ -79,9 +80,15 @@ function AmtEarnedChart() {
           <Spinner />
         </Box>
       ) : (
-        <>
+        <Paper
+          elevation={7}
+          style={{
+            marginTop: "30px",
+            backgroundColor: "#f0f0f0",
+          }}
+        >
           <ReactEcharts option={option} />
-        </>
+        </Paper>
       )}
     </div>
   );
