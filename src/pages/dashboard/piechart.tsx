@@ -18,22 +18,22 @@ function TimeSpentChart({ timeperiod }: Props) {
 
   useEffect(() => {
     const pieChartData = async () => {
-      if (userProfile) {
-        const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
-          {
-            params: {
-              user_id: userProfile._id,
-              time_period: timeperiod,
-            },
-          }
-        );
-        setGetData(result.data);
-        setIsLoaded(true);
-      }
+      // if (userProfile) {
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
+        {
+          params: {
+            user_id: userProfile?._id,
+            time_period: timeperiod,
+          },
+        }
+      );
+      setGetData(result.data);
+      setIsLoaded(true);
+      // }
     };
     pieChartData();
-  }, [userProfile, timeperiod]);
+  }, [timeperiod]);
 
   const option = {
     title: {
