@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Box, Divider, Grid } from "@mui/material";
+import { Box, Divider, Grid, Stack } from "@mui/material";
 
 import { ClientGlobalContext } from "../context/clientContext";
 import { UserContext, useUserContext } from "../context/userContext";
@@ -66,22 +66,12 @@ function AppLayout() {
       >
         <Box sx={{ minHeight: "100vh" }}>
           <AppNavbar />
-          <Grid
-            container
-            direction="row"
-            alignItems="flex-start"
-            spacing={3}
-            sx={{
-              marginTop: "8vh",
-            }}
-          >
-            <Grid item>
-              <Sidebar />
-            </Grid>
-            <Grid item>
+          <Stack direction="row" spacing={2}>
+            <Sidebar />
+            <div style={{ marginTop: "10vh", flexGrow: 1, maxWidth: "75vw" }}>
               <Outlet />
-            </Grid>
-          </Grid>
+            </div>
+          </Stack>
         </Box>
       </ClientGlobalContext.Provider>
     </UserContext.Provider>

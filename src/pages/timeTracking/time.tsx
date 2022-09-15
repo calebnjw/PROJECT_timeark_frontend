@@ -65,9 +65,9 @@ const Time = () => {
       <Box
         style={{
           width: "100%",
-          marginLeft: "25%",
-          marginRight: "10%",
-          marginTop: "80px",
+          // marginLeft: "25%",
+          // marginRight: "10%",
+          // marginTop: "80px",
         }}
       >
         <Box style={{ textAlign: "right" }}>
@@ -80,9 +80,7 @@ const Time = () => {
             + New Tracker
           </Button>
         </Box>
-        <Box
-          style={{ display: "flex", flexDirection: "row", overflow: "auto" }}
-        >
+        <Box style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
           <Box>
             <Modal
               open={open}
@@ -90,10 +88,7 @@ const Time = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box
-                sx={style}
-                style={{ borderRadius: "10px", border: "solid 1px gray" }}
-              >
+              <Box sx={style} style={{ borderRadius: "10px", border: "solid 1px gray" }}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   <NewTimeForm
                     setOpen={setOpen}
@@ -104,15 +99,12 @@ const Time = () => {
                   />
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Please select your project and task to start tracker. Happy
-                  Working!
+                  Please select your project and task to start tracker. Happy Working!
                 </Typography>
               </Box>
             </Modal>
           </Box>
-          <Calendar
-            HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
-          />
+          <Calendar HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys} />
         </Box>
         {<TaskList data={data} taskList={taskList} setTaskList={setTaskList} />}
       </Box>
