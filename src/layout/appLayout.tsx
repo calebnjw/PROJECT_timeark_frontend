@@ -50,7 +50,7 @@ function AppLayout() {
       }
     };
     getProfile();
-  });
+  }, []);
 
   return (
     <UserContext.Provider
@@ -73,10 +73,10 @@ function AppLayout() {
           <Sidebar open={open} setOpen={setOpen} />
           <div
             style={{
-              marginTop: "10vh",
-              marginLeft: "20px",
+              marginTop: "8ch",
+              padding: "30px",
+              paddingBottom: "100px",
               flexGrow: 1,
-              maxWidth: "75vw",
             }}
           >
             <Outlet />
