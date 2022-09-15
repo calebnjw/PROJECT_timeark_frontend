@@ -46,7 +46,7 @@ function AppLayout() {
       }
     };
     getProfile();
-  });
+  }, []);
 
   return (
     <UserContext.Provider
@@ -67,7 +67,7 @@ function AppLayout() {
         <Box sx={{ display: "flex" }}>
           <AppNavbar open={open} setOpen={setOpen} />
           <Sidebar open={open} setOpen={setOpen} />
-          <div style={{ marginTop: "10vh", marginLeft: "20px", flexGrow: 1, maxWidth: "75vw" }}>
+          <div style={{ marginTop: "8ch", padding: "30px", paddingBottom: "100px", flexGrow: 1 }}>
             <Outlet />
           </div>
         </Box>

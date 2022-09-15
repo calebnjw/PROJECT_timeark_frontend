@@ -34,7 +34,9 @@ function ProfileInfo() {
               <strong>First Name:</strong> {userProfile.name.givenName}
             </Typography>
             {userProfile.name.middleName && (
-              <Typography variant="body1">Middle Name: {userProfile.name.middleName}</Typography>
+              <Typography variant="body1">
+                <strong>Middle Name:</strong> {userProfile.name.middleName}
+              </Typography>
             )}
             <Typography variant="body1">
               <strong>Last Name:</strong> {userProfile.name.familyName}
