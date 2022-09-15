@@ -1,14 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
-import {
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Divider, IconButton, List } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";

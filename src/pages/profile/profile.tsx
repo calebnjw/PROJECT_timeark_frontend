@@ -1,6 +1,5 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
-import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
 import { useUserContext } from "../../context/userContext";
 
@@ -21,8 +20,8 @@ function Profile() {
             >
               <img
                 style={{
-                  width: "80px",
-                  height: "80px",
+                  width: "70px",
+                  height: "70px",
                   borderRadius: "50%",
                   marginRight: "20px",
                 }}

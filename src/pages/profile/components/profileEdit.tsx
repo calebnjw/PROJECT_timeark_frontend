@@ -355,21 +355,33 @@ function ProfileEdit() {
           <Stack direction="row">
             <Button
               variant="contained"
-              color="warning"
+              color="error"
               onClick={handleDeleteUser}
-              sx={{ m: 1, minWidth: "20%" }}
+              sx={{
+                m: 1,
+                minWidth: "20%",
+              }}
             >
               Delete Account
             </Button>
             <Button
               component={Link}
               to="/app/profile"
-              variant="outlined"
-              sx={{ m: 1, flexGrow: 1 }}
+              sx={{
+                m: 1,
+                flexGrow: 1,
+              }}
             >
               Cancel
             </Button>
-            <Button variant="contained" onClick={handleUpdate} sx={{ m: 1, flexGrow: 1 }}>
+            <Button
+              variant="contained"
+              onClick={handleUpdate}
+              sx={{
+                m: 1,
+                flexGrow: 1,
+              }}
+            >
               Save
             </Button>
           </Stack>

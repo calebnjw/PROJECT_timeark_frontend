@@ -53,7 +53,6 @@ function AppNavbar(props: any) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          backgroundColor: "#0047AB",
         }}
       >
         <IconButton

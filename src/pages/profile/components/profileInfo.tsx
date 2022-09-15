@@ -17,8 +17,6 @@ function ProfileInfo() {
     <Box
       sx={{
         margin: "auto",
-        // width: "60vw",
-        // maxWidth: "60vw",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

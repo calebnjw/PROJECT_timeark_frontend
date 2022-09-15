@@ -46,7 +46,7 @@ function AppLayout() {
       }
     };
     getProfile();
-  }, []);
+  });
 
   return (
     <UserContext.Provider
