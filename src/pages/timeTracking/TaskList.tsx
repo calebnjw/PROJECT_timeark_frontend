@@ -11,6 +11,8 @@ import EditTimeTrackingForm from "./editTimeTrackingForm";
 import { useUserContext } from "../../context/userContext";
 import * as _ from "lodash";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 axios.defaults.withCredentials = true;
 
 const style = {
@@ -26,13 +28,13 @@ const style = {
 };
 
 interface Props {
-  data: string;
+  date: string;
   taskList: Task[];
   setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
 const TaskList = (props: Props) => {
-  const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
+  const selectedDate = format(new Date(props.date), "yyyy-MM-dd");
   const taskList = props.taskList;
   const setTaskList = props.setTaskList;
   const { userId } = useUserContext();
@@ -43,8 +45,10 @@ const TaskList = (props: Props) => {
   const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
     React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("selected date: ", selectedDate);
     const getTasksBySelectedDate = async () => {
       const tasks = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`
@@ -55,6 +59,7 @@ const TaskList = (props: Props) => {
       } else {
         setTaskList([]);
       }
+      navigate(`/app/time/${selectedDate}`);
     };
     getTasksBySelectedDate();
   }, [selectedDate]);
@@ -81,7 +86,7 @@ const TaskList = (props: Props) => {
           }
           return t;
         });
-        setTaskList([]);
+        // setTaskList([]);
         setTaskList(updatedTaskList);
       } catch (error) {
         console.log("Error message: ", error);
@@ -155,7 +160,7 @@ const TaskList = (props: Props) => {
       <Box
         sx={{
           width: "100%",
-          height: "500px",
+          height: "600px",
           display: "flex",
           flexDirection: "column",
           overflow: "auto",
@@ -327,15 +332,15 @@ const TaskList = (props: Props) => {
     if (today === selectedDate && taskList.length) {
       return (
         <Box>
-          <Box>Selected Date: {props.data}</Box>
+          <Box>Selected Date: {props.date}</Box>
           <Box>Loading Data</Box>
         </Box>
       );
     } else {
       return (
         <Box>
-          <Box>Selected Date: {props.data}</Box>
-          <Box>You haven't done any task here.</Box>
+          <Box>Selected Date: {props.date}</Box>
+          <Box>You have no time entry here.</Box>
         </Box>
       );
     }

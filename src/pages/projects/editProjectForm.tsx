@@ -64,8 +64,8 @@ const EditProjectForm = () => {
       <Box
         style={{
           width: "100%",
-          marginLeft: "15%",
-          marginTop: "80px",
+          marginLeft: "8%",
+          marginTop: "30px",
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
@@ -83,10 +83,15 @@ const EditProjectForm = () => {
               justifyContent: "space-around",
             }}
           >
-            <h3 style={{ marginBottom: "20px", textAlign: "center" }}>
+            <Typography
+              variant="h4"
+              style={{ marginBottom: "20px", textAlign: "center" }}
+            >
               Update Project
-            </h3>
-            <Typography>Client: {clientName} </Typography>
+            </Typography>
+            <Typography>
+              <b>Client: {clientName}</b>{" "}
+            </Typography>
             <TextField
               type="text"
               name="name"

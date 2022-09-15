@@ -11,6 +11,7 @@ import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
 import { useUserContext } from "../../context/userContext";
 import { format } from "date-fns";
+import { useNavigate, Link } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -25,52 +26,71 @@ const style = {
 };
 
 const Time = () => {
+  const navigate = useNavigate();
   const today = format(new Date(), "ccc dd MMM yy");
-  const [data, setData] = useState(today);
+  const [date, setDate] = useState(today);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [taskList, setTaskList] = useState<Task[]>([]);
   const { userId } = useUserContext();
-  console.log("task list: ", taskList);
+
+  // React.useEffect(() => {
+  //   navigate(`/app/time/${date}`);
+  // }, [date]);
+
+  React.useEffect(() => {
+    console.log("taskList: ", taskList);
+  }, [taskList]);
 
   const HandleShowSelectedDateTimeEntrys = (dayStr: any) => {
-    setData(dayStr);
+    setDate(dayStr);
   };
 
   //* Refactor add new time entry */
   const handleAddTimeEntry = (updatedTask: any) => {
+    console.log("updated tasks from backend: ", updatedTask);
+    console.log("taskList01: ", taskList);
+
     const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
+    console.log("taskList02: ", taskList);
+    console.log("isNewTask", isNewTask);
     if (isNewTask) {
       // If task already exists then update task
       const updatedTaskList = taskList.map((t) => {
         if (t._id == updatedTask._id) {
-          t = updatedTask;
+          const filteredTimeTracking = t.time_trackings.filter(
+            (tt) => new Date(tt.startDate) == new Date()
+          );
+          // console.log("A: filteredTimeTracking: ", filteredTimeTracking);
+          t.time_trackings = filteredTimeTracking;
         }
         return t;
       });
 
-      setTaskList([]);
+      // setTaskList([]);
+      // console.log("updatedTaskList: ", updatedTaskList);
       setTaskList(updatedTaskList);
     } else {
       //if not, add it to task list
       const updatedTaskList = [...taskList, updatedTask];
-      setTaskList([]);
+      // setTaskList([]);
+      // console.log("B: updatedTaskList: ", updatedTaskList);
+
       setTaskList(updatedTaskList);
     }
+    navigate(`/app/time/${new Date().toISOString().split("T")[0]}`);
   };
 
   return (
-    <>
-      <Box
-        style={{
-          width: "100%",
-          // marginLeft: "25%",
-          // marginRight: "10%",
-          // marginTop: "80px",
-        }}
-      >
-        <Box style={{ textAlign: "right" }}>
+    <Box
+      style={{
+        width: "100%",
+        marginLeft: "4.5%",
+      }}
+    >
+      <Box style={{ textAlign: "right" }}>
+        {date == today && (
           <Button
             variant="contained"
             color="success"
@@ -79,36 +99,42 @@ const Time = () => {
           >
             + New Tracker
           </Button>
-        </Box>
-        <Box style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
-          <Box>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style} style={{ borderRadius: "10px", border: "solid 1px gray" }}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  <NewTimeForm
-                    setOpen={setOpen}
-                    taskList={taskList}
-                    setTaskList={setTaskList}
-                    userId={userId}
-                    handleAddTimeEntry={handleAddTimeEntry}
-                  />
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Please select your project and task to start tracker. Happy Working!
-                </Typography>
-              </Box>
-            </Modal>
-          </Box>
-          <Calendar HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys} />
-        </Box>
-        {<TaskList data={data} taskList={taskList} setTaskList={setTaskList} />}
+        )}
       </Box>
-    </>
+      <Box style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
+        <Box>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={style}
+              style={{ borderRadius: "10px", border: "solid 1px gray" }}
+            >
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <NewTimeForm
+                  setOpen={setOpen}
+                  taskList={taskList}
+                  setTaskList={setTaskList}
+                  userId={userId}
+                  handleAddTimeEntry={handleAddTimeEntry}
+                />
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Please select your project and task to start tracker. Happy
+                Working!
+              </Typography>
+            </Box>
+          </Modal>
+        </Box>
+        <Calendar
+          HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
+        />
+      </Box>
+      {<TaskList date={date} taskList={taskList} setTaskList={setTaskList} />}
+    </Box>
   );
 };
 

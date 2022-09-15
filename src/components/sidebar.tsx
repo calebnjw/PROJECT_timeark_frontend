@@ -89,7 +89,7 @@ export default function Sidebar() {
                 }}
               />
               <Link
-                to="/app/time"
+                to={`/app/time/${new Date().toISOString().split("T")[0]}`}
                 style={{
                   textDecoration: "none",
                   color: "black",

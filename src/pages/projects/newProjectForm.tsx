@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import dayjs from "dayjs";
+import Typography from "@mui/material/Typography";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -69,8 +70,8 @@ const NewProjectForm = () => {
       <Box
         style={{
           width: "100%",
-          marginLeft: "15%",
-          marginTop: "80px",
+          marginLeft: "8%",
+          marginTop: "30px",
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
@@ -88,9 +89,12 @@ const NewProjectForm = () => {
               justifyContent: "space-around",
             }}
           >
-            <h3 style={{ marginBottom: "20px", textAlign: "center" }}>
+            <Typography
+              variant="h4"
+              style={{ marginBottom: "20px", textAlign: "center" }}
+            >
               New Project
-            </h3>
+            </Typography>
             {clientOptions.length ? (
               <TextField
                 select
@@ -126,7 +130,6 @@ const NewProjectForm = () => {
               defaultValue={dayjs(new Date()).format("YYYY-MM-DD")}
             />
             <TextField name="category_name" label="Category" multiline />
-            {/* </div> */}
             <div
               style={{
                 display: "flex",

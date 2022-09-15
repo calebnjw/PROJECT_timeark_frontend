@@ -41,7 +41,7 @@ const NewTimeForm = ({
       `${process.env.REACT_APP_BACKEND_URL}/projects/all`
     );
     const projects = getProjects.data.projects;
-    console.log("projects: ", projects);
+    // console.log("projects: ", projects);
 
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     setProjectList(projectsHasTasks);
@@ -104,7 +104,7 @@ const NewTimeForm = ({
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
         const updatedTask = result.data.task;
-        console.log("form: updated task: ", updatedTask);
+        console.log("new time entry form - taskList: ", taskList);
         handleAddTimeEntry(updatedTask);
         setOpen(false);
       } catch (error) {
@@ -197,7 +197,9 @@ const NewTimeForm = ({
             variant="contained"
             color="secondary"
             type="submit"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false);
+            }}
           >
             Cancel
           </Button>
