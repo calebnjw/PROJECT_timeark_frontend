@@ -56,6 +56,7 @@ function AppNavbar() {
                   marginRight: "20px",
                   marginTop: "7px",
                 }}
+                referrerPolicy="no-referrer"
               />
             </Link>
           )}

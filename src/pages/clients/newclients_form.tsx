@@ -8,8 +8,17 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context/userContext";
 import { useGlobalContext } from "../../context/clientContext";
 import AddIcon from "@mui/icons-material/Add";
+import { makeStyles } from "@material-ui/core/styles";
 
 axios.defaults.withCredentials = true;
+
+const useStyles = makeStyles((theme) => ({
+  textField: {
+    "& p": {
+      color: "#FF0000",
+    },
+  },
+}));
 
 export default function NewClientForm() {
   const { clientList, setClientList } = useGlobalContext();
@@ -25,7 +34,7 @@ export default function NewClientForm() {
   const [companyreg, setCompanyreg] = useState("");
 
   const navigate = useNavigate();
-  const { userProfile } = useUserContext();
+  const classes = useStyles();
 
   const clientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClientName(e.target.value);
@@ -114,7 +123,9 @@ export default function NewClientForm() {
           type="text"
           variant="filled"
           onChange={clientNameChange}
-          sx={{ width: 600, marginBottom: "8px", marginTop: "10px" }}
+          classes={{ root: classes.textField }}
+          helperText={clientName === "" ? "Required Field" : " "}
+          sx={{ width: 600, marginTop: "10px" }}
         />
       </div>
       <div>
@@ -125,7 +136,9 @@ export default function NewClientForm() {
           type="text"
           variant="filled"
           onChange={companyNameChange}
-          sx={{ width: 600, marginBottom: "8px" }}
+          classes={{ root: classes.textField }}
+          helperText={companyName === "" ? "Required Field" : " "}
+          sx={{ width: 600 }}
         />
       </div>
       <div>
@@ -136,7 +149,9 @@ export default function NewClientForm() {
           type="text"
           variant="filled"
           onChange={streetNumberChange}
-          sx={{ width: 600, marginBottom: "8px" }}
+          classes={{ root: classes.textField }}
+          helperText={streetNumber === "" ? "Required Field" : " "}
+          sx={{ width: 600 }}
         />
       </div>
       <div>
@@ -146,7 +161,9 @@ export default function NewClientForm() {
           label="Unit Number"
           variant="filled"
           onChange={unitNumberChange}
-          sx={{ width: 600, marginBottom: "8px" }}
+          classes={{ root: classes.textField }}
+          helperText={unitNumber === "" ? "Required Field" : " "}
+          sx={{ width: 600 }}
         />
       </div>
       <div>
@@ -157,7 +174,9 @@ export default function NewClientForm() {
           type="text"
           variant="filled"
           onChange={buildingNameChange}
-          sx={{ width: 600, marginBottom: "8px" }}
+          classes={{ root: classes.textField }}
+          helperText={buildingName === "" ? "Required Field" : " "}
+          sx={{ width: 600 }}
         />
       </div>
       <div>
@@ -167,8 +186,10 @@ export default function NewClientForm() {
           label="City Name"
           type="text"
           variant="filled"
-          sx={{ width: 600, marginBottom: "8px" }}
+          sx={{ width: 600 }}
           onChange={cityNameChange}
+          classes={{ root: classes.textField }}
+          helperText={cityName === "" ? "Required Field" : " "}
         />
       </div>
       <div>
@@ -178,8 +199,10 @@ export default function NewClientForm() {
           label="Country"
           type="text"
           variant="filled"
-          sx={{ width: 600, marginBottom: "5px" }}
+          sx={{ width: 600 }}
           onChange={countryNameChange}
+          classes={{ root: classes.textField }}
+          helperText={countryName === "" ? "Required Field" : " "}
         />
       </div>
       <div>
@@ -190,7 +213,9 @@ export default function NewClientForm() {
           type="text"
           variant="filled"
           onChange={postalCodeChange}
-          sx={{ width: 600, marginBottom: "8px" }}
+          classes={{ root: classes.textField }}
+          helperText={postalCode === "" ? "Required Field" : " "}
+          sx={{ width: 600 }}
         />
       </div>
       <div>
@@ -201,7 +226,9 @@ export default function NewClientForm() {
           type="text"
           variant="filled"
           onChange={companyregChange}
-          sx={{ width: 600, marginBottom: "8px" }}
+          sx={{ width: 600 }}
+          classes={{ root: classes.textField }}
+          helperText={companyreg === "" ? "Required Field" : " "}
         />
       </div>
       <Box mt="2rem">

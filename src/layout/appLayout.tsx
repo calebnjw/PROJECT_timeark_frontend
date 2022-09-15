@@ -24,9 +24,7 @@ function AppLayout() {
 
   // get client list
   const getClients = async () => {
-    const result = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/clients`
-    );
+    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
     setClientList(result.data);
   };
 
@@ -34,9 +32,7 @@ function AppLayout() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/users/user`
-        );
+        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
         const userId = result.data.user._id;
         if (userId) {
           getClients();
@@ -73,13 +69,18 @@ function AppLayout() {
           <Grid
             container
             direction="row"
-            justifyContent="space-between"
-            alignItems="center"
+            alignItems="flex-start"
+            spacing={3}
+            sx={{
+              marginTop: "8vh",
+            }}
           >
             <Grid item>
               <Sidebar />
             </Grid>
-            <Outlet />
+            <Grid item>
+              <Outlet />
+            </Grid>
           </Grid>
         </Box>
       </ClientGlobalContext.Provider>
