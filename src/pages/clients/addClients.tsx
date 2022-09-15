@@ -9,7 +9,6 @@ export default function Clients() {
     <div>
       <Box sx={{ mt: "2rem" }}>
         <Grid container direction="row" justifyContent="center" alignItems="center">
-          <Sidebar />
           <ClientSidebar />
           <Grid item xs={6}>
             <NewClient />

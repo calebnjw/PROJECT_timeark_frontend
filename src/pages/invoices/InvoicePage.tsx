@@ -89,7 +89,7 @@ const InvoicePage = () => {
         <div className="invoice-container">
           <h1 style={{ textAlign: "center" }}>All Projects</h1>
           <div className="project-table">
-            <TableContainer style={{ paddingLeft: "500px", paddingRight: "50px" }}>
+            <TableContainer style={{ paddingRight: "50px" }}>
               <Table>
                 <TableHead>
                   <TableRow>
