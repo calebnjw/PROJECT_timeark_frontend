@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -33,7 +33,7 @@ const DashboardList = ({ client }: Props) => {
   return (
     <ul>
       {projectList.map((project, idx) => (
-        <li
+        <Box
           key={idx}
           style={{
             display: "flex",
@@ -41,6 +41,7 @@ const DashboardList = ({ client }: Props) => {
             width: "600px",
             justifyContent: "space-between",
             margin: "5px 0 5px 0",
+            padding: "0 5px 0 5px",
             height: "50px",
             borderLeft: "10px solid",
             borderLeftColor: colors[idx % colors.length],
@@ -48,21 +49,13 @@ const DashboardList = ({ client }: Props) => {
             borderRight: "1px solid black",
             borderBottom: "1px solid black",
           }}
+          onClick={() => {
+            navigate(`/app/projects/${project._id}`);
+          }}
         >
-          {" "}
-          <Box
-            style={{
-              flexDirection: "column",
-              marginLeft: "5px",
-              marginTop: "50px",
-            }}
-            onClick={() => {
-              navigate(`/app/projects/${project._id}`);
-            }}
-          >
+          <Stack>
             <p
               style={{
-                marginTop: "-50px",
                 fontWeight: "600",
               }}
             >
@@ -75,17 +68,17 @@ const DashboardList = ({ client }: Props) => {
             >
               {client.client_name}
             </p>
-          </Box>
+          </Stack>
           <p
             style={{
-              paddingRight: "10px",
               fontWeight: "600",
-              marginTop: "10px",
+              textAlign: "right",
+              alignSelf: "center",
             }}
           >
             ${project.budget}
           </p>
-        </li>
+        </Box>
       ))}
     </ul>
   );
