@@ -1,39 +1,55 @@
 import DashboardList from "./dashboardlist";
 import { useGlobalContext } from "../../context/clientContext";
-import { Paper } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Button, Card, CardContent, Paper, Stack, Typography } from "@mui/material";
 
 export default function DashboardProject() {
   const { clientList, setClientList } = useGlobalContext();
 
   return (
     <Paper
-      elevation={7}
-      variant="outlined"
+      elevation={2}
+      // variant="outlined"
       style={{
         display: "flex",
         flexDirection: "column",
         // marginTop: "80px",
-        marginRight: "15%",
-        width: "800px",
+        // marginRight: "15%",
+        // width: "800px",
         backgroundColor: "#f0f0f0",
+        padding: "15px",
       }}
     >
-      <div
+      {/* <Card
+        raised
         style={{
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <h2
+        <CardContent> */}
+      <Stack direction="row">
+        <Typography
+          variant="h4"
           style={{
-            marginLeft: "10%",
+            // marginLeft: "10%",
+            flexGrow: 1,
           }}
         >
           Projects
-        </h2>
+        </Typography>
+        <Button variant="contained" color="success">
+          <Link to="/app/projects/new" style={{ color: "white", textDecoration: "none" }}>
+            + New Project
+          </Link>
+        </Button>
+      </Stack>
+
+      {clientList.length > 0 && (
         <ul
           style={{
             listStyleType: "none",
+            marginTop: "30px",
           }}
         >
           {clientList.map((client, idx) => (
@@ -42,7 +58,9 @@ export default function DashboardProject() {
             </li>
           ))}
         </ul>
-      </div>
+      )}
+      {/* </CardContent>
+      </Card> */}
     </Paper>
   );
 }
