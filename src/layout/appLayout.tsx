@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
-import { Box, Button, Divider, List, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  List,
+  IconButton,
+  Stack,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
@@ -84,22 +93,22 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-    boxSizing: "border-box",
-    ...(open && {
-      ...openedMixin(theme),
-      "& .MuiDrawer-paper": openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      "& .MuiDrawer-paper": closedMixin(theme),
-    }),
-  })
-);
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
 
 function AppLayout() {
   const [clientList, setClientList] = useState<[]>([]);
@@ -114,7 +123,9 @@ function AppLayout() {
 
   // get client list
   const getClients = async () => {
-    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
+    const result = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/clients`
+    );
     setClientList(result.data);
   };
 
@@ -122,7 +133,9 @@ function AppLayout() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/users/user`
+        );
         const userId = result.data.user._id;
         if (userId) {
           getClients();
@@ -215,7 +228,13 @@ function AppLayout() {
                   Time Ark
                 </Typography>
               </Link>
-              <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
                 {userProfile?.photos && (
                   <Link to={"/app/profile"}>
                     <img
@@ -246,12 +265,20 @@ function AppLayout() {
           <Drawer variant="permanent" open={open}>
             <DrawerHeader>
               <IconButton onClick={handleDrawerClose}>
-                {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                {theme.direction === "rtl" ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
               </IconButton>
             </DrawerHeader>
             <Divider />
             <List>
-              <ListItem key="Dashboard" disablePadding sx={{ display: "block" }}>
+              <ListItem
+                key="Dashboard"
+                disablePadding
+                sx={{ display: "block" }}
+              >
                 <ListItemButton
                   sx={{
                     minHeight: 48,
@@ -271,7 +298,10 @@ function AppLayout() {
                   >
                     <DashboardIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText
+                    primary="Dashboard"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
                 </ListItemButton>
               </ListItem>
             </List>
@@ -297,7 +327,10 @@ function AppLayout() {
                   >
                     <PersonIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Clients" sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText
+                    primary="Clients"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
                 </ListItemButton>
               </ListItem>
               <ListItem key="Projects" disablePadding sx={{ display: "block" }}>
@@ -320,10 +353,17 @@ function AppLayout() {
                   >
                     <WorkIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Projects" sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText
+                    primary="Projects"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
                 </ListItemButton>
               </ListItem>
-              <ListItem key="Time Tracking" disablePadding sx={{ display: "block" }}>
+              <ListItem
+                key="Time Tracking"
+                disablePadding
+                sx={{ display: "block" }}
+              >
                 <ListItemButton
                   sx={{
                     minHeight: 48,
@@ -343,7 +383,10 @@ function AppLayout() {
                   >
                     <AccessTimeFilledIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Time Tracking" sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText
+                    primary="Time Tracking"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
                 </ListItemButton>
               </ListItem>
               <ListItem key="Invoices" disablePadding sx={{ display: "block" }}>
@@ -366,12 +409,22 @@ function AppLayout() {
                   >
                     <ReceiptIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Invoices" sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText
+                    primary="Invoices"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
                 </ListItemButton>
               </ListItem>
             </List>
           </Drawer>
-          <div style={{ marginTop: "10vh", marginLeft: "20px", flexGrow: 1, maxWidth: "75vw" }}>
+          <div
+            style={{
+              marginTop: "15vh",
+              marginLeft: "20px",
+              flexGrow: 1,
+              maxWidth: "75vw",
+            }}
+          >
             <Outlet />
           </div>
           {/* </Stack> */}
