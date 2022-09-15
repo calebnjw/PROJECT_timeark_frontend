@@ -38,7 +38,10 @@ export default function SingleClient() {
   let { clientList } = useGlobalContext();
 
   useEffect(() => {
-    function getSingleClient(clientid: string | undefined, clientlist: Client[]): Client[] {
+    function getSingleClient(
+      clientid: string | undefined,
+      clientlist: Client[]
+    ): Client[] {
       return clientList.filter((element) => element._id === clientid);
     }
     if (!isLoaded && clientId !== undefined && clientList.length !== 0) {
@@ -51,9 +54,13 @@ export default function SingleClient() {
 
   return (
     <div>
-      <Box style={{ width: "70%", marginLeft: "0%", marginTop: "100px" }}>
-        <Grid container direction="row" justifyContent="center" alignItems="center">
-          <ClientSidebar />
+      <Box style={{ width: "100%", marginTop: "10%" }}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Grid item xs={6}>
             {!isLoaded && client === undefined ? (
               <Box>
@@ -71,7 +78,10 @@ export default function SingleClient() {
                   <p>City Name: {client.billing_details.city}</p>
                   <p>Country: {client.billing_details.country}</p>
                   <p>Postal Code: {client.billing_details.postal_code}</p>
-                  <p>Company Registration: {client.billing_details.company_registration}</p>
+                  <p>
+                    Company Registration:{" "}
+                    {client.billing_details.company_registration}
+                  </p>
                 </Box>
                 <Box mt="2rem">
                   <Button

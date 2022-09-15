@@ -31,7 +31,6 @@ const useStyles = makeStyles({
 
 const ClientSidebar = () => {
   const classes = useStyles();
-  const { userProfile } = useUserContext();
   const { clientList } = useGlobalContext();
 
   const navigate = useNavigate();

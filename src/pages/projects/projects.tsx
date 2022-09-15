@@ -30,7 +30,11 @@ const Projects = () => {
           <Grid item xs={6}>
             <h2>Clients/Projects</h2>
           </Grid>
-          <Grid item xs={6} style={{ textAlign: "right", marginRight: "100px" }}>
+          <Grid
+            item
+            xs={6}
+            style={{ textAlign: "right", marginRight: "100px" }}
+          >
             <Button variant="contained" color="success">
               <Link to="new" style={{ color: "white", textDecoration: "none" }}>
                 + New Project
