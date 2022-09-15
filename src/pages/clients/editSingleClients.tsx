@@ -20,15 +20,13 @@ export default function EditSingleClient() {
 
   return (
     <div>
-      <Box style={{ width: "70%", marginTop: "80px", marginLeft: "50%" }}>
+      <Box style={{ width: "100%" }}>
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="center"
         >
-          <Sidebar />
-          <ClientSidebar />
           <Grid item>
             {!isLoaded && client === undefined ? (
               <Box>

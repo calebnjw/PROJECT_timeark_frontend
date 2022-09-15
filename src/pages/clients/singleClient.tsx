@@ -54,15 +54,13 @@ export default function SingleClient() {
 
   return (
     <div>
-      <Box style={{ width: "70%", marginLeft: "0%", marginTop: "100px" }}>
+      <Box style={{ width: "100%", marginTop: "10%" }}>
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="center"
         >
-          <Sidebar />
-          <ClientSidebar />
           <Grid item xs={6}>
             {!isLoaded && client === undefined ? (
               <Box>

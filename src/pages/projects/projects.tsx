@@ -20,8 +20,6 @@ const Projects = () => {
       <Container
         style={{
           width: "100%",
-          marginLeft: "23%",
-          marginTop: "100px",
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
