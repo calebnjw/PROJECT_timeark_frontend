@@ -24,7 +24,6 @@ import {
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import GenerateInvoice from "./GenerateInvoice";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
@@ -177,13 +176,14 @@ const MyTable = () => {
                           <ReceiptRoundedIcon />
                         </Button>
                       </StyledTableCell>
-                      <StyledTableCell align="center"><Button
+                      <StyledTableCell align="center">
+                        <Button
                 variant="contained"
                 color="error"
                 type="submit"
                 onClick = {() => {handleDeleteButton(i._id)}}
               >
-                <DeleteForeverIcon/>
+                {<DeleteForeverIcon/>}
               </Button></StyledTableCell>
 
                     </StyledTableRow>

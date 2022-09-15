@@ -37,7 +37,7 @@ const InvoicePageList = ({ client }: Props) => {
           <TableHead>
             <TableRow sx={{ backgroundColor: "lightgray" }}>
               <TableCell>Project</TableCell>
-              <TableCell align="right">View Invoices</TableCell>
+              <TableCell align="right">Project Invoices</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
