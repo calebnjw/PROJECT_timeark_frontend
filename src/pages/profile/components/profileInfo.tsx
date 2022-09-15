@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Box, Divider, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Button, Box, Stack, Typography } from "@mui/material";
+
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import BusinessIcon from "@mui/icons-material/Business";

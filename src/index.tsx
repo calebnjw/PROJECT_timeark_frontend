@@ -18,13 +18,13 @@ const themePalette = createTheme({
       main: "#1793d1",
     },
     error: {
-      main: "#ce181e",
+      main: "#e62851",
     },
     warning: {
-      main: "#ffc20e",
+      main: "#e6bc28",
     },
     info: {
-      main: "#1793d1",
+      main: "#2850e6",
     },
     success: {
       main: "#009f4d",
