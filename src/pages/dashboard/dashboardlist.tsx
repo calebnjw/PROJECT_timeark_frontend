@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Client } from "../../types/client";
-import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
 import { Box, Stack } from "@mui/material";
+
+import { Client } from "../../types/client";
+import { Project } from "../../types/project";
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
 

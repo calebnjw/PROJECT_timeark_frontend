@@ -18,8 +18,6 @@ function TimeSpentChart({ timeperiod }: Props) {
   console.log(timeperiod);
 
   useEffect(() => {
-    console.log(userProfile);
-    console.log(timeperiod);
     const pieChartData = async () => {
       if (userProfile) {
         const result = await axios.get(
@@ -31,7 +29,6 @@ function TimeSpentChart({ timeperiod }: Props) {
             },
           }
         );
-        console.log(result.data);
         setGetData(result.data);
         setIsLoaded(true);
       }

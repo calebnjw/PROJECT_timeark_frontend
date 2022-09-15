@@ -36,7 +36,7 @@ function AmtEarnedChart() {
     tooltip: {
       trigger: "item",
       formatter: function (params: any) {
-        var value = "<b>" + params.value[0] + " " + "</b>";
+        var value = "<b>" + params.value[0] + " </b>";
         var percentage = ((params.value[1] / params.value[2]) * 100).toFixed(2);
         return (
           value +
