@@ -15,7 +15,6 @@ function TimeSpentChart({ timeperiod }: Props) {
   const { userProfile } = useUserContext();
   const [getData, setGetData] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  console.log(timeperiod);
 
   useEffect(() => {
     const pieChartData = async () => {
