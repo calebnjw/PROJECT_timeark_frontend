@@ -115,7 +115,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
         label="Client Name"
         value={clientName}
         onChange={clientNameChange}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
       />
       <TextField
         required
@@ -123,7 +123,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
         label="Company Name"
         value={companyName}
         onChange={companyNameChange}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
       />
 
       <TextField
@@ -132,7 +132,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
         label="Street Name"
         value={streetNumber}
         onChange={streetNumberChange}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
       />
       <TextField
         required
@@ -140,7 +140,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
         label="Unit Number"
         value={unitNumber}
         onChange={unitNumberChange}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
       />
       <TextField
         required
@@ -148,14 +148,14 @@ export default function EditClientForm({ client, setClientList }: Props) {
         label="Building Name"
         value={buildingName}
         onChange={buildingNameChange}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
       />
       <TextField
         required
         id="cityName"
         label="City Name"
         value={cityName}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
         onChange={cityNameChange}
       />
       <TextField
@@ -163,7 +163,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
         id="countryName"
         label="Country"
         value={countryName}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
         onChange={countryNameChange}
       />
       <TextField
@@ -172,7 +172,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
         label="Postal Code"
         value={postalCode}
         onChange={postalCodeChange}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
       />
       <TextField
         required
@@ -180,7 +180,7 @@ export default function EditClientForm({ client, setClientList }: Props) {
         label="Company Registration"
         value={companyreg}
         onChange={companyregChange}
-        sx={{ width: 600 }}
+        sx={{ width: 600, marginTop: "10px" }}
       />
       <Box mt="2rem">
         <Button variant="contained" onClick={handleEditClient}>

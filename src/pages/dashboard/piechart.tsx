@@ -81,13 +81,6 @@ function TimeSpentChart({ timeperiod }: Props) {
             backgroundColor: "#f0f0f0",
           }}
         >
-          {/* <p
-            style={{
-              textAlign: "center",
-            }}
-          >
-            {timeperiod} view
-          </p> */}
           <ReactEcharts option={option} />
         </Paper>
       )}
