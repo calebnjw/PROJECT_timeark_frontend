@@ -15,14 +15,6 @@ const DashboardList = ({ client }: Props) => {
   const [projectList, setProjectList] = useState<Project[]>([]);
   const navigate = useNavigate();
 
-  // function changeBackground(e: any) {
-  //   e.target.style.background = "yellow";
-  // }
-
-  // function revertBackground(e: any) {
-  //   e.target.style.background = "white";
-  // }
-
   const colors = ["Blue", "Red", "Orange", "Green", "Yellow"];
 
   useEffect(() => {
@@ -56,28 +48,18 @@ const DashboardList = ({ client }: Props) => {
             borderRight: "1px solid black",
             borderBottom: "1px solid black",
           }}
-          // onMouseOver={changeBackground}
-          // onMouseOut={revertBackground}
         >
           {" "}
           <Box
             style={{
               flexDirection: "column",
               marginLeft: "5px",
-              marginTop: "5px",
-              paddingTop: "8px",
+              marginTop: "50px",
             }}
             onClick={() => {
               navigate(`/app/projects/${project._id}`);
             }}
           >
-            <p
-              style={{
-                fontSize: "12px",
-              }}
-            >
-              {client.client_name}
-            </p>
             <p
               style={{
                 marginTop: "-50px",
@@ -86,11 +68,19 @@ const DashboardList = ({ client }: Props) => {
             >
               {project.name}
             </p>
+            <p
+              style={{
+                fontSize: "12px",
+              }}
+            >
+              {client.client_name}
+            </p>
           </Box>
           <p
             style={{
               paddingRight: "10px",
               fontWeight: "600",
+              marginTop: "10px",
             }}
           >
             ${project.budget}
