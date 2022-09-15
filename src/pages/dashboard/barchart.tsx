@@ -65,10 +65,10 @@ function AmtEarnedChart() {
     series: [
       {
         type: "bar",
-        barGap: "0%",
-        barCategoryGap: "20%",
+        barGap: "20%",
+        barCategoryGap: "40%",
       },
-      { type: "bar", barGap: "0%", barCategoryGap: "20%" },
+      { type: "bar", barGap: "20%", barCategoryGap: "20%" },
     ],
   };
 
