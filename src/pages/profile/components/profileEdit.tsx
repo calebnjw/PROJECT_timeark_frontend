@@ -185,14 +185,12 @@ function ProfileEdit() {
                 required
                 label="First Name"
                 value={givenName}
-                // defaultValue={userProfile.name.givenName}
                 onChange={userGivenNameChange}
                 sx={{ m: 1, minWidth: "31%" }}
               />
               <TextField
                 label="Middle Name"
                 value={middleName}
-                // defaultValue={userProfile.name.middleName}
                 onChange={userMiddleNameChange}
                 sx={{ m: 1, minWidth: "31%" }}
               />
@@ -200,7 +198,6 @@ function ProfileEdit() {
                 required
                 label="Family Name"
                 value={familyName}
-                // defaultValue={userProfile.name.familyName}
                 onChange={userFamilyNameChange}
                 sx={{ m: 1, minWidth: "31%" }}
               />
@@ -220,11 +217,10 @@ function ProfileEdit() {
               }}
             >
               {(userProfile.provider && (
-                // disable editing of email if it's provided by external service
                 <TextField
                   disabled
                   label="Email"
-                  // defaultValue={userProfile.emails[0].value}
+                  defaultValue={userProfile.emails[0].value}
                   fullWidth
                   sx={{ m: 1 }}
                 />
@@ -233,7 +229,6 @@ function ProfileEdit() {
                   required
                   label="Email"
                   value={email}
-                  // defaultValue={userProfile.emails[0].value}
                   onChange={userEmailChange}
                   fullWidth
                   sx={{ m: 1 }}
@@ -268,10 +263,6 @@ function ProfileEdit() {
               <TextField
                 label="Registration Number"
                 value={companyRegistration}
-                // defaultValue={
-                //   (userProfile.billingDetails && userProfile.billingDetails.companyRegistration) ||
-                //   ""
-                // }
                 onChange={userCompanyRegistrationChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -279,9 +270,6 @@ function ProfileEdit() {
                 required
                 label="Contact Number"
                 value={contactNumber}
-                // defaultValue={
-                //   (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
-                // }
                 onChange={userContactNumberChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -297,9 +285,6 @@ function ProfileEdit() {
               <TextField
                 label="Building Name"
                 value={buildingName}
-                // defaultValue={
-                //   (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
-                // }
                 onChange={userBuildingNameChange}
                 fullWidth
                 sx={{ m: 1 }}
@@ -308,9 +293,6 @@ function ProfileEdit() {
                 required
                 label="Street Name"
                 value={streetName}
-                // defaultValue={
-                //   (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
-                // }
                 onChange={userStreetNameChange}
                 fullWidth
                 sx={{ m: 1 }}
@@ -318,9 +300,6 @@ function ProfileEdit() {
               <TextField
                 label="Unit Number"
                 value={unitNumber}
-                // defaultValue={
-                //   (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
-                // }
                 onChange={userUnitNumberChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -328,9 +307,6 @@ function ProfileEdit() {
                 required
                 label="Postal Code"
                 value={postalCode}
-                // defaultValue={
-                //   (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
-                // }
                 onChange={userPostalCodeChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -338,7 +314,6 @@ function ProfileEdit() {
                 required
                 label="City"
                 value={city}
-                // defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
                 onChange={userCityChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -346,9 +321,6 @@ function ProfileEdit() {
                 required
                 label="Country"
                 value={country}
-                // defaultValue={
-                //   (userProfile.billingDetails && userProfile.billingDetails.country) || ""
-                // }
                 onChange={userCountryChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
