@@ -1,5 +1,5 @@
-import AppNavbar from "../../components/navbar-App";
-import Sidebar from "../../components/sidebar";
+// import AppNavbar from "../../components/navbar-App";
+// import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import ProjectList from "./projectList";
 import { Link } from "react-router-dom";
@@ -14,53 +14,46 @@ const Projects = () => {
   const { clientList, setClientList } = useGlobalContext();
 
   return (
-    <>
-      <AppNavbar />
-      <Sidebar />
-      <Container
-        style={{
-          width: "100%",
-        }}
-      >
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Grid item xs={6}>
-              <h2>Clients/Projects</h2>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              style={{ textAlign: "right", marginRight: "100px" }}
-            >
-              <Button variant="contained" color="success">
-                <Link
-                  to="new"
-                  style={{ color: "white", textDecoration: "none" }}
-                >
-                  + New Project
-                </Link>
-              </Button>
-            </Grid>
+    <Container
+      style={{
+        width: "100%",
+      }}
+    >
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Grid item xs={6}>
+            <h2>Clients/Projects</h2>
           </Grid>
-          <Stack>
-            {clientList.map((client, idx) => (
-              <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
-                <Typography style={{ fontWeight: "400" }}>
-                  <b>{client.client_name}</b>
-                </Typography>
-                <ProjectList client={client} />
-              </li>
-            ))}
-          </Stack>
-        </Box>
-      </Container>
-    </>
+          <Grid
+            item
+            xs={6}
+            style={{ textAlign: "right", marginRight: "100px" }}
+          >
+            <Button variant="contained" color="success">
+              <Link to="new" style={{ color: "white", textDecoration: "none" }}>
+                + New Project
+              </Link>
+            </Button>
+          </Grid>
+        </Grid>
+        <Stack>
+          {clientList.map((client, idx) => (
+            <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
+              <Typography style={{ fontWeight: "400" }}>
+                <b>{client.client_name}</b>
+              </Typography>
+              <ProjectList client={client} />
+            </li>
+          ))}
+        </Stack>
+      </Box>
+    </Container>
   );
 };
 

@@ -11,6 +11,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+
 const drawerWidth = 240;
 
 export default function Sidebar() {
