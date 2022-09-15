@@ -21,9 +21,9 @@ const Dashboard = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        width: "800px",
-        marginLeft: "23%",
-        marginTop: "20px",
+        // width: "800px",
+        // marginLeft: "23%",
+        // marginTop: "20px",
       }}
     >
       <DashboardProject />
