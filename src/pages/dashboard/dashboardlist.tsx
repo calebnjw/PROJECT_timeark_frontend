@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Client } from "../../types/client";
-import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+
+import { Client } from "../../types/client";
+import { Project } from "../../types/project";
+
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -19,12 +21,9 @@ const DashboardList = ({ client }: Props) => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        {
-          params: { client_id: clientId, autoCorrect: true },
-        }
-      );
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
+        params: { client_id: clientId, autoCorrect: true },
+      });
       setProjectList(result.data.projects);
     };
     getProjects();

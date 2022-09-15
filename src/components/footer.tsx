@@ -10,7 +10,7 @@ export default function Footer() {
         left: 0,
         right: 0,
         align: "center",
-        bgcolor: "primary.main",
+        bgcolor: "primary.dark",
         color: "white",
         justifyContent: "center",
         alignItems: "center",

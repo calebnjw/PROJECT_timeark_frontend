@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Box, Divider, Grid, TextField, Typography, Stack } from "@mui/material";
+import { Button, Box, TextField, Typography, Stack } from "@mui/material";
 
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
@@ -68,7 +68,7 @@ function ProfileEdit() {
           : setCompanyRegistration("");
       }
     }
-  }, [userProfile]);
+  }, []);
 
   const handleDeleteUser = async () => {
     const result: any = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/users/delete`);
@@ -114,14 +114,16 @@ function ProfileEdit() {
   };
 
   // a whole bunch of state change handlers
-  const userFamilyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFamilyName(e.target.value);
-  };
   const userGivenNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("BEFORE CHANGE", givenName);
     setGivenName(e.target.value);
+    console.log("AFTER CHANGE", givenName);
   };
   const userMiddleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMiddleName(e.target.value);
+  };
+  const userFamilyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFamilyName(e.target.value);
   };
   const userEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -183,14 +185,14 @@ function ProfileEdit() {
                 required
                 label="First Name"
                 value={givenName}
-                defaultValue={userProfile.name.givenName}
+                // defaultValue={userProfile.name.givenName}
                 onChange={userGivenNameChange}
                 sx={{ m: 1, minWidth: "31%" }}
               />
               <TextField
                 label="Middle Name"
                 value={middleName}
-                defaultValue={userProfile.name.middleName}
+                // defaultValue={userProfile.name.middleName}
                 onChange={userMiddleNameChange}
                 sx={{ m: 1, minWidth: "31%" }}
               />
@@ -198,7 +200,7 @@ function ProfileEdit() {
                 required
                 label="Family Name"
                 value={familyName}
-                defaultValue={userProfile.name.familyName}
+                // defaultValue={userProfile.name.familyName}
                 onChange={userFamilyNameChange}
                 sx={{ m: 1, minWidth: "31%" }}
               />
@@ -222,7 +224,7 @@ function ProfileEdit() {
                 <TextField
                   disabled
                   label="Email"
-                  defaultValue={userProfile.emails[0].value}
+                  // defaultValue={userProfile.emails[0].value}
                   fullWidth
                   sx={{ m: 1 }}
                 />
@@ -231,7 +233,7 @@ function ProfileEdit() {
                   required
                   label="Email"
                   value={email}
-                  defaultValue={userProfile.emails[0].value}
+                  // defaultValue={userProfile.emails[0].value}
                   onChange={userEmailChange}
                   fullWidth
                   sx={{ m: 1 }}
@@ -266,10 +268,10 @@ function ProfileEdit() {
               <TextField
                 label="Registration Number"
                 value={companyRegistration}
-                defaultValue={
-                  (userProfile.billingDetails && userProfile.billingDetails.companyRegistration) ||
-                  ""
-                }
+                // defaultValue={
+                //   (userProfile.billingDetails && userProfile.billingDetails.companyRegistration) ||
+                //   ""
+                // }
                 onChange={userCompanyRegistrationChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -277,9 +279,9 @@ function ProfileEdit() {
                 required
                 label="Contact Number"
                 value={contactNumber}
-                defaultValue={
-                  (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
-                }
+                // defaultValue={
+                //   (userProfile.billingDetails && userProfile.billingDetails.contactNumber) || ""
+                // }
                 onChange={userContactNumberChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -295,9 +297,9 @@ function ProfileEdit() {
               <TextField
                 label="Building Name"
                 value={buildingName}
-                defaultValue={
-                  (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
-                }
+                // defaultValue={
+                //   (userProfile.billingDetails && userProfile.billingDetails.buildingName) || ""
+                // }
                 onChange={userBuildingNameChange}
                 fullWidth
                 sx={{ m: 1 }}
@@ -306,9 +308,9 @@ function ProfileEdit() {
                 required
                 label="Street Name"
                 value={streetName}
-                defaultValue={
-                  (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
-                }
+                // defaultValue={
+                //   (userProfile.billingDetails && userProfile.billingDetails.streetName) || ""
+                // }
                 onChange={userStreetNameChange}
                 fullWidth
                 sx={{ m: 1 }}
@@ -316,9 +318,9 @@ function ProfileEdit() {
               <TextField
                 label="Unit Number"
                 value={unitNumber}
-                defaultValue={
-                  (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
-                }
+                // defaultValue={
+                //   (userProfile.billingDetails && userProfile.billingDetails.unitNumber) || ""
+                // }
                 onChange={userUnitNumberChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -326,9 +328,9 @@ function ProfileEdit() {
                 required
                 label="Postal Code"
                 value={postalCode}
-                defaultValue={
-                  (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
-                }
+                // defaultValue={
+                //   (userProfile.billingDetails && userProfile.billingDetails.postalCode) || ""
+                // }
                 onChange={userPostalCodeChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -336,7 +338,7 @@ function ProfileEdit() {
                 required
                 label="City"
                 value={city}
-                defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
+                // defaultValue={(userProfile.billingDetails && userProfile.billingDetails.city) || ""}
                 onChange={userCityChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -344,9 +346,9 @@ function ProfileEdit() {
                 required
                 label="Country"
                 value={country}
-                defaultValue={
-                  (userProfile.billingDetails && userProfile.billingDetails.country) || ""
-                }
+                // defaultValue={
+                //   (userProfile.billingDetails && userProfile.billingDetails.country) || ""
+                // }
                 onChange={userCountryChange}
                 sx={{ m: 1, minWidth: "47%" }}
               />
@@ -355,21 +357,33 @@ function ProfileEdit() {
           <Stack direction="row">
             <Button
               variant="contained"
-              color="warning"
+              color="error"
               onClick={handleDeleteUser}
-              sx={{ m: 1, minWidth: "20%" }}
+              sx={{
+                m: 1,
+                minWidth: "20%",
+              }}
             >
               Delete Account
             </Button>
             <Button
               component={Link}
               to="/app/profile"
-              variant="outlined"
-              sx={{ m: 1, flexGrow: 1 }}
+              sx={{
+                m: 1,
+                flexGrow: 1,
+              }}
             >
               Cancel
             </Button>
-            <Button variant="contained" onClick={handleUpdate} sx={{ m: 1, flexGrow: 1 }}>
+            <Button
+              variant="contained"
+              onClick={handleUpdate}
+              sx={{
+                m: 1,
+                flexGrow: 1,
+              }}
+            >
               Save
             </Button>
           </Stack>
