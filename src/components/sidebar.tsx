@@ -19,6 +19,8 @@ import WorkIcon from "@mui/icons-material/Work";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 
+import NavListItem from "./navListItem";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -72,7 +74,6 @@ export default function Sidebar(props: any) {
   const { open, setOpen } = props;
 
   const theme = useTheme();
-  const navigate = useNavigate();
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -87,124 +88,24 @@ export default function Sidebar(props: any) {
       </DrawerHeader>
       <Divider />
       <List>
-        <ListItem key="Dashboard" disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            onClick={() => {
-              navigate("/app/dashboard");
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
+        <NavListItem open={open} name={"Dashboard"} linkTo={"dashboard"}>
+          <DashboardIcon />
+        </NavListItem>
       </List>
       <Divider />
       <List>
-        <ListItem key="Clients" disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            onClick={() => {
-              navigate("/app/clients");
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Clients" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key="Projects" disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            onClick={() => {
-              navigate("/app/projects");
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <WorkIcon />
-            </ListItemIcon>
-            <ListItemText primary="Projects" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key="Time Tracking" disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            onClick={() => {
-              navigate("/app/time");
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <AccessTimeFilledIcon />
-            </ListItemIcon>
-            <ListItemText primary="Time Tracking" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key="Invoices" disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-            onClick={() => {
-              navigate("/app/invoices");
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <ReceiptIcon />
-            </ListItemIcon>
-            <ListItemText primary="Invoices" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
+        <NavListItem open={open} name={"Clients"} linkTo={"clients"}>
+          <PersonIcon />
+        </NavListItem>
+        <NavListItem open={open} name={"Projects"} linkTo={"projects"}>
+          <WorkIcon />
+        </NavListItem>
+        <NavListItem open={open} name={"Time Tracking"} linkTo={"time"}>
+          <AccessTimeFilledIcon />
+        </NavListItem>
+        <NavListItem open={open} name={"Invoices"} linkTo={"invoices"}>
+          <ReceiptIcon />
+        </NavListItem>
       </List>
     </Drawer>
   );
