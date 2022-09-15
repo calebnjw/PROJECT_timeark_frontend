@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { ClientGlobalContext } from "../../context/clientContext";
-import ClientSidebar from "./clients_sidebar";
 import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,11 +7,11 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
 import { Project } from "../../types/project";
 import { Client } from "../../types/client";
-import { useGlobalContext } from "../../context/clientContext";
 import {
   Table,
   TableRow,
   TableCell,
+  Paper,
   styled,
   Button,
   Grid,
@@ -22,7 +21,8 @@ import {
   TableBody,
 } from "@mui/material";
 axios.defaults.withCredentials = true;
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 //===================================Table styling==========================//
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -103,54 +103,65 @@ const GenerateInvoice = () => {
 
   return (
     <>
-      {/* {setClientId && <ClientSidebar setClientId={setClientId} />} */}
       <div className="invoice-heading">
         <div
           className="generate-invoice-container"
-          style={{ width: "100%", paddingLeft: "410px", paddingTop: "80px", paddingRight: "50px" }}
+          style={{
+            width: "100%",
+          }}
         >
           <Grid container spacing={2}>
             <Grid item xs={1}>
-      
-          <Button
-            variant="outlined"
-            style={{
-              top: "20px",
-            }}
-            onClick={handleProjectButton}
-            >
-            <KeyboardArrowLeftIcon/>
-          </Button>
+              <Button
+                variant="outlined"
+                style={{
+                  top: "20px",
+                }}
+                onClick={handleProjectButton}
+              >
+                <KeyboardArrowLeftIcon />
+              </Button>
+            </Grid>
           </Grid>
-              </Grid>
-          <Table style={{marginBottom: "30px", marginTop: "30px"}}>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align="center">Project</StyledTableCell>
-                <StyledTableCell align="center">Client</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <StyledTableRow>
-                <StyledTableCell align="center">{project?.name}</StyledTableCell>
-                <StyledTableCell align="center">{client?.client_name}</StyledTableCell>
-              </StyledTableRow>
-            </TableBody>
-          </Table>
-          <h1>Invoices</h1>
-          <MyTable/>
-          <div className="button-div"
-            style={{marginTop: "10px", marginLeft: "330px", marginBottom: "30px"}}
+          <Paper elevation={5}>
+            <Table style={{ marginBottom: "30px", marginTop: "30px" }}>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center">Project</StyledTableCell>
+                  <StyledTableCell align="center">Client</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <StyledTableRow>
+                  <StyledTableCell align="center">
+                    {project?.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {client?.client_name}
+                  </StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
+            </Table>
+          </Paper>
+            <h1>Invoices</h1>
+            <MyTable />
+          <div
+            className="button-div"
+            style={{
+              marginTop: "10px",
+              marginLeft: "330px",
+              marginBottom: "30px",
+            }}
           >
-          <Button
-          variant="contained"
-        onClick={() => {
-          navigate(`/app/invoices/new`);
-        }}
-      >
-        <AddCircleOutlineIcon fontSize="medium" />
-        <Typography>Generate Invoice</Typography>
-      </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate(`/app/invoices/new`);
+              }}
+            >
+              <AddCircleOutlineIcon fontSize="medium" />
+              <Typography>Generate Invoice</Typography>
+            </Button>
           </div>
         </div>
       </div>
@@ -159,5 +170,3 @@ const GenerateInvoice = () => {
 };
 
 export default GenerateInvoice;
-
-       

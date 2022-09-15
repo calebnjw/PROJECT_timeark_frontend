@@ -209,10 +209,7 @@ const InvoiceDisplay = () => {
       <div
         className="main-container-display"
         style={{
-          width: "80%",
-          marginTop: "100px",
-          paddingLeft: "100px",
-          paddingRight: "150px",
+          width: "100%",
         }}
       >
         <div className="invoice-header">
@@ -232,26 +229,24 @@ const InvoiceDisplay = () => {
           >
             <table>
               <tr>
-                <td>Issuer Name: </td>
+                <td><strong>Issuer: </strong></td>
                 <td></td>
               </tr>
               <tr>
-                <td>Client's Name: </td>
+                <td><strong>Client: </strong></td>
                 <td>{client?.client_name}</td>
               </tr>
               <tr>
-                <td>Company: </td>
+                <td><strong>Company: </strong></td>
                 <td>{client?.billing_details.company_name}</td>
               </tr>
               <tr>
-                <td>Address: </td>
+                <td><strong>Address: </strong></td>
                 <td>
-                  {client?.billing_details.unit_number}
-                  {client?.billing_details.street_name}
-                  {client?.billing_details.building_name}
+                  {client?.billing_details.unit_number}, {client?.billing_details.street_name} {client?.billing_details.building_name},
                   <br />
-                  {client?.billing_details.postal_code}
-                  {client?.billing_details.city}
+                  {client?.billing_details.postal_code}, {client?.billing_details.city},
+                  <br />
                   {client?.billing_details.country}
                 </td>
               </tr>
@@ -260,19 +255,19 @@ const InvoiceDisplay = () => {
           <div className="invoicing-details">
             <table>
               <tr>
-                <td>Invoice ID: </td>
+                <td><strong>ID: </strong></td>
                 <td>{invoice_id}</td>
               </tr>
               <tr>
-                <td>Project: </td>
+                <td><strong>Project: </strong></td>
                 <td>{project?.name}</td>
               </tr>
               <tr>
-                <td>Issued Date: </td>
+                <td><strong>Issued Date: </strong></td>
                 <td>{invoice?.issuedDate}</td>
               </tr>
               <tr>
-                <td>Due Date: </td>
+                <td><strong>Due Date: </strong></td>
                 <td></td>
               </tr>
             </table>
@@ -280,7 +275,7 @@ const InvoiceDisplay = () => {
 
           <div className="invoice-task-details" style={{ marginTop: "30px" }}>
             <TableContainer>
-              <Paper sx={{ width: "100%", overflow: "hidden" }}>
+              <Paper elevation={3} sx={{ width: "100%", overflow: "hidden" }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow>

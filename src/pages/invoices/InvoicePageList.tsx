@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "@mui/material/Button";
+import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -30,34 +31,45 @@ const InvoicePageList = ({ client }: Props) => {
   }, [clientId]);
 
   return (
-    <ul>
+    <>
+<TableContainer component={Paper} style={{ width: "92%" }}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "lightgray" }}>
+              <TableCell>Project</TableCell>
+              <TableCell align="right">View Invoices</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
       {projectList.map((project, idx) => (
-        <li
-          key={project._id}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            backgroundColor: "pink",
-            width: "80%",
-            justifyContent: "space-between",
-            margin: "4px 0 4px 0",
-            height: "35px",
-            alignItems: "center",
-          }}
+        <TableRow
+        key={idx}
+        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
-          {project.name}
+            <TableCell component="th" scope="row">
+                  {project.name}
+                </TableCell>
+                   <TableCell align="right">
+
           <Button
             size="small"
             onClick={() => {
               navigate(`/app/invoices/${project._id}`);
             }}
-          >
-            View
+            >
+            {<VisibilityIcon />}
           </Button>
-        </li>
+          </TableCell>
+            </TableRow>
       ))}
-    </ul>
+      </TableBody>
+      </Table>
+      </TableContainer>
+  </>
   );
 };
 
 export default InvoicePageList;
+
+
+       

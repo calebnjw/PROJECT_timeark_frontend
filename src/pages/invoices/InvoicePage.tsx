@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ClientSidebar from "./clients_sidebar";
 import AppNavbar from "../../components/navbar-App";
 import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
@@ -9,24 +8,24 @@ import {
   styled,
   Box,
   Typography,
+  Container,
+  Grid,
+  Stack,
   Table,
   TableBody,
   Link,
   Paper,
   TableCell,
   tableCellClasses,
-  TableContainer,
-  TableHead,
   TableRow,
-  Button,
-  TablePagination,
 } from "@mui/material";
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CLIENT_RENEG_WINDOW } from "tls";
 axios.defaults.withCredentials = true;
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 //=================================Styling=================================//
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -65,7 +64,9 @@ const InvoicePage = () => {
       console.log(clientId);
       const projectData = async () => {
         try {
-          const result = await axios.get(`${BACKEND_URL}/projects?client_id=${clientId}`);
+          const result = await axios.get(
+            `${BACKEND_URL}/projects?client_id=${clientId}`
+          );
           setProject(result.data.projects);
           console.log(result.data);
         } catch (err) {
@@ -76,7 +77,6 @@ const InvoicePage = () => {
     }
   }, [clientId]);
 
-
   const navigate = useNavigate();
 
   //=============================for changing the pages========================//
@@ -84,7 +84,9 @@ const InvoicePage = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -94,25 +96,39 @@ const InvoicePage = () => {
     <>
       <AppNavbar />
       <Sidebar />
-      <div style={{ width: "80%", marginLeft: "20%", marginTop: "80px" }}>
-        <div>
-          <h2>Invoices</h2>
-          <ul>
+      <Container
+        style={{
+          width: "100%",
+          marginLeft: "23%",
+          marginTop: "100px",
+        }}
+      >
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Grid item xs={6}>
+              <h2>Project/Invoices</h2>
+            </Grid>
+          </Grid>
+          <Stack>
             {clientList.map((client, idx) => (
-              <li key={idx}>
-                <p style={{ fontWeight: "200" }}>
+              <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
+                <Typography style={{ fontWeight: "400" }}>
                   <b>{client.client_name}</b>
-                </p>
+                </Typography>
                 <InvoicePageList client={client} />
               </li>
             ))}
-          </ul>
-        </div>
-      </div>
+          </Stack>
+        </Box>
+      </Container>
     </>
   );
 };
 
 export default InvoicePage;
-       
-    
