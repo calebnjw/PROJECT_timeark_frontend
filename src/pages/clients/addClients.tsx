@@ -7,12 +7,14 @@ import NewClient from "./newclients_form";
 export default function Clients() {
   return (
     <div>
-      <Box sx={{ mt: "2rem" }}>
-        <Grid container direction="row" justifyContent="center" alignItems="center">
-          <ClientSidebar />
-          <Grid item xs={6}>
-            <NewClient />
-          </Grid>
+      <Box>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <NewClient />
         </Grid>
       </Box>
     </div>
