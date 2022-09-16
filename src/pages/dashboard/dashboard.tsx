@@ -5,8 +5,9 @@ import TimeSpentChart from "./piechart";
 import AmtEarnedChart from "./barchart";
 import DashboardProject from "./dashboardproject";
 import DashboardButtons from "./dashboardbuttons";
+import { Grid } from "@mui/material";
 
-const Dashboard = () => {
+export default function Dashboard() {
   const { newUser } = useUserContext();
   const [timeperiod, setTimePeriod] = useState<string>("all");
 
@@ -23,31 +24,14 @@ const Dashboard = () => {
     >
       <DashboardProject />
       <DashboardButtons setTimePeriod={setTimePeriod} />
-      <div>
-        {(() => {
-          if (timeperiod === "week") {
-            return <TimeSpentChart timeperiod={timeperiod} />;
-          }
-          return null;
-        })()}
-        {(() => {
-          if (timeperiod === "month") {
-            return <TimeSpentChart timeperiod={timeperiod} />;
-          }
-          return null;
-        })()}
-        {(() => {
-          if (timeperiod === "all") {
-            return <TimeSpentChart timeperiod={timeperiod} />;
-          }
-          return null;
-        })()}
-      </div>
-      <div>
-        <AmtEarnedChart />
-      </div>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <TimeSpentChart timeperiod={timeperiod} />
+        </Grid>
+        <Grid item xs={6}>
+          <AmtEarnedChart />
+        </Grid>
+      </Grid>
     </div>
   );
-};
-
-export default Dashboard;
+}

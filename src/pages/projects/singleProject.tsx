@@ -84,8 +84,6 @@ const SingleProject = () => {
       <Box
         style={{
           width: "100%",
-          marginLeft: "15%",
-          marginTop: "100px",
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
