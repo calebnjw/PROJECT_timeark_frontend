@@ -13,6 +13,9 @@ import { User } from "../types/user";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
+const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+console.log("FRONTEND URL", FRONTEND_URL);
+
 function AppLayout() {
   const [clientList, setClientList] = useState<[]>([]);
   const [userProfile, setUserProfile] = useState<User>();
@@ -24,9 +27,7 @@ function AppLayout() {
 
   // get client list
   const getClients = async () => {
-    const result = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/clients`
-    );
+    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
     setClientList(result.data);
   };
 
@@ -34,9 +35,7 @@ function AppLayout() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/users/user`
-        );
+        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
         const userId = result.data.user._id;
         if (userId) {
           getClients();
@@ -77,10 +76,20 @@ function AppLayout() {
           <Sidebar open={open} setOpen={setOpen} />
           <div
             style={{
+<<<<<<< HEAD
+              minHeight: "92vh",
+              marginTop: "8ch",
+=======
               paddingTop: "10ch",
+>>>>>>> 4ff7c282dd3c1fbeba4530564f8f98ed15aec874
               padding: "30px",
-              paddingBottom: "100px",
+              paddingBottom: "200px",
               flexGrow: 1,
+              background: `url(../background.jpg)`,
+              // background: `url(../background_alt.jpg)`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "bottom",
+              backgroundSize: "100vw",
             }}
           >
             <Outlet />
