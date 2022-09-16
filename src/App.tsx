@@ -90,7 +90,10 @@ function App() {
           <Route path="edit" element={<ProfileEdit />} />
         </Route>
 
-        <Route path="time" element={<Time />} />
+        <Route path="time">
+          <Route index element={<Time />} />
+          <Route path=":selectedDate" element={<Time />} />
+        </Route>
 
         <Route path="invoices">
           <Route index element={<InvoicePage />} />

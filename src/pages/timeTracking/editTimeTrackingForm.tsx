@@ -17,7 +17,6 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
-  // color: theme.palette.text.secondary,
   color: "black",
   fontSize: "large",
 }));
@@ -173,12 +172,13 @@ const EditTimeTrackingForm = ({
             >
               <Button
                 variant="contained"
-                color="primary"
+                color="error"
                 type="submit"
-                onClick={handleUpdateTimeEntry}
+                onClick={handleDeleteTimeEntry}
               >
-                Update
+                Delete
               </Button>
+
               <Button
                 variant="contained"
                 color="secondary"
@@ -189,11 +189,11 @@ const EditTimeTrackingForm = ({
               </Button>
               <Button
                 variant="contained"
-                color="error"
+                color="primary"
                 type="submit"
-                onClick={handleDeleteTimeEntry}
+                onClick={handleUpdateTimeEntry}
               >
-                Delete
+                Update
               </Button>
             </Box>
           </Box>
