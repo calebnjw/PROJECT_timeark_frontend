@@ -81,7 +81,10 @@ function AmtEarnedChart() {
           elevation={7}
           style={{
             marginTop: "30px",
-            backgroundColor: "#f0f0f0",
+            paddingTop: "30px",
+            backgroundColor: "#FFFFFF",
+            flexGrow: "1",
+            borderRadius: "20px",
           }}
         >
           <ReactEcharts option={option} />

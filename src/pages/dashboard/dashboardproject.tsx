@@ -9,12 +9,13 @@ export default function DashboardProject() {
 
   return (
     <Paper
-      elevation={2}
+      elevation={7}
       style={{
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "#FFFFFF",
         padding: "15px",
+        borderRadius: "20px",
       }}
     >
       <Stack direction="row">

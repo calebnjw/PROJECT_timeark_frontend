@@ -107,7 +107,7 @@ export default function NewClientForm() {
       </Typography>
       <hr
         style={{
-          marginRight: "-38%",
+          width: "600px",
         }}
       ></hr>
       <div>
