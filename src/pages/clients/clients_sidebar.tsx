@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
-import { Client } from "../../types/client";
 import { Link, useNavigate } from "react-router-dom";
-import Projects from "../projects/projects";
 import { useGlobalContext } from "../../context/clientContext";
-import { useUserContext } from "../../context/userContext";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;

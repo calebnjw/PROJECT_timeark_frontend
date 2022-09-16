@@ -23,7 +23,6 @@ function AmtEarnedChart() {
             },
           }
         );
-        console.log("barchartdata", result.data);
         setGetData(result.data);
         setIsLoaded(true);
       }
@@ -60,8 +59,6 @@ function AmtEarnedChart() {
     },
     xAxis: { type: "category" },
     yAxis: {},
-    // Declare several bar series, each will be mapped
-    // to a column of dataset.source by default.
     series: [
       {
         type: "bar",

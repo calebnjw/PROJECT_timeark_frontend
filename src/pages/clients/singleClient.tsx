@@ -1,6 +1,5 @@
-import axios from "axios";
-import { Box, Typography, Stack } from "@mui/material";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Spinner } from "../../components/spinner/spinner";
 import { useGlobalContext } from "../../context/clientContext";

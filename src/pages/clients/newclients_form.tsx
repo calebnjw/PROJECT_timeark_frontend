@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../../context/userContext";
 import { useGlobalContext } from "../../context/clientContext";
 import AddIcon from "@mui/icons-material/Add";
 import { makeStyles } from "@material-ui/core/styles";
