@@ -6,10 +6,6 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 export default function Login() {
-  console.log(
-    "backend url: ",
-    `${process.env.REACT_APP_BACKEND_URL}/auth/google`
-  );
   return (
     <Grid
       container

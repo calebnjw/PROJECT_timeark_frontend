@@ -1,124 +1,107 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import { Link } from "react-router-dom";
+import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
+import { Divider, IconButton, List } from "@mui/material";
+import MuiDrawer from "@mui/material/Drawer";
+
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+
+import NavListItem from "./navListItem";
+
 const drawerWidth = 240;
 
-export default function Sidebar() {
+const openedMixin = (theme: Theme): CSSObject => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme: Theme): CSSObject => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+export default function Sidebar(props: any) {
+  const { open, setOpen } = props;
+
+  const theme = useTheme();
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {
-          width: drawerWidth,
-          boxSizing: "border-box",
-        },
-      }}
-    >
-      <Box sx={{ overflow: "auto" }} mt={"5rem"}>
-        <List>
-          <ListItem>
-            <ListItemButton>
-              <DashboardIcon
-                style={{
-                  marginRight: "10px",
-                }}
-              />
-              <Link
-                to="/app/dashboard"
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-              >
-                Dashboard
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <PersonIcon
-                style={{
-                  marginRight: "10px",
-                }}
-              />
-              <Link
-                to="/app/clients"
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-              >
-                Clients
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <WorkIcon
-                style={{
-                  marginRight: "10px",
-                }}
-              />
-              <Link
-                to="/app/projects"
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-              >
-                Projects
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <AccessTimeFilledIcon
-                style={{
-                  marginRight: "10px",
-                }}
-              />
-              <Link
-                to={`/app/time/${new Date().toISOString().split("T")[0]}`}
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-              >
-                Time Tracking
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ReceiptIcon
-                style={{
-                  marginRight: "10px",
-                }}
-              />
-              <Link
-                to="/app/invoices"
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-              >
-                Invoices
-              </Link>
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Box>
+    <Drawer variant="permanent" open={open}>
+      <DrawerHeader>
+        <IconButton onClick={handleDrawerClose}>
+          {theme.direction === "rtl" ? (
+            <ChevronRightIcon />
+          ) : (
+            <ChevronLeftIcon />
+          )}
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      <List>
+        <NavListItem open={open} name={"Dashboard"} linkTo={"dashboard"}>
+          <DashboardIcon />
+        </NavListItem>
+      </List>
+      <Divider />
+      <List>
+        <NavListItem open={open} name={"Clients"} linkTo={"clients"}>
+          <PersonIcon />
+        </NavListItem>
+        <NavListItem open={open} name={"Projects"} linkTo={"projects"}>
+          <WorkIcon />
+        </NavListItem>
+        <NavListItem open={open} name={"Time Tracking"} linkTo={"time"}>
+          <AccessTimeFilledIcon />
+        </NavListItem>
+        <NavListItem open={open} name={"Invoices"} linkTo={"invoices"}>
+          <ReceiptIcon />
+        </NavListItem>
+      </List>
     </Drawer>
   );
 }

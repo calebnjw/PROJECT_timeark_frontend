@@ -1,6 +1,5 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
-import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
 import { useUserContext } from "../../context/userContext";
 
@@ -17,12 +16,17 @@ function Profile() {
           {userProfile.photos && (
             <Stack
               direction="row"
-              sx={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center" }}
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
             >
               <img
                 style={{
-                  width: "80px",
-                  height: "80px",
+                  width: "70px",
+                  height: "70px",
                   borderRadius: "50%",
                   marginRight: "20px",
                 }}
@@ -30,7 +34,9 @@ function Profile() {
                 alt={`${userProfile?.displayName}'s profile`}
                 referrerPolicy="no-referrer"
               ></img>
-              <Typography variant="h2">Hello, {`${userProfile.displayName}`}</Typography>
+              <Typography variant="h2">
+                Hello, {`${userProfile.displayName}`}
+              </Typography>
             </Stack>
           )}
           <Divider />

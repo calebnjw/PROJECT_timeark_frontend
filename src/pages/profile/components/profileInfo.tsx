@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Box, Divider, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Button, Box, Stack, Typography } from "@mui/material";
+
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -17,8 +18,6 @@ function ProfileInfo() {
     <Box
       sx={{
         margin: "auto",
-        // width: "60vw",
-        // maxWidth: "60vw",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -35,7 +34,9 @@ function ProfileInfo() {
               <strong>First Name:</strong> {userProfile.name.givenName}
             </Typography>
             {userProfile.name.middleName && (
-              <Typography variant="body1">Middle Name: {userProfile.name.middleName}</Typography>
+              <Typography variant="body1">
+                <strong>Middle Name:</strong> {userProfile.name.middleName}
+              </Typography>
             )}
             <Typography variant="body1">
               <strong>Last Name:</strong> {userProfile.name.familyName}
