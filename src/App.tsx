@@ -93,9 +93,9 @@ function App() {
 
         <Route path="invoices">
           <Route index element={<InvoicePage />} />
-          <Route path=":project_id" element={<GenerateInvoice />} />
+          <Route path="projects/:project_id" element={<GenerateInvoice />} />
           <Route path="new" element={<InvoiceForm />} />
-          <Route path="invoice/:invoice_id" element={<InvoiceDisplay />} />
+          <Route path=":invoice_id" element={<InvoiceDisplay />} />
         </Route>
       </Route>
 

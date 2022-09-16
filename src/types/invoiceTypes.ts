@@ -6,7 +6,9 @@ export interface InvoiceProps {
   project_id: [];
   month: string
   issuedDate: Date;
+  issue: Date;
   dueDate: Date;
+  amount: number;
 }
 
 export interface FormProps {
@@ -25,4 +27,11 @@ export interface TableProps {
     project_id?: string,
     issuedDate?: Date,
     dueDate?: Date
+}
+
+export interface TimeTrackProps {
+  id?: string,
+  taskName?: string,
+  timeSpent?: number,
+  task_id?: string
 }

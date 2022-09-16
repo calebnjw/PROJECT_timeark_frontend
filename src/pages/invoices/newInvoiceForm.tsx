@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   Box,
-  Typography,
   MenuItem,
   TextField,
   Button,
-  Table,
-  TableRow,
-  TableCell,
 } from "@mui/material";
 import { useGlobalContext } from "../../context/clientContext";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
@@ -30,7 +27,6 @@ const InvoiceForm = () => {
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [selectedClient, setSelectedClient] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
-  const [selectedTask, setSelectedTask] = useState("");
   const [projectExists, setProjectExists] = useState<boolean>(false);
   const [taskExists, setTaskExist] = useState<boolean>(false);
   const [dueDate, setDueDate] = useState(null);
@@ -83,7 +79,6 @@ const InvoiceForm = () => {
         );
         setProject(result.data.project);
         setClientId(result.data.project.client_id);
-        console.log("GenerateInvoice projectData :", result.data);
       } catch (err) {
         console.log(err);
       }
@@ -108,8 +103,6 @@ const InvoiceForm = () => {
       clientData();
     }
   }, [clientId]);
-  console.log("Client data", client);
-
   console.log("Tasklist: ", taskList);
   console.log("SelectedProject", selectedProject);
 
@@ -165,7 +158,7 @@ const InvoiceForm = () => {
       paid: false,
       overdue: false,
       amount: 100,
-      time_tracking: [{taskName: "name", timeSpent: 5}]
+      time_trackings: [{taskName: "name", timeSpent: 5}]
     };
 
     try {
@@ -173,8 +166,8 @@ const InvoiceForm = () => {
         `${process.env.REACT_APP_BACKEND_URL}/invoices/new`,
         NewInvoice
       );
-      console.log(NewInvoice);
-      navigate(`/app/invoices/${selectedProject}`);
+      console.log("newInvoice", NewInvoice);
+      navigate(`/app/invoices/projects/${selectedProject}`);
     } catch (err) {
       console.log(err);
     }
@@ -238,14 +231,12 @@ const InvoiceForm = () => {
     <>
       <Box
         style={{
-          width: "80%",
-          marginLeft: "35%",
-          marginTop: "130px",
+          width: "100%",
           
         }}
       >
         <Button variant="contained" color="secondary" onClick={handleBackClick}>
-          Back
+        <KeyboardArrowLeftIcon />
         </Button>
         <h3>New Invoice</h3>
 

@@ -113,10 +113,8 @@ const GenerateInvoice = () => {
           <Grid container spacing={2}>
             <Grid item xs={1}>
               <Button
-                variant="outlined"
-                style={{
-                  top: "20px",
-                }}
+                variant="contained"
+                color="secondary"
                 onClick={handleProjectButton}
               >
                 <KeyboardArrowLeftIcon />
@@ -143,26 +141,8 @@ const GenerateInvoice = () => {
               </TableBody>
             </Table>
           </Paper>
-            <h1>Invoices</h1>
-            <MyTable />
-          <div
-            className="button-div"
-            style={{
-              marginTop: "10px",
-              marginLeft: "330px",
-              marginBottom: "30px",
-            }}
-          >
-            <Button
-              variant="contained"
-              onClick={() => {
-                navigate(`/app/invoices/new`);
-              }}
-            >
-              <AddCircleOutlineIcon fontSize="medium" />
-              <Typography>Generate Invoice</Typography>
-            </Button>
-          </div>
+          <h1>Invoices</h1>
+          <MyTable />
         </div>
       </div>
     </>

@@ -2,8 +2,7 @@ import { TableProps } from "../../types/invoiceTypes";
 import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
-import { Project } from "../../types/project";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { InvoiceProps } from "../../types/invoiceTypes";
 import {
   Table,
   TableRow,
@@ -18,7 +17,6 @@ import {
   MenuItem,
   Select,
   InputLabel,
-  TablePagination,
   Paper,
 } from "@mui/material";
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
@@ -51,12 +49,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 //===============================onClick & onChange functions==========================//
 
-
-
 const handleSelector = () => {
   console.log("Paid/overdue selected");
 };
-
 
 //===================================props=========================//
 interface Props {
@@ -68,53 +63,48 @@ const MyTable = () => {
   const navigate = useNavigate();
   const { clientList, setClientList } = useGlobalContext();
   const [table, setTable] = useState<TableProps[]>([]);
-  const [currentInvoices, setCurrentInvoices] = useState<Project>();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [invoice, setInvoice] = useState<InvoiceProps>();
   // const clientId = client._id;
-  
+
   const { project_id } = useParams();
-  //=============================for changing the pages========================//
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-  
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-  
+
   const handleInvoices = (invoice_id: any) => {
-    navigate(`/app/invoices/invoice/${invoice_id}`) 
+    navigate(`/app/invoices/${invoice_id}`);
     console.log("Invoices button clicked");
   };
-  
-  
+
   useEffect(() => {
     const getInvoice = async () => {
       try {
         const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/invoices/`, {params: {project_id: project_id}}
-          );
-          console.log("setTable", result.data.invoices);
-          setTable(result.data.invoices);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      getInvoice();
-    }, []);
-
-    const handleDeleteButton = async(invoiceId: any) => {
-      try {
-        const result = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`)
-        navigate(`/app/invoices/${project_id}`)
-      } catch(err){
-        console.log(err)
+          `${process.env.REACT_APP_BACKEND_URL}/invoices/`,
+          { params: { project_id: project_id } }
+        );
+        console.log("setTable", result.data.invoices);
+        setTable(result.data.invoices);
+      } catch (err) {
+        console.log(err);
       }
+    };
+    getInvoice();
+  }, []);
+
+  const handleDeleteButton = async (invoiceId: any) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`
+      );
+
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/invoices/`,
+        { params: { project_id: project_id } }
+      );
+      console.log("setTable", result.data.invoices);
+      setTable(result.data.invoices);
+    } catch (err) {
+      console.log(err);
     }
+  };
 
   //due date
   const invoiceIssuedDate = new Date();
@@ -125,19 +115,20 @@ const MyTable = () => {
     <>
       <div className="invoice-list">
         <TableContainer>
-          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <Table stickyHeader aria-label="sticky table">
+          <Paper>
+            <Table>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell align="center" >
+                  <StyledTableCell align="center">
                     Invoice Number
                   </StyledTableCell>
                   <StyledTableCell align="center">Issued Date</StyledTableCell>
                   <StyledTableCell align="center">Due Date</StyledTableCell>
                   <StyledTableCell align="center">Status</StyledTableCell>
-                  <StyledTableCell align="center">View Invoices</StyledTableCell>
+                  <StyledTableCell align="center">
+                    View Invoices
+                  </StyledTableCell>
                   <StyledTableCell align="center"></StyledTableCell>
-
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -146,16 +137,12 @@ const MyTable = () => {
                     <StyledTableRow key={i.id}>
                       <StyledTableCell align="center">{i._id}</StyledTableCell>
                       <StyledTableCell align="center">
-                        {`${invoiceIssuedDate.getDate()}/${invoiceIssuedDate.getUTCMonth()}/${
-                          invoiceIssuedDate.getFullYear()
-                        }`}
+                        {`${invoiceIssuedDate.getDate()}/${invoiceIssuedDate.getUTCMonth()}/${invoiceIssuedDate.getFullYear()}`}
                       </StyledTableCell>
                       <StyledTableCell align="center">
-                        {`${invoiceDueDate.getDate()}/${invoiceDueDate.getUTCMonth()}/${
-                          invoiceDueDate.getFullYear()
-                        }`}
+                        {`${invoiceDueDate.getDate()}/${invoiceDueDate.getUTCMonth()}/${invoiceDueDate.getFullYear()}`}
                       </StyledTableCell>
-                      <FormControl sx={{ m: 1, minWidth: 90 }} >
+                      <FormControl sx={{ m: 1, minWidth: 90 }}>
                         <InputLabel id="demo-simple-select-label">
                           Status
                         </InputLabel>
@@ -172,38 +159,31 @@ const MyTable = () => {
                         </Select>
                       </FormControl>
                       <StyledTableCell align="center">
-                        <Button variant="outlined" onClick={() => handleInvoices(i._id)}>
+                        <Button
+                          variant="outlined"
+                          onClick={() => handleInvoices(i._id)}
+                        >
                           <ReceiptRoundedIcon />
                         </Button>
                       </StyledTableCell>
                       <StyledTableCell align="center">
                         <Button
-                variant="contained"
-                color="error"
-                type="submit"
-                onClick = {() => {handleDeleteButton(i._id)}}
-              >
-                {<DeleteForeverIcon/>}
-              </Button></StyledTableCell>
-
+                          variant="contained"
+                          color="error"
+                          type="submit"
+                          onClick={() => {
+                            handleDeleteButton(i._id);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </StyledTableCell>
                     </StyledTableRow>
                   ))}
               </TableBody>
             </Table>
           </Paper>
         </TableContainer>
-        {table && (
-        <TablePagination
-          rowsPerPageOptions={[5, 10]}
-          component="div"
-          count={table.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          style={{ paddingLeft: "500px", paddingRight: "50px" }}
-        />
-      )}
       </div>
     </>
   );

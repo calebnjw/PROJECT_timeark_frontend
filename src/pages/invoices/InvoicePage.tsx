@@ -5,48 +5,18 @@ import { useGlobalContext } from "../../context/clientContext";
 import InvoicePageList from "./InvoicePageList";
 import { Project } from "../../types/project";
 import {
-  styled,
   Box,
   Typography,
   Container,
   Grid,
   Stack,
-  Table,
-  TableBody,
-  Link,
-  Paper,
-  TableCell,
-  tableCellClasses,
-  TableRow,
+  Button,
 } from "@mui/material";
-import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { CLIENT_RENEG_WINDOW } from "tls";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
-
-//=================================Styling=================================//
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
 
 //=================================Page function=============================//
 const InvoicePage = () => {
@@ -57,7 +27,6 @@ const InvoicePage = () => {
   //useStates
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  // const [error, setError] = React.useState("");
 
   useEffect(() => {
     if (clientId) {
@@ -99,8 +68,6 @@ const InvoicePage = () => {
       <Container
         style={{
           width: "100%",
-          marginLeft: "23%",
-          marginTop: "100px",
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
@@ -114,6 +81,16 @@ const InvoicePage = () => {
             <Grid item xs={6}>
               <h2>Project/Invoices</h2>
             </Grid>
+            <Button
+              color="success"
+              variant="contained"
+              onClick={() => {
+                navigate(`/app/invoices/new`);
+              }}
+            >
+              <Typography>+ Generate Invoice</Typography>
+            </Button>
+          
           </Grid>
           <Stack>
             {clientList.map((client, idx) => (
