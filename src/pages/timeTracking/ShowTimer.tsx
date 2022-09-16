@@ -34,17 +34,37 @@ const ShowTimer = ({ startDate }: Props) => {
     <Typography
       style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
     >
-      <iframe
-        src="https://giphy.com/embed/kaUIoIsHxbUAkiieAv"
+      <span
         style={{
-          position: "relative",
-          width: "70px",
-          height: "70px",
-          zIndex: "1",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: "5px",
         }}
-        frameBorder="0"
-      ></iframe>
-      <b>{formatTime(startTime)}</b>
+      >
+        <iframe
+          src="https://giphy.com/embed/kaUIoIsHxbUAkiieAv"
+          style={{
+            position: "relative",
+            width: "70px",
+            height: "70px",
+            zIndex: "1",
+          }}
+          frameBorder="0"
+        ></iframe>
+      </span>
+      <span
+        style={{
+          border: "solid 1px gray",
+          padding: "4px 10px",
+          borderRadius: "4px",
+          color: "white",
+          backgroundColor: "black",
+        }}
+      >
+        <b>{formatTime(startTime)}</b>
+      </span>
     </Typography>
   );
 };

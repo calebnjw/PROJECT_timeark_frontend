@@ -90,7 +90,9 @@ const SingleProject = () => {
       >
         <Card style={{ width: "80%" }} sx={{ minWidth: 275 }}>
           <CardContent>
-            <Typography variant="h5">Project Details: </Typography>
+            <Typography variant="h5">
+              <b>Project Details: </b>
+            </Typography>
             <Typography variant="h6">{client?.client_name}</Typography>
             <Typography>
               <b>Name: </b>
@@ -112,6 +114,7 @@ const SingleProject = () => {
               <Box style={{ width: "50%", textAlign: "center" }}>
                 <Button
                   variant="contained"
+                  style={{ width: "140px" }}
                   color="secondary"
                   onClick={() => {
                     navigate("/app/projects");
@@ -123,6 +126,7 @@ const SingleProject = () => {
               <Box style={{ width: "50%", textAlign: "center" }}>
                 <Button
                   variant="contained"
+                  style={{ width: "140px" }}
                   color="primary"
                   onClick={() => {
                     navigate(`/app/projects/${project?._id}/update`, {
@@ -142,8 +146,8 @@ const SingleProject = () => {
         >
           <CardContent>
             <TableContainer>
-              <Typography gutterBottom variant="h6" component="div">
-                Tasks
+              <Typography gutterBottom variant="h5" component="div">
+                <b>Tasks</b>
               </Typography>
               <Table
                 sx={{ minWidth: 650 }}
@@ -200,9 +204,10 @@ const SingleProject = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box style={{ marginTop: "10px", textAlign: "center" }}>
+            <Box style={{ marginTop: "20px", textAlign: "center" }}>
               <Button
                 variant="contained"
+                style={{ width: "140px" }}
                 color="primary"
                 onClick={() => {
                   navigate(`/app/tasks/new`);

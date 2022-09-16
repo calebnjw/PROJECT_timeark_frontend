@@ -74,7 +74,7 @@ function AppLayout() {
         >
           <AppNavbar open={open} setOpen={setOpen} />
           <Sidebar open={open} setOpen={setOpen} />
-          <div
+          <Box
             style={{
               minHeight: "92vh",
               marginTop: "8ch",
@@ -83,15 +83,14 @@ function AppLayout() {
               paddingRight: "5vw",
               paddingBottom: "18ch",
               flexGrow: 1,
-              background: `url(../background.jpg)`,
-              // background: `url(../background_alt.jpg)`,
+              background: "url(../background.jpg)",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "bottom",
               backgroundSize: "100vw",
             }}
           >
             <Outlet />
-          </div>
+          </Box>
         </Box>
       </ClientGlobalContext.Provider>
     </UserContext.Provider>
