@@ -91,9 +91,12 @@ const NewTaskFrom = () => {
 
   const handleGetProject = async (e: any) => {
     try {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
-        params: { client_id: selectedClient, autoCorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/projects`,
+        {
+          params: { client_id: selectedClient, autoCorrect: true },
+        }
+      );
       if (result.data.msg === "no project found") {
         setProjectExists(false);
       }
@@ -110,11 +113,17 @@ const NewTaskFrom = () => {
   };
 
   return (
-    <>
+    <Box
+      style={{
+        width: "100%",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+      sx={{ flexGrow: 1 }}
+    >
       <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
-        <Button color="secondary" variant="contained" onClick={handleCancelButton}>
-          CANCEL
-        </Button>
         <h3>New Task</h3>
         <form onSubmit={(e: React.SyntheticEvent) => handleGetProject(e)}>
           <div
@@ -135,11 +144,13 @@ const NewTaskFrom = () => {
                   defaultValue=""
                   onChange={selectedClientChange}
                 >
-                  {clientOptions.map((option?: { id: string; name: string }) => (
-                    <MenuItem key={option?.id} value={option?.id}>
-                      {option?.name}
-                    </MenuItem>
-                  ))}
+                  {clientOptions.map(
+                    (option?: { id: string; name: string }) => (
+                      <MenuItem key={option?.id} value={option?.id}>
+                        {option?.name}
+                      </MenuItem>
+                    )
+                  )}
                 </TextField>
                 <Button onClick={handleGetProject}>Get Projects</Button>
               </>
@@ -148,11 +159,20 @@ const NewTaskFrom = () => {
             )}
           </div>
         </form>
+        <Button
+          color="secondary"
+          style={{ width: "600px" }}
+          variant="contained"
+          onClick={handleCancelButton}
+        >
+          CANCEL
+        </Button>
       </Box>
       {!projectExists ? (
-        <>
+        <Box style={{ marginTop: "10px", paddingRight: "150px" }}>
           <Button
             variant="contained"
+            style={{ width: "600px" }}
             color="success"
             onClick={() => {
               navigate(`/app/projects/new`);
@@ -160,7 +180,7 @@ const NewTaskFrom = () => {
           >
             Add Project
           </Button>
-        </>
+        </Box>
       ) : (
         <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
           <div
@@ -181,11 +201,13 @@ const NewTaskFrom = () => {
                   onChange={selectedProjectChange}
                   defaultValue=""
                 >
-                  {projectOptions.map((option?: { id: string; name: string }) => (
-                    <MenuItem key={option?.id} value={option?.id}>
-                      {option?.name}
-                    </MenuItem>
-                  ))}
+                  {projectOptions.map(
+                    (option?: { id: string; name: string }) => (
+                      <MenuItem key={option?.id} value={option?.id}>
+                        {option?.name}
+                      </MenuItem>
+                    )
+                  )}
                 </TextField>
               </>
             ) : (
@@ -198,7 +220,7 @@ const NewTaskFrom = () => {
         <></>
       ) : (
         <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
-          <div
+          <Box
             style={{
               display: "flex",
               flexDirection: "column",
@@ -224,19 +246,27 @@ const NewTaskFrom = () => {
                   ))}
                 </TextField>
                 <br />
-                <TextField name="task" label="task" onChange={selectedTaskChange} />
+                <TextField
+                  name="task"
+                  label="task"
+                  onChange={selectedTaskChange}
+                />
                 <br />
-                <Button variant="contained" color="success" onClick={submitNewTask}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={submitNewTask}
+                >
                   Create Task
                 </Button>
               </>
             ) : (
               <></>
             )}
-          </div>
+          </Box>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 export default NewTaskFrom;
