@@ -1,7 +1,6 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Divider, Grid } from "@mui/material";
+import { Button } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Project } from "../../types/project";
 import { Task } from "../../types/task";
