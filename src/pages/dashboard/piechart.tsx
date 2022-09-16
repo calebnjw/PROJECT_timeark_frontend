@@ -15,29 +15,23 @@ function TimeSpentChart({ timeperiod }: Props) {
   const { userProfile } = useUserContext();
   const [getData, setGetData] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  console.log(timeperiod);
 
   useEffect(() => {
-    console.log(userProfile);
-    console.log(timeperiod);
     const pieChartData = async () => {
-      if (userProfile) {
-        const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
-          {
-            params: {
-              user_id: userProfile._id,
-              time_period: timeperiod,
-            },
-          }
-        );
-        console.log(result.data);
-        setGetData(result.data);
-        setIsLoaded(true);
-      }
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
+        {
+          params: {
+            user_id: userProfile?._id,
+            time_period: timeperiod,
+          },
+        }
+      );
+      setGetData(result.data);
+      setIsLoaded(true);
     };
     pieChartData();
-  }, [userProfile, timeperiod]);
+  }, [timeperiod]);
 
   const option = {
     title: {
@@ -85,13 +79,6 @@ function TimeSpentChart({ timeperiod }: Props) {
             backgroundColor: "#f0f0f0",
           }}
         >
-          {/* <p
-            style={{
-              textAlign: "center",
-            }}
-          >
-            {timeperiod} view
-          </p> */}
           <ReactEcharts option={option} />
         </Paper>
       )}

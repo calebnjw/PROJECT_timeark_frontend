@@ -72,20 +72,25 @@ export default function EditClientForm({ client, setClientList }: Props) {
 
   const handleEditClient = async () => {
     try {
-      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/clients/${client._id}/update`, {
-        client_name: clientName,
-        billing_details: {
-          company_name: companyName,
-          building_name: buildingName,
-          unit_number: unitNumber,
-          street_name: streetNumber,
-          city: cityName,
-          country: countryName,
-          postal_code: postalCode,
-          company_registration: companyreg,
-        },
-      });
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
+      await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/clients/${client._id}/update`,
+        {
+          client_name: clientName,
+          billing_details: {
+            company_name: companyName,
+            building_name: buildingName,
+            unit_number: unitNumber,
+            street_name: streetNumber,
+            city: cityName,
+            country: countryName,
+            postal_code: postalCode,
+            company_registration: companyreg,
+          },
+        }
+      );
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/clients`
+      );
       setClientList(result.data);
       navigate("/app/clients");
     } catch (error) {
@@ -95,99 +100,88 @@ export default function EditClientForm({ client, setClientList }: Props) {
 
   return (
     <Box component="form" autoComplete="off">
-      <Typography variant="h5" align="center">
+      <Typography
+        variant="h5"
+        align="left"
+        style={{
+          fontWeight: 600,
+        }}
+      >
         Edit Client Information
       </Typography>
-      <div>
-        <TextField
-          required
-          id="clientName"
-          label="Client Name"
-          value={clientName}
-          onChange={clientNameChange}
-          sx={{ width: 600 }}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="companyName"
-          label="Company Name"
-          value={companyName}
-          onChange={companyNameChange}
-          sx={{ width: 600 }}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="streetName"
-          label="Street Name"
-          value={streetNumber}
-          onChange={streetNumberChange}
-          sx={{ width: 600 }}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="unitNumber"
-          label="Unit Number"
-          value={unitNumber}
-          onChange={unitNumberChange}
-          sx={{ width: 600 }}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="buildingName"
-          label="Building Name"
-          value={buildingName}
-          onChange={buildingNameChange}
-          sx={{ width: 600 }}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="cityName"
-          label="City Name"
-          value={cityName}
-          sx={{ width: 600 }}
-          onChange={cityNameChange}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="countryName"
-          label="Country"
-          value={countryName}
-          sx={{ width: 600 }}
-          onChange={countryNameChange}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="postalCode"
-          label="Postal Code"
-          value={postalCode}
-          onChange={postalCodeChange}
-          sx={{ width: 600 }}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="companyreg"
-          label="Company Registration"
-          value={companyreg}
-          onChange={companyregChange}
-          sx={{ width: 600 }}
-        />
-      </div>
+      <TextField
+        required
+        id="clientName"
+        label="Client Name"
+        value={clientName}
+        onChange={clientNameChange}
+        sx={{ width: 600, marginTop: "10px" }}
+      />
+      <TextField
+        required
+        id="companyName"
+        label="Company Name"
+        value={companyName}
+        onChange={companyNameChange}
+        sx={{ width: 600, marginTop: "10px" }}
+      />
+
+      <TextField
+        required
+        id="streetName"
+        label="Street Name"
+        value={streetNumber}
+        onChange={streetNumberChange}
+        sx={{ width: 600, marginTop: "10px" }}
+      />
+      <TextField
+        required
+        id="unitNumber"
+        label="Unit Number"
+        value={unitNumber}
+        onChange={unitNumberChange}
+        sx={{ width: 600, marginTop: "10px" }}
+      />
+      <TextField
+        required
+        id="buildingName"
+        label="Building Name"
+        value={buildingName}
+        onChange={buildingNameChange}
+        sx={{ width: 600, marginTop: "10px" }}
+      />
+      <TextField
+        required
+        id="cityName"
+        label="City Name"
+        value={cityName}
+        sx={{ width: 600, marginTop: "10px" }}
+        onChange={cityNameChange}
+      />
+      <TextField
+        required
+        id="countryName"
+        label="Country"
+        value={countryName}
+        sx={{ width: 600, marginTop: "10px" }}
+        onChange={countryNameChange}
+      />
+      <TextField
+        required
+        id="postalCode"
+        label="Postal Code"
+        value={postalCode}
+        onChange={postalCodeChange}
+        sx={{ width: 600, marginTop: "10px" }}
+      />
+      <TextField
+        required
+        id="companyreg"
+        label="Company Registration"
+        value={companyreg}
+        onChange={companyregChange}
+        sx={{ width: 600, marginTop: "10px" }}
+      />
       <Box mt="2rem">
         <Button variant="contained" onClick={handleEditClient}>
           Submit

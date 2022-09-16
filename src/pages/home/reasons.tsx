@@ -1,4 +1,4 @@
-export default function Hero() {
+export default function Reasons() {
   return (
     <div
       style={{
@@ -6,6 +6,7 @@ export default function Hero() {
         flexDirection: "column",
         justifyContent: "center",
         paddingBottom: "20px",
+        paddingTop: "20px",
         backgroundColor: "rgb(248,246,230)",
       }}
     >

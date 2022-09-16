@@ -16,7 +16,12 @@ function Profile() {
           {userProfile.photos && (
             <Stack
               direction="row"
-              sx={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center" }}
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
             >
               <img
                 style={{
@@ -29,7 +34,9 @@ function Profile() {
                 alt={`${userProfile?.displayName}'s profile`}
                 referrerPolicy="no-referrer"
               ></img>
-              <Typography variant="h2">Hello, {`${userProfile.displayName}`}</Typography>
+              <Typography variant="h2">
+                Hello, {`${userProfile.displayName}`}
+              </Typography>
             </Stack>
           )}
           <Divider />
