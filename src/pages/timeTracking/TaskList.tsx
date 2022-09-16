@@ -197,11 +197,11 @@ const TaskList = (props: Props) => {
           <hr />
 
           <Box sx={{ width: "100%" }}>
-            <ul style={{ width: "100%" }}>
-              {taskList.length &&
+            <ul style={{ width: "100%", listStyleType: "none" }}>
+              {taskList.length > 0 &&
                 taskList.map((task, idx) => (
-                  <li key={idx} style={{ textDecoration: "none" }}>
-                    <ul style={{ width: "100%" }}>
+                  <li key={idx}>
+                    <ul style={{ width: "100%", listStyleType: "none" }}>
                       {task.time_trackings
                         .filter((item) => {
                           if (
@@ -222,7 +222,6 @@ const TaskList = (props: Props) => {
                               height: "50px",
                               marginTop: "5px",
                               marginBottom: "5px",
-                              textDecoration: "none",
                             }}
                           >
                             {time.endDate ? (
