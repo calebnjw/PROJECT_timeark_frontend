@@ -373,9 +373,39 @@ const TaskList = (props: Props) => {
     );
   } else {
     return (
-      <Box>
-        <Box>Selected Date: {props.date}</Box>
-        <Box>You have no time entry here.</Box>
+      <Box
+        sx={{
+          width: "100%",
+          paddingLeft: "10%",
+          paddingRight: "10%",
+          height: "600px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "auto",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <Typography variant="subtitle1">
+            <b>Selected Date: {props.date}</b>
+          </Typography>
+        </Box>
+        <Box>
+          <Typography variant="h5">
+            <b>You have no time entry here.</b>
+          </Typography>
+        </Box>
+        <Box style={{ marginTop: "10px" }}>
+          <iframe
+            src="https://giphy.com/embed/xT1XGLSb5E1VjIUw4E"
+            style={{
+              position: "initial",
+              width: "1000px",
+              height: "auto",
+              border: "none",
+            }}
+          ></iframe>
+        </Box>
       </Box>
     );
   }

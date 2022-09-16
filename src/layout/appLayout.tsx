@@ -75,7 +75,7 @@ function AppLayout() {
         >
           <AppNavbar open={open} setOpen={setOpen} />
           <Sidebar open={open} setOpen={setOpen} />
-          <div
+          <Box
             style={{
               paddingTop: "10ch",
               padding: "30px",
@@ -84,7 +84,7 @@ function AppLayout() {
             }}
           >
             <Outlet />
-          </div>
+          </Box>
         </Box>
       </ClientGlobalContext.Provider>
     </UserContext.Provider>
