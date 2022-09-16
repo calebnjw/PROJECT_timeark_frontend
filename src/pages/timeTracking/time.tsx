@@ -68,7 +68,6 @@ const Time = () => {
     <Box
       style={{
         width: "100%",
-        marginLeft: "4.5%",
       }}
     >
       {/* <div>

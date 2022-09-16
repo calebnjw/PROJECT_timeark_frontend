@@ -186,15 +186,6 @@ const NewTimeForm = ({
           <Button
             style={{ width: "150px" }}
             variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Start Tracker
-          </Button>
-          <Button
-            style={{ width: "150px" }}
-            variant="contained"
             color="secondary"
             type="submit"
             onClick={() => {
@@ -202,6 +193,15 @@ const NewTimeForm = ({
             }}
           >
             Cancel
+          </Button>
+          <Button
+            style={{ width: "150px" }}
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Start Tracker
           </Button>
         </Box>
       </Box>

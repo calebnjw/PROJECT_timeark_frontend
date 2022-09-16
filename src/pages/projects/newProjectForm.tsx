@@ -137,14 +137,6 @@ const NewProjectForm = () => {
                 justifyContent: "space-between",
               }}
             >
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                value="Submit"
-              >
-                Submit
-              </Button>
               <Button variant="contained" color="secondary">
                 <Link
                   to="/app/projects"
@@ -152,6 +144,14 @@ const NewProjectForm = () => {
                 >
                   Cancel
                 </Link>
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                value="Submit"
+              >
+                Submit
               </Button>
             </div>
           </div>
