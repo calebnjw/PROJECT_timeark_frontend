@@ -141,18 +141,8 @@ const TaskList = (props: Props) => {
     });
   };
 
-  const hanleGetClientAndProjectName = async (projectId: any) => {
-    // try {
-    //   const result = await axios.get(
-    //     `${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`
-    //   );
-    //   const projectName = result.data.project.name;
-
-    //   return projectName;
-    // } catch (error) {
-    //   console.log("Error message: ", error);
-    // }
-    return "Project Name";
+  const showClientProjectName = (projectId: any) => {
+    return projectId;
   };
 
   if (taskList.length) {
@@ -237,13 +227,9 @@ const TaskList = (props: Props) => {
                                 }}
                               >
                                 <Typography>{task.name}</Typography>
-                                {/* <Typography>
-                                {task
-                                  ? hanleGetClientAndProjectName(
-                                      task.project_id
-                                    )
-                                  : "Loading"}
-                              </Typography> */}
+                                <Typography>
+                                  {showClientProjectName(task.project_id)}
+                                </Typography>
                                 <Typography
                                   style={{
                                     width: "100px",
@@ -284,13 +270,9 @@ const TaskList = (props: Props) => {
                                 }}
                               >
                                 <Typography>{task.name}</Typography>
-                                {/* <Typography>
-                                {task
-                                  ? hanleGetClientAndProjectName(
-                                      task.project_id
-                                    )
-                                  : "Loading"}
-                              </Typography> */}
+                                <Typography>
+                                  {showClientProjectName(task.project_id)}
+                                </Typography>
                                 <Box
                                   style={{
                                     width: "100px",

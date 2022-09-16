@@ -17,7 +17,6 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   taskList: Task[];
   setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
-  userId: string;
   handleAddTimeEntry: any;
 }
 
@@ -25,7 +24,6 @@ const NewTimeForm = ({
   setOpen,
   taskList,
   setTaskList,
-  userId,
   handleAddTimeEntry,
 }: Props) => {
   const { clientList, setClientList } = useGlobalContext();
@@ -41,7 +39,6 @@ const NewTimeForm = ({
       `${process.env.REACT_APP_BACKEND_URL}/projects/all`
     );
     const projects = getProjects.data.projects;
-    // console.log("projects: ", projects);
 
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     setProjectList(projectsHasTasks);
@@ -62,11 +59,16 @@ const NewTimeForm = ({
   };
 
   const projectOptions: any = projectList.map((p) => {
-    return { id: p._id, name: p.name };
+    const client = clientList.find((c) => c._id === p.client_id);
+    const clientName = client?.client_name;
+    return { id: p._id, name: p.name, clientName: clientName };
   });
 
   const taskOptions: any = taskLocalList.map((t) => {
-    return { id: t._id, name: t.name };
+    //Filter !isDone task
+    if (!t.isDone) {
+      return { id: t._id, name: t.name };
+    }
   });
 
   // Get tasks by selected project
@@ -133,6 +135,7 @@ const NewTimeForm = ({
             alignContent: "center",
           }}
         >
+          {/* Render Project Options */}
           {projectOptions.length ? (
             <Box style={{ width: "100%" }}>
               <TextField
@@ -143,17 +146,27 @@ const NewTimeForm = ({
                 defaultValue={projectOptions[0].id}
                 onChange={handleProjectChange}
               >
-                {projectOptions.map((option?: { id: string; name: string }) => (
-                  <MenuItem key={option?.id} value={option?.id}>
-                    {option?.name}
-                  </MenuItem>
-                ))}
+                {projectOptions.map(
+                  (option?: {
+                    id: string;
+                    name: string;
+                    clientName: string;
+                  }) => (
+                    <MenuItem key={option?.id} value={option?.id}>
+                      {option?.name}
+                      {"("}
+                      {option?.clientName}
+                      {")"}
+                    </MenuItem>
+                  )
+                )}
               </TextField>
             </Box>
           ) : (
             <Box>Loading Project Options</Box>
           )}
 
+          {/* Render task Options */}
           {taskOptions.length ? (
             <Box>
               <TextField

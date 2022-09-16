@@ -102,7 +102,6 @@ const Time = () => {
                   setOpen={setOpen}
                   taskList={taskList}
                   setTaskList={setTaskList}
-                  userId={userId}
                   handleAddTimeEntry={handleAddTimeEntry}
                 />
               </Typography>
