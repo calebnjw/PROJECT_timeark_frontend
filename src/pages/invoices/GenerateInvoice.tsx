@@ -1,22 +1,49 @@
 import { useState, useEffect, useContext } from "react";
 import { ClientGlobalContext } from "../../context/clientContext";
-import ClientSidebar from "./clients_sidebar";
 import MyTable from "./MyTable";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { Table, TableRow, TableCell, Button, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
 import { Project } from "../../types/project";
 import { Client } from "../../types/client";
-import { TableProps } from "../../types/invoiceTypes";
-import Sidebar from "../../components/sidebar";
-import { useGlobalContext } from "../../context/clientContext";
-import { TabUnselected } from "@mui/icons-material";
-import { conformsTo } from "lodash";
+import {
+  Table,
+  TableRow,
+  TableCell,
+  Paper,
+  styled,
+  Button,
+  Grid,
+  tableCellClasses,
+  Typography,
+  TableHead,
+  TableBody,
+} from "@mui/material";
 axios.defaults.withCredentials = true;
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
-//===============================props==============================//
+//===================================Table styling==========================//
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 //===============================return==============================//
 
@@ -70,53 +97,51 @@ const GenerateInvoice = () => {
 
   //===================handle button click=============================//
 
-  // const handleGenerateInvoice = () => {
-  //   navigate(`/invoices/${project_id}/new`);
-  // };
-
   const handleProjectButton = () => {
-    navigate("/invoices");
+    navigate("/app/invoices");
   };
 
   return (
     <>
-      {setClientId && <ClientSidebar setClientId={setClientId} />}
       <div className="invoice-heading">
         <div
           className="generate-invoice-container"
-          style={{ width: "100%", paddingLeft: "530px", paddingTop: "50px", paddingRight: "50px" }}
+          style={{
+            width: "100%",
+          }}
         >
           <Grid container spacing={2}>
             <Grid item xs={1}>
               <Button
-                variant="outlined"
-                style={{
-                  left: "30px",
-                  top: "20px",
-                }}
+                variant="contained"
+                color="secondary"
                 onClick={handleProjectButton}
               >
-                <KeyboardArrowLeftIcon fontSize="large" />
-                Back
+                <KeyboardArrowLeftIcon />
               </Button>
             </Grid>
-            <Grid item xs={11}>
-              <h1 style={{ textAlign: "center" }}>Invoices</h1>
-            </Grid>
           </Grid>
-          <Table>
-            <TableRow sx={{ "& td": { border: 0 } }}>
-              <TableCell align="left">Project Name: </TableCell>
-              <TableCell align="left">{project?.name}</TableCell>
-            </TableRow>
-            <TableRow sx={{ "& td": { border: 0 } }}>
-              <TableCell align="left">Client Name: </TableCell>
-              <TableCell align="left">{client?.client_name}</TableCell>
-            </TableRow>
-            {/* <Button variant="outlined" onClick={handleGenerateInvoice}>
-                  Generate Invoice
-                </Button> */}
-          </Table>
+          <Paper elevation={5}>
+            <Table style={{ marginBottom: "30px", marginTop: "30px" }}>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center">Project</StyledTableCell>
+                  <StyledTableCell align="center">Client</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <StyledTableRow>
+                  <StyledTableCell align="center">
+                    {project?.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {client?.client_name}
+                  </StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
+            </Table>
+          </Paper>
+          <h1>Invoices</h1>
           <MyTable />
         </div>
       </div>
