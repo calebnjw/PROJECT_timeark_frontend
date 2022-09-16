@@ -45,13 +45,11 @@ const Time = () => {
     if (isNewTask) {
       //new task with sinle time entry, add it to task list
       const updatedTaskList = [...taskList, updatedTask];
-
       setTaskList([]);
       setTaskList(updatedTaskList);
     } else {
       //task already have time entries, update task time entry
       const updatedTaskList = taskList.map((t) => {
-        console.log("t: ", t);
         if (t._id == updatedTask._id) {
           t = updatedTask;
         }
@@ -59,7 +57,6 @@ const Time = () => {
       });
 
       setTaskList([]);
-      console.log("task list: ", taskList);
       setTaskList(updatedTaskList);
     }
   };

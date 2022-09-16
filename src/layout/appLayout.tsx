@@ -77,7 +77,7 @@ function AppLayout() {
           <Sidebar open={open} setOpen={setOpen} />
           <div
             style={{
-              paddingTop: "8ch",
+              paddingTop: "10ch",
               padding: "30px",
               paddingBottom: "100px",
               flexGrow: 1,

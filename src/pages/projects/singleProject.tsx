@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { format } from "date-fns";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -20,7 +19,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
 import axios from "axios";
-import { Tab } from "@mui/material";
 axios.defaults.withCredentials = true;
 
 const SingleProject = () => {
@@ -50,7 +48,6 @@ const SingleProject = () => {
           }
         );
 
-        console.log("tasks arr: ", getTasks.data.tasks);
         setTaskList(getTasks.data.tasks);
       } catch (error) {
         console.log("Error message: ", error);
@@ -84,11 +81,6 @@ const SingleProject = () => {
       <Box
         style={{
           width: "100%",
-<<<<<<< HEAD
-          marginLeft: "5%",
-          marginTop: "30px",
-=======
->>>>>>> 6bad6560e92294b6a7ec6163e0a1e2ad8a07f208
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
