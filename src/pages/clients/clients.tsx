@@ -22,7 +22,7 @@ export default function Clients() {
   return (
     <Container
       style={{
-        width: "100%",
+        width: "92%",
       }}
     >
       <Box sx={{ flexGrow: 1 }}>
@@ -33,18 +33,27 @@ export default function Clients() {
             justifyContent: "space-between",
           }}
         >
-          <Grid item xs={6}>
-            <h2>Clients</h2>
-          </Grid>
-          <Grid item xs={6} style={{ textAlign: "right" }}>
-            <Button variant="contained" color="success">
-              <Link to="new" style={{ color: "white", textDecoration: "none" }}>
-                + New client
-              </Link>
-            </Button>
-          </Grid>
+          <h2>Clients</h2>
+
+          <Button variant="contained" color="success">
+            <Link
+              to="new"
+              style={{
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              + New client
+            </Link>
+          </Button>
         </Grid>
-        <TableContainer component={Paper} style={{ width: "92%" }}>
+        <TableContainer
+          component={Paper}
+          style={{
+            width: "100%",
+            marginTop: "20px",
+          }}
+        >
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "lightgray" }}>

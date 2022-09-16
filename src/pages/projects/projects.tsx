@@ -15,11 +15,13 @@ const Projects = () => {
 
   return (
     <Container
-      style={{
-        width: "100%",
-      }}
+      style={
+        {
+          // width: "100%",
+        }
+      }
     >
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 2 }} style={{ width: "100%" }}>
         <Grid
           style={{
             display: "flex",
@@ -30,11 +32,7 @@ const Projects = () => {
           <Grid item xs={6}>
             <h2>Clients/Projects</h2>
           </Grid>
-          <Grid
-            item
-            xs={6}
-            style={{ textAlign: "right", marginRight: "100px" }}
-          >
+          <Grid item xs={6} style={{}}>
             <Button variant="contained" color="success">
               <Link to="new" style={{ color: "white", textDecoration: "none" }}>
                 + New Project
@@ -42,7 +40,7 @@ const Projects = () => {
             </Button>
           </Grid>
         </Grid>
-        <Stack>
+        <Stack style={{ width: "100%" }}>
           {clientList.map((client, idx) => (
             <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
               <Typography style={{ fontWeight: "400" }}>

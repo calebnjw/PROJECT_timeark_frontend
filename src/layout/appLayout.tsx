@@ -67,13 +67,21 @@ function AppLayout() {
           setClientList,
         }}
       >
-        <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
           <AppNavbar open={open} setOpen={setOpen} />
           <Sidebar open={open} setOpen={setOpen} />
           <div
             style={{
+<<<<<<< HEAD
               minHeight: "92vh",
               marginTop: "8ch",
+=======
+              paddingTop: "10ch",
+>>>>>>> 4ff7c282dd3c1fbeba4530564f8f98ed15aec874
               padding: "30px",
               paddingBottom: "200px",
               flexGrow: 1,

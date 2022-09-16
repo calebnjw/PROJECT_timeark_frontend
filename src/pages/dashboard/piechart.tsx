@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
-import { useUserContext } from "../../context/userContext";
 import { Typography, Box, Paper } from "@mui/material";
 import { Spinner } from "../../components/spinner/spinner";
 
@@ -12,7 +11,6 @@ interface Props {
 }
 
 function TimeSpentChart({ timeperiod }: Props) {
-  const { userProfile } = useUserContext();
   const [getData, setGetData] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -22,7 +20,6 @@ function TimeSpentChart({ timeperiod }: Props) {
         `${process.env.REACT_APP_BACKEND_URL}/tasks/time`,
         {
           params: {
-            user_id: userProfile?._id,
             time_period: timeperiod,
           },
         }
@@ -76,7 +73,10 @@ function TimeSpentChart({ timeperiod }: Props) {
           elevation={7}
           style={{
             marginTop: "30px",
-            backgroundColor: "#f0f0f0",
+            paddingTop: "30px",
+            backgroundColor: "#FFFFFF",
+            flexGrow: "1",
+            borderRadius: "20px",
           }}
         >
           <ReactEcharts option={option} />
