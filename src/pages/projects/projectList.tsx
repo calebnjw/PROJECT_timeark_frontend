@@ -28,12 +28,9 @@ const ProjectList = ({ client }: Props) => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        {
-          params: { client_id: clientId, autoCorrect: true },
-        }
-      );
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
+        params: { client_id: clientId, autoCorrect: true },
+      });
       setProjectList(result.data.projects);
     };
     getProjects();
@@ -41,7 +38,7 @@ const ProjectList = ({ client }: Props) => {
 
   return (
     <>
-      <TableContainer component={Paper} style={{ width: "92%" }}>
+      <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow sx={{ backgroundColor: "lightgray" }}>
@@ -54,10 +51,7 @@ const ProjectList = ({ client }: Props) => {
           </TableHead>
           <TableBody>
             {projectList.map((project, idx) => (
-              <TableRow
-                key={idx}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
+              <TableRow key={idx} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell component="th" scope="row">
                   {project.name}
                 </TableCell>

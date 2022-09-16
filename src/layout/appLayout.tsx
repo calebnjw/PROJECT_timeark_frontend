@@ -76,14 +76,12 @@ function AppLayout() {
           <Sidebar open={open} setOpen={setOpen} />
           <div
             style={{
-<<<<<<< HEAD
               minHeight: "92vh",
               marginTop: "8ch",
-=======
-              paddingTop: "10ch",
->>>>>>> 4ff7c282dd3c1fbeba4530564f8f98ed15aec874
-              padding: "30px",
-              paddingBottom: "200px",
+              paddingTop: "2ch",
+              paddingLeft: "5vw",
+              paddingRight: "5vw",
+              paddingBottom: "18ch",
               flexGrow: 1,
               background: `url(../background.jpg)`,
               // background: `url(../background_alt.jpg)`,
