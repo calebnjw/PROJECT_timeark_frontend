@@ -310,6 +310,7 @@ const TaskList = (props: Props) => {
                                   style={{
                                     width: "32.5%",
                                     textAlign: "center",
+                                    paddingLeft: "50px",
                                   }}
                                 >
                                   <ShowTimer startDate={time.startDate} />
