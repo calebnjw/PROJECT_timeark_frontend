@@ -15,11 +15,9 @@ const Projects = () => {
 
   return (
     <Container
-      style={
-        {
-          // width: "100%",
-        }
-      }
+      style={{
+        width: "100%",
+      }}
     >
       <Box sx={{ flexGrow: 2 }} style={{ width: "100%" }}>
         <Grid
@@ -40,7 +38,7 @@ const Projects = () => {
             </Button>
           </Grid>
         </Grid>
-        <Stack style={{ width: "100%" }}>
+        <Stack style={{ width: "100%", margin: "0" }}>
           {clientList.map((client, idx) => (
             <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
               <Typography style={{ fontWeight: "400" }}>

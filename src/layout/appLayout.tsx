@@ -80,12 +80,12 @@ function AppLayout() {
           <Sidebar open={open} setOpen={setOpen} />
           <Box
             style={{
-              paddingTop: "10ch",
+              minHeight: "92vh",
+              marginTop: "8ch",
               padding: "30px",
               paddingBottom: "200px",
               flexGrow: 1,
-              background: `url(../background.jpg)`,
-              // background: `url(../background_alt.jpg)`,
+              background: "url(../background.jpg)",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "bottom",
               backgroundSize: "100vw",
