@@ -1,4 +1,4 @@
-import { format, isThisMinute } from "date-fns";
+import { format } from "date-fns";
 import { useEffect } from "react";
 import { Task } from "../../types/task";
 import ShowTimer from "./ShowTimer";
@@ -155,11 +155,13 @@ const TaskList = (props: Props) => {
     });
   };
 
-  if (taskList.length) {
+  if (taskList.length > 0) {
     return (
       <Box
         sx={{
           width: "100%",
+          paddingLeft: "10%",
+          paddingRight: "10%",
           height: "600px",
           display: "flex",
           flexDirection: "column",
@@ -198,7 +200,7 @@ const TaskList = (props: Props) => {
             <ul style={{ width: "100%" }}>
               {taskList.length &&
                 taskList.map((task, idx) => (
-                  <li key={idx}>
+                  <li key={idx} style={{ textDecoration: "none" }}>
                     <ul style={{ width: "100%" }}>
                       {task.time_trackings
                         .filter((item) => {
@@ -220,6 +222,7 @@ const TaskList = (props: Props) => {
                               height: "50px",
                               marginTop: "5px",
                               marginBottom: "5px",
+                              textDecoration: "none",
                             }}
                           >
                             {time.endDate ? (
@@ -230,40 +233,52 @@ const TaskList = (props: Props) => {
                                   flexDirection: "row",
                                   alignItems: "center",
                                   height: "50px",
-                                  justifyContent: "space-around",
-                                  // backgroundColor: "green",
+                                  justifyContent: "space-between",
                                   border: "solid 2px green",
                                   borderRadius: "8px",
                                 }}
                               >
-                                <Typography>{task.name}</Typography>
-                                <Typography>
+                                <Typography
+                                  style={{
+                                    width: "30%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {task.name}
+                                </Typography>
+                                <Typography
+                                  style={{ width: "40%", textAlign: "center" }}
+                                >
                                   {showClientProjectName(task.project_id)}
                                 </Typography>
                                 <Typography
                                   style={{
-                                    width: "100px",
+                                    width: "30%",
                                     textAlign: "center",
                                   }}
                                 >
                                   {computeTime(time.endDate, time.startDate)}{" "}
                                 </Typography>
-                                <Button
-                                  style={{
-                                    marginRight: "0px",
-                                    marginLeft: "20px",
-                                  }}
-                                  variant="contained"
-                                  color="primary"
-                                  onClick={() => {
-                                    showEditTimeTrackingModal(
-                                      task._id,
-                                      time._id
-                                    );
-                                  }}
+                                <Box
+                                  style={{ width: "30%", textAlign: "center" }}
                                 >
-                                  Edit
-                                </Button>
+                                  <Button
+                                    style={{
+                                      width: "100px",
+                                      marginLeft: "15px",
+                                    }}
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => {
+                                      showEditTimeTrackingModal(
+                                        task._id,
+                                        time._id
+                                      );
+                                    }}
+                                  >
+                                    Edit
+                                  </Button>
+                                </Box>
                               </Box>
                             ) : (
                               <Box
@@ -279,28 +294,47 @@ const TaskList = (props: Props) => {
                                   borderRadius: "8px",
                                 }}
                               >
-                                <Typography>{task.name}</Typography>
-                                <Typography>
+                                <Typography
+                                  style={{
+                                    width: "30%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {task.name}
+                                </Typography>
+                                <Typography
+                                  style={{ width: "40%", textAlign: "center" }}
+                                >
                                   {showClientProjectName(task.project_id)}
                                 </Typography>
                                 <Box
                                   style={{
-                                    width: "100px",
+                                    width: "32.5%",
                                     textAlign: "center",
                                   }}
                                 >
                                   <ShowTimer startDate={time.startDate} />
                                 </Box>
-                                <Button
-                                  style={{ marginLeft: "0px" }}
-                                  variant="contained"
-                                  color="secondary"
-                                  onClick={() => {
-                                    handleStopTimer(task._id, time._id);
+                                <Box
+                                  style={{
+                                    width: "27.5%",
+                                    textAlign: "center",
                                   }}
                                 >
-                                  Stop
-                                </Button>
+                                  <Button
+                                    style={{
+                                      width: "100px",
+                                      marginRight: "12px",
+                                    }}
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={() => {
+                                      handleStopTimer(task._id, time._id);
+                                    }}
+                                  >
+                                    Stop
+                                  </Button>
+                                </Box>
                               </Box>
                             )}
                           </li>
@@ -339,21 +373,12 @@ const TaskList = (props: Props) => {
       </Box>
     );
   } else {
-    if (today === selectedDate && taskList.length) {
-      return (
-        <Box>
-          <Box>Selected Date: {props.date}</Box>
-          <Box>Loading Data</Box>
-        </Box>
-      );
-    } else {
-      return (
-        <Box>
-          <Box>Selected Date: {props.date}</Box>
-          <Box>You have no time entry here.</Box>
-        </Box>
-      );
-    }
+    return (
+      <Box>
+        <Box>Selected Date: {props.date}</Box>
+        <Box>You have no time entry here.</Box>
+      </Box>
+    );
   }
 };
 
