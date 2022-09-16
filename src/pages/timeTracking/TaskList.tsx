@@ -12,6 +12,7 @@ import { useUserContext } from "../../context/userContext";
 import * as _ from "lodash";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../context/clientContext";
 
 axios.defaults.withCredentials = true;
 
@@ -46,6 +47,18 @@ const TaskList = (props: Props) => {
     React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
   const navigate = useNavigate();
+  const { clientList, setClientList } = useGlobalContext();
+
+  const showClientProjectName = (projectId: any) => {
+    // Get Project Name through project id:
+    const task = taskList.find((t) => t.project_id == projectId);
+    const project: any = task?.project_id;
+    const projectName = project.name;
+    // Get Client Name through client id:
+    const client = clientList.find((c) => c._id == project.client_id);
+    const clientName = client?.client_name;
+    return `${clientName}/${projectName}`;
+  };
 
   useEffect(() => {
     console.log("selected date: ", selectedDate);
@@ -54,6 +67,7 @@ const TaskList = (props: Props) => {
         `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`
       );
       const taskArr = tasks.data.tasksBySelectedDate;
+      console.log("taskArr: ", taskArr);
       if (taskArr) {
         setTaskList(taskArr);
       } else {
@@ -139,10 +153,6 @@ const TaskList = (props: Props) => {
       }
       return t;
     });
-  };
-
-  const showClientProjectName = (projectId: any) => {
-    return projectId;
   };
 
   if (taskList.length) {
