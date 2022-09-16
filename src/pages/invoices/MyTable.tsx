@@ -49,8 +49,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 //===============================onClick & onChange functions==========================//
 
-
-
 const handleSelector = () => {
   console.log("Paid/overdue selected");
 };
@@ -67,38 +65,46 @@ const MyTable = () => {
   const [table, setTable] = useState<TableProps[]>([]);
   const [invoice, setInvoice] = useState<InvoiceProps>();
   // const clientId = client._id;
-  
+
   const { project_id } = useParams();
-  
+
   const handleInvoices = (invoice_id: any) => {
-    navigate(`/invoices/invoice/${invoice_id}`) 
+    navigate(`/app/invoices/${invoice_id}`);
     console.log("Invoices button clicked");
   };
 
-  
-  
   useEffect(() => {
     const getInvoice = async () => {
       try {
         const result = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/invoices/`, {params: {project_id: project_id}}
-          );
-          console.log("setTable", result.data.invoices);
-          setTable(result.data.invoices);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      getInvoice();
-    }, []);
-
-    const handleDeleteButton = async(invoiceId: any) => {
-      try {
-        const result = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`)
-      } catch(err){
-        console.log(err)
+          `${process.env.REACT_APP_BACKEND_URL}/invoices/`,
+          { params: { project_id: project_id } }
+        );
+        console.log("setTable", result.data.invoices);
+        setTable(result.data.invoices);
+      } catch (err) {
+        console.log(err);
       }
+    };
+    getInvoice();
+  }, []);
+
+  const handleDeleteButton = async (invoiceId: any) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`
+      );
+
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/invoices/`,
+        { params: { project_id: project_id } }
+      );
+      console.log("setTable", result.data.invoices);
+      setTable(result.data.invoices);
+    } catch (err) {
+      console.log(err);
     }
+  };
 
   //due date
   const invoiceIssuedDate = new Date();
@@ -113,15 +119,16 @@ const MyTable = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell align="center" >
+                  <StyledTableCell align="center">
                     Invoice Number
                   </StyledTableCell>
                   <StyledTableCell align="center">Issued Date</StyledTableCell>
                   <StyledTableCell align="center">Due Date</StyledTableCell>
                   <StyledTableCell align="center">Status</StyledTableCell>
-                  <StyledTableCell align="center">View Invoices</StyledTableCell>
+                  <StyledTableCell align="center">
+                    View Invoices
+                  </StyledTableCell>
                   <StyledTableCell align="center"></StyledTableCell>
-
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -130,16 +137,12 @@ const MyTable = () => {
                     <StyledTableRow key={i.id}>
                       <StyledTableCell align="center">{i._id}</StyledTableCell>
                       <StyledTableCell align="center">
-                        {`${invoiceIssuedDate.getDate()}/${invoiceIssuedDate.getUTCMonth()}/${
-                          invoiceIssuedDate.getFullYear()
-                        }`}
+                        {`${invoiceIssuedDate.getDate()}/${invoiceIssuedDate.getUTCMonth()}/${invoiceIssuedDate.getFullYear()}`}
                       </StyledTableCell>
                       <StyledTableCell align="center">
-                        {`${invoiceDueDate.getDate()}/${invoiceDueDate.getUTCMonth()}/${
-                          invoiceDueDate.getFullYear()
-                        }`}
+                        {`${invoiceDueDate.getDate()}/${invoiceDueDate.getUTCMonth()}/${invoiceDueDate.getFullYear()}`}
                       </StyledTableCell>
-                      <FormControl sx={{ m: 1, minWidth: 90 }} >
+                      <FormControl sx={{ m: 1, minWidth: 90 }}>
                         <InputLabel id="demo-simple-select-label">
                           Status
                         </InputLabel>
@@ -156,19 +159,25 @@ const MyTable = () => {
                         </Select>
                       </FormControl>
                       <StyledTableCell align="center">
-                        <Button variant="outlined" onClick={() => handleInvoices(i._id)}>
+                        <Button
+                          variant="outlined"
+                          onClick={() => handleInvoices(i._id)}
+                        >
                           <ReceiptRoundedIcon />
                         </Button>
                       </StyledTableCell>
-                      <StyledTableCell align="center"><Button
-                variant="contained"
-                color="error"
-                type="submit"
-                onClick = {() => {handleDeleteButton(i._id)}}
-              >
-                Delete
-              </Button></StyledTableCell>
-
+                      <StyledTableCell align="center">
+                        <Button
+                          variant="contained"
+                          color="error"
+                          type="submit"
+                          onClick={() => {
+                            handleDeleteButton(i._id);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </StyledTableCell>
                     </StyledTableRow>
                   ))}
               </TableBody>
