@@ -35,51 +35,33 @@ const Time = () => {
   const [taskList, setTaskList] = useState<Task[]>([]);
   const { userId } = useUserContext();
 
-  // React.useEffect(() => {
-  //   navigate(`/app/time/${date}`);
-  // }, [date]);
-
-  React.useEffect(() => {
-    console.log("taskList: ", taskList);
-  }, [taskList]);
-
   const HandleShowSelectedDateTimeEntrys = (dayStr: any) => {
     setDate(dayStr);
   };
 
   //* Refactor add new time entry */
   const handleAddTimeEntry = (updatedTask: any) => {
-    console.log("updated tasks from backend: ", updatedTask);
-    console.log("taskList01: ", taskList);
-
-    const isNewTask: any = !!taskList.find((t) => t._id == updatedTask._id);
-    console.log("taskList02: ", taskList);
-    console.log("isNewTask", isNewTask);
+    const isNewTask: any = !taskList.find((t) => t._id == updatedTask._id);
     if (isNewTask) {
-      // If task already exists then update task
+      //new task with sinle time entry, add it to task list
+      const updatedTaskList = [...taskList, updatedTask];
+
+      setTaskList([]);
+      setTaskList(updatedTaskList);
+    } else {
+      //task already have time entries, update task time entry
       const updatedTaskList = taskList.map((t) => {
+        console.log("t: ", t);
         if (t._id == updatedTask._id) {
-          const filteredTimeTracking = t.time_trackings.filter(
-            (tt) => new Date(tt.startDate) == new Date()
-          );
-          // console.log("A: filteredTimeTracking: ", filteredTimeTracking);
-          t.time_trackings = filteredTimeTracking;
+          t = updatedTask;
         }
         return t;
       });
 
-      // setTaskList([]);
-      // console.log("updatedTaskList: ", updatedTaskList);
-      setTaskList(updatedTaskList);
-    } else {
-      //if not, add it to task list
-      const updatedTaskList = [...taskList, updatedTask];
-      // setTaskList([]);
-      // console.log("B: updatedTaskList: ", updatedTaskList);
-
+      setTaskList([]);
+      console.log("task list: ", taskList);
       setTaskList(updatedTaskList);
     }
-    navigate(`/app/time/${new Date().toISOString().split("T")[0]}`);
   };
 
   return (
@@ -89,6 +71,9 @@ const Time = () => {
         marginLeft: "4.5%",
       }}
     >
+      {/* <div>
+        <pre>{JSON.stringify(taskList, null, 2)}</pre>
+      </div> */}
       <Box style={{ textAlign: "right" }}>
         {date == today && (
           <Button

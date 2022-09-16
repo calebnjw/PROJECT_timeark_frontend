@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, isThisMinute } from "date-fns";
 import { useEffect } from "react";
 import { Task } from "../../types/task";
 import ShowTimer from "./ShowTimer";
@@ -200,101 +200,119 @@ const TaskList = (props: Props) => {
                 taskList.map((task, idx) => (
                   <li key={idx}>
                     <ul style={{ width: "100%" }}>
-                      {task.time_trackings.map((time, idx) => (
-                        <li
-                          key={idx}
-                          style={{
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            height: "50px",
-                            marginTop: "5px",
-                            marginBottom: "5px",
-                          }}
-                        >
-                          {time.endDate ? (
-                            <Box
-                              style={{
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                height: "50px",
-                                justifyContent: "space-around",
-                                // backgroundColor: "green",
-                                border: "solid 2px green",
-                                borderRadius: "8px",
-                              }}
-                            >
-                              <Typography>{task.name}</Typography>
-                              {/* <Typography>
-                                {task
-                                  ? hanleGetClientAndProjectName(
-                                      task.project_id
-                                    )
-                                  : "Loading"}
-                              </Typography> */}
-                              <Typography
-                                style={{ width: "100px", textAlign: "center" }}
-                              >
-                                {computeTime(time.endDate, time.startDate)}{" "}
-                              </Typography>
-                              <Button
-                                style={{
-                                  marginRight: "0px",
-                                  marginLeft: "20px",
-                                }}
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {
-                                  showEditTimeTrackingModal(task._id, time._id);
-                                }}
-                              >
-                                Edit
-                              </Button>
-                            </Box>
-                          ) : (
-                            <Box
-                              style={{
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                height: "50px",
-                                backgroundColor: "pink",
-                                justifyContent: "space-around",
-                                border: "solid 2px gray",
-                                borderRadius: "8px",
-                              }}
-                            >
-                              <Typography>{task.name}</Typography>
-                              {/* <Typography>
-                                {task
-                                  ? hanleGetClientAndProjectName(
-                                      task.project_id
-                                    )
-                                  : "Loading"}
-                              </Typography> */}
+                      {task.time_trackings
+                        .filter((item) => {
+                          if (
+                            format(new Date(item.startDate), "yyyy-MM-dd") ==
+                            selectedDate
+                          )
+                            return true;
+                          return false;
+                        })
+                        .map((time, idx) => (
+                          <li
+                            key={idx}
+                            style={{
+                              width: "100%",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              height: "50px",
+                              marginTop: "5px",
+                              marginBottom: "5px",
+                            }}
+                          >
+                            {time.endDate ? (
                               <Box
-                                style={{ width: "100px", textAlign: "center" }}
-                              >
-                                <ShowTimer startDate={time.startDate} />
-                              </Box>
-                              <Button
-                                style={{ marginLeft: "0px" }}
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => {
-                                  handleStopTimer(task._id, time._id);
+                                style={{
+                                  width: "100%",
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  height: "50px",
+                                  justifyContent: "space-around",
+                                  // backgroundColor: "green",
+                                  border: "solid 2px green",
+                                  borderRadius: "8px",
                                 }}
                               >
-                                Stop
-                              </Button>
-                            </Box>
-                          )}
-                        </li>
-                      ))}
+                                <Typography>{task.name}</Typography>
+                                {/* <Typography>
+                                {task
+                                  ? hanleGetClientAndProjectName(
+                                      task.project_id
+                                    )
+                                  : "Loading"}
+                              </Typography> */}
+                                <Typography
+                                  style={{
+                                    width: "100px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {computeTime(time.endDate, time.startDate)}{" "}
+                                </Typography>
+                                <Button
+                                  style={{
+                                    marginRight: "0px",
+                                    marginLeft: "20px",
+                                  }}
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={() => {
+                                    showEditTimeTrackingModal(
+                                      task._id,
+                                      time._id
+                                    );
+                                  }}
+                                >
+                                  Edit
+                                </Button>
+                              </Box>
+                            ) : (
+                              <Box
+                                style={{
+                                  width: "100%",
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  height: "50px",
+                                  backgroundColor: "pink",
+                                  justifyContent: "space-around",
+                                  border: "solid 2px gray",
+                                  borderRadius: "8px",
+                                }}
+                              >
+                                <Typography>{task.name}</Typography>
+                                {/* <Typography>
+                                {task
+                                  ? hanleGetClientAndProjectName(
+                                      task.project_id
+                                    )
+                                  : "Loading"}
+                              </Typography> */}
+                                <Box
+                                  style={{
+                                    width: "100px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  <ShowTimer startDate={time.startDate} />
+                                </Box>
+                                <Button
+                                  style={{ marginLeft: "0px" }}
+                                  variant="contained"
+                                  color="secondary"
+                                  onClick={() => {
+                                    handleStopTimer(task._id, time._id);
+                                  }}
+                                >
+                                  Stop
+                                </Button>
+                              </Box>
+                            )}
+                          </li>
+                        ))}
                     </ul>
                   </li>
                 ))}
