@@ -23,7 +23,6 @@ function AmtEarnedChart() {
             },
           }
         );
-        console.log("barchartdata", result.data);
         setGetData(result.data);
         setIsLoaded(true);
       }
@@ -36,7 +35,7 @@ function AmtEarnedChart() {
     tooltip: {
       trigger: "item",
       formatter: function (params: any) {
-        var value = "<b>" + params.value[0] + " " + "</b>";
+        var value = "<b>" + params.value[0] + " </b>";
         var percentage = ((params.value[1] / params.value[2]) * 100).toFixed(2);
         return (
           value +
@@ -60,8 +59,6 @@ function AmtEarnedChart() {
     },
     xAxis: { type: "category" },
     yAxis: {},
-    // Declare several bar series, each will be mapped
-    // to a column of dataset.source by default.
     series: [
       {
         type: "bar",

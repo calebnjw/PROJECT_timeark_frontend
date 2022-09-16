@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useGlobalContext } from "../../context/clientContext";
+import { useUserContext } from "../../context/userContext";
 import TimeSpentChart from "./piechart";
 import AmtEarnedChart from "./barchart";
 import DashboardProject from "./dashboardproject";
-import { useUserContext } from "../../context/userContext";
 import DashboardButtons from "./dashboardbuttons";
 
 const Dashboard = () => {
@@ -13,7 +11,7 @@ const Dashboard = () => {
   const [timeperiod, setTimePeriod] = useState<string>("all");
 
   let navigate = useNavigate();
-  // redirect user to fill in billing details on first time loggin in
+
   if (newUser) navigate("/app/onboard");
 
   return (
@@ -21,9 +19,6 @@ const Dashboard = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        // width: "800px",
-        // marginLeft: "23%",
-        // marginTop: "20px",
       }}
     >
       <DashboardProject />
