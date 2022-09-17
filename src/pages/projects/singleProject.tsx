@@ -23,6 +23,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const SingleProject = () => {
+  const [chartData, setChartData] = useState<any>([]);
   const navigate = useNavigate();
   const { clientList } = useGlobalContext();
   let { project_id } = useParams();
@@ -41,6 +42,7 @@ const SingleProject = () => {
           `${process.env.REACT_APP_BACKEND_URL}/projects/${project_id}`
         );
         setProject(getProject.data.project);
+        setChartData(getProject.data.taskTimeEarnings);
 
         const getTasks = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/tasks`,
@@ -124,7 +126,7 @@ const SingleProject = () => {
                 </Typography>
               </Box>
 
-              <TimeAndEarningsChart />
+              <TimeAndEarningsChart chartData={chartData} />
             </Box>
             <Stack direction="row" spacing={2} style={{ width: "100%" }}>
               <Box style={{ width: "50%", textAlign: "center" }}>

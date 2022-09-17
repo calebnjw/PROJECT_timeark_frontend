@@ -169,7 +169,7 @@ const NewTaskFrom = () => {
         </Button>
       </Box>
       {!projectExists ? (
-        <Box style={{ marginTop: "10px", paddingRight: "20px" }}>
+        <Box style={{ marginTop: "10px", marginLeft: "10px" }}>
           <Button
             variant="contained"
             style={{ width: "600px" }}
