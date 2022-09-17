@@ -4,19 +4,11 @@ import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import InvoicePageList from "./InvoicePageList";
 import { Project } from "../../types/project";
-import {
-  Box,
-  Typography,
-  Container,
-  Grid,
-  Stack,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Container, Grid, Stack, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 //=================================Page function=============================//
 const InvoicePage = () => {
@@ -33,9 +25,7 @@ const InvoicePage = () => {
       console.log(clientId);
       const projectData = async () => {
         try {
-          const result = await axios.get(
-            `${BACKEND_URL}/projects?client_id=${clientId}`
-          );
+          const result = await axios.get(`${BACKEND_URL}/projects?client_id=${clientId}`);
           setProject(result.data.projects);
           console.log(result.data);
         } catch (err) {
@@ -53,58 +43,49 @@ const InvoicePage = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
   //===============================return function===========================//
   return (
-    <>
-      <AppNavbar />
-      <Sidebar />
-      <Container
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid
         style={{
-          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "3ch",
         }}
       >
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+        <Grid item>
+          <Typography variant="h3">Invoices</Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            color="success"
+            variant="contained"
+            onClick={() => {
+              navigate(`/app/invoices/new`);
             }}
           >
-            <Grid item xs={6}>
-              <h2>Project/Invoices</h2>
-            </Grid>
-            <Button
-              color="success"
-              variant="contained"
-              onClick={() => {
-                navigate(`/app/invoices/new`);
-              }}
-            >
-              <Typography>+ Generate Invoice</Typography>
-            </Button>
-          
-          </Grid>
-          <Stack>
-            {clientList.map((client, idx) => (
-              <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
-                <Typography style={{ fontWeight: "400" }}>
-                  <b>{client.client_name}</b>
-                </Typography>
-                <InvoicePageList client={client} />
-              </li>
-            ))}
-          </Stack>
-        </Box>
-      </Container>
-    </>
+            <Typography>+ Generate Invoice</Typography>
+          </Button>
+        </Grid>
+      </Grid>
+      <Stack>
+        {clientList.map((client, idx) => (
+          <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
+            <Typography style={{ fontWeight: "400" }}>
+              <b>{client.client_name}</b>
+            </Typography>
+            <InvoicePageList client={client} />
+          </li>
+        ))}
+      </Stack>
+    </Box>
   );
 };
 

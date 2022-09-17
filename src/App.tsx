@@ -19,9 +19,7 @@ import NewProject from "./pages/projects/newProjectForm";
 import EditProjectForm from "./pages/projects/editProjectForm";
 import SingleProject from "./pages/projects/singleProject";
 
-import Tasks from "./pages/tasks/task";
 import NewTask from "./pages/tasks/newTaskForm";
-import SingleTask from "./pages/tasks/singleTask";
 import EditTask from "./pages/tasks/editTask";
 
 import Profile from "./pages/profile/profile";
@@ -71,18 +69,14 @@ function App() {
             <Route index element={<SingleProject />} />
             <Route path="update" element={<EditProjectForm />} />
             <Route path="tasks">
-              <Route index element={<Tasks />} />
               <Route path="new" element={<NewTask />} />
-              <Route path=":task_id" element={<SingleTask />} />
               <Route path=":task_id/update" element={<EditTask />} />
             </Route>
           </Route>
         </Route>
 
         <Route path="tasks">
-          <Route index element={<Tasks />} />
           <Route path="new" element={<NewTask />} />
-          <Route path=":task_id" element={<SingleTask />} />
           <Route path=":task_id/update" element={<EditTask />} />
         </Route>
 
@@ -91,7 +85,10 @@ function App() {
           <Route path="edit" element={<ProfileEdit />} />
         </Route>
 
-        <Route path="time" element={<Time />} />
+        <Route path="time">
+          <Route index element={<Time />} />
+          <Route path=":selectedDate" element={<Time />} />
+        </Route>
 
         <Route path="invoices">
           <Route index element={<InvoicePage />} />

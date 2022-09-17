@@ -3,7 +3,6 @@ import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -41,7 +40,7 @@ const ProjectList = ({ client }: Props) => {
 
   return (
     <>
-      <TableContainer component={Paper} style={{ width: "92%" }}>
+      <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow sx={{ backgroundColor: "lightgray" }}>

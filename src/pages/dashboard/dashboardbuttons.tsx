@@ -18,8 +18,10 @@ export default function DashboardButtons({ setTimePeriod }: Props) {
       <Button
         variant="contained"
         color="secondary"
+        size="large"
         style={{
           marginLeft: "10px",
+          minWidth: "200px",
         }}
         onClick={() => {
           setTimePeriod("week");
@@ -30,8 +32,10 @@ export default function DashboardButtons({ setTimePeriod }: Props) {
       <Button
         variant="contained"
         color="secondary"
+        size="large"
         style={{
           marginLeft: "10px",
+          minWidth: "200px",
         }}
         onClick={() => {
           setTimePeriod("month");
@@ -42,8 +46,10 @@ export default function DashboardButtons({ setTimePeriod }: Props) {
       <Button
         variant="contained"
         color="secondary"
+        size="large"
         style={{
           marginLeft: "10px",
+          minWidth: "200px",
         }}
         onClick={() => {
           setTimePeriod("all");

@@ -13,6 +13,9 @@ import { User } from "../types/user";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
+// const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+// console.log("FRONTEND URL", FRONTEND_URL);
+
 function AppLayout() {
   const [clientList, setClientList] = useState<[]>([]);
   const [userProfile, setUserProfile] = useState<User>();
@@ -68,19 +71,30 @@ function AppLayout() {
           setClientList,
         }}
       >
-        <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
           <AppNavbar open={open} setOpen={setOpen} />
           <Sidebar open={open} setOpen={setOpen} />
-          <div
+          <Box
             style={{
+              minHeight: "92vh",
               marginTop: "8ch",
-              padding: "30px",
-              paddingBottom: "100px",
+              paddingTop: "2ch",
+              paddingLeft: "5vw",
+              paddingRight: "5vw",
+              paddingBottom: "18ch",
               flexGrow: 1,
+              background: "url(../background.jpg)",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "bottom",
+              backgroundSize: "100vw",
             }}
           >
             <Outlet />
-          </div>
+          </Box>
         </Box>
       </ClientGlobalContext.Provider>
     </UserContext.Provider>

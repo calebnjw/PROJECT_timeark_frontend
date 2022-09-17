@@ -59,13 +59,23 @@ const EditProjectForm = () => {
     }
   };
 
+  const handleDeleteProject = async () => {
+    try {
+      const result = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/projects/${projectInfo._id}`
+      );
+      navigate(`/app/projects`);
+      console.log("result: ", result.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Box
         style={{
           width: "100%",
-          marginLeft: "15%",
-          marginTop: "80px",
           alignItems: "center",
           display: "flex",
           flexDirection: "column",
@@ -83,10 +93,15 @@ const EditProjectForm = () => {
               justifyContent: "space-around",
             }}
           >
-            <h3 style={{ marginBottom: "20px", textAlign: "center" }}>
+            <Typography
+              variant="h4"
+              style={{ marginBottom: "20px", textAlign: "center" }}
+            >
               Update Project
-            </h3>
-            <Typography>Client: {clientName} </Typography>
+            </Typography>
+            <Typography>
+              <b>Client: {clientName}</b>{" "}
+            </Typography>
             <TextField
               type="text"
               name="name"
@@ -126,16 +141,33 @@ const EditProjectForm = () => {
                 justifyContent: "space-between",
               }}
             >
-              <Button type="submit" value="Submit" variant="contained">
-                Submit
+              <Button
+                color="error"
+                variant="contained"
+                onClick={handleDeleteProject}
+                style={{ width: "150px" }}
+              >
+                Delete
               </Button>
               <Button variant="contained" color="secondary">
                 <Link
                   to="/app/projects"
-                  style={{ color: "white", textDecoration: "none" }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    width: "150px",
+                  }}
                 >
                   Cancel
                 </Link>
+              </Button>
+              <Button
+                type="submit"
+                value="Submit"
+                variant="contained"
+                style={{ width: "150px" }}
+              >
+                Submit
               </Button>
             </Grid>
           </div>

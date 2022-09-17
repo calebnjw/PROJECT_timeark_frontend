@@ -40,10 +40,6 @@ const NewTaskFrom = () => {
       name: selectedTask,
       category: selectedCategory,
       isDone: false,
-      // time_tracking: {
-      //   date: selectedDate,
-      //   hours: 0,
-      // },
       project_id: selectedProject,
     };
 
@@ -91,9 +87,12 @@ const NewTaskFrom = () => {
 
   const handleGetProject = async (e: any) => {
     try {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
-        params: { client_id: selectedClient, autoCorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/projects`,
+        {
+          params: { client_id: selectedClient, autoCorrect: true },
+        }
+      );
       if (result.data.msg === "no project found") {
         setProjectExists(false);
       }
@@ -110,49 +109,76 @@ const NewTaskFrom = () => {
   };
 
   return (
-    <>
-      <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
-        <Button color="secondary" variant="contained" onClick={handleCancelButton}>
-          CANCEL
-        </Button>
+    <Box
+      style={{
+        width: "100%",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+      sx={{ flexGrow: 1 }}
+    >
+      <Box style={{ width: "100%", textAlign: "center", marginTop: "90px" }}>
         <h3>New Task</h3>
         <form onSubmit={(e: React.SyntheticEvent) => handleGetProject(e)}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "600px",
-              // height: "500px",
-              justifyContent: "space-around",
+              width: "100%",
             }}
           >
             {clientOptions.length ? (
-              <>
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  justifyContent: "center",
+                }}
+              >
                 <TextField
                   select
                   name="client_id"
                   label="*Client"
                   defaultValue=""
                   onChange={selectedClientChange}
+                  style={{ width: "600px", marginLeft: "23%" }}
                 >
-                  {clientOptions.map((option?: { id: string; name: string }) => (
-                    <MenuItem key={option?.id} value={option?.id}>
-                      {option?.name}
-                    </MenuItem>
-                  ))}
+                  {clientOptions.map(
+                    (option?: { id: string; name: string }) => (
+                      <MenuItem key={option?.id} value={option?.id}>
+                        {option?.name}
+                      </MenuItem>
+                    )
+                  )}
                 </TextField>
                 <Button onClick={handleGetProject}>Get Projects</Button>
-              </>
+              </Box>
             ) : (
               <>Loading Client Options</>
             )}
           </div>
         </form>
+        <Button
+          color="secondary"
+          style={{ width: "600px" }}
+          variant="contained"
+          onClick={handleCancelButton}
+        >
+          CANCEL
+        </Button>
       </Box>
       {!projectExists ? (
-        <>
+        <Box
+          style={{
+            marginTop: "10px",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
           <Button
             variant="contained"
+            style={{ width: "600px" }}
             color="success"
             onClick={() => {
               navigate(`/app/projects/new`);
@@ -160,7 +186,7 @@ const NewTaskFrom = () => {
           >
             Add Project
           </Button>
-        </>
+        </Box>
       ) : (
         <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
           <div
@@ -168,7 +194,6 @@ const NewTaskFrom = () => {
               display: "flex",
               flexDirection: "column",
               width: "600px",
-              // height: "500px",
               justifyContent: "space-around",
             }}
           >
@@ -181,11 +206,13 @@ const NewTaskFrom = () => {
                   onChange={selectedProjectChange}
                   defaultValue=""
                 >
-                  {projectOptions.map((option?: { id: string; name: string }) => (
-                    <MenuItem key={option?.id} value={option?.id}>
-                      {option?.name}
-                    </MenuItem>
-                  ))}
+                  {projectOptions.map(
+                    (option?: { id: string; name: string }) => (
+                      <MenuItem key={option?.id} value={option?.id}>
+                        {option?.name}
+                      </MenuItem>
+                    )
+                  )}
                 </TextField>
               </>
             ) : (
@@ -198,7 +225,7 @@ const NewTaskFrom = () => {
         <></>
       ) : (
         <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
-          <div
+          <Box
             style={{
               display: "flex",
               flexDirection: "column",
@@ -224,19 +251,27 @@ const NewTaskFrom = () => {
                   ))}
                 </TextField>
                 <br />
-                <TextField name="task" label="task" onChange={selectedTaskChange} />
+                <TextField
+                  name="task"
+                  label="task"
+                  onChange={selectedTaskChange}
+                />
                 <br />
-                <Button variant="contained" color="success" onClick={submitNewTask}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={submitNewTask}
+                >
                   Create Task
                 </Button>
               </>
             ) : (
               <></>
             )}
-          </div>
+          </Box>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 export default NewTaskFrom;

@@ -11,6 +11,10 @@ import EditTimeTrackingForm from "./editTimeTrackingForm";
 import { useUserContext } from "../../context/userContext";
 import * as _ from "lodash";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../context/clientContext";
+import { Spinner } from "../../components/spinner/spinner";
+
 axios.defaults.withCredentials = true;
 
 const style = {
@@ -26,13 +30,13 @@ const style = {
 };
 
 interface Props {
-  data: string;
+  date: string;
   taskList: Task[];
   setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
 const TaskList = (props: Props) => {
-  const selectedDate = format(new Date(props.data), "yyyy-MM-dd");
+  const selectedDate = format(new Date(props.date), "yyyy-MM-dd");
   const taskList = props.taskList;
   const setTaskList = props.setTaskList;
   const { userId } = useUserContext();
@@ -43,6 +47,20 @@ const TaskList = (props: Props) => {
   const [selectedTimeTrackingId, setSelectedTimeTrackingId] =
     React.useState("");
   const [selectedTaskId, setSelectedTaskId] = React.useState("");
+  const navigate = useNavigate();
+  const { clientList, setClientList } = useGlobalContext();
+  const [loaded, setLoaded] = React.useState(false);
+
+  const showClientProjectName = (projectId: any) => {
+    // Get Project Name through project id:
+    const task = taskList.find((t) => t.project_id == projectId);
+    const project: any = task?.project_id;
+    const projectName = project.name;
+    // Get Client Name through client id:
+    const client = clientList.find((c) => c._id == project.client_id);
+    const clientName = client?.client_name;
+    return `${clientName}/${projectName}`;
+  };
 
   useEffect(() => {
     const getTasksBySelectedDate = async () => {
@@ -52,9 +70,11 @@ const TaskList = (props: Props) => {
       const taskArr = tasks.data.tasksBySelectedDate;
       if (taskArr) {
         setTaskList(taskArr);
+        setLoaded(true);
       } else {
         setTaskList([]);
       }
+      navigate(`/app/time/${selectedDate}`);
     };
     getTasksBySelectedDate();
   }, [selectedDate]);
@@ -81,7 +101,7 @@ const TaskList = (props: Props) => {
           }
           return t;
         });
-        setTaskList([]);
+        // setTaskList([]);
         setTaskList(updatedTaskList);
       } catch (error) {
         console.log("Error message: ", error);
@@ -136,210 +156,273 @@ const TaskList = (props: Props) => {
     });
   };
 
-  const hanleGetClientAndProjectName = async (projectId: any) => {
-    // try {
-    //   const result = await axios.get(
-    //     `${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`
-    //   );
-    //   const projectName = result.data.project.name;
-
-    //   return projectName;
-    // } catch (error) {
-    //   console.log("Error message: ", error);
-    // }
-    return "Project Name";
-  };
-
-  if (taskList.length) {
-    return (
-      <Box
-        sx={{
-          width: "100%",
-          height: "500px",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "auto",
-        }}
-      >
-        {/* <Box sx={{ width: "100%", textAlign: "center" }}>
+  return (
+    <>
+      {!loaded ? (
+        <Box style={{ width: "100%", textAlign: "center" }}>
+          <Typography variant="h6">Loading...</Typography>
+          <Spinner />
+        </Box>
+      ) : taskList.length > 0 ? (
+        <Box
+          sx={{
+            width: "100%",
+            paddingLeft: "10%",
+            paddingRight: "10%",
+            height: "600px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "auto",
+          }}
+        >
+          {/* <Box sx={{ width: "100%", textAlign: "center" }}>
           Selected Date: {props.data}
         </Box> */}
-        <Box>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-              fontSize: "large",
-            }}
-          >
-            <Typography>
-              <b>Task Name</b>
-            </Typography>
-            <Typography>
-              <b>Client/Project</b>
-            </Typography>
-            <Typography>
-              <b>Time Entry(hours)</b>
-            </Typography>
-            <Typography>
-              <b>Actions</b>
-            </Typography>
-          </Box>
-          <hr />
-
-          <Box sx={{ width: "100%" }}>
-            <ul style={{ width: "100%" }}>
-              {taskList.length &&
-                taskList.map((task, idx) => (
-                  <li key={idx}>
-                    <ul style={{ width: "100%" }}>
-                      {task.time_trackings.map((time, idx) => (
-                        <li
-                          key={idx}
-                          style={{
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            height: "50px",
-                            marginTop: "5px",
-                            marginBottom: "5px",
-                          }}
-                        >
-                          {time.endDate ? (
-                            <Box
-                              style={{
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                height: "50px",
-                                justifyContent: "space-around",
-                                // backgroundColor: "green",
-                                border: "solid 2px green",
-                                borderRadius: "8px",
-                              }}
-                            >
-                              <Typography>{task.name}</Typography>
-                              {/* <Typography>
-                                {task
-                                  ? hanleGetClientAndProjectName(
-                                      task.project_id
-                                    )
-                                  : "Loading"}
-                              </Typography> */}
-                              <Typography
-                                style={{ width: "100px", textAlign: "center" }}
-                              >
-                                {computeTime(time.endDate, time.startDate)}{" "}
-                              </Typography>
-                              <Button
-                                style={{
-                                  marginRight: "0px",
-                                  marginLeft: "20px",
-                                }}
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {
-                                  showEditTimeTrackingModal(task._id, time._id);
-                                }}
-                              >
-                                Edit
-                              </Button>
-                            </Box>
-                          ) : (
-                            <Box
-                              style={{
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                height: "50px",
-                                backgroundColor: "pink",
-                                justifyContent: "space-around",
-                                border: "solid 2px gray",
-                                borderRadius: "8px",
-                              }}
-                            >
-                              <Typography>{task.name}</Typography>
-                              {/* <Typography>
-                                {task
-                                  ? hanleGetClientAndProjectName(
-                                      task.project_id
-                                    )
-                                  : "Loading"}
-                              </Typography> */}
-                              <Box
-                                style={{ width: "100px", textAlign: "center" }}
-                              >
-                                <ShowTimer startDate={time.startDate} />
-                              </Box>
-                              <Button
-                                style={{ marginLeft: "0px" }}
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => {
-                                  handleStopTimer(task._id, time._id);
-                                }}
-                              >
-                                Stop
-                              </Button>
-                            </Box>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-            </ul>
-          </Box>
-        </Box>
-        <Box>
-          {/* Modal Window: edit time tracking */}
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
+          <Box>
             <Box
-              sx={style}
-              style={{ borderRadius: "10px", border: "solid 1px gray" }}
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                fontSize: "large",
+              }}
             >
-              <EditTimeTrackingForm
-                setOpen={setOpen}
-                taskList={taskList}
-                setTaskList={setTaskList}
-                userId={userId}
-                selectedTaskId={selectedTaskId}
-                selectedTimeTrackingId={selectedTimeTrackingId}
-                handleUpdate={handleUpdate}
-                handleDeletion={handleDeletion}
-              />
+              <Typography>
+                <b>Task Name</b>
+              </Typography>
+              <Typography>
+                <b>Client/Project</b>
+              </Typography>
+              <Typography>
+                <b>Time Entry(hours)</b>
+              </Typography>
+              <Typography>
+                <b>Actions</b>
+              </Typography>
             </Box>
-          </Modal>
+            <hr />
+
+            <Box sx={{ width: "100%" }}>
+              <ul style={{ width: "100%", listStyleType: "none" }}>
+                {taskList.length > 0 &&
+                  taskList.map((task, idx) => (
+                    <li key={idx}>
+                      <ul style={{ width: "100%", listStyleType: "none" }}>
+                        {task.time_trackings
+                          .filter((item) => {
+                            if (
+                              format(new Date(item.startDate), "yyyy-MM-dd") ==
+                              selectedDate
+                            )
+                              return true;
+                            return false;
+                          })
+                          .map((time, idx) => (
+                            <li
+                              key={idx}
+                              style={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                height: "50px",
+                                marginTop: "5px",
+                                marginBottom: "5px",
+                              }}
+                            >
+                              {time.endDate ? (
+                                <Box
+                                  style={{
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    height: "50px",
+                                    justifyContent: "space-between",
+                                    border: "solid 2px green",
+                                    borderRadius: "8px",
+                                  }}
+                                >
+                                  <Typography
+                                    style={{
+                                      width: "30%",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {task.name}
+                                  </Typography>
+                                  <Typography
+                                    style={{
+                                      width: "40%",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {showClientProjectName(task.project_id)}
+                                  </Typography>
+                                  <Typography
+                                    style={{
+                                      width: "30%",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {computeTime(time.endDate, time.startDate)}{" "}
+                                  </Typography>
+                                  <Box
+                                    style={{
+                                      width: "30%",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    <Button
+                                      style={{
+                                        width: "100px",
+                                        marginLeft: "15px",
+                                      }}
+                                      variant="contained"
+                                      color="primary"
+                                      onClick={() => {
+                                        showEditTimeTrackingModal(
+                                          task._id,
+                                          time._id
+                                        );
+                                      }}
+                                    >
+                                      Edit
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              ) : (
+                                <Box
+                                  style={{
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    height: "50px",
+                                    backgroundColor: "pink",
+                                    justifyContent: "space-around",
+                                    border: "solid 2px gray",
+                                    borderRadius: "8px",
+                                  }}
+                                >
+                                  <Typography
+                                    style={{
+                                      width: "30%",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {task.name}
+                                  </Typography>
+                                  <Typography
+                                    style={{
+                                      width: "40%",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {showClientProjectName(task.project_id)}
+                                  </Typography>
+                                  <Box
+                                    style={{
+                                      width: "32.5%",
+                                      textAlign: "center",
+                                      paddingLeft: "50px",
+                                    }}
+                                  >
+                                    <ShowTimer startDate={time.startDate} />
+                                  </Box>
+                                  <Box
+                                    style={{
+                                      width: "27.5%",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    <Button
+                                      style={{
+                                        width: "100px",
+                                        marginRight: "12px",
+                                      }}
+                                      variant="contained"
+                                      color="secondary"
+                                      onClick={() => {
+                                        handleStopTimer(task._id, time._id);
+                                      }}
+                                    >
+                                      Stop
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              )}
+                            </li>
+                          ))}
+                      </ul>
+                    </li>
+                  ))}
+              </ul>
+            </Box>
+          </Box>
+          <Box>
+            {/* Modal Window: edit time tracking */}
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box
+                sx={style}
+                style={{ borderRadius: "10px", border: "solid 1px gray" }}
+              >
+                <EditTimeTrackingForm
+                  setOpen={setOpen}
+                  taskList={taskList}
+                  setTaskList={setTaskList}
+                  userId={userId}
+                  selectedTaskId={selectedTaskId}
+                  selectedTimeTrackingId={selectedTimeTrackingId}
+                  handleUpdate={handleUpdate}
+                  handleDeletion={handleDeletion}
+                />
+              </Box>
+            </Modal>
+          </Box>
         </Box>
-      </Box>
-    );
-  } else {
-    if (today === selectedDate && taskList.length) {
-      return (
-        <Box>
-          <Box>Selected Date: {props.data}</Box>
-          <Box>Loading Data</Box>
+      ) : (
+        <Box
+          sx={{
+            width: "100%",
+            paddingLeft: "10%",
+            paddingRight: "10%",
+            height: "600px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "auto",
+            alignItems: "center",
+          }}
+        >
+          <Box>
+            <Typography variant="subtitle1">
+              <b>Selected Date: {props.date}</b>
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant="h5">
+              <b>You have no time entry here.</b>
+            </Typography>
+          </Box>
+          <Box style={{ marginTop: "10px" }}>
+            <iframe
+              src="https://giphy.com/embed/xT1XGLSb5E1VjIUw4E"
+              style={{
+                position: "initial",
+                border: "none",
+              }}
+            ></iframe>
+          </Box>
         </Box>
-      );
-    } else {
-      return (
-        <Box>
-          <Box>Selected Date: {props.data}</Box>
-          <Box>You haven't done any task here.</Box>
-        </Box>
-      );
-    }
-  }
+      )}
+    </>
+  );
 };
 
 export default TaskList;

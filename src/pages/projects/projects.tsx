@@ -1,11 +1,8 @@
-// import AppNavbar from "../../components/navbar-App";
-// import Sidebar from "../../components/sidebar";
 import { useGlobalContext } from "../../context/clientContext";
 import ProjectList from "./projectList";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -13,47 +10,46 @@ import Stack from "@mui/material/Stack";
 const Projects = () => {
   const { clientList, setClientList } = useGlobalContext();
 
+  const navigate = useNavigate();
+
   return (
-    <Container
-      style={{
-        width: "100%",
-      }}
-    >
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Grid item xs={6}>
-            <h2>Clients/Projects</h2>
-          </Grid>
-          <Grid
-            item
-            xs={6}
-            style={{ textAlign: "right", marginRight: "100px" }}
-          >
-            <Button variant="contained" color="success">
-              <Link to="new" style={{ color: "white", textDecoration: "none" }}>
-                + New Project
-              </Link>
-            </Button>
-          </Grid>
+    <Box>
+      <Grid
+        container
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "3ch",
+        }}
+      >
+        <Grid item>
+          <Typography variant="h3">Projects</Typography>
         </Grid>
-        <Stack>
-          {clientList.map((client, idx) => (
-            <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
-              <Typography style={{ fontWeight: "400" }}>
-                <b>{client.client_name}</b>
-              </Typography>
-              <ProjectList client={client} />
-            </li>
-          ))}
-        </Stack>
-      </Box>
-    </Container>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              navigate("new");
+            }}
+          >
+            + New Project
+          </Button>
+        </Grid>
+      </Grid>
+      <Stack>
+        {clientList.map((client, idx) => (
+          <li key={idx} style={{ listStyle: "none", marginTop: "10px" }}>
+            <Typography style={{ fontWeight: "400" }}>
+              <b>{client.client_name}</b>
+            </Typography>
+            <ProjectList client={client} />
+          </li>
+        ))}
+      </Stack>
+    </Box>
   );
 };
 

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 
 import { useUserContext } from "../../context/userContext";
 
@@ -10,40 +10,41 @@ function Profile() {
   const { userProfile } = useUserContext();
 
   return (
-    <Box>
+    <>
       {userProfile && (
         <Stack spacing={2}>
           {userProfile.photos && (
-            <Stack
-              direction="row"
+            <Grid
+              container
               sx={{
-                width: "100%",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
               }}
             >
-              <img
-                style={{
-                  width: "70px",
-                  height: "70px",
-                  borderRadius: "50%",
-                  marginRight: "20px",
-                }}
-                src={userProfile?.photos[0].value}
-                alt={`${userProfile?.displayName}'s profile`}
-                referrerPolicy="no-referrer"
-              ></img>
-              <Typography variant="h2">
-                Hello, {`${userProfile.displayName}`}
-              </Typography>
-            </Stack>
+              <Grid item>
+                <img
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                    borderRadius: "50%",
+                    marginRight: "20px",
+                  }}
+                  src={userProfile?.photos[0].value}
+                  alt={`${userProfile?.displayName}'s profile`}
+                  referrerPolicy="no-referrer"
+                ></img>
+              </Grid>
+              <Grid item>
+                <Typography variant="h3">Hello, {`${userProfile.displayName}`}</Typography>
+              </Grid>
+            </Grid>
           )}
           <Divider />
           <Outlet />
         </Stack>
       )}
-    </Box>
+    </>
   );
 }
 
