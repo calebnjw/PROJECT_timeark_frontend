@@ -41,11 +41,7 @@ const TimeAndEarningsChart = ({ chartData }: Props) => {
     ],
   };
 
-  return (
-    <>
-      <ReactEcharts option={option} style={{ width: "50%" }} />
-    </>
-  );
+  return <ReactEcharts option={option} style={{ width: "50%" }} />;
 };
 
 export default TimeAndEarningsChart;
