@@ -42,22 +42,24 @@ const EditInvoiceForm = () => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       project_id: { value: string};
-      selectedMonth: { value: string};
+      month: { value: string};
       paid: { value: boolean};
-      // overdue: { value: boolean};
-      // amount: { value: number};
-      // time_trackings: { value: string};
+      overdue: { value: boolean};
+      issuedDate: { value: Date};
+      amount: { value: number};
     };
 
     const updateInvoice = {
       project_id: target.project_id.value,
-      selectedMonth: target.selectedMonth.value,
+      month: target.selectedMonth.value,
       paid: target.paid.value,
       overdue: target.overdue.value,
+      issuedDate: target.issuedDate.value,
+      amount: target.amount.value,
     }
     console.log("updateinvoice", updateInvoice)
     try {
-      const result: any = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/invoices/update`, updateInvoice)
+      const result: any = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/invoices/${invoice_id}/update`, updateInvoice)
   } catch(err){
     console.log(err)
   }

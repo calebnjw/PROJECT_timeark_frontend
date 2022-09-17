@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../../context/userContext";
 import { format } from "date-fns";
+import Moment from 'moment';
 import {
   Button,
   styled,
@@ -56,6 +57,7 @@ const InvoiceDisplay = () => {
   const [invoice, setInvoice] = useState<InvoiceProps>();
   const [dueDate, setDueDate] = useState<any>();
   const [timeTrack, setTimeTrack] = useState<TimeTrackProps[]>([]);
+  const [issuedDate, setIssuedDate] = useState();
   const { userProfile } = useUserContext();
 
   const { invoice_id } = useParams();
@@ -75,21 +77,22 @@ const InvoiceDisplay = () => {
           `${process.env.REACT_APP_BACKEND_URL}/invoices/${invoice_id}`
         );
         const s = result.data.invoice.issuedDate
-        result.data.invoice.issue = new Date(s)
+        result.data.invoice.duedate = new Date(s)
         setInvoice(result.data.invoice);
+        console.log("issued date", result.data.invoice.issuedDate)
+        setIssuedDate(result.data.invoice.issuedDate)
         setTimeTrack(result.data.invoice.time_trackings);
-        console.log("invoiceresultdata", result.data);
       } catch (err) {
         console.log(err);
       }
     };
     invoiceData();
   }, []);
-  console.log("timetrack", timeTrack);
+  const invoiceIssuedDate = Moment(issuedDate).format('DD-MM-YYYY')
 
   useEffect(() => {
     if (invoice) {
-      const issuedDate = invoice.issue
+      const issuedDate = invoice.duedate
       const due = new Date(issuedDate.getTime());
       due.setDate(due.getDate() + 7)
       setDueDate(due)
@@ -100,7 +103,6 @@ const InvoiceDisplay = () => {
           );
           setProject(result.data.project);
           setClientId(result.data.project.client_id);
-          console.log("GenerateInvoice projectData :", result.data);
         } catch (err) {
           console.log(err);
         }
@@ -303,13 +305,13 @@ const InvoiceDisplay = () => {
                 <td>
                   <strong>Issued Date : </strong>
                 </td>
-                <td style={{ paddingLeft: "10px" }}>{invoice?.issuedDate}</td>
+                <td style={{ paddingLeft: "10px" }}>{invoiceIssuedDate}</td>
               </tr>
               <tr>
                 <td>
                   <strong>Due Date : </strong>
                 </td>
-                <td style={{ paddingLeft: "10px" }}>{dueDate?.toString()}</td>
+                <td style={{ paddingLeft: "10px" }}>{Moment(dueDate?.toString()).format('DD-MM-YYYY')}</td>
               </tr>
             </table>
           </div>

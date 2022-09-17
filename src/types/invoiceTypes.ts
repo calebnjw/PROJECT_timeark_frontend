@@ -8,7 +8,7 @@ export interface InvoiceProps {
   paid: boolean;
   overdue: boolean;
   issuedDate: Date;
-  issue: Date;
+  duedate: Date;
   dueDate: Date;
   amount: number;
 }
