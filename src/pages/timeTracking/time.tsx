@@ -3,7 +3,7 @@ import Calendar from "./Calendar";
 import TaskList from "./TaskList";
 import "./time.css";
 import * as React from "react";
-import Box from "@mui/material/Box";
+import { Box, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -62,16 +62,24 @@ const Time = () => {
   };
 
   return (
-    <Box
-      style={{
-        width: "100%",
-      }}
-    >
+    <Box>
       {/* <div>
         <pre>{JSON.stringify(taskList, null, 2)}</pre>
       </div> */}
-      <Box style={{ textAlign: "right" }}>
-        {date == today && (
+      <Grid
+        container
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "3ch",
+        }}
+      >
+        <Grid item>
+          <Typography variant="h3">Time Tracking</Typography>
+        </Grid>
+        <Grid item>
           <Button
             variant="contained"
             color="success"
@@ -80,8 +88,8 @@ const Time = () => {
           >
             + New Tracker
           </Button>
-        )}
-      </Box>
+        </Grid>
+      </Grid>
       <Box style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
         <Box>
           <Modal
@@ -90,10 +98,7 @@ const Time = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box
-              sx={style}
-              style={{ borderRadius: "10px", border: "solid 1px gray" }}
-            >
+            <Box sx={style} style={{ borderRadius: "10px", border: "solid 1px gray" }}>
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 <NewTimeForm
                   setOpen={setOpen}
@@ -103,15 +108,12 @@ const Time = () => {
                 />
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please select your project and task to start tracker. Happy
-                Working!
+                Please select your project and task to start tracker. Happy Working!
               </Typography>
             </Box>
           </Modal>
         </Box>
-        <Calendar
-          HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
-        />
+        <Calendar HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys} />
       </Box>
       {<TaskList date={date} taskList={taskList} setTaskList={setTaskList} />}
     </Box>

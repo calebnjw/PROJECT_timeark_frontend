@@ -339,8 +339,9 @@ function ProfileEdit() {
               Delete Account
             </Button>
             <Button
-              component={Link}
-              to="/app/profile"
+              onClick={() => {
+                navigate("/app/profile");
+              }}
               sx={{
                 m: 1,
                 flexGrow: 1,
