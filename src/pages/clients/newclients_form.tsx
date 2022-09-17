@@ -85,11 +85,13 @@ export default function NewClientForm() {
         `${process.env.REACT_APP_BACKEND_URL}/clients/new`,
         clientDetails
       );
-      const newClient = result.data;
+      const newClient = result.data.newclient;
       const clientId: any = newClient._id;
       const updatedClientList: any = [...clientList, newClient];
       setClientList(updatedClientList);
-      navigate(`/app/clients/${clientId}`);
+      if (result.data.success) {
+        navigate(`/app/clients/${clientId}`);
+      }
     } catch (error) {
       console.error(error);
     }

@@ -1,15 +1,10 @@
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import { Box, Grid, Typography, Alert } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
-import Typography from "@mui/material/Typography";
-import { Spinner } from "../../components/spinner/spinner";
 import { useGlobalContext } from "../../context/clientContext";
 import EditClientForm from "./editClient_form";
 
 export default function EditSingleClient() {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
   const { clientList, setClientList } = useGlobalContext();
   const location = useLocation();
   const { client }: any = location.state;
@@ -20,17 +15,11 @@ export default function EditSingleClient() {
         <Grid
           container
           style={{
+            // flexDirection: "column",
             justifyContent: "center",
           }}
         >
-          {!isLoaded && client === undefined ? (
-            <Box>
-              <Typography>Loading the client</Typography>
-              <Spinner />
-            </Box>
-          ) : (
-            <EditClientForm client={client} setClientList={setClientList} />
-          )}
+          <EditClientForm client={client} setClientList={setClientList} />
         </Grid>
       </Box>
     </div>
