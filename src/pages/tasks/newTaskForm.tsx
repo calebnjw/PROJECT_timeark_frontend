@@ -40,10 +40,6 @@ const NewTaskFrom = () => {
       name: selectedTask,
       category: selectedCategory,
       isDone: false,
-      // time_tracking: {
-      //   date: selectedDate,
-      //   hours: 0,
-      // },
       project_id: selectedProject,
     };
 

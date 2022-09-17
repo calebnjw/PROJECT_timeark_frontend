@@ -11,7 +11,7 @@ import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
 import { useUserContext } from "../../context/userContext";
 import { format } from "date-fns";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",

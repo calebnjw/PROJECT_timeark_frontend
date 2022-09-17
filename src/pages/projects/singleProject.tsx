@@ -20,7 +20,6 @@ import TableRow from "@mui/material/TableRow";
 import TimeAndEarningsChart from "./roseChart";
 
 import axios from "axios";
-import { AnyARecord } from "dns";
 axios.defaults.withCredentials = true;
 
 const SingleProject = () => {
