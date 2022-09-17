@@ -1,41 +1,35 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { Button } from "@mui/material";
+import "./style.scss";
 
 const Page404 = () => {
   return (
     <Box
       style={{
+        backgroundImage:
+          "url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/257418/andy-holmes-698828-unsplash.jpg)",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
         display: "flex",
         flexDirection: "column",
-        width: "100vw",
-        height: "100vh",
-        alignItems: "center",
         justifyContent: "center",
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1533551660-71ba5ce4db36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100vw",
+        alignItems: "center",
+        minHeight: "100vh",
+        minWidth: "100vw",
+        color: "white",
       }}
     >
-      <Typography variant="h1" color="white">
-        Page 404
+      <Typography variant="h2">
+        <b>404</b>
       </Typography>
-      <br />
-      <Typography color="white">Page is not found!</Typography>
-      <br />
-      <Typography color="white">
-        It's not your fault, I probably broke something...
-      </Typography>
-      <br />
-      <Link
-        to="app/dashboard"
-        style={{
-          color: "white",
-        }}
-      >
-        Back To Home
-      </Link>
+      <Typography variant="h4">Page is not found!</Typography>
+      <Button variant="contained" style={{ color: "white" }} color="error">
+        <Link to="/app/dashboard" style={{ textDecoration: "none" }}>
+          Back To Dashboard
+        </Link>
+      </Button>
     </Box>
   );
 };
