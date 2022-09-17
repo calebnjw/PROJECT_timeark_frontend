@@ -100,16 +100,12 @@ export default function NewClientForm() {
       <Typography
         variant="h4"
         style={{
-          fontWeight: 600,
+          marginBottom: "20px",
+          textAlign: "center",
         }}
       >
         Add A New Client
       </Typography>
-      <hr
-        style={{
-          width: "600px",
-        }}
-      ></hr>
       <div>
         <TextField
           required

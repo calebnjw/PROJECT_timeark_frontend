@@ -101,10 +101,11 @@ export default function EditClientForm({ client, setClientList }: Props) {
   return (
     <Box component="form" autoComplete="off">
       <Typography
-        variant="h5"
+        variant="h4"
         align="left"
         style={{
-          fontWeight: 600,
+          marginBottom: "20px",
+          textAlign: "center",
         }}
       >
         Edit Client Information
