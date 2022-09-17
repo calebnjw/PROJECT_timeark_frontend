@@ -20,72 +20,67 @@ export default function Clients() {
   const { clientList, setClientList } = useGlobalContext();
   const navigate = useNavigate();
   return (
-    <Container
-      style={{
-        width: "92%",
-      }}
-    >
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <h2>Clients</h2>
-
-          <Button variant="contained" color="success">
-            <Link
-              to="new"
-              style={{
-                color: "white",
-                textDecoration: "none",
-              }}
-            >
-              + New client
-            </Link>
+    <Box>
+      <Grid
+        container
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "3ch",
+        }}
+      >
+        <Grid item>
+          <Typography variant="h3">Clients</Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              navigate("new");
+            }}
+          >
+            + New client
           </Button>
         </Grid>
-        <TableContainer
-          component={Paper}
-          style={{
-            width: "100%",
-            marginTop: "20px",
-          }}
-        >
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow sx={{ backgroundColor: "lightgray" }}>
-                <TableCell>Client</TableCell>
-                <TableCell align="right"></TableCell>
+      </Grid>
+      <TableContainer
+        component={Paper}
+        style={{
+          width: "100%",
+          marginTop: "20px",
+        }}
+      >
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "lightgray" }}>
+              <TableCell>Client</TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {clientList.map((client, idx) => (
+              <TableRow key={idx} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  {client.client_name}
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      navigate(`/app/clients/${client._id}`);
+                    }}
+                  >
+                    {<VisibilityIcon />}
+                  </Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {clientList.map((client, idx) => (
-                <TableRow
-                  key={idx}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {client.client_name}
-                  </TableCell>
-                  <TableCell align="right">
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        navigate(`/app/clients/${client._id}`);
-                      }}
-                    >
-                      {<VisibilityIcon />}
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </Container>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
