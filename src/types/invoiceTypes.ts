@@ -5,6 +5,8 @@ export interface InvoiceProps {
   project_name: string;
   project_id: [];
   month: string
+  paid: boolean;
+  overdue: boolean;
   issuedDate: Date;
   issue: Date;
   dueDate: Date;

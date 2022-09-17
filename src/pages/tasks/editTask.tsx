@@ -17,7 +17,6 @@ const EditTaskForm = () => {
   const [projectList, setProjectList] = useState<Project[]>([]);
   const [categoryList, setCategoryList] = useState([]);
   const [categoryExists, setCategoryExist] = useState<boolean>(false);
-  const { clientList, setClientList } = useGlobalContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,6 +26,7 @@ const EditTaskForm = () => {
   const { task }: any = location.state;
 
   function getCategoryOptions() {
+  
     projectList.map((c) => {
       if (c._id === project_id) {
         setCategoryList(c.category_name);

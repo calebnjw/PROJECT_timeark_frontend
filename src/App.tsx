@@ -35,6 +35,7 @@ import InvoiceDisplay from "./pages/invoices/InvoiceDisplay";
 import InvoicePage from "./pages/invoices/InvoicePage";
 import GenerateInvoice from "./pages/invoices/GenerateInvoice";
 import InvoiceForm from "./pages/invoices/newInvoiceForm";
+import EditInvoiceForm from "./pages/invoices/EditInvoiceForm";
 
 import Page404 from "./pages/notFound/Page404";
 
@@ -96,6 +97,7 @@ function App() {
           <Route index element={<InvoicePage />} />
           <Route path="projects/:project_id" element={<GenerateInvoice />} />
           <Route path="new" element={<InvoiceForm />} />
+          <Route path=":invoice_id/update" element={<EditInvoiceForm />} />
           <Route path=":invoice_id" element={<InvoiceDisplay />} />
         </Route>
       </Route>

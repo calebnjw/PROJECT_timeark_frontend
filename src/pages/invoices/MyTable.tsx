@@ -2,6 +2,8 @@ import { TableProps } from "../../types/invoiceTypes";
 import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
+import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
+import { format } from "date-fns";
 import { InvoiceProps } from "../../types/invoiceTypes";
 import {
   Table,
@@ -22,6 +24,7 @@ import {
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import InvoiceDisplay from "./InvoiceDisplay";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
@@ -47,12 +50,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-//===============================onClick & onChange functions==========================//
-
-const handleSelector = () => {
-  console.log("Paid/overdue selected");
-};
-
 //===================================props=========================//
 interface Props {
   client: Client;
@@ -64,7 +61,6 @@ const MyTable = () => {
   const { clientList, setClientList } = useGlobalContext();
   const [table, setTable] = useState<TableProps[]>([]);
   const [invoice, setInvoice] = useState<InvoiceProps>();
-  // const clientId = client._id;
 
   const { project_id } = useParams();
 
@@ -72,6 +68,10 @@ const MyTable = () => {
     navigate(`/app/invoices/${invoice_id}`);
     console.log("Invoices button clicked");
   };
+
+  const handleUpdateClick = (invoice_id: any) => {
+    navigate(`/app/invoices/${invoice_id}/update`)
+  }
 
   useEffect(() => {
     const getInvoice = async () => {
@@ -107,9 +107,10 @@ const MyTable = () => {
   };
 
   //due date
-  const invoiceIssuedDate = new Date();
-  const invoiceDueDate = new Date(invoiceIssuedDate.getTime());
-  invoiceDueDate.setDate(invoiceDueDate.getDate() + 7);
+  const invoiceIssuedDate = format(new Date(), 'MM/dd/yyyy');
+  const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+  const invoiceDueDate = format(dueDate, 'MM/dd/yyyy');
+  console.log("invoiceduedate", invoiceDueDate)
 
   return (
     <>
@@ -125,6 +126,7 @@ const MyTable = () => {
                   <StyledTableCell align="center">Issued Date</StyledTableCell>
                   <StyledTableCell align="center">Due Date</StyledTableCell>
                   <StyledTableCell align="center">Status</StyledTableCell>
+                  <StyledTableCell align="center">Edit Status</StyledTableCell>
                   <StyledTableCell align="center">
                     View Invoices
                   </StyledTableCell>
@@ -137,27 +139,19 @@ const MyTable = () => {
                     <StyledTableRow key={i.id}>
                       <StyledTableCell align="center">{i._id}</StyledTableCell>
                       <StyledTableCell align="center">
-                        {`${invoiceIssuedDate.getDate()}/${invoiceIssuedDate.getUTCMonth()}/${invoiceIssuedDate.getFullYear()}`}
+                        {invoiceIssuedDate}
                       </StyledTableCell>
                       <StyledTableCell align="center">
-                        {`${invoiceDueDate.getDate()}/${invoiceDueDate.getUTCMonth()}/${invoiceDueDate.getFullYear()}`}
+                        {invoiceDueDate}
                       </StyledTableCell>
-                      <FormControl sx={{ m: 1, minWidth: 90 }}>
-                        <InputLabel id="demo-simple-select-label">
-                          Status
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          // value={age}
-                          label="Status"
-                          onChange={handleSelector}
-                          variant="outlined"
+                     <StyledTableCell align="center">{invoice?.paid ? "Paid" : "Overdue"}</StyledTableCell>
+                      <StyledTableCell align="center">
+                        <Button
+                        onClick={() => handleUpdateClick(i._id)}
                         >
-                          <MenuItem value={"paid"}>Paid</MenuItem>
-                          <MenuItem value={"overdue"}>Overdue</MenuItem>
-                        </Select>
-                      </FormControl>
+                          <BrowserUpdatedIcon />
+                        </Button>
+                      </StyledTableCell>
                       <StyledTableCell align="center">
                         <Button
                           variant="outlined"
