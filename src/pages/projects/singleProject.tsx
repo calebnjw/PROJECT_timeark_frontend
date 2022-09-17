@@ -139,8 +139,8 @@ const SingleProject = () => {
                 }}
               >
                 <Typography variant="h6">
-                  <b>Current Earings:</b>
-                  {"S$"} {computeEarnings()}
+                  <b>Current Earnings:</b>
+                  {"S$"} {computeEarnings().toFixed(2)}
                 </Typography>
               </Box>
             </Box>
