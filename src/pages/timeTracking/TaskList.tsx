@@ -161,8 +161,8 @@ const TaskList = (props: Props) => {
   return (
     <>
       {!loaded ? (
-        <Box>
-          <Typography>Loading the piechart</Typography>
+        <Box style={{ width: "100%", textAlign: "center" }}>
+          <Typography variant="h6">Loading...</Typography>
           <Spinner />
         </Box>
       ) : taskList.length > 0 ? (

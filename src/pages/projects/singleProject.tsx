@@ -17,6 +17,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import TimeAndEarningsChart from "./roseChart";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -93,23 +94,38 @@ const SingleProject = () => {
             <Typography variant="h5">
               <b>Project Details: </b>
             </Typography>
-            <Typography variant="h6">{client?.client_name}</Typography>
-            <Typography>
-              <b>Name: </b>
-              {project?.name}
-            </Typography>
-            <Typography>
-              <b>Budget(S$): </b>
-              {project?.budget}
-            </Typography>
-            <Typography>
-              <b>Rate(S$/hour): </b>
-              {project?.rate}
-            </Typography>
-            <Typography>
-              <b>Due Date: </b>
-              {project?.due_date && handleFormatDate(project.due_date)}
-            </Typography>
+            <hr />
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                marginBottom: "10px",
+                marginTop: "10px",
+              }}
+            >
+              <Box>
+                <Typography variant="h6">{client?.client_name}</Typography>
+                <Typography>
+                  <b>Name: </b>
+                  {project?.name}
+                </Typography>
+                <Typography>
+                  <b>Budget(S$): </b>
+                  {project?.budget}
+                </Typography>
+                <Typography>
+                  <b>Rate(S$/hour): </b>
+                  {project?.rate}
+                </Typography>
+                <Typography>
+                  <b>Due Date: </b>
+                  {project?.due_date && handleFormatDate(project.due_date)}
+                </Typography>
+              </Box>
+
+              <TimeAndEarningsChart />
+            </Box>
             <Stack direction="row" spacing={2} style={{ width: "100%" }}>
               <Box style={{ width: "50%", textAlign: "center" }}>
                 <Button
@@ -145,10 +161,11 @@ const SingleProject = () => {
           sx={{ minWidth: 275 }}
         >
           <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              <b>Tasks</b>
+            </Typography>
+            <hr />
             <TableContainer>
-              <Typography gutterBottom variant="h5" component="div">
-                <b>Tasks</b>
-              </Typography>
               <Table
                 sx={{ minWidth: 650 }}
                 stickyHeader
@@ -156,21 +173,51 @@ const SingleProject = () => {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{ width: "20%", textAlign: "center" }}>
-                      Name
-                    </TableCell>
-                    <TableCell style={{ width: "20%", textAlign: "center" }}>
-                      Category
-                    </TableCell>
-                    <TableCell style={{ width: "20%", textAlign: "center" }}>
-                      Status
-                    </TableCell>
-                    <TableCell style={{ width: "20%", textAlign: "center" }}>
-                      Time(h)
+                    <TableCell
+                      style={{
+                        width: "20%",
+                        textAlign: "center",
+                        fontSize: "large",
+                      }}
+                    >
+                      <b>Name</b>
                     </TableCell>
                     <TableCell
-                      style={{ width: "20%", textAlign: "center" }}
-                    ></TableCell>
+                      style={{
+                        width: "20%",
+                        textAlign: "center",
+                        fontSize: "large",
+                      }}
+                    >
+                      <b>Category</b>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        width: "20%",
+                        textAlign: "center",
+                        fontSize: "large",
+                      }}
+                    >
+                      <b>Status</b>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        width: "20%",
+                        textAlign: "center",
+                        fontSize: "large",
+                      }}
+                    >
+                      <b>Time(h)</b>
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        width: "20%",
+                        textAlign: "center",
+                        fontSize: "large",
+                      }}
+                    >
+                      Action
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody style={{ width: "100%" }}>
@@ -191,13 +238,19 @@ const SingleProject = () => {
                           : "-"}
                       </TableCell>
                       <TableCell>
-                        <Link
-                          to={`/app/projects/${project?._id}/tasks/${task._id}/update`}
-                          state={{ project, task }}
-                          style={{ width: "100%" }}
-                        >
-                          Update
-                        </Link>
+                        <Button variant="contained" color="primary">
+                          <Link
+                            to={`/app/projects/${project?._id}/tasks/${task._id}/update`}
+                            state={{ project, task }}
+                            style={{
+                              width: "100%",
+                              textDecoration: "none",
+                              color: "white",
+                            }}
+                          >
+                            Update
+                          </Link>
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}{" "}
