@@ -123,26 +123,30 @@ const NewTaskFrom = () => {
       }}
       sx={{ flexGrow: 1 }}
     >
-      <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
+      <Box style={{ width: "100%", textAlign: "center", marginTop: "90px" }}>
         <h3>New Task</h3>
         <form onSubmit={(e: React.SyntheticEvent) => handleGetProject(e)}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "600px",
-              // height: "500px",
-              justifyContent: "space-around",
+              width: "100%",
             }}
           >
             {clientOptions.length ? (
-              <>
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  justifyContent: "center",
+                }}
+              >
                 <TextField
                   select
                   name="client_id"
                   label="*Client"
                   defaultValue=""
                   onChange={selectedClientChange}
+                  style={{ width: "600px", marginLeft: "23%" }}
                 >
                   {clientOptions.map(
                     (option?: { id: string; name: string }) => (
@@ -153,7 +157,7 @@ const NewTaskFrom = () => {
                   )}
                 </TextField>
                 <Button onClick={handleGetProject}>Get Projects</Button>
-              </>
+              </Box>
             ) : (
               <>Loading Client Options</>
             )}
@@ -169,7 +173,13 @@ const NewTaskFrom = () => {
         </Button>
       </Box>
       {!projectExists ? (
-        <Box style={{ marginTop: "10px", marginLeft: "10px" }}>
+        <Box
+          style={{
+            marginTop: "10px",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
           <Button
             variant="contained"
             style={{ width: "600px" }}
@@ -188,7 +198,6 @@ const NewTaskFrom = () => {
               display: "flex",
               flexDirection: "column",
               width: "600px",
-              // height: "500px",
               justifyContent: "space-around",
             }}
           >
