@@ -139,7 +139,7 @@ const SingleProject = () => {
                 }}
               >
                 <Typography variant="h6">
-                  <b>Current Earings:</b>
+                  <b>Current Earnings:</b>
                   {"S$"} {computeEarnings()}
                 </Typography>
               </Box>
