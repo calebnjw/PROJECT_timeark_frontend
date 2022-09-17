@@ -63,13 +63,11 @@ const TaskList = (props: Props) => {
   };
 
   useEffect(() => {
-    console.log("selected date: ", selectedDate);
     const getTasksBySelectedDate = async () => {
       const tasks = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/tasks/time/${selectedDate}`
       );
       const taskArr = tasks.data.tasksBySelectedDate;
-      console.log("taskArr: ", taskArr);
       if (taskArr) {
         setTaskList(taskArr);
         setLoaded(true);
@@ -161,8 +159,8 @@ const TaskList = (props: Props) => {
   return (
     <>
       {!loaded ? (
-        <Box>
-          <Typography>Loading the piechart</Typography>
+        <Box style={{ width: "100%", textAlign: "center" }}>
+          <Typography variant="h6">Loading...</Typography>
           <Spinner />
         </Box>
       ) : taskList.length > 0 ? (

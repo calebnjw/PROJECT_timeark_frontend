@@ -3,7 +3,6 @@ import { Client } from "../../types/client";
 import { Project } from "../../types/project";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -28,9 +27,12 @@ const ProjectList = ({ client }: Props) => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
-        params: { client_id: clientId, autoCorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/projects`,
+        {
+          params: { client_id: clientId, autoCorrect: true },
+        }
+      );
       setProjectList(result.data.projects);
     };
     getProjects();
@@ -51,7 +53,10 @@ const ProjectList = ({ client }: Props) => {
           </TableHead>
           <TableBody>
             {projectList.map((project, idx) => (
-              <TableRow key={idx} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableRow
+                key={idx}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell component="th" scope="row">
                   {project.name}
                 </TableCell>

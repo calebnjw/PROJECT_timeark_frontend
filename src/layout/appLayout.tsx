@@ -13,8 +13,8 @@ import { User } from "../types/user";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
-console.log("FRONTEND URL", FRONTEND_URL);
+// const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+// console.log("FRONTEND URL", FRONTEND_URL);
 
 function AppLayout() {
   const [clientList, setClientList] = useState<[]>([]);
@@ -27,7 +27,9 @@ function AppLayout() {
 
   // get client list
   const getClients = async () => {
-    const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/clients`);
+    const result = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/clients`
+    );
     setClientList(result.data);
   };
 
@@ -35,7 +37,9 @@ function AppLayout() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/user`);
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/users/user`
+        );
         const userId = result.data.user._id;
         if (userId) {
           getClients();

@@ -89,13 +89,23 @@ const EditTaskForm = () => {
     }
   };
 
+  const handleDeleteButton = async () => {
+    try {
+      const result = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/${task_id}`
+      );
+      console.log("result: ", result);
+      navigate(-1);
+    } catch (error) {
+      console.log("Error message: ", error);
+    }
+
+    return;
+  };
   return (
-    <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
+    <Box style={{ width: "100%", marginTop: "90px", marginLeft: "20%" }}>
       <Typography variant="h5">Edit Task</Typography>
-      <form
-        onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
-        style={{ width: "50%" }}
-      >
+      <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)} style={{}}>
         {" "}
         <Box
           style={{
@@ -166,21 +176,36 @@ const EditTaskForm = () => {
         )}
         <Box
           style={{
+            marginTop: "0",
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-around",
-            marginTop: "10px",
+            width: "600px",
           }}
         >
-          <Button type="submit" value="Submit" variant="contained">
-            Update Task
+          <Button
+            color="error"
+            variant="contained"
+            onClick={handleDeleteButton}
+            style={{ width: "150px" }}
+          >
+            Delete
           </Button>
           <Button
             color="secondary"
             variant="contained"
             onClick={handleCancelButton}
+            style={{ width: "150px" }}
           >
             CANCEL
+          </Button>
+          <Button
+            type="submit"
+            value="Submit"
+            variant="contained"
+            style={{ width: "150px" }}
+          >
+            Update Task
           </Button>
         </Box>
       </form>

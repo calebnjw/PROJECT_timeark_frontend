@@ -11,7 +11,7 @@ import { Task } from "../../types/task";
 import NewTimeForm from "./newTimeForm";
 import { useUserContext } from "../../context/userContext";
 import { format } from "date-fns";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -80,14 +80,16 @@ const Time = () => {
           <Typography variant="h3">Time Tracking</Typography>
         </Grid>
         <Grid item>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={handleOpen}
-            style={{ width: "150px" }}
-          >
-            + New Tracker
-          </Button>
+          {today == date && (
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handleOpen}
+              style={{ width: "150px" }}
+            >
+              + New Tracker
+            </Button>
+          )}
         </Grid>
       </Grid>
       <Box style={{ display: "flex", flexDirection: "row", overflow: "auto" }}>
@@ -98,7 +100,10 @@ const Time = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={style} style={{ borderRadius: "10px", border: "solid 1px gray" }}>
+            <Box
+              sx={style}
+              style={{ borderRadius: "10px", border: "solid 1px gray" }}
+            >
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 <NewTimeForm
                   setOpen={setOpen}
@@ -108,12 +113,15 @@ const Time = () => {
                 />
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please select your project and task to start tracker. Happy Working!
+                Please select your project and task to start tracker. Happy
+                Working!
               </Typography>
             </Box>
           </Modal>
         </Box>
-        <Calendar HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys} />
+        <Calendar
+          HandleShowSelectedDateTimeEntrys={HandleShowSelectedDateTimeEntrys}
+        />
       </Box>
       {<TaskList date={date} taskList={taskList} setTaskList={setTaskList} />}
     </Box>

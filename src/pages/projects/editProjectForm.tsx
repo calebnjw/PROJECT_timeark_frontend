@@ -59,6 +59,18 @@ const EditProjectForm = () => {
     }
   };
 
+  const handleDeleteProject = async () => {
+    try {
+      const result = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/projects/${projectInfo._id}`
+      );
+      navigate(`/app/projects`);
+      console.log("result: ", result.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Box
@@ -131,15 +143,32 @@ const EditProjectForm = () => {
                 justifyContent: "space-between",
               }}
             >
+              <Button
+                color="error"
+                variant="contained"
+                onClick={handleDeleteProject}
+                style={{ width: "150px" }}
+              >
+                Delete
+              </Button>
               <Button variant="contained" color="secondary">
                 <Link
                   to="/app/projects"
-                  style={{ color: "white", textDecoration: "none" }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    width: "150px",
+                  }}
                 >
                   Cancel
                 </Link>
               </Button>
-              <Button type="submit" value="Submit" variant="contained">
+              <Button
+                type="submit"
+                value="Submit"
+                variant="contained"
+                style={{ width: "150px" }}
+              >
                 Submit
               </Button>
             </Grid>
