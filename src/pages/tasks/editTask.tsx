@@ -103,12 +103,9 @@ const EditTaskForm = () => {
     return;
   };
   return (
-    <Box style={{ width: "80%", marginLeft: "32%", marginTop: "90px" }}>
+    <Box style={{ width: "100%", marginTop: "90px", marginLeft: "20%" }}>
       <Typography variant="h5">Edit Task</Typography>
-      <form
-        onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
-        style={{ width: "50%" }}
-      >
+      <form onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)} style={{}}>
         {" "}
         <Box
           style={{
@@ -179,11 +176,11 @@ const EditTaskForm = () => {
         )}
         <Box
           style={{
+            marginTop: "0",
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-around",
-            marginTop: "10px",
-            width: "100%",
+            width: "600px",
           }}
         >
           <Button

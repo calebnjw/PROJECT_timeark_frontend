@@ -75,8 +75,13 @@ const SingleProject = () => {
     const totalTime = timeSpentArr.reduce(
       (a: any, b: any) => Number(a) + Number(b)
     );
-    console.log("time arr", totalTime);
     return totalTime;
+  };
+
+  const computeEarnings = (rate: any) => {
+    const totalHours = chartData.reduce((a: any, b: any) => a.value + b.value);
+    const earnings = Number(totalHours) * Number(rate);
+    return earnings;
   };
 
   return (
@@ -93,7 +98,7 @@ const SingleProject = () => {
       >
         <Card style={{ width: "80%" }} sx={{ minWidth: 275 }}>
           <CardContent>
-            <Typography variant="h5">
+            <Typography variant="h5" style={{ marginBottom: "10px" }}>
               <b>Project Details: </b>
             </Typography>
             <hr />
@@ -124,6 +129,7 @@ const SingleProject = () => {
                   <b>Due Date: </b>
                   {project?.due_date && handleFormatDate(project.due_date)}
                 </Typography>
+                {/* <Box>{computeEarnings(project?.rate)}</Box> */}
               </Box>
 
               <TimeAndEarningsChart chartData={chartData} />
