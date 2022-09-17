@@ -13,7 +13,7 @@ const Projects = () => {
   const navigate = useNavigate();
 
   return (
-    <Box>
+    <Box style={{ margin: "0 50px" }}>
       <Grid
         container
         style={{

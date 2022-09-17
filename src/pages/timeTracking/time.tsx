@@ -63,9 +63,6 @@ const Time = () => {
 
   return (
     <Box>
-      {/* <div>
-        <pre>{JSON.stringify(taskList, null, 2)}</pre>
-      </div> */}
       <Grid
         container
         style={{
@@ -73,7 +70,7 @@ const Time = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          marginBottom: "3ch",
+          marginBottom: "2ch",
         }}
       >
         <Grid item>

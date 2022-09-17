@@ -146,7 +146,7 @@ const EditTaskForm = () => {
         {!categoryExists ? (
           <></>
         ) : (
-          <Box>
+          <Box style={{ display: "flex", flexDirection: "column" }}>
             <TextField
               select
               name="category"

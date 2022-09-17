@@ -41,7 +41,7 @@ const SingleProject = () => {
     chartData.forEach((e: any) => {
       projectEarnings += e.value;
     });
-    return projectEarnings;
+    return projectEarnings.toFixed(2);
   };
 
   useEffect(() => {

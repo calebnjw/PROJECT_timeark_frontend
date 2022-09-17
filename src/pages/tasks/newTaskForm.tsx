@@ -142,7 +142,7 @@ const NewTaskFrom = () => {
                   label="*Client"
                   defaultValue=""
                   onChange={selectedClientChange}
-                  style={{ width: "600px", marginLeft: "23%" }}
+                  style={{ width: "600px", marginLeft: "28%" }}
                 >
                   {clientOptions.map(
                     (option?: { id: string; name: string }) => (
