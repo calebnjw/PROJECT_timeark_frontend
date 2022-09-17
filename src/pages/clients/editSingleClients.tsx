@@ -16,23 +16,21 @@ export default function EditSingleClient() {
 
   return (
     <div>
-      <Box style={{ width: "100%" }}>
+      <Box>
         <Grid
           container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
+          style={{
+            justifyContent: "center",
+          }}
         >
-          <Grid item>
-            {!isLoaded && client === undefined ? (
-              <Box>
-                <Typography>Loading the client</Typography>
-                <Spinner />
-              </Box>
-            ) : (
-              <EditClientForm client={client} setClientList={setClientList} />
-            )}
-          </Grid>
+          {!isLoaded && client === undefined ? (
+            <Box>
+              <Typography>Loading the client</Typography>
+              <Spinner />
+            </Box>
+          ) : (
+            <EditClientForm client={client} setClientList={setClientList} />
+          )}
         </Grid>
       </Box>
     </div>

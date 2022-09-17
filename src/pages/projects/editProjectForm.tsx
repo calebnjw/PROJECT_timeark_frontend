@@ -76,8 +76,6 @@ const EditProjectForm = () => {
       <Box
         style={{
           width: "100%",
-          marginLeft: "8%",
-          marginTop: "30px",
           alignItems: "center",
           display: "flex",
           flexDirection: "column",

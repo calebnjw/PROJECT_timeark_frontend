@@ -109,79 +109,97 @@ export default function EditClientForm({ client, setClientList }: Props) {
       >
         Edit Client Information
       </Typography>
-      <TextField
-        required
-        id="clientName"
-        label="Client Name"
-        value={clientName}
-        onChange={clientNameChange}
-        sx={{ width: 600, marginTop: "10px" }}
-      />
-      <TextField
-        required
-        id="companyName"
-        label="Company Name"
-        value={companyName}
-        onChange={companyNameChange}
-        sx={{ width: 600, marginTop: "10px" }}
-      />
+      <div>
+        <TextField
+          required
+          id="clientName"
+          label="Client Name"
+          value={clientName}
+          onChange={clientNameChange}
+          sx={{ width: 600, marginTop: "10px" }}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="companyName"
+          label="Company Name"
+          value={companyName}
+          onChange={companyNameChange}
+          sx={{ width: 600, marginTop: "10px" }}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="streetName"
+          label="Street Name"
+          value={streetNumber}
+          onChange={streetNumberChange}
+          sx={{ width: 600, marginTop: "10px" }}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="unitNumber"
+          label="Unit Number"
+          value={unitNumber}
+          onChange={unitNumberChange}
+          sx={{ width: 600, marginTop: "10px" }}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="buildingName"
+          label="Building Name"
+          value={buildingName}
+          onChange={buildingNameChange}
+          sx={{ width: 600, marginTop: "10px" }}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="cityName"
+          label="City Name"
+          value={cityName}
+          sx={{ width: 600, marginTop: "10px" }}
+          onChange={cityNameChange}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="countryName"
+          label="Country"
+          value={countryName}
+          sx={{ width: 600, marginTop: "10px" }}
+          onChange={countryNameChange}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="postalCode"
+          label="Postal Code"
+          value={postalCode}
+          onChange={postalCodeChange}
+          sx={{ width: 600, marginTop: "10px" }}
+        />
+      </div>
+      <div>
+        <TextField
+          required
+          id="companyreg"
+          label="Company Registration"
+          value={companyreg}
+          onChange={companyregChange}
+          sx={{ width: 600, marginTop: "10px" }}
+        />
+      </div>
 
-      <TextField
-        required
-        id="streetName"
-        label="Street Name"
-        value={streetNumber}
-        onChange={streetNumberChange}
-        sx={{ width: 600, marginTop: "10px" }}
-      />
-      <TextField
-        required
-        id="unitNumber"
-        label="Unit Number"
-        value={unitNumber}
-        onChange={unitNumberChange}
-        sx={{ width: 600, marginTop: "10px" }}
-      />
-      <TextField
-        required
-        id="buildingName"
-        label="Building Name"
-        value={buildingName}
-        onChange={buildingNameChange}
-        sx={{ width: 600, marginTop: "10px" }}
-      />
-      <TextField
-        required
-        id="cityName"
-        label="City Name"
-        value={cityName}
-        sx={{ width: 600, marginTop: "10px" }}
-        onChange={cityNameChange}
-      />
-      <TextField
-        required
-        id="countryName"
-        label="Country"
-        value={countryName}
-        sx={{ width: 600, marginTop: "10px" }}
-        onChange={countryNameChange}
-      />
-      <TextField
-        required
-        id="postalCode"
-        label="Postal Code"
-        value={postalCode}
-        onChange={postalCodeChange}
-        sx={{ width: 600, marginTop: "10px" }}
-      />
-      <TextField
-        required
-        id="companyreg"
-        label="Company Registration"
-        value={companyreg}
-        onChange={companyregChange}
-        sx={{ width: 600, marginTop: "10px" }}
-      />
       <Box mt="2rem">
         <Button variant="contained" onClick={handleEditClient}>
           Submit
