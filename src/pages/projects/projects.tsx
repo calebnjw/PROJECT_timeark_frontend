@@ -8,8 +8,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
 const Projects = () => {
-  const { clientList, setClientList } = useGlobalContext();
-
+  const { clientList } = useGlobalContext();
   const navigate = useNavigate();
 
   return (

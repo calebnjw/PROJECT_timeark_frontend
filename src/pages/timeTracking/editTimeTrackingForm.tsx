@@ -93,8 +93,6 @@ const EditTimeTrackingForm = ({
       e.preventDefault();
       if (updatedTimeSpent) {
         try {
-          console.log("selectedTimeTrackingId: ", selectedTimeTrackingId);
-          console.log("updatedTimeSpent: ", updatedTimeSpent);
           const result = await axios.put(
             `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTaskId}/timetrackings/${selectedTimeTrackingId}/update`,
             { updatedTimeSpent: updatedTimeSpent }
@@ -138,7 +136,6 @@ const EditTimeTrackingForm = ({
           </Typography>
         </Box>
         <div>
-          {/* <Box style={{ textAlign: "center" }}>Project/Task</Box> */}
           <Box style={{ marginTop: "0px" }}>
             <div
               style={{

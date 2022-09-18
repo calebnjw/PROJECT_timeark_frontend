@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { useGlobalContext } from "../../context/clientContext";
 import React, { useEffect } from "react";
@@ -6,10 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Project } from "../../types/project";
-// import DatesButton from "../timeTracking/datesButtons";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -60,7 +57,6 @@ const NewTaskFrom = () => {
   }
 
   useEffect(() => {
-    console.log(selectedProject);
     if (selectedProject !== "") {
       setCategoryExist(true);
       getCategoryOptions();

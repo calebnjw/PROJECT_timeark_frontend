@@ -1,6 +1,6 @@
 import { Box, Typography, Button, Paper } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Spinner } from "../../components/spinner/spinner";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
@@ -38,7 +38,6 @@ export default function SingleClient() {
     }
     if (!isLoaded && clientId !== undefined && clientList.length !== 0) {
       const selectedclient = getSingleClient(clientId, clientList);
-      console.log("selectedclient", selectedclient);
       setClient(selectedclient[0]);
       setIsLoaded(true);
     }

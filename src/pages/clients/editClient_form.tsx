@@ -25,8 +25,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
   const [companyreg, setCompanyreg] = useState("");
 
   const navigate = useNavigate();
-  const { userProfile } = useUserContext();
-
   const [isEdited, setIsEdited] = React.useState<boolean>(false);
 
   useEffect(() => {
@@ -94,7 +92,6 @@ export default function EditClientForm({ client, setClientList }: Props) {
       if (result.data.success) {
         setClientList(result.data.clients);
         setIsEdited(true);
-        // navigate(`/app/clients/${client._id}`);
       }
     } catch (error) {
       console.error(error);
