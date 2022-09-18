@@ -1,11 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button, Paper } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Spinner } from "../../components/spinner/spinner";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
-
-import Button from "@mui/material/Button";
 
 export default function SingleClient() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -48,10 +46,12 @@ export default function SingleClient() {
 
   return (
     <div>
-      <Box
+      <Paper
+        elevation={3}
         style={{
           width: "100%",
           flexDirection: "column",
+          padding: "3ch",
         }}
       >
         {!isLoaded && client === undefined ? (
@@ -68,13 +68,7 @@ export default function SingleClient() {
                 justifyContent: "space-between",
               }}
             >
-              <Typography
-                variant="h4"
-                align="left"
-                style={{
-                  fontWeight: 600,
-                }}
-              >
+              <Typography variant="h3" align="left">
                 Client Details
               </Typography>
               <Button
@@ -107,7 +101,7 @@ export default function SingleClient() {
                 {client.billing_details.company_name}
               </p>
               <p>
-                <strong>Company Registration:</strong>
+                <strong>Company Registration: </strong>
                 {client.billing_details.company_registration}
               </p>
 
@@ -115,7 +109,6 @@ export default function SingleClient() {
                 variant="h5"
                 align="left"
                 style={{
-                  fontWeight: 600,
                   marginTop: "20px",
                 }}
               >
@@ -128,7 +121,7 @@ export default function SingleClient() {
                   marginTop: "20px",
                 }}
               >
-                <strong>Street Name:</strong>
+                <strong>Street Name: </strong>
                 {client.billing_details.street_name}
               </p>
               <p>
@@ -144,17 +137,17 @@ export default function SingleClient() {
                 {client.billing_details.city}
               </p>
               <p>
-                <strong>Country:</strong>
+                <strong>Country: </strong>
                 {client.billing_details.country}
               </p>
               <p>
-                <strong>Postal Code:</strong>
+                <strong>Postal Code: </strong>
                 {client.billing_details.postal_code}
               </p>
             </Box>
           </>
         )}
-      </Box>
+      </Paper>
     </div>
   );
 }

@@ -41,7 +41,7 @@ const SingleProject = () => {
     chartData.forEach((e: any) => {
       projectEarnings += e.value;
     });
-    return projectEarnings;
+    return projectEarnings.toFixed(2);
   };
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const SingleProject = () => {
               >
                 <Typography variant="h6">
                   <b>Current Earnings:</b>
-                  {"S$"} {computeEarnings().toFixed(2)}
+                  {"S$"} {computeEarnings()}
                 </Typography>
               </Box>
             </Box>

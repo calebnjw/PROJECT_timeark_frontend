@@ -300,10 +300,13 @@ const TaskList = (props: Props) => {
                                     flexDirection: "row",
                                     alignItems: "center",
                                     height: "50px",
-                                    backgroundColor: "pink",
+                                    // backgroundColor: "pink",
+                                    backgroundImage:
+                                      "url(https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif)",
                                     justifyContent: "space-around",
                                     border: "solid 2px gray",
                                     borderRadius: "8px",
+                                    color: "white",
                                   }}
                                 >
                                   <Typography

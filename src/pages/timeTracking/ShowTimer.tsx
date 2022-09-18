@@ -58,7 +58,7 @@ const ShowTimer = ({ startDate }: Props) => {
           padding: "4px 10px",
           borderRadius: "4px",
           color: "white",
-          backgroundColor: "black",
+          // backgroundColor: "black",
         }}
       >
         <b>{formatTime(startTime)}</b>

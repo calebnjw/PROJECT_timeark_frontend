@@ -24,7 +24,6 @@ const NewTaskFrom = () => {
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedCategory, setselectedCategory] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
-
   const navigate = useNavigate();
 
   const clientOptions: any = clientList.map((c) => {
@@ -45,7 +44,6 @@ const NewTaskFrom = () => {
 
     try {
       axios.post(`${process.env.REACT_APP_BACKEND_URL}/tasks/new`, NewTask);
-      console.log(NewTask);
       navigate(`/app/projects/${selectedProject}`);
     } catch (error) {
       console.error(error);
@@ -98,7 +96,6 @@ const NewTaskFrom = () => {
       }
       setProjectExists(true);
       setProjectList(result.data.projects);
-      console.log(result.data.projects);
     } catch (error) {
       console.error(error);
     }
@@ -142,7 +139,7 @@ const NewTaskFrom = () => {
                   label="*Client"
                   defaultValue=""
                   onChange={selectedClientChange}
-                  style={{ width: "600px", marginLeft: "23%" }}
+                  style={{ width: "600px", marginLeft: "28%" }}
                 >
                   {clientOptions.map(
                     (option?: { id: string; name: string }) => (
@@ -188,7 +185,7 @@ const NewTaskFrom = () => {
           </Button>
         </Box>
       ) : (
-        <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
+        <Box style={{ width: "80%", marginLeft: "36%", marginTop: "20px" }}>
           <div
             style={{
               display: "flex",
@@ -224,7 +221,7 @@ const NewTaskFrom = () => {
       {!categoryExists ? (
         <></>
       ) : (
-        <Box style={{ width: "80%", marginLeft: "32%", marginTop: "20px" }}>
+        <Box style={{ width: "80%", marginLeft: "36%", marginTop: "20px" }}>
           <Box
             style={{
               display: "flex",

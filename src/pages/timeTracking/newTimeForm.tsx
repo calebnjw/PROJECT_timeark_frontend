@@ -39,7 +39,6 @@ const NewTimeForm = ({
       `${process.env.REACT_APP_BACKEND_URL}/projects/all`
     );
     const projects = getProjects.data.projects;
-
     const projectsHasTasks = projects.filter((p: any) => p.task_ids.length);
     setProjectList(projectsHasTasks);
 
@@ -121,8 +120,8 @@ const NewTimeForm = ({
 
   return (
     <Box>
-      <Typography variant="h6" style={{ textAlign: "center" }}>
-        New Time Tracker
+      <Typography variant="h5" style={{ textAlign: "center" }}>
+        <b>New Time Tracker</b>
       </Typography>
       <Box style={{ marginTop: "0px" }}>
         <Box
