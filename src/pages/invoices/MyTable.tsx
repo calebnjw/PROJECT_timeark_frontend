@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
 import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
-import { format } from "date-fns";
 import Moment from 'moment';
 import { InvoiceProps } from "../../types/invoiceTypes";
 import {
@@ -61,7 +60,6 @@ const MyTable = () => {
 
   const handleInvoices = (invoice_id: any) => {
     navigate(`/app/invoices/${invoice_id}`);
-    console.log("Invoices button clicked");
   };
 
   const handleUpdateClick = (invoice_id: any) => {
@@ -103,10 +101,6 @@ const MyTable = () => {
         }
       };
 
-      //due date
-  const invoiceIssuedDate = Moment(invoice?.issuedDate).format('DD/MM/YYYY');
-  const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-  const invoiceDueDate = format(dueDate, 'dd/MM/yyyy');
 
   return (
     <>

@@ -95,7 +95,6 @@ const InvoiceForm = () => {
             `${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`
           );
           setClient(result.data[0]);
-          console.log("Client data: ", result.data[0]);
         } catch (err) {
           console.log(err);
         }
@@ -103,8 +102,6 @@ const InvoiceForm = () => {
       clientData();
     }
   }, [clientId]);
-  console.log("Tasklist: ", taskList);
-  console.log("SelectedProject", selectedProject);
 
   async function submitNewInvoice() {
     //convert time to hours
@@ -112,7 +109,6 @@ const InvoiceForm = () => {
       const endDate: any = new Date(t1);
       const startDate: any = new Date(t2);
       const timeDifference = endDate.getTime() - startDate.getTime();
-      console.log("Time difference:", timeDifference);
       const hours = timeDifference / (1000 * 60 * 60);
       return hours.toFixed(2);
     };
@@ -134,20 +130,17 @@ const InvoiceForm = () => {
     const taskDetails = [];
     for (let task of tasks) {
       const taskObject = { taskName: task.name, totalAmount: 0 };
-      console.log("taskObject:", taskObject);
       let taskTotalAmount = 0;
       for (let timeTrackingObj of task.time_trackings) {
         const hours = computeTime(
           timeTrackingObj.endDate,
           timeTrackingObj.startDate
         );
-        console.log("hours", hours);
         if (project) {
           taskTotalAmount += parseInt(hours) * project?.rate;
         }
         totalHours += parseInt(hours);
       }
-      console.log("taskTotalAmount:", taskTotalAmount);
       taskObject.totalAmount = taskTotalAmount;
       taskDetails.push(taskObject);
     }
@@ -326,6 +319,7 @@ const InvoiceForm = () => {
           <div>
             <Button
               variant="contained"
+              style={{marginTop: "20px"}}
               color="primary"
               type="button"
               value="Submit"

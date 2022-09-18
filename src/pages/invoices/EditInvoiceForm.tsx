@@ -33,10 +33,6 @@ const EditInvoiceForm = () => {
     invoiceData();
   }, []);
 
-  console.log("invoice projectid", invoice?.project_id)
-  console.log("invoice month", invoice?.month)
-  console.log("invoice paid status", invoice?.paid)
-
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -82,6 +78,7 @@ const EditInvoiceForm = () => {
               style={{ marginTop: "10px", marginBottom: "10px" }}
               >
               <MenuItem value={false as any}>Paid</MenuItem>
+              <MenuItem value={false as any}>Unpaid</MenuItem>
               <MenuItem value={true as any}>Overdue</MenuItem>
             </TextField>
             <Box

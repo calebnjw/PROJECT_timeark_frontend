@@ -44,7 +44,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 //==================================function=============================//
 
 import axios from "axios";
-import { result } from "lodash";
 axios.defaults.withCredentials = true;
 
 const InvoiceDisplay = () => {
@@ -60,10 +59,6 @@ const InvoiceDisplay = () => {
   const { userProfile } = useUserContext();
 
   const { invoice_id } = useParams();
-  console.log("project", project);
-  console.log("taskList", taskList);
-  console.log("invoice", invoice);
-  console.log("dueDate", dueDate)
   const navigate = useNavigate();
 
   const handleBackButton = () => {
@@ -78,7 +73,6 @@ const InvoiceDisplay = () => {
         const s = result.data.invoice.issuedDate
         result.data.invoice.duedate = new Date(s)
         setInvoice(result.data.invoice);
-        console.log("issued date", result.data.invoice.issuedDate)
         setIssuedDate(result.data.invoice.issuedDate)
         setTimeTrack(result.data.invoice.time_trackings);
       } catch (err) {
@@ -112,7 +106,6 @@ const InvoiceDisplay = () => {
 
   useEffect(() => {
     if (clientId) {
-      console.log(clientId);
       const clientData = async () => {
         try {
           const result = await axios.get(
@@ -159,7 +152,6 @@ const InvoiceDisplay = () => {
       const endDate: any = new Date(t1);
       const startDate: any = new Date(t2);
       const timeDifference = endDate.getTime() - startDate.getTime();
-      console.log("Time difference:", timeDifference);
       const hours = timeDifference / (1000 * 60 * 60);
       return hours.toFixed(2);
     };
@@ -188,7 +180,6 @@ const InvoiceDisplay = () => {
       }
       const dateObject = new Date(date);
       const taskListMonth = monthStrings[dateObject.getUTCMonth()];
-      console.log("tasklistmonth&invoicemonth", taskListMonth, invoice?.month);
       return taskListMonth === invoice?.month;
     });
 
@@ -196,25 +187,20 @@ const InvoiceDisplay = () => {
     const taskDetails = [];
     for (let task of tasks) {
       const taskObject = { taskName: task.name, totalAmount: 0 };
-      console.log("taskObject:", taskObject);
       let taskTotalAmount = 0;
       for (let timeTrackingObj of task.time_trackings) {
         const hours = computeTime(
           timeTrackingObj.endDate,
           timeTrackingObj.startDate
         );
-        console.log("hours", hours);
         if (project) {
           taskTotalAmount += parseInt(hours) * project?.rate;
         }
         totalHours += parseInt(hours);
       }
-      console.log("taskTotalAmount:", taskTotalAmount);
       taskObject.totalAmount = taskTotalAmount;
       taskDetails.push(taskObject);
     }
-    console.log("Total Hours:", totalHours);
-    console.log("task list id: ", tasks);
   }, [taskList]);
 
   return (

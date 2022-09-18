@@ -10,6 +10,7 @@ import { Client } from "../../types/client";
 import {
   Table,
   TableRow,
+  Alert,
   TableCell,
   Paper,
   styled,
@@ -51,12 +52,10 @@ const GenerateInvoice = () => {
   const navigate = useNavigate();
   const [clientId, setClientId] = useState("");
   const [client, setClient] = useState<Client>();
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [project, setProject] = useState<Project>();
   const { clientList } = useContext(ClientGlobalContext);
 
   const { project_id } = useParams();
-  console.log(project_id);
 
   //==============================query===================================//
 
@@ -69,7 +68,6 @@ const GenerateInvoice = () => {
         );
         setProject(result.data.project);
         setClientId(result.data.project.client_id);
-        console.log("GenerateInvoice projectData :", result.data);
       } catch (err) {
         console.log(err);
       }
@@ -86,7 +84,6 @@ const GenerateInvoice = () => {
             `${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`
           );
           setClient(result.data[0]);
-          console.log("Client data: ", result.data[0]);
         } catch (err) {
           console.log(err);
         }
@@ -99,6 +96,8 @@ const GenerateInvoice = () => {
 
   const handleProjectButton = () => {
     navigate("/app/invoices");
+    <Alert severity="success">This is a success alert — check it out!</Alert>
+
   };
 
   return (
