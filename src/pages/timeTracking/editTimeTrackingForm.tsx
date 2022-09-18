@@ -7,6 +7,7 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -131,9 +132,13 @@ const EditTimeTrackingForm = ({
 
     return (
       <>
-        <Box style={{ textAlign: "center" }}>Update Task Time Entry </Box>
+        <Box style={{ textAlign: "center" }}>
+          <Typography variant="h5">
+            <b>Update Task Time Entry</b>
+          </Typography>
+        </Box>
         <div>
-          <Box style={{ textAlign: "center" }}>Project/Task</Box>
+          {/* <Box style={{ textAlign: "center" }}>Project/Task</Box> */}
           <Box style={{ marginTop: "0px" }}>
             <div
               style={{
