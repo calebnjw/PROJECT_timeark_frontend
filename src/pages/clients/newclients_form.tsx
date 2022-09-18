@@ -85,11 +85,13 @@ export default function NewClientForm() {
         `${process.env.REACT_APP_BACKEND_URL}/clients/new`,
         clientDetails
       );
-      const newClient = result.data;
+      const newClient = result.data.newclient;
       const clientId: any = newClient._id;
       const updatedClientList: any = [...clientList, newClient];
       setClientList(updatedClientList);
-      navigate(`/app/clients/${clientId}`);
+      if (result.data.success) {
+        navigate(`/app/clients/${clientId}`);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -100,16 +102,12 @@ export default function NewClientForm() {
       <Typography
         variant="h4"
         style={{
-          fontWeight: 600,
+          marginBottom: "20px",
+          textAlign: "center",
         }}
       >
         Add A New Client
       </Typography>
-      <hr
-        style={{
-          width: "600px",
-        }}
-      ></hr>
       <div>
         <TextField
           required

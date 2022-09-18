@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
+import { Box, Typography, TextField, Alert } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { Client } from "../../types/client";
@@ -28,6 +26,8 @@ export default function EditClientForm({ client, setClientList }: Props) {
 
   const navigate = useNavigate();
   const { userProfile } = useUserContext();
+
+  const [isEdited, setIsEdited] = React.useState<boolean>(false);
 
   useEffect(() => {
     setClientName(client.client_name);
@@ -91,8 +91,11 @@ export default function EditClientForm({ client, setClientList }: Props) {
       const result = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/clients`
       );
-      setClientList(result.data);
-      navigate("/app/clients");
+      if (result.data.success) {
+        setClientList(result.data.clients);
+        setIsEdited(true);
+        // navigate(`/app/clients/${client._id}`);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -101,10 +104,11 @@ export default function EditClientForm({ client, setClientList }: Props) {
   return (
     <Box component="form" autoComplete="off">
       <Typography
-        variant="h5"
+        variant="h4"
         align="left"
         style={{
-          fontWeight: 600,
+          marginBottom: "20px",
+          textAlign: "center",
         }}
       >
         Edit Client Information
@@ -199,9 +203,46 @@ export default function EditClientForm({ client, setClientList }: Props) {
           sx={{ width: 600, marginTop: "10px" }}
         />
       </div>
+      {isEdited ? (
+        <Alert
+          severity="success"
+          style={{
+            width: "600px",
+            marginTop: "10px",
+          }}
+        >
+          Client is successfully edited
+        </Alert>
+      ) : (
+        <></>
+      )}
 
-      <Box mt="2rem">
-        <Button variant="contained" onClick={handleEditClient}>
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="success"
+          style={{
+            width: "150px",
+          }}
+          onClick={() => {
+            navigate(`/app/clients/${client._id}`);
+          }}
+        >
+          Back
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleEditClient}
+          style={{
+            width: "150px",
+          }}
+        >
           Submit
         </Button>
       </Box>
