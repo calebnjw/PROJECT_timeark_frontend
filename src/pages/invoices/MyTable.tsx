@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
 import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import { format } from "date-fns";
+import Moment from 'moment';
 import { InvoiceProps } from "../../types/invoiceTypes";
 import {
   Table,
@@ -15,16 +16,11 @@ import {
   TableContainer,
   TableHead,
   TableBody,
-  FormControl,
-  MenuItem,
-  Select,
-  InputLabel,
   Paper,
 } from "@mui/material";
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import InvoiceDisplay from "./InvoiceDisplay";
 axios.defaults.withCredentials = true;
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
@@ -61,7 +57,6 @@ const MyTable = () => {
   const { clientList, setClientList } = useGlobalContext();
   const [table, setTable] = useState<TableProps[]>([]);
   const [invoice, setInvoice] = useState<InvoiceProps>();
-
   const { project_id } = useParams();
 
   const handleInvoices = (invoice_id: any) => {
@@ -89,28 +84,29 @@ const MyTable = () => {
     getInvoice();
   }, []);
 
+  
+  
   const handleDeleteButton = async (invoiceId: any) => {
     try {
       await axios.delete(
         `${process.env.REACT_APP_BACKEND_URL}/invoices/invoice/${invoiceId}`
-      );
+        );
+        
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/invoices/`,
+          { params: { project_id: project_id } }
+          );
+          console.log("setTable", result.data.invoices);
+          setTable(result.data.invoices);
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/invoices/`,
-        { params: { project_id: project_id } }
-      );
-      console.log("setTable", result.data.invoices);
-      setTable(result.data.invoices);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  //due date
-  const invoiceIssuedDate = format(new Date(), 'MM/dd/yyyy');
+      //due date
+  const invoiceIssuedDate = Moment(invoice?.issuedDate).format('DD/MM/YYYY');
   const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-  const invoiceDueDate = format(dueDate, 'MM/dd/yyyy');
-  console.log("invoiceduedate", invoiceDueDate)
+  const invoiceDueDate = format(dueDate, 'dd/MM/yyyy');
 
   return (
     <>
@@ -139,10 +135,10 @@ const MyTable = () => {
                     <StyledTableRow key={i.id}>
                       <StyledTableCell align="center">{i._id}</StyledTableCell>
                       <StyledTableCell align="center">
-                        {invoiceIssuedDate}
+                        {Moment(i.issuedDate).format('DD/MM/YYYY')}
                       </StyledTableCell>
                       <StyledTableCell align="center">
-                        {invoiceDueDate}
+                        {Moment(i.issuedDate).add(7, 'days').format("DD/MM/YYYY")}
                       </StyledTableCell>
                      <StyledTableCell align="center">{invoice?.paid ? "Paid" : "Overdue"}</StyledTableCell>
                       <StyledTableCell align="center">

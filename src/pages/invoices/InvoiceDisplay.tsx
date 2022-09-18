@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../../context/userContext";
-import { format } from "date-fns";
 import Moment from 'moment';
 import {
   Button,
@@ -88,7 +87,7 @@ const InvoiceDisplay = () => {
     };
     invoiceData();
   }, []);
-  const invoiceIssuedDate = Moment(issuedDate).format('DD-MM-YYYY')
+  const invoiceIssuedDate = Moment(issuedDate).format('DD/MM/YYYY')
 
   useEffect(() => {
     if (invoice) {
@@ -311,7 +310,7 @@ const InvoiceDisplay = () => {
                 <td>
                   <strong>Due Date : </strong>
                 </td>
-                <td style={{ paddingLeft: "10px" }}>{Moment(dueDate?.toString()).format('DD-MM-YYYY')}</td>
+                <td style={{ paddingLeft: "10px" }}>{Moment(dueDate?.toString()).format('DD/MM/YYYY')}</td>
               </tr>
             </table>
           </div>
