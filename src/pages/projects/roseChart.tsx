@@ -17,6 +17,9 @@ const TimeAndEarningsChart = ({ chartData }: Props) => {
     legend: {
       top: "bottom",
     },
+    tooltip: {
+      trigger: "item",
+    },
     toolbox: {
       show: true,
       feature: {
@@ -28,7 +31,7 @@ const TimeAndEarningsChart = ({ chartData }: Props) => {
     },
     series: [
       {
-        name: "Nightingale Chart",
+        name: "Tasks and Earnings",
         type: "pie",
         radius: [20, 90],
         center: ["50%", "50%"],
