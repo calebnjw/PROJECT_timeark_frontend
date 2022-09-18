@@ -1,6 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { useGlobalContext } from "../../context/clientContext";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -17,7 +16,6 @@ const EditTaskForm = () => {
   const [projectList, setProjectList] = useState<Project[]>([]);
   const [categoryList, setCategoryList] = useState([]);
   const [categoryExists, setCategoryExist] = useState<boolean>(false);
-  const { clientList, setClientList } = useGlobalContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -76,7 +74,6 @@ const EditTaskForm = () => {
       isDone: target.isDone.value,
     };
 
-    console.log("update task: ", updateTask);
     try {
       const result: any = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/tasks/${task_id}/update`,
@@ -94,7 +91,6 @@ const EditTaskForm = () => {
       const result = await axios.delete(
         `${process.env.REACT_APP_BACKEND_URL}/tasks/${task_id}`
       );
-      console.log("result: ", result);
       navigate(-1);
     } catch (error) {
       console.log("Error message: ", error);

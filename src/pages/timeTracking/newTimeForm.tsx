@@ -105,7 +105,6 @@ const NewTimeForm = ({
           `${process.env.REACT_APP_BACKEND_URL}/tasks/${selectedTask}/timetrackings`
         );
         const updatedTask = result.data.task;
-        console.log("new time entry form - taskList: ", taskList);
         handleAddTimeEntry(updatedTask);
         setOpen(false);
       } catch (error) {
