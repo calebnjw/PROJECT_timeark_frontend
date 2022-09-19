@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import { useGlobalContext } from "../../context/clientContext";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
+import { Box, Stack, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
@@ -81,12 +81,9 @@ const NewTaskFrom = () => {
 
   const handleGetProject = async (e: any) => {
     try {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/projects`,
-        {
-          params: { client_id: selectedClient, autoCorrect: true },
-        }
-      );
+      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
+        params: { client_id: selectedClient, autoCorrect: true },
+      });
       if (result.data.msg === "no project found") {
         setProjectExists(false);
       }
@@ -103,132 +100,80 @@ const NewTaskFrom = () => {
 
   return (
     <Box
-      style={{
-        width: "100%",
-        alignItems: "center",
+      sx={{
+        margin: "auto",
+        maxWidth: "60vw",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
       }}
-      sx={{ flexGrow: 1 }}
     >
-      <Box style={{ width: "100%", textAlign: "center", marginTop: "90px" }}>
-        <h3>New Task</h3>
-        <form onSubmit={(e: React.SyntheticEvent) => handleGetProject(e)}>
-          <div
-            style={{
-              width: "100%",
-            }}
-          >
-            {clientOptions.length ? (
-              <Box
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  justifyContent: "center",
-                }}
-              >
-                <TextField
-                  select
-                  name="client_id"
-                  label="*Client"
-                  defaultValue=""
-                  onChange={selectedClientChange}
-                  style={{ width: "600px", marginLeft: "28%" }}
-                >
-                  {clientOptions.map(
-                    (option?: { id: string; name: string }) => (
-                      <MenuItem key={option?.id} value={option?.id}>
-                        {option?.name}
-                      </MenuItem>
-                    )
-                  )}
-                </TextField>
-                <Button onClick={handleGetProject}>Get Projects</Button>
-              </Box>
-            ) : (
-              <>Loading Client Options</>
-            )}
-          </div>
-        </form>
-        <Button
-          color="secondary"
-          style={{ width: "600px" }}
-          variant="contained"
-          onClick={handleCancelButton}
-        >
-          CANCEL
-        </Button>
-      </Box>
-      {!projectExists ? (
-        <Box
-          style={{
-            marginTop: "10px",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
+      <Stack direction="column" spacing={5}>
+        <Typography variant="h4" textAlign={"center"}>
+          New Task
+        </Typography>
+        {clientOptions.length ? (
+          <Stack spacing={2}>
+            <TextField
+              select
+              name="client_id"
+              label="*Client"
+              defaultValue=""
+              onChange={selectedClientChange}
+            >
+              {clientOptions.map((option?: { id: string; name: string }) => (
+                <MenuItem key={option?.id} value={option?.id}>
+                  {option?.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <Button variant="outlined" onClick={handleGetProject}>
+              Get Projects
+            </Button>
+          </Stack>
+        ) : (
+          <>Loading Client Options</>
+        )}
+        {/* </div> */}
+        {/* </form> */}
+        {!projectExists ? (
           <Button
+            fullWidth
             variant="contained"
-            style={{ width: "600px" }}
             color="success"
             onClick={() => {
               navigate(`/app/projects/new`);
             }}
           >
-            Add Project
+            New Project
           </Button>
-        </Box>
-      ) : (
-        <Box style={{ width: "80%", marginLeft: "36%", marginTop: "20px" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "600px",
-              justifyContent: "space-around",
-            }}
-          >
+        ) : (
+          <Stack spacing={2}>
             {projectList.length ? (
-              <>
-                <TextField
-                  select
-                  name="project_id"
-                  label="*Project"
-                  onChange={selectedProjectChange}
-                  defaultValue=""
-                >
-                  {projectOptions.map(
-                    (option?: { id: string; name: string }) => (
-                      <MenuItem key={option?.id} value={option?.id}>
-                        {option?.name}
-                      </MenuItem>
-                    )
-                  )}
-                </TextField>
-              </>
+              <TextField
+                select
+                name="project_id"
+                label="*Project"
+                onChange={selectedProjectChange}
+                defaultValue=""
+              >
+                {projectOptions.map((option?: { id: string; name: string }) => (
+                  <MenuItem key={option?.id} value={option?.id}>
+                    {option?.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             ) : (
               <>Loading Project Options</>
             )}
-          </div>
-        </Box>
-      )}
-      {!categoryExists ? (
-        <></>
-      ) : (
-        <Box style={{ width: "80%", marginLeft: "36%", marginTop: "20px" }}>
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "600px",
-              // height: "500px",
-              justifyContent: "space-around",
-            }}
-          >
+          </Stack>
+        )}
+        {!categoryExists ? (
+          <></>
+        ) : (
+          <>
             {categoryList.length ? (
-              <>
+              <Stack spacing={2}>
                 <TextField
                   select
                   name="category_name"
@@ -243,27 +188,20 @@ const NewTaskFrom = () => {
                     </MenuItem>
                   ))}
                 </TextField>
-                <br />
-                <TextField
-                  name="task"
-                  label="task"
-                  onChange={selectedTaskChange}
-                />
-                <br />
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={submitNewTask}
-                >
+                <TextField name="task" label="task" onChange={selectedTaskChange} />
+                <Button variant="contained" color="success" onClick={submitNewTask}>
                   Create Task
                 </Button>
-              </>
+              </Stack>
             ) : (
               <></>
             )}
-          </Box>
-        </Box>
-      )}
+          </>
+        )}
+        <Button fullWidth color="secondary" variant="contained" onClick={handleCancelButton}>
+          CANCEL
+        </Button>
+      </Stack>
     </Box>
   );
 };
