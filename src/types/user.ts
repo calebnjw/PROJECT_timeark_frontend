@@ -24,5 +24,5 @@ export interface User {
   emails: Email[];
   photos?: Photo[];
   billingDetails?: Billing;
-  clientIds?: string[];
+  client_ids?: string[];
 }
