@@ -48,8 +48,16 @@ const NewTimeForm = ({
       `${process.env.REACT_APP_BACKEND_URL}/tasks`,
       { params: { project_id: defaultProjectId } }
     );
-    setTaskLocalList(getDefaultTasks.data.tasks);
 
+    const tasks = getDefaultTasks.data.tasks;
+    const undoneTasks = tasks.filter((t: any) => {
+      if (t.isDone) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    setTaskLocalList(undoneTasks);
     // Set default selected task
     const defaultTasks = getDefaultTasks.data.tasks;
     const defaultTaskId = defaultTasks[0]._id;
@@ -65,9 +73,7 @@ const NewTimeForm = ({
 
   const taskOptions: any = taskLocalList.map((t) => {
     //Filter !isDone task
-    if (!t.isDone) {
-      return { id: t._id, name: t.name };
-    }
+    return { id: t._id, name: t.name };
   });
 
   // Get tasks by selected project
@@ -77,12 +83,18 @@ const NewTimeForm = ({
       { params: { project_id: selectedProject } }
     );
     const tasks = getTasks.data.tasks;
-    setTaskLocalList(tasks);
+    const undoneTasks = tasks.filter((t: any) => {
+      if (t.isDone) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    setTaskLocalList(undoneTasks);
 
     // set default selected task according to selected project
     setSelectedTask("");
     setSelectedTask(tasks[0]._id);
-
     return tasks;
   };
 
