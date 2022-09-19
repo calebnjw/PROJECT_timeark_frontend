@@ -68,18 +68,20 @@ const EditTaskForm = () => {
     };
 
     const updateTask = {
+      _id: task_id,
       name: target.name.value,
       category: target.category.value,
       project_id: target.project_id.value,
-      isDone: target.isDone.value,
+      isDone: JSON.parse(target.isDone.value),
     };
+    console.log("updateTask: ", updateTask);
 
     try {
       const result: any = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/tasks/${task_id}/update`,
         updateTask
       );
-
+      console.log("task result: ", result.data.task);
       navigate(-1);
     } catch (error) {
       console.error(error);

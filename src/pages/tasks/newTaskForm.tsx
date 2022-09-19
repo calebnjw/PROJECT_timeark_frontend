@@ -81,9 +81,12 @@ const NewTaskFrom = () => {
 
   const handleGetProject = async (e: any) => {
     try {
-      const result = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects`, {
-        params: { client_id: selectedClient, autoCorrect: true },
-      });
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/projects`,
+        {
+          params: { client_id: selectedClient, autoCorrect: true },
+        }
+      );
       if (result.data.msg === "no project found") {
         setProjectExists(false);
       }
@@ -181,15 +184,22 @@ const NewTaskFrom = () => {
                   onChange={selectedCategoryChange}
                   defaultValue=""
                 >
-                  {console.log("categorylist", categoryList)}
                   {categoryList.map((category) => (
                     <MenuItem key={category} value={category}>
                       {category}
                     </MenuItem>
                   ))}
                 </TextField>
-                <TextField name="task" label="task" onChange={selectedTaskChange} />
-                <Button variant="contained" color="success" onClick={submitNewTask}>
+                <TextField
+                  name="task"
+                  label="task"
+                  onChange={selectedTaskChange}
+                />
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={submitNewTask}
+                >
                   Create Task
                 </Button>
               </Stack>
@@ -198,7 +208,12 @@ const NewTaskFrom = () => {
             )}
           </>
         )}
-        <Button fullWidth color="secondary" variant="contained" onClick={handleCancelButton}>
+        <Button
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={handleCancelButton}
+        >
           CANCEL
         </Button>
       </Stack>
