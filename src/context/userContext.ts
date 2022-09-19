@@ -41,7 +41,7 @@ export const UserContext = createContext<UserContextInterface>({
       contactNumber: "",
       companyRegistration: "",
     },
-    clientIds: [],
+    client_ids: [],
   },
   setUserProfile: () => {},
   newUser: true,
