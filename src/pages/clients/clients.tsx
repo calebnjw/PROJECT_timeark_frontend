@@ -3,7 +3,6 @@ import {
   Box,
   Grid,
   Typography,
-  Container,
   Button,
   TableContainer,
   Table,
@@ -17,7 +16,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 
 export default function Clients() {
-  const { clientList, setClientList } = useGlobalContext();
+  const { clientList } = useGlobalContext();
   const navigate = useNavigate();
   return (
     <Box>

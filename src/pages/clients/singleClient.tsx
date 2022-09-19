@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Spinner } from "../../components/spinner/spinner";
 import { useGlobalContext } from "../../context/clientContext";
 import { Client } from "../../types/client";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 export default function SingleClient() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -25,9 +27,28 @@ export default function SingleClient() {
     updatedAt: null,
   });
   const navigate = useNavigate();
-  // const location = useLocation();
   let { clientId } = useParams();
-  let { clientList } = useGlobalContext();
+  let { clientList, setClientList } = useGlobalContext();
+
+  const handleDeleteClient = async () => {
+    try {
+      const result = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/clients/${clientId}`
+      );
+      if (result.data.success) {
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/clients`
+        );
+        if (result.data.success) {
+          setClientList(result.data.clients);
+          navigate("/app/clients");
+        }
+      }
+    } catch (error) {
+      console.log("Error message: ", error);
+    }
+    return;
+  };
 
   useEffect(() => {
     function getSingleClient(
@@ -70,18 +91,35 @@ export default function SingleClient() {
               <Typography variant="h3" align="left">
                 Client Details
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={() => {
-                  navigate(`/app/clients/${client._id}/update`, {
-                    state: { client },
-                  });
-                }}
-              >
-                Edit
-              </Button>
+              <Box>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  style={{
+                    width: "150px",
+                  }}
+                  onClick={() => {
+                    navigate(`/app/clients/${client._id}/update`, {
+                      state: { client },
+                    });
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  size="large"
+                  style={{
+                    marginLeft: "10px",
+                    width: "150px",
+                  }}
+                  onClick={handleDeleteClient}
+                >
+                  Delete
+                </Button>
+              </Box>
             </Box>
             <hr></hr>
             <Box
