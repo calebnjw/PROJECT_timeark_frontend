@@ -31,8 +31,6 @@ const ClientSidebar = () => {
 
   const navigate = useNavigate();
 
-  console.log("client-sidebar list: ", clientList);
-
   return (
     <Drawer
       variant="permanent"

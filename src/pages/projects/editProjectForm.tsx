@@ -12,7 +12,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const EditProjectForm = () => {
-  const { clientList, setClientList } = useGlobalContext();
+  const { clientList } = useGlobalContext();
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -44,7 +44,6 @@ const EditProjectForm = () => {
       client_id: client?._id,
     };
 
-    console.log("new project: ", newProject);
     if (newProject) {
       try {
         const result = await axios.put(
@@ -65,7 +64,6 @@ const EditProjectForm = () => {
         `${process.env.REACT_APP_BACKEND_URL}/projects/${projectInfo._id}`
       );
       navigate(`/app/projects`);
-      console.log("result: ", result.data);
     } catch (error) {
       console.error(error);
     }

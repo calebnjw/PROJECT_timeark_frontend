@@ -3,7 +3,6 @@ import {
   Box,
   Grid,
   Typography,
-  Container,
   Button,
   TableContainer,
   Table,
@@ -14,10 +13,10 @@ import {
   Paper,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Clients() {
-  const { clientList, setClientList } = useGlobalContext();
+  const { clientList } = useGlobalContext();
   const navigate = useNavigate();
   return (
     <Box>
@@ -62,7 +61,10 @@ export default function Clients() {
           </TableHead>
           <TableBody>
             {clientList.map((client, idx) => (
-              <TableRow key={idx} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableRow
+                key={idx}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell component="th" scope="row">
                   {client.client_name}
                 </TableCell>

@@ -1,46 +1,29 @@
-# Getting Started with Create React App
+# Time Ark
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Time Ark is a desktop only app designed for freelancers to manage their projects and tasks via one system. Users can track how much time they are spending on their projects and can create an invoice easily with this web app.
 
-## Available Scripts
+## User Stories
 
-In the project directory, you can run:
+- User can sign up and login with their google account and don't have to worry about remembering their passwords.
+- User can have a quick overview of their projects and how much time they are spending per week / month
+- User can issue invoices to clients within this app and can have a clear of the status of their past invoices.
 
-### `npm start`
+## Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React
+- Typescript
+- Material UI
+- Date FNS
+- Apache ECharts
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Database ERD
 
-### `npm test`
+- Click [here](https://lucid.app/lucidchart/f5c2691a-b4bc-4172-ae42-741fba205bb5/edit?viewport_loc=-453%2C226%2C2304%2C1169%2C0_0&invitationId=inv_2a2e14df-fff2-443d-86e1-679dd5c03ed4#) to view
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Wireframe
 
-### `npm run build`
+- Click [here](https://www.figma.com/files/team/1139120953036559395) to view
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Backend Repo
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Click [here](https://github.com/calebnjw/PROJECT_timeark_backend) to view

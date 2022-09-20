@@ -13,7 +13,7 @@ axios.defaults.withCredentials = true;
 
 function ProfileEdit() {
   // user profile
-  const { userProfile } = useUserContext();
+  const { userProfile, setUserProfile } = useUserContext();
   // names
   const [familyName, setFamilyName] = useState<string>("");
   const [givenName, setGivenName] = useState<string>("");
@@ -81,15 +81,17 @@ function ProfileEdit() {
   const handleUpdate = async () => {
     if (userProfile) {
       const updatedProfile = {
+        _id: `${userProfile._id}`,
+        provider: `${userProfile.provider}`,
+        externalId: `${userProfile.externalId}`,
         displayName: `${givenName} ${familyName}`,
         name: {
           familyName,
           givenName,
           middleName,
         },
-        // not changing for now, since we're only using google login
-        // emails: userProfile.emails,
-        // photos: userProfile.photos,
+        emails: userProfile.emails,
+        photos: userProfile.photos,
         billingDetails: {
           companyName,
           buildingName,
@@ -101,13 +103,14 @@ function ProfileEdit() {
           contactNumber,
           companyRegistration,
         },
+        client_ids: userProfile.client_ids,
       };
 
       const result: any = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/update`, {
         updatedProfile,
       });
       if (result.data.success) {
-        // TODO: Can add a message saying that information has been successfully updated
+        setUserProfile(updatedProfile);
         navigate("/app/profile?saved=true");
       }
     }

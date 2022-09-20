@@ -1,7 +1,4 @@
-import { useState } from "react";
 import ReactEcharts from "echarts-for-react";
-import { Typography, Box, Paper } from "@mui/material";
-import { Spinner } from "../../components/spinner/spinner";
 
 interface Props {
   chartData: {
@@ -11,8 +8,6 @@ interface Props {
 }
 
 const TimeAndEarningsChart = ({ chartData }: Props) => {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
   const option = {
     legend: {
       top: "bottom",

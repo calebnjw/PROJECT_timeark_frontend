@@ -47,9 +47,7 @@ const NewProjectForm = () => {
           `${process.env.REACT_APP_BACKEND_URL}/projects/new`,
           newProject
         );
-        console.log("added new project:", result.data);
         const project_id: any = result.data.project_id;
-        console.log("project id: ", project_id);
         const newClientList: any = clientList.map((c) => {
           if (c._id === newProject.client_id) {
             return { ...c, project_ids: [...c.project_ids, project_id] };
