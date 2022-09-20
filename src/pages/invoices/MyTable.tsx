@@ -115,8 +115,8 @@ const MyTable = () => {
                   </StyledTableCell>
                   <StyledTableCell align="center">Issued Date</StyledTableCell>
                   <StyledTableCell align="center">Due Date</StyledTableCell>
-                  <StyledTableCell align="center">Status</StyledTableCell>
-                  <StyledTableCell align="center">Edit Status</StyledTableCell>
+                  {/* <StyledTableCell align="center">Status</StyledTableCell> */}
+                  {/* <StyledTableCell align="center">Edit Status</StyledTableCell> */}
                   <StyledTableCell align="center">
                     View Invoices
                   </StyledTableCell>
@@ -134,14 +134,14 @@ const MyTable = () => {
                       <StyledTableCell align="center">
                         {Moment(i.issuedDate).add(7, 'days').format("DD/MM/YYYY")}
                       </StyledTableCell>
-                     <StyledTableCell align="center">{invoice?.paid ? "Paid" : "Overdue"}</StyledTableCell>
-                      <StyledTableCell align="center">
+                     {/* <StyledTableCell align="center">Unpaid</StyledTableCell> */}
+                      {/* <StyledTableCell align="center">
                         <Button
                         onClick={() => handleUpdateClick(i._id)}
                         >
                           <BrowserUpdatedIcon />
                         </Button>
-                      </StyledTableCell>
+                      </StyledTableCell> */}
                       <StyledTableCell align="center">
                         <Button
                           variant="outlined"
